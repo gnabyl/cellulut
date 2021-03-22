@@ -10,7 +10,7 @@ Tout ce qui suit constitue l'ensemble des "règles" définies pour s'assurer de 
 
 We're using Git for versioning our code. If you're unfamiliar with this tool check out this [simple guide](https://rogerdudler.github.io/git-guide/).
 
-Git can be a bit of a pain in the ass sometimes, try to really understand how it works, and when you run into a problem, remember thousands of people had the same problem and that Google is your friend :monocle_face:.
+Git can be a bit of a pain in the ass sometimes, try to really understand how it works, and when you run into a problem, remember thousands of people had the same problem and that Google is your friend.
 
 
 
