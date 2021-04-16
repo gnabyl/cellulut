@@ -25,3 +25,7 @@
     * UML : travail collectif, évoqué surtout en réunion.
 3. Implémentation des fonctionnalités plus avancées. On essaie d'avoir une architecture parfaitement fonctionnelle qui puisse être personnalisée par l'utilisateur. Il faut que cette architecture soit prête à accueillir les modèles sauvegardés.
 4. Implémentation dans un dernier temps des options poussées : sauvegarde de modèles surtout.
+
+### Notes sur l'UML (en vue de la réunion du 17/04)
+* Est-ce que les voisinages de Von Neuman et de Moore peuvent être transformés en une classe héritée de la classe abstraite `NeighborStrategy`, regroupant tous les voisinages caractérisés par un rayon, et devenir des instances de cette classe (cf syntaxe UML vue en TD cette semaine) ?
+* Réfléchir aux compositions/agrégations.
