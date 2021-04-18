@@ -126,3 +126,9 @@ Grid& Simulator::Iterator::getCurrentGrid() const
     if(isDone()) throw AutomateException("Erreur: current sur un iteraror fini!");
     return *sim->grids[gridID%sim->bufferSize];
 }
+
+
+
+
+
+
