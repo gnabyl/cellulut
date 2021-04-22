@@ -2,6 +2,7 @@
 // Created by Baptiste on 18/04/2021.
 //
 
+#include <cstddef>
 #include "Simulator.h"
 
 
@@ -10,7 +11,7 @@
 ///-------------------------------------------------------------------
 
 
-Simulator::Simulator(const Automate& a, size_t buf):automata(a),bufferSize(buf)
+Simulator::Simulator(const Automata& a, size_t buf):automata(a),bufferSize(buf)
 {
     grids = new Grid*[bufferSize];
     for(size_t i=0; i<bufferSize; i++) grids[i]=nullptr;
@@ -27,6 +28,7 @@ void Simulator::setStartGrid(const Grid& g)
 {
     startGrid = &g;
     // reset(); // Important à revoir
+    getStartGrid(); // build(0) va dans ce cas créer une nouvel état
 }
 // important j'ai laissé comme cela (séparation run et next) à voir si c'est bien ou pas
 void Simulator::run(size_t nbSteps)
@@ -37,9 +39,9 @@ void Simulator::run(size_t nbSteps)
 void Simulator::next()
 {
     if(startGrid == nullptr) throw AutomateException("grille de départ indefinie");
-    //rang++; important à regarder
-    //build(rang%nbMaxEtats); important à regarder
-    automata.applyTransition(/* *grids[(rang-1)%bufferSize],*grids[rang%bufferSize]*/);
+    gridIDcurrent++; //important à regarder
+    build(gridIDcurrent%bufferSize); //important à REVOIR !
+    automata.applyTransition(grids[(gridIDcurrent-1)%bufferSize],*grids[gridIDcurrent%bufferSize]); // important rang
 }
 /*
 const Etat& Simulateur::dernier() const
@@ -60,18 +62,25 @@ void Simulateur::reset()
     *etats[0]=*depart;
 }
 */
+
+void Simulator::getStartGrid() { // important je ne l'ai pas mis const car pour moi cette fonction correspond à la fonction reset du TD
+    if (startGrid == nullptr) throw AutomateException("start grid is not defined");
+    gridIDcurrent = 0;
+    build(0);
+    *grids[0] = *startGrid;
+}
+void Simulator::build(size_t ID)
+{
+    if (ID>=bufferSize) throw AutomateException("issue buffer size outrange");
+    if(grids[ID] == nullptr) grids[ID] = new Grid;
+}
+
 Simulator::~Simulator()
 {
     for(size_t i=0; i<bufferSize; i++) delete grids[i];
     delete[] grids;
 }
-/*
-void Simulateur::build(size_t c)
-{
-    if (c>=nbMaxEtats) throw AutomateException("erreur taille buffer");
-    if(grids[c] == nullptr) grids[c] = new Etat;
-}
-*/
+
 
 Simulator::Iterator Simulator::getIterator()
 {
@@ -99,14 +108,14 @@ Simulator::Iterator::Iterator()
 
 }
 
-Simulator::Iterator::Iterator(Simulator* s):sim(s),gridID(s->rang) // important regarder l'histoire de rang
+Simulator::Iterator::Iterator(Simulator* s):sim(s),gridID(s->gridIDcurrent) // important regarder l'histoire de rang
 {
 
 }
 
 bool Simulator::Iterator::isDone() const
 {
-    return sim == nullptr || gridID==-1 || gridID == sim->rang-sim->bufferSize; // important
+    return sim == nullptr || gridID==-1 || gridID == sim->gridIDcurrent-sim->bufferSize; // important
 }
 
 void Simulator::Iterator::nextGrid()

@@ -9,11 +9,11 @@
 class Simulator {
 private:
     const Automata &automata;
-    size_t bufferSized;
+    size_t bufferSize;
     const Grid *startGrid = nullptr; // il faut ajouter un pointeur dans l'UML
     Grid **grids = nullptr;
     // Gridfactory gridFactory
-    // size_t rang=0;
+    size_t gridIDcurrent=0; // il s'agit du rang
 
     //void build(size_t c);
 
@@ -31,11 +31,11 @@ public:
 
     void setStartGrid(const Grid &g);
 
-    Grid getStartGrid() const;
+    void getStartGrid();
 
     void run(size_t nbSteps = 1);
     void next(); // important à voir si on utilise ou pas
-
+    void build(size_t id);
     unsigned int frequency; // vitesse de passage d'une génération à une autre
 
     // Important A voir s'il faudra l'implémenter
