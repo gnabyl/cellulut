@@ -1,5 +1,15 @@
 #include "transition-strategy.h"
 
+void TransitionContext::setStrategy(TransitionStrategy* s){
+	if(strategy != nullptr)
+		delete strategy;
+	strategy = s;
+}
+
+Cell TotalisticTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const{
+	/*Find a way to implement any totalistic transition. Remember that it only takes into account the sum of the neighbor's current states' IDs.*/
+}
+
 /*
 Caractéristiques :
 - Règle totalistique
@@ -8,7 +18,7 @@ Caractéristiques :
 Suppositions :
 - Les id des états sont forcément 0 ou 1. On pourra gérer ça avec des modulo ensuite si besoin.
 */
-Cell GOLTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates){
+Cell GOLTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const override{
 	if(neighborSize != 8)
 		throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : Game of Life exige un voisinage de 8 cellules.\n");
 	if(nbStates != 2)
