@@ -27,7 +27,7 @@ public:
 };
 
 class TotalisticTransition : public TransitionStrategy{
-	/*Add here some properties that provide a description of the transition rule*/
+	int* result; //To be used to describe the transition result. A n*p size table for a n sized neighborhood and p states possible.
 	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
 public:
 	TotalisticTransition(/*Initialize the properties described above.*/);
