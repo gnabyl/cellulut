@@ -6,10 +6,15 @@ class Cell{
 
 private:
 cellstate State;
+int x ;
+int y ;
+
 
 public:
     void setstate(cellstate s);
     cellstate getstatte() const;
+    Cell(cellstate s,int i , int j);
+
 
 };
 

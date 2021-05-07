@@ -13,7 +13,7 @@ void setcolor(color c);
 int getid() const;
 color getcolor() const;
 std::string getlabel()const;
-
+Cellstate(int x, std::string l,color c):id(x),label(l),color(c);
 
 private:
     int id;
