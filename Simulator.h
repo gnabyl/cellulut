@@ -31,7 +31,7 @@ public:
 
     void setStartGrid(const Grid &g);
 
-    void getStartGrid();
+    void reset();
 
     void run(size_t nbSteps = 1);
     void next(); // important à voir si on utilise ou pas
