@@ -1,13 +1,13 @@
 #include <string>
 #include <iostream>
 #include "automata.h"
-//#include "transition-strategy.h"
-//#include "neighbor-strategy.h"
-//#include "cellState.h"
-//#include "grid.h"
+#include "transition-strategy.h"
+#include "neighbor-strategy.h"
+#include "cellstate.h"
+#include "grid.h"
 using namespace std;
 
-Automata::Automata(CellState** c, ITransitionStrategy t,INeighborStrategy n,size_t nb, string na, string d,string a,size_t y)
+Automata::Automata(CellState** c, ITransitionStrategy t,INeighborStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
 {
     name=na;
     description=d;
@@ -25,16 +25,27 @@ Automata::Automata(CellState** c, ITransitionStrategy t,INeighborStrategy n,size
 
 Automata::~Automata()
 {
-    delete[] availableStates;
-    availableStates= nullptr;
+    if(availableStates!= nullptr)
+    {
+        for(int i;i<nbStates;i++)
+        {
+            if(availableStates[i]!= nullptr)
+            {
+                delete availableStates[i];
+                availableStates[i]= nullptr;
+            }
+        }
+        delete[] availableStates;
+        availableStates= nullptr;
+    }
 }
 
-void Automata::applyTransition(const Grid& src, Grid& dest) const
+Grid& Automata::applyTransition(const Grid& src) const
 {
 
 }
 
-void Automata::setAvailableStates(const CellStates** c, size_t taille)
+void Automata::setAvailableStates(const CellStates** c, unsigned short taille)
 {
     if(nbStates!=taille)
     {
@@ -48,15 +59,15 @@ void Automata::setAvailableStates(const CellStates** c, size_t taille)
     for(size_t i;i<taille;i++) availableStates[i]=c[i];
 }
 
-void Automata::setAvailableState(const CellState* c,const size_t i)
+void Automata::setAvailableState(const CellState* c,const unsigned short i)
 {
-    if(i>=nbStates) throw "Erreur indice availableStates incorrect";
+    if(i>=nbStates) throw "Error: availableStates incorrect index";
     availableStates[i]=c;
 
 }
 
-CellState* Automata::getAvailableState(const size_t i) const
+CellState* Automata::getAvailableState(const unsigned short i) const
 {
-    if(i>=nbStates) throw "Erreur indice availableStates incorrect";
+    if(i>=nbStates) throw "Error: availableStates incorrect index";
     return availableStates[i];
 }
