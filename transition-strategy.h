@@ -26,16 +26,16 @@ public:
 
 
 class TotalisticTransition : public TransitionStrategy{
-	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
+	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const = 0;
 };
 
 
 class StochasticTransition : public TransitionStrategy{
-	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
+	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const = 0;
 };
 
 class OuterTotalisticTransition : public TotalisticTransition{
-	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
+	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const = 0;
 };
 
 ///Concrete strategies///
@@ -46,3 +46,5 @@ class GOLTransition : public OuterTotalisticTransition{
 class BBTransition : public OuterTotalisticTransition{
 	Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
 };
+
+#endif
