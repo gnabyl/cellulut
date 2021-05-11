@@ -1,9 +1,6 @@
 #include "transition-strategy.h"
 
 Cell TotalisticTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const{
-	/*Find a way to implement any totalistic transition. Remember that it only takes into account the sum of the neighbor's current states' IDs.*/
-
-	//Step 1 : identify the state of each cell in the neighborhood and sum them.
 	int sum = 0;
 	for(int i=0; i<neighborSize; i++){
 		int j=0;
@@ -69,7 +66,7 @@ Cell BBTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighb
 	//Pour une cellule au repos, on s'intéresse au nombre de cellules excitées dans le voisinage.
 	int sum = 0;
 	for(int i=0;i<neighborSize;i++){
-		if(availableStates[2]->id == neighbors[i]->state.id) sum+=1
+		if(availableStates[2]->id == neighbors[i]->state.id) sum+=1;
 	}
 	//Toute cellule au repos ayant exactement 2 voisinges excitées devient excitée.
 	if(c.State.getid()==availableStates[0]->id && sum==2)

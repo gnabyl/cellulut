@@ -42,10 +42,10 @@ class OuterTotalisticTransition : public TotalisticTransition{
 
 ///Concrete strategies///
 
-class GOLTransition : public TotalisticTransition{
+class GOLTransition : public OuterTotalisticTransition{
 	Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
 };
 
-class BBTransition : public TotalisticTransition{
+class BBTransition : public OuterTotalisticTransition{
 	Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
 }
