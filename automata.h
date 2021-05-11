@@ -17,16 +17,17 @@ private:
     unsigned short creationYear;
     CellState** availableStates =nullptr; //Différents états que les cellules peuvent prendre pour cet automate
     unsigned short nbStates;
-    ITransitionStrategy transitionStrategy; //Interface fonction de transition de l'automate
-    INeighborhoodStrategy neighborStrategy; //Interface voisinage de l'automate
+    TransitionStrategy transitionStrategy; //Interface fonction de transition de l'automate
+    NeighborhoodStrategy neighborStrategy; //Interface voisinage de l'automate
 
     //Methodes privées car gérées par AutomataManager
     Automata& operator=(const Automata& a)= default;
     Automata(const Automata&)= default;
-    Automata(CellState** c,ITransitionStrategy t,INeighborhoodStrategy n,unsigned short nb=0,string na="", string d="",string a="",unsigned short y=2021);
+    Automata(CellState** c,TransitionStrategy t,NeighborhoodStrategy n,unsigned short nb=0,string na="", string d="",string a="",unsigned short y=2021);
     ~Automata();
 
     friend class AutomataManager;
+
 public:
     Grid& applyTransition(const Grid& src) const; //a definir avec boucle nextcell
 
@@ -46,10 +47,10 @@ public:
     void setNbStates(const unsigned short n){nbStates=n;}
     unsigned short getNbStates() const {return nbStates;}
 
-    void setTransitionStrategy(const ITransitionStrategy t){transitionStrategy=t;}
-    ITransitionStrategy getTransitionStrategy() const {return transitionStrategy;}
-    void setNeighborStrategy(const INeighborStrategy n){neighborStrategy=n;}
-    INeighborStrategy getNeighborStrategy() const {return neighborStrategy;}
+    void setTransitionStrategy(const TransitionStrategy t){transitionStrategy=t;}
+    TransitionStrategy getTransitionStrategy() const {return transitionStrategy;}
+    void setNeighborhoodStrategy(const NeighborhoodStrategy n){NeighborhoodStrategy=n;}
+    NeighborhoodStrategy getNeighborhoodStrategy() const {return NeighborhoodStrategy;}
 
 };
 

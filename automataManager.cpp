@@ -54,14 +54,15 @@ const Automata& AutomataManager::getAutomata(unsigned short id) const
 }
 
 //Modification d'un automate à un indice donné
-void AutomataManager::changeAutomata(unsigned short id,CellState** c, ITransitionStrategy t,INeighborStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
+void AutomataManager::changeAutomata(unsigned short id,CellState** c, TransitionStrategy t,NeighborStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
 {
     if(id>=nbAutomatas) throw "Error: Automaton incorrect index";
+    delete automatas[id];
     automatas[id]=new Automata(c,t,n,nb,na,d,a,y);
 }
 
 //Ajout d'un automate à la fin du tableau d'automates
-void AutomataManager::addAutomata(CellState** c, ITransitionStrategy t,INeighborStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
+void AutomataManager::addAutomata(CellState** c, TransitionStrategy t,NeighborStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
 {
     if(nbAutomatas>=nbMaxAutomatas) throw "Error : can't be added because the automaton table is full";
     automatas[nbAutomatas]=new Automata(c,t,n,nb,na,d,a,y);
@@ -72,6 +73,7 @@ void AutomataManager::addAutomata(CellState** c, ITransitionStrategy t,INeighbor
 void AutomataManager::removeAutomata(unsigned short id=nbAutomatas-1)
 {
     if(id>=nbAutomatas) throw "Error: Automaton incorrect index";
+    delete automatas[id];
     //On décale les automates pour combler la supression
     while(id<nbAutomatas-1)
     {
