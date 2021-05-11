@@ -1,19 +1,27 @@
-#include gridd.h
+#include "grid.h"
+
  Grid::~Grid(){
-    delete[][] cells;
+    for(int i=0;i<height;i++)
+        for(int j=0;j<width;j++)
+            delete cells[i][j];
+    delete[] cells;
+    cells = nullptr;
 }
-Grid::Grid(cellstate c, int w=0,int h=0){
+
+Grid::Grid(CellState c, int w=0,int h=0){
     this->width=w;
     this->height=h;
-    for(int i=0;i<w;i++){
-        for(int j=0;j<h;j++){
-            Cells[i][j]=new Cell(c,i,j)
+    cells = new Cell**[h];
+    for(int i=0;i<h;i++) cells[i]=new Cell*[w];
+    for(int i=0;i<h;i++){
+        for(int j=0;j<w;j++){
+            cells[i][j]=new Cell(c,i,j);
         }
     }
 }
-Gridd::Grid(const Grid& g):widht(g.width), height(g.height), cell(new **cell){
-    for(int i=0;i<g.width;i++){
-        for(int j=0;j<g.height;j++){
+Grid::Grid(const Grid& g):widht(g.width), height(g.height), cell(new Cell**[g.height]){
+    for(int i=0;i<g.height;i++){
+        for(int j=0;j<g.width;j++){
             this->cells[i][j]=g.cells[i][j]
         }
     }
@@ -33,32 +41,35 @@ Grid& Gridd::operator= (const Grid& g)
         {
             this->height=g.height;
         }
-        cell** newcells= new **cell;
+        Cell*** newcells= new Cell**[g.height];
+        for(int i=0;i<g.height;i++) newcells[i]=new Cell*[g.width];
         for(int i=0;i<width;i++){
             for(int j=0;j<height;j++){
-                newcells[i][j]=g.cells[i][j]
+                newcells[i][j]=g.cells[i][j];
             }
         }
-        cell** oldcells=this->cells;
+        for(int i=0;i<height;i++)
+            for(int j=0;j<width;j++)
+                delete cells[i][j];
+        delete[] cells;
         this->cells=newcells;
-        delete[][] oldcells;
     }
     return *this;
 }
 
-int Gridd::getwidth() const{
+int Grid::getWidth() const{
     return this->width;
 }
-int Grid::getheight() const{
+int Grid::getHeight() const{
     return this->height;
 }
 
-void Grid::setCell(cellstate c,int x,int y)
+void Grid::setCell(CellState c,int x,int y)
 {
-    this->cells[x][y].setstate(c);
+    this->cells[x][y].setState(c);
 }
 
-cell& Grid::getCell(int x , int y) const
+Cell& Grid::getCell(int x , int y) const
 {
     return this->cells[x][y];
 }
