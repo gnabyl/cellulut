@@ -27,8 +27,6 @@ public:
 
 class TotalisticTransition : public TransitionStrategy{
 	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
-public:
-	TotalisticTransition(){}
 };
 
 
@@ -41,11 +39,10 @@ class OuterTotalisticTransition : public TotalisticTransition{
 };
 
 ///Concrete strategies///
-
 class GOLTransition : public OuterTotalisticTransition{
 	Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
 };
 
 class BBTransition : public OuterTotalisticTransition{
 	Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
-}
+};
