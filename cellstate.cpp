@@ -1,20 +1,21 @@
-#include cellstate.h
-void Cellstate::setid(int i ){
+#include "cellstate.h"
+
+void CellState::setId(int i){
     this->id=i;
 }
-void Cellstate::setlabel(std::string s){
+void CellState::setLabel(std::string s){
     this->label=s;
 }
 
-void Cellstate::setcolor(color c){
+void CellState::setColor(color c){
     this->color=c;
 }
-int Cellstate::getid(){
+int CellState::getId(){
     return this->id;
 }
-color Cellstate::getcolor(){
+color CellState::getColor(){
     return this->color;
 }
-std::string Cellstate::getlabel(){
+std::string CellState::getLabel(){
     return this->label
 }
