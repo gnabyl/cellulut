@@ -4,21 +4,20 @@
 enum color{blue, red, yellow, pink, cyan , green, orange, purple};
 
 
-class Cellstate{
-
+class CellState{
 public:
-void setid(int i);
-void seetlabel(std::string s);
-void setcolor(color c);
-int getid() const;
-color getcolor() const;
-std::string getlabel()const;
-Cellstate(int x, std::string l,color c):id(x),label(l),color(c);
+    void setId(int i);
+    void setLabel(std::string s);
+    void setColor(color c);
+    int getId() const;
+    color getColor() const;
+    std::string getLabel()const;
+    CellState(int x, std::string l,color c):id(x),label(l),color(c);
 
 private:
-    int id;
-    std::string label;
-    color color;
+        int id;
+        std::string label;
+        color color;
 };
 
 #endif //LO21_CELLSTATE_H
