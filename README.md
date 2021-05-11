@@ -12,3 +12,4 @@
 * Pas d'utilisation de `_` dans les noms.
 * Distinguer les mots par des majuscules.
 * Le nom d'une classe commence toujours par une majuscule.
+* Setters et getters : setTruc, getTruc.
