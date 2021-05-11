@@ -7,15 +7,15 @@ void CellState::setLabel(std::string s){
     this->label=s;
 }
 
-void CellState::setColor(color c){
-    this->color=c;
+void CellState::setCol(color c){
+    this->col=c;
 }
-int CellState::getId(){
+int CellState::getId() const{
     return this->id;
 }
-color CellState::getColor(){
-    return this->color;
+color CellState::getCol() const{
+    return this->col;
 }
-std::string CellState::getLabel(){
-    return this->label
+std::string CellState::getLabel() const{
+    return this->label;
 }
