@@ -5,18 +5,24 @@
 #ifndef LO21_NEIGHBORHOODSTRATEGY_H
 #define LO21_NEIGHBORHOODSTRATEGY_H
 #include<utility>
+#include "cell.h"
+#include "grid.h"
+#include "cellstate.h"
+
 class NeighborhoodStrategy{
 public:
-    getNeighborhood();
+    virtual Cell** getNeighborhood() const = 0;
 };
+
 class VonNeumannNeighborhood: public NeighborhoodStrategy{
-    std::pair<int,int> **neighborhood;
+    Cell*** getNeighborhood();
     int nb_neighbors=4;
 public:
     VonNeumannNeighborhood(const int hauteur,const int largeur );
 };
+
 class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy{
-    std::pair<int,int> **neighborhood;
+    Cell*** neighborhood;
     unsigned int radius;
     unsigned int nb_neighbors;
 public:
@@ -24,14 +30,14 @@ public:
 
 };
 class MooreNeighborhood: public NeighborhoodStrategy{
-    std::pair<int,int> **neighborhood;
+    Cell*** neighborhood;
     int nb_neighbors=8;
 public:
     MooreNeighborhood(const int hauteur,const int largeur);
 };
 
 class MooreNeighborhoodGeneralized: public NeighborhoodStrategy{
-    std::pair<int,int> **neighborhood;
+    Cell*** neighborhood;
     unsigned int radius;
     unsigned int nb_neighbors;
 public:
@@ -39,7 +45,7 @@ public:
 };
 
 class ArbitraryNeighborhood: public NeighborhoodStrategy{
-    std::pair<int,int> **neighborhood;
+    Cell*** neighborhood;
     unsigned int nb_neighbors;
 public:
     ArbitraryNeighborhood(const int hauteur,const int largeur);
