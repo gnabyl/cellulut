@@ -1,7 +1,3 @@
-//
-// Created by Baptiste on 18/04/2021.
-//
-
 #include <cstddef>
 #include "Simulator.h"
 
