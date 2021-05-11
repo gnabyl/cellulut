@@ -1,7 +1,3 @@
-//
-// Created by Baptiste on 18/04/2021.
-//
-
 #ifndef LO21_SIMULATOR_H
 #define LO21_SIMULATOR_H
 
@@ -34,7 +30,7 @@ public:
     void reset();
 
     void run(size_t nbSteps = 1);
-    void next(); // important à voir si on utilise ou pas
+    void next();
     void build(size_t id);
     unsigned int frequency; // vitesse de passage d'une génération à une autre
 
@@ -70,28 +66,6 @@ public:
     Iterator getIterator();
 }
 
-    // Important besoin d'un const iterator ou pas ?
-    // Je pense que non puisque l'on peut modifier notre grille lorsque l'on fait un parcourt
-    /*
-    class ConstIterator
-    {
-        friend class Simulateur;
 
-    private:
-        const Simulateur* sim = nullptr;
-        int i=0;
-        ConstIterator(const Simulateur* s);
-
-    public:
-        ConstIterator();
-        bool isDone() const;
-        void next();
-        const Etat& current() const;
-    };
-
-    ConstIterator getIterator() const;
-    ConstIterator getConstIterator() const;
-};
-*/
 
 #endif //LO21_SIMULATOR_H

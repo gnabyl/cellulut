@@ -54,9 +54,13 @@ void Simulator::next()
 {
     if(startGrid == nullptr) throw AutomateException("start grid is not defined");
     gridIDcurrent++; //important à regarder
+
+    grids[gridIDcurrent%bufferSize] = automata.applyTransition(grids[(gridIDcurrent-1)%bufferSize]);
+
+
+
     //build(gridIDcurrent%bufferSize);
     //automata.applyTransition(grids[(gridIDcurrent-1)%bufferSize],*grids[gridIDcurrent%bufferSize]); // important rang
-    grids[gridIDcurrent%bufferSize] = automata.applyTransition(grids[(gridIDcurrent-1)%bufferSize]);
 }
 /*
 const Etat& Simulateur::dernier() const
