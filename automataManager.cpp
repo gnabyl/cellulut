@@ -1,10 +1,7 @@
 #include <iostream>
 #include "automata.h"
 #include "automataManager.h"
-#include "transition-strategy.h"
-#include "neighbor-strategy.h"
-#include "cellstate.h"
-#include "grid.h"
+
 using namespace std;
 
 AutomataManager* AutomataManager::instance=nullptr;
@@ -54,7 +51,7 @@ const Automata& AutomataManager::getAutomata(unsigned short id) const
 }
 
 //Modification d'un automate à un indice donné
-void AutomataManager::changeAutomata(unsigned short id,CellState** c, TransitionStrategy t,NeighborStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
+void AutomataManager::changeAutomata(unsigned short id,CellState** c, TransitionStrategy t,NeighborhoodStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
 {
     if(id>=nbAutomatas) throw "Error: Automaton incorrect index";
     delete automatas[id];
@@ -62,7 +59,7 @@ void AutomataManager::changeAutomata(unsigned short id,CellState** c, Transition
 }
 
 //Ajout d'un automate à la fin du tableau d'automates
-void AutomataManager::addAutomata(CellState** c, TransitionStrategy t,NeighborStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
+void AutomataManager::addAutomata(CellState** c, TransitionStrategy t,NeighborhoodStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
 {
     if(nbAutomatas>=nbMaxAutomatas) throw "Error : can't be added because the automaton table is full";
     automatas[nbAutomatas]=new Automata(c,t,n,nb,na,d,a,y);

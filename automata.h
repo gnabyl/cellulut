@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include "transition-strategy.h"
-#include "neighbor-strategy.h"
+#include "neighborhoodStrategy.h"
 #include "cellstate.h"
 #include "grid.h"
 using namespace std;
@@ -29,7 +29,7 @@ private:
     friend class AutomataManager;
 
 public:
-    Grid& applyTransition(const Grid& src) const; //a definir avec boucle nextcell
+    Grid& applyTransition(const Grid& src) const;
 
     //Getters & Setters
     void setName(const string n){ name=n;}

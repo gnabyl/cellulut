@@ -3,7 +3,7 @@
 #include <iostream>
 #include "automata.h"
 #include "transition-strategy.h"
-#include "neighbor-strategy.h"
+#include "neighborhoodStrategy.h"
 #include "cellstate.h"
 #include "grid.h"
 
@@ -29,8 +29,8 @@ public:
     static void destroyAutomataManager();
 
     const Automata& getAutomata(unsigned short id) const;
-    void changeAutomata(unsigned short id,CellState** c,ITransitionStrategy t,INeighborStrategy n,unsigned short nb=0,string na="", string d="",string a="",unsigned short y=2021);
-    void addAutomata(CellState** c,ITransitionStrategy t,INeighborStrategy n,unsigned short nb=0,string na="", string d="",string a="",unsigned short y=2021);
+    void changeAutomata(unsigned short id,CellState** c,TransitionStrategy t,NeighborhoodStrategy n,unsigned short nb=0,string na="", string d="",string a="",unsigned short y=2021);
+    void addAutomata(CellState** c,TransitionStrategy t,NeighborhoodStrategy n,unsigned short nb=0,string na="", string d="",string a="",unsigned short y=2021);
     void removeAutomata(unsigned short id);
 
     unsigned short getNbAutomatas() const {return nbAutomatas;}
