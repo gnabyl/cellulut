@@ -64,9 +64,9 @@ int Grid::getHeight() const{
     return this->height;
 }
 
-void Grid::setCell(CellState c,int x,int y)
+void Grid::setCell(Cell c,int x,int y)
 {
-    this->cells[x][y].setState(c);
+    this->cells[x][y]=c;
 }
 
 Cell& Grid::getCell(int x , int y) const
