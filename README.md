@@ -13,3 +13,6 @@
 * Distinguer les mots par des majuscules.
 * Le nom d'une classe commence toujours par une majuscule.
 * Setters et getters : setTruc, getTruc.
+### Nommage des fichiers
+* On utilise snake_case pour les noms fichiers.
+* Distinguer les mots par `_`
