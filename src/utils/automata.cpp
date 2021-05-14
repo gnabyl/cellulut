@@ -23,7 +23,7 @@ Automata::~Automata()
 {
     if(availableStates!= nullptr)
     {
-        for(int i;i<nbStates;i++)
+        for(int i = 0;i<nbStates;i++)
         {
             if(availableStates[i]!= nullptr)
             {
@@ -39,32 +39,36 @@ Automata::~Automata()
 Grid& Automata::applyTransition(const Grid& src) const
 {
     Grid* dst = new Grid(availableStates[0],src.getWidth(),src.getHeight());
-    for(int i=0;i<src.getHeight();i++)
+    for(unsigned int i=0;i<src.getHeight();i++)
     {
-        for(int j=0;j<src.getWidth();j++)
+        for(unsigned int j=0;j<src.getWidth();j++)
         {
             //Pour chaque cellule on appele la méthode calcNextCell pour la modifier en fonction de son voisinage et de la fonction de transition
-            dst.setCell(transitionStrategy.calcNextCell(src.getCell(i,j),neighborStrategy.getNeighborhood(),neighborStrategy.getNbNeighbors(),availableStates,nbStates),i,j);
+            dst->setCell(transitionStrategy->calcNextCell(src.getCell(i,j),
+                                                          neighborStrategy->getNeighborhood()[i * dst->getWidth() + j],
+                                                          neighborStrategy->getNbNeighbors(),
+                                                          availableStates,
+                                                          nbStates),i,j);
         }
     }
     return *dst;
 }
 
-void Automata::setAvailableStates(const CellStates** c, unsigned short taille)
+void Automata::setAvailableStates(CellState** c, unsigned short taille)
 {
     if(nbStates!=taille)
     {
         nbStates=taille;
         CellState** newTab = new CellState*[taille];
-        for(size_t i = 0; i< taille; i++) newTab[i] = c[i];
-        CellSTate** old = availableStates;
+        for(size_t i = 0; i < taille; i++) newTab[i] = c[i];
+        CellState** old = availableStates;
         availableStates = newTab;
         delete[] old;
     }
     for(size_t i;i<taille;i++) availableStates[i]=c[i];
 }
 
-void Automata::setAvailableState(const CellState* c,const unsigned short i)
+void Automata::setAvailableState(CellState* c,const unsigned short i)
 {
     if(i>=nbStates) throw "Error: availableStates incorrect index";
     availableStates[i]=c;

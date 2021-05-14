@@ -2,7 +2,7 @@
 // Created by Téva Ducoté on 23/04/2021.
 //
 
-#include "neighborhoodStrategy.h"
+#include "neighborhood_strategy.h"
 #include <cmath>
 
 VonNeumannNeighborhood::VonNeumannNeighborhood(const Grid g):nb_cells(g.getHeight()*g.getWidth()){
@@ -45,7 +45,7 @@ VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(const Grid 
                     int x=(k+g.getHeight())%g.getHeight();
                     int y =(l+g.getWidth())%g.getWidth();
                     if((fabs(x-i)+ fabs(y-j))>0 && (fabs(x-i)+fabs(y-j))<=radius){
-                        neighborhood[m]=g.getCell(x,y);
+                        neighborhood[m][n]=g.getCell(x,y);
                         n++;
                     }
                 }

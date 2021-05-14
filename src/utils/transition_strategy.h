@@ -3,16 +3,15 @@
 
 #include <iostream>
 #include <string>
-#include "automata.h"
-#include "neighbor-strategy.h"
-#include "cellstate.h"
+#include "neighborhood_strategy.h"
+#include "cell_state.h"
 #include "grid.h"
 
 class TransitionException{
 	std::string info;
 public:
 	TransitionException(std::string s): info(s){}
-	getInfo(){return info;}
+    std::string getInfo(){return info;}
 };
 
 ////Implementation of the Strategy design pattern./////

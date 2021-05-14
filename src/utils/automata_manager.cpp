@@ -1,6 +1,6 @@
 #include <iostream>
 #include "automata.h"
-#include "automataManager.h"
+#include "automata_manager.h"
 
 using namespace std;
 
@@ -9,15 +9,15 @@ AutomataManager* AutomataManager::instance=nullptr;
 AutomataManager::AutomataManager()
 {
     automatas=new Automata*[nbMaxAutomatas];
-    for(int i;i<nbMaxAutomatas;i++) automatas[i]= nullptr;
-    nbAutomatas=0;
+    for(int i = 0; i<nbMaxAutomatas;i++) automatas[i] = nullptr;
+    nbAutomatas = 0;
 }
 
 AutomataManager::~AutomataManager()
 {
     if(automatas!= nullptr)
     {
-        for(int i;i<nbMaxAutomatas;i++)
+        for(int i = 0; i<nbMaxAutomatas;i++)
         {
             if(automatas[i]!= nullptr)
             {
@@ -67,7 +67,7 @@ void AutomataManager::addAutomata(CellState** c, TransitionStrategy *t,Neighborh
 }
 
 //Supression d'un automate à un indice donné, réajustement tableau pour éviter les trous
-void AutomataManager::removeAutomata(unsigned short id=nbAutomatas-1)
+void AutomataManager::removeAutomata(unsigned short id)
 {
     if(id>=nbAutomatas) throw "Error: Automaton incorrect index";
     delete automatas[id];

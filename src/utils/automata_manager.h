@@ -2,9 +2,9 @@
 #define LO21_AUTOMATAMANAGER_H
 #include <iostream>
 #include "automata.h"
-#include "transition-strategy.h"
-#include "neighborhoodStrategy.h"
-#include "cellstate.h"
+#include "transition_strategy.h"
+#include "neighborhood_strategy.h"
+#include "cell_state.h"
 #include "grid.h"
 
 #define MAX_AUTOMATA 1000
@@ -15,8 +15,8 @@ class AutomataManager
 {
 private:
     static AutomataManager* instance; //Instance unique (singleton)
-    static unsigned short nbAutomatas;
-    static const unsigned short nbMaxAutomatas=MAX_AUTOMATA;
+    unsigned short nbAutomatas;
+    const unsigned short nbMaxAutomatas=MAX_AUTOMATA;
     Automata** automatas;
 
     AutomataManager(const AutomataManager& a)=delete;
