@@ -5,7 +5,7 @@
 #include "neighborhoodStrategy.h"
 #include <cmath>
 
-VonNeumannNeighborhood::VonNeumannNeighborhood(const Grid g): neighborhood(new Cell*[g.getHeight()*g.getWidth()][nb_neighbors]) {
+VonNeumannNeighborhood::VonNeumannNeighborhood(const Grid g){
     neighborhood= new Cell**[g.getHeight()*g.getWidth()];
     for (int i = 0; i <g.getHeight()*g.getWidth() ; i++) {
         neighborhood[i]= new Cell*[this->nb_neighbors];
@@ -30,7 +30,7 @@ VonNeumannNeighborhood::VonNeumannNeighborhood(const Grid g): neighborhood(new C
     }
 }
 
-VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(const int g.getHeight(),const int g.getWidth(), unsigned int radius):nb_neighbors(radius^2+(radius+1)^(2)-1 ){
+VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(const Grid g, unsigned int radius):nb_neighbors(radius^2+(radius+1)^(2)-1 ){
     neighborhood= new Cell**[g.getHeight()*g.getWidth()];
     for (int i = 0; i <g.getHeight()*g.getWidth() ; i++) {
         neighborhood[i]= new Cell*[this->nb_neighbors];
@@ -55,7 +55,7 @@ VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(const int g
     }
 }
 
-MooreNeighborhood::MooreNeighborhood(const int g.getHeight(), const int g.getWidth()){
+MooreNeighborhood::MooreNeighborhood(const Grid g){
     neighborhood= new Cell**[g.getHeight()*g.getWidth()];
     for (int i = 0; i <g.getHeight()*g.getWidth() ; i++) {
         neighborhood[i]= new Cell*[this->nb_neighbors];
@@ -80,7 +80,7 @@ MooreNeighborhood::MooreNeighborhood(const int g.getHeight(), const int g.getWid
     }
 }
 
-MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(const int g.getHeight(),const int g.getWidth(), unsigned int radius):nb_neighbors((2*radius+1)^(2)-1){
+MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(const Grid g, unsigned int radius):nb_neighbors((2*radius+1)^(2)-1){
     neighborhood= new Cell**[g.getHeight()*g.getWidth()];
     for (int i = 0; i <g.getHeight()*g.getWidth() ; i++) {
         neighborhood[i]= new Cell*[this->nb_neighbors];

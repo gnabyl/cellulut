@@ -11,14 +11,17 @@
 
 class NeighborhoodStrategy{
 public:
-    virtual Cell** getNeighborhood() const = 0;
+    virtual Cell*** getNeighborhood() const = 0;
+    virtual unsigned int getNbNeighbors()const=0 ;
 };
 
 class VonNeumannNeighborhood: public NeighborhoodStrategy{
-    Cell*** getNeighborhood();
-    int nb_neighbors=4;
+    Cell*** neighborhood;
+    unsigned int nb_neighbors=4;
 public:
-    VonNeumannNeighborhood(const int hauteur,const int largeur );
+    VonNeumannNeighborhood(const Grid g );
+    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    Cell*** getNeighborhood() const {return neighborhood;}
 };
 
 class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy{
@@ -26,14 +29,17 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy{
     unsigned int radius;
     unsigned int nb_neighbors;
 public:
-    VonNeumannNeighborhoodGeneralized(const int hauteur,const int largeur, unsigned int radius=1);
-
+    VonNeumannNeighborhoodGeneralized(const Grid g, unsigned int radius=1);
+    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    Cell*** getNeighborhood() const {return neighborhood;}
 };
 class MooreNeighborhood: public NeighborhoodStrategy{
     Cell*** neighborhood;
-    int nb_neighbors=8;
+    unsigned int nb_neighbors=8;
 public:
-    MooreNeighborhood(const int hauteur,const int largeur);
+    MooreNeighborhood(const Grid g);
+    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    Cell*** getNeighborhood() const {return neighborhood;}
 };
 
 class MooreNeighborhoodGeneralized: public NeighborhoodStrategy{
@@ -41,14 +47,18 @@ class MooreNeighborhoodGeneralized: public NeighborhoodStrategy{
     unsigned int radius;
     unsigned int nb_neighbors;
 public:
-    MooreNeighborhoodGeneralized(const int hauteur,const int largeur, unsigned int radius=1);
+    MooreNeighborhoodGeneralized(const Grid g, unsigned int radius=1);
+    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    Cell*** getNeighborhood() const {return neighborhood;}
 };
 
 class ArbitraryNeighborhood: public NeighborhoodStrategy{
     Cell*** neighborhood;
     unsigned int nb_neighbors;
 public:
-    ArbitraryNeighborhood(const int hauteur,const int largeur);
+    ArbitraryNeighborhood(const Grid g);
+    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    Cell*** getNeighborhood() const {return neighborhood;}}
 };
 
 #endif //LO21_NEIGHBORHOODSTRATEGY_H
