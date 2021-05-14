@@ -5,7 +5,8 @@ HEADERS += \
     components/controlpanel.h \
     components/mainwindow.h \
     components/menubar.h \
-    components/simulatorwidget.h
+    components/simulatorwidget.h \
+    utils/*.h
 
 SOURCES += \
     components/cellwidget.cpp \
@@ -13,6 +14,7 @@ SOURCES += \
     components/mainwindow.cpp \
     components/menubar.cpp \
     components/simulatorwidget.cpp \
-    main.cpp
+    main.cpp \
+    utils/*.cpp
 
 RESOURCES += ../assets/

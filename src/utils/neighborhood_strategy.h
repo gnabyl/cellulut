@@ -7,7 +7,7 @@
 #include<utility>
 #include "cell.h"
 #include "grid.h"
-#include "cellstate.h"
+#include "cell_state.h"
 
 class NeighborhoodStrategy{
 public:

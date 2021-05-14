@@ -1,6 +1,6 @@
 #ifndef LO21_CELL_H
 #define LO21_CELL_H
-#include "cellstate.h"
+#include "cell_state.h"
 
 class Cell{
 private:

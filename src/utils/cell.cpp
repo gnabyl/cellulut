@@ -1,5 +1,5 @@
 #include "cell.h"
-#include "cellstate.h"
+#include "cell_state.h"
 
 void Cell::setstate(CellState s){
    this->State=s;

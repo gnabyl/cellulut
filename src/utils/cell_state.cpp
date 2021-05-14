@@ -1,4 +1,4 @@
-#include "cellstate.h"
+#include "cell_state.h"
 
 void CellState::setId(int i){
     this->id=i;

@@ -1,7 +1,7 @@
 
 #ifndef LO21_GRID_H
 #define LO21_GRID_H
-#include "cellstate.h"
+#include "cell_state.h"
 #include "cell.h"
 
 class Grid{

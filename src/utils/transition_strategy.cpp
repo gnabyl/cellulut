@@ -1,4 +1,4 @@
-#include "transition-strategy.h"
+#include "transition_strategy.h"
 
 /*
 FONCTION DE TRANSITION DU JEU DE LA VIE

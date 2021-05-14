@@ -2,9 +2,9 @@
 #define LO21_AUTOMATA_H
 #include <string>
 #include <iostream>
-#include "transition-strategy.h"
-#include "neighborhoodStrategy.h"
-#include "cellstate.h"
+#include "transition_strategy.h"
+#include "neighborhood_strategy.h"
+#include "cell_state.h"
 #include "grid.h"
 using namespace std;
 
