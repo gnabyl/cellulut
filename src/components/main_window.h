@@ -8,19 +8,18 @@
 #include <components/simulator_widget.h>
 #include <components/control_panel.h>
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
-    QWidget *centralWidget;
-    QHBoxLayout *mainLayout;
-    MenuBar *mainMenuBar;
-    SimulatorWidget *simulatorWidget;
-    ControlPanel *controlPanel;
-public:
-    MainWindow(QWidget *parent = nullptr);
+    QWidget* centralWidget;
+    QHBoxLayout* mainLayout;
+    MenuBar* mainMenuBar;
+    SimulatorWidget* simulatorWidget;
+    ControlPanel* controlPanel;
+  public:
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-signals:
+  signals:
 
 };
 

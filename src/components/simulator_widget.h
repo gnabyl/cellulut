@@ -9,34 +9,33 @@
 #include <QIcon>
 #include "cell_widget.h"
 
-class SimulatorWidget : public QWidget
-{
+class SimulatorWidget : public QWidget {
     Q_OBJECT
     int cellSize;
     int nbCols;
     int nbRows;
 
-    QVBoxLayout *simulatorLayout;
-    QGridLayout *gridLayout;
-    QHBoxLayout *controllerLayout;
-    QHBoxLayout *configBtnLayout;
+    QVBoxLayout* simulatorLayout;
+    QGridLayout* gridLayout;
+    QHBoxLayout* controllerLayout;
+    QHBoxLayout* configBtnLayout;
 
-    CellWidget **cellWidgets;
+    CellWidget** cellWidgets;
 
-    QPushButton *btnPlay, *btnPrev, *btnNext, *btnReset;
+    QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset;
 
-public:
-    SimulatorWidget(QWidget *parent, int width, int height, int cellSize);
+  public:
+    SimulatorWidget(QWidget* parent, int width, int height, int cellSize);
     ~SimulatorWidget();
     void initLayout();
     void cleanGrid();
     void updateGrid();
     void initButtons();
-    void setButtonIcon(QPushButton *btn, const QString &path);
+    void setButtonIcon(QPushButton* btn, const QString& path);
 
-signals:
+  signals:
 
-private slots:
+  private slots:
     void setNbRows(int nbRows);
     void setNbCols(int nbCols);
     void setCellSize(int size);

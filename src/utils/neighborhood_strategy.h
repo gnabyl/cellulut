@@ -12,72 +12,72 @@
 class NeighborhoodStrategy{
 public:
     virtual Cell*** getNeighborhood() const = 0;
-    virtual unsigned int getNbNeighbors()const=0 ;
+    virtual int getNbNeighbors()const=0 ;
 };
 
 class VonNeumannNeighborhood: public NeighborhoodStrategy{
     Cell*** neighborhood;
-    unsigned int nb_neighbors=4;
-    unsigned int nb_cells;
+    int nb_neighbors=4;
+    int nb_cells;
 public:
     VonNeumannNeighborhood(const Grid g );
-    ~VonNeumannNeighborhood(){ for(unsigned int i=0; i < nb_cells;i++ ) delete[] neighborhood[i];
+    ~VonNeumannNeighborhood(){ for(int i=0; i < nb_cells;i++ ) delete[] neighborhood[i];
         delete[] neighborhood;}
-    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    int getNbNeighbors() const { return nb_neighbors;}
     Cell*** getNeighborhood() const {return neighborhood;}
 };
 
 class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy{
     Cell*** neighborhood;
-    unsigned int radius;
-    unsigned int nb_neighbors;
-    unsigned int nb_cells;
+    int radius;
+    int nb_neighbors;
+    int nb_cells;
 public:
-    VonNeumannNeighborhoodGeneralized(const Grid g, unsigned int radius=1);
+    VonNeumannNeighborhoodGeneralized(const Grid g, int radius=1);
     ~VonNeumannNeighborhoodGeneralized(){
-        for(unsigned int i = 0; i < nb_cells; i++ ) delete[] neighborhood[i];
+        for(int i = 0; i < nb_cells; i++ ) delete[] neighborhood[i];
         delete[] neighborhood;}
-    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    int getNbNeighbors() const { return nb_neighbors;}
     Cell*** getNeighborhood() const {return neighborhood;}
 };
 class MooreNeighborhood: public NeighborhoodStrategy{
     Cell*** neighborhood;
-    unsigned int nb_neighbors=8;
-    unsigned int nb_cells;
+    int nb_neighbors=8;
+    int nb_cells;
 public:
     MooreNeighborhood(const Grid g);
     ~MooreNeighborhood(){
-        for(unsigned int i=0;i<nb_cells;i++ ) delete[] neighborhood[i];
+        for(int i=0;i<nb_cells;i++ ) delete[] neighborhood[i];
         delete[] neighborhood;}
-    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    int getNbNeighbors() const { return nb_neighbors;}
     Cell*** getNeighborhood() const {return neighborhood;}
 };
 
 class MooreNeighborhoodGeneralized: public NeighborhoodStrategy{
     Cell*** neighborhood;
-    unsigned int radius;
-    unsigned int nb_neighbors;
-    unsigned int nb_cells;
+    int radius;
+    int nb_neighbors;
+    int nb_cells;
 public:
-    MooreNeighborhoodGeneralized(const Grid g, unsigned int radius=1);
+    MooreNeighborhoodGeneralized(const Grid g, int radius=1);
     ~MooreNeighborhoodGeneralized(){
-        for(unsigned int i=0;i<nb_cells;i++ ) delete[] neighborhood[i];
+        for(int i=0;i<nb_cells;i++ ) delete[] neighborhood[i];
         delete[] neighborhood;
     }
-    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    int getNbNeighbors() const { return nb_neighbors;}
     Cell*** getNeighborhood() const {return neighborhood;}
 };
 
 class ArbitraryNeighborhood: public NeighborhoodStrategy{
     Cell*** neighborhood;
-    unsigned int nb_neighbors;
-    unsigned int nb_cells;
+    int nb_neighbors;
+    int nb_cells;
 public:
     ArbitraryNeighborhood(const Grid g);
     ~ArbitraryNeighborhood(){
-        for(size_t i=0;i<nb_cells;i++ ) delete[] neighborhood[i];
+        for(int i=0;i<nb_cells;i++ ) delete[] neighborhood[i];
         delete[] neighborhood;}
-    unsigned int getNbNeighbors() const { return nb_neighbors;}
+    int getNbNeighbors() const { return nb_neighbors;}
     Cell*** getNeighborhood() const {return neighborhood;}
 };
 

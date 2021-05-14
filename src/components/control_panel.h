@@ -12,24 +12,23 @@
 #include <QString>
 #include "simulator_widget.h"
 
-class ControlPanel : public QWidget
-{
+class ControlPanel : public QWidget {
     Q_OBJECT
-    QFormLayout *gridConfigLayout;
-    QSpinBox *nbRowsSpb, *nbColsSpb, *cellSizeSpb;
+    QFormLayout* gridConfigLayout;
+    QSpinBox* nbRowsSpb, *nbColsSpb, *cellSizeSpb;
 
 
-    QFormLayout *automatasLayout;
-    QComboBox *automataCbb;
+    QFormLayout* automatasLayout;
+    QComboBox* automataCbb;
 
-    QHBoxLayout *automataBtnLayout;
-    QPushButton *automataCreateBtn, *automataSaveBtn, *automataDeleteBtn, *automataLoadBtn;
+    QHBoxLayout* automataBtnLayout;
+    QPushButton* automataCreateBtn, *automataSaveBtn, *automataDeleteBtn, *automataLoadBtn;
 
-    QVBoxLayout *mainLayout;
+    QVBoxLayout* mainLayout;
 
-    SimulatorWidget *simulatorWidget;
-public:
-    explicit ControlPanel(QWidget *parent, SimulatorWidget *simulatorWidget);
+    SimulatorWidget* simulatorWidget;
+  public:
+    explicit ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget);
     ~ControlPanel();
 
     void setNbRows(int nbRows);
@@ -40,7 +39,7 @@ public:
     void initEventHandler();
 
 
-signals:
+  signals:
 
 };
 

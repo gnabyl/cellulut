@@ -11,29 +11,30 @@
 
 using namespace std;
 
-class AutomataManager
-{
-private:
+class AutomataManager {
+  private:
     static AutomataManager* instance; //Instance unique (singleton)
-    unsigned short nbAutomatas;
-    const unsigned short nbMaxAutomatas=MAX_AUTOMATA;
+    int nbAutomatas;
+    const int nbMaxAutomatas = MAX_AUTOMATA;
     Automata** automatas;
 
-    AutomataManager(const AutomataManager& a)=delete;
+    AutomataManager(const AutomataManager& a) = delete;
     AutomataManager();
     ~AutomataManager();
-    void operator=(const AutomataManager& a)=delete;
+    void operator=(const AutomataManager& a) = delete;
 
-public:
+  public:
     static AutomataManager& getAutomataManager();
     static void destroyAutomataManager();
 
-    const Automata& getAutomata(unsigned short id) const;
-    void changeAutomata(unsigned short id,CellState** c,TransitionStrategy *t,NeighborhoodStrategy *n,unsigned short nb=0,string na="", string d="",string a="",unsigned short y=2021);
-    void addAutomata(CellState** c,TransitionStrategy *t,NeighborhoodStrategy *n,unsigned short nb=0,string na="", string d="",string a="",unsigned short y=2021);
-    void removeAutomata(unsigned short id);
+    const Automata& getAutomata(int id) const;
+    void changeAutomata(int id, CellState** c, TransitionStrategy* t, NeighborhoodStrategy* n, int nb = 0, string na = "", string d = "", string a = "", int y = 2021);
+    void addAutomata(CellState** c, TransitionStrategy* t, NeighborhoodStrategy* n, int nb = 0, string na = "", string d = "", string a = "", int y = 2021);
+    void removeAutomata(int id);
 
-    unsigned short getNbAutomatas() const {return nbAutomatas;}
+    int getNbAutomatas() const {
+        return nbAutomatas;
+    }
 };
 
 #endif //LO21_AUTOMATAMANAGER_H

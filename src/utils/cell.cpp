@@ -1,14 +1,14 @@
 #include "cell.h"
 #include "cell_state.h"
 
-void Cell::setState(CellState *s){
-   this->state=s;
+void Cell::setState(CellState* s) {
+    this->state = s;
 }
-CellState* Cell::getState() const{
+CellState* Cell::getState() const {
     return this->state;
 }
 
-Cell::Cell(CellState *s, int x , int y):state(s),x(x),y(y){}
+Cell::Cell(CellState* s, int x, int y): state(s), x(x), y(y) {}
 
 
 int Cell::getX() const {

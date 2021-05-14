@@ -1,22 +1,19 @@
 #include "control_panel.h"
 #include <iostream>
 
-void ControlPanel::setAutomatas()
-{
+void ControlPanel::setAutomatas() {
     for (int i = 0; i < 5; i ++) {
         automataCbb->addItem(QString::fromUtf8(("Automata " + std::to_string(i)).c_str()));
     }
 }
 
-void ControlPanel::initEventHandler()
-{
+void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
 }
 
-ControlPanel::ControlPanel(QWidget *parent, SimulatorWidget *simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget)
-{
+ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
     // Layouts
     automatasLayout = new QFormLayout;
     automataBtnLayout = new QHBoxLayout;
@@ -74,8 +71,7 @@ ControlPanel::ControlPanel(QWidget *parent, SimulatorWidget *simulatorWidget) : 
     initEventHandler();
 }
 
-ControlPanel::~ControlPanel()
-{
+ControlPanel::~ControlPanel() {
     delete automatasLayout;
     delete automataBtnLayout;
     delete gridConfigLayout;

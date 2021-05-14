@@ -4,15 +4,14 @@
 #include <QWidget>
 #include <QPalette>
 
-class CellWidget : public QWidget
-{
+class CellWidget : public QWidget {
     Q_OBJECT
-public:
-    explicit CellWidget()=default;
-    explicit CellWidget(QWidget *parent, int cellSize);
-    void setColor(const QColor &color);
+  public:
+    explicit CellWidget() = default;
+    explicit CellWidget(QWidget* parent, int cellSize);
+    void setColor(const QColor& color);
 
-signals:
+  signals:
 
 };
 

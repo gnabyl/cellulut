@@ -1,7 +1,6 @@
 #include "main_window.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
-{
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     // Window setup
     setWindowTitle("LO21 - CELLULUT - Automate Cellulaire");
 

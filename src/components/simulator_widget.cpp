@@ -7,7 +7,7 @@ void SimulatorWidget::initLayout() {
     configBtnLayout = new QHBoxLayout(this);
 }
 
-void SimulatorWidget::setButtonIcon(QPushButton *btn, const QString &path) {
+void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
     btn->setIcon(QIcon(path));
     btn->setIconSize(QSize(28, 28));
     btn->setFixedSize(30, 30);
@@ -46,27 +46,23 @@ void SimulatorWidget::updateGrid() {
     adjustSize();
 }
 
-void SimulatorWidget::setNbRows(int nbRows)
-{
+void SimulatorWidget::setNbRows(int nbRows) {
     cleanGrid();
     this->nbRows = nbRows;
     updateGrid();
 }
-void SimulatorWidget::setNbCols(int nbCols)
-{
+void SimulatorWidget::setNbCols(int nbCols) {
     cleanGrid();
     this->nbCols = nbCols;
     updateGrid();
 }
-void SimulatorWidget::setCellSize(int size)
-{
+void SimulatorWidget::setCellSize(int size) {
     cleanGrid();
     this->cellSize = size;
     updateGrid();
 }
 
-SimulatorWidget::SimulatorWidget(QWidget *parent, int nbRows, int nbCols, int cellSize) : QWidget(parent)
-{
+SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent) {
     this->nbCols = nbCols;
     this->nbRows = nbRows;
     this->cellSize = cellSize;
@@ -83,8 +79,7 @@ SimulatorWidget::SimulatorWidget(QWidget *parent, int nbRows, int nbCols, int ce
     adjustSize();
 }
 
-void SimulatorWidget::cleanGrid()
-{
+void SimulatorWidget::cleanGrid() {
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             gridLayout->removeWidget(cellWidgets[r * nbCols + c]);
@@ -96,7 +91,6 @@ void SimulatorWidget::cleanGrid()
     delete [] cellWidgets;
 }
 
-SimulatorWidget::~SimulatorWidget()
-{
+SimulatorWidget::~SimulatorWidget() {
     cleanGrid();
 }

@@ -1,7 +1,6 @@
 #include "menubar.h"
 
-MenuBar::MenuBar(QMainWindow *parent) : QMenuBar(parent)
-{
+MenuBar::MenuBar(QMainWindow* parent) : QMenuBar(parent) {
     fileMenu = new QMenu("File", this);
     editMenu = new QMenu("Edit", this);
     runMenu = new QMenu("Run", this);
@@ -11,6 +10,5 @@ MenuBar::MenuBar(QMainWindow *parent) : QMenuBar(parent)
     addMenu(runMenu);
 }
 
-MenuBar::~MenuBar()
-{
+MenuBar::~MenuBar() {
 }
