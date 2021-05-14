@@ -43,10 +43,10 @@ Cell BBTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighb
 		throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : Brian's Brain ne fonctionne qu'avec 3 états possibles.\n");
 	//Toute cellule excitée devient réfractaire.
 	if(c.getState().getid()==availableStates[2]->getId())
-		return new Cell(availableStates[1]);
+		return new Cell(availableStates[1],c.getX(),c.getY());
 	//Toute cellule réfractaire devient au repos.
 	if(c.getState().getid()==availableStates[1]->getId())
-		return new Cell(availableStates[0]);
+		return new Cell(availableStates[0],c.getX(),c.getY());
 	//Pour une cellule au repos, on s'intéresse au nombre de cellules excitées dans le voisinage.
 	int sum = 0;
 	for(int i=0;i<neighborSize;i++){
@@ -54,5 +54,5 @@ Cell BBTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighb
 	}
 	//Toute cellule au repos ayant exactement 2 voisinges excitées devient excitée.
 	if(c.getState().getid()==availableStates[0]->getId() && sum==2)
-		return new Cell(availableStates[2]);
+		return new Cell(availableStates[2],c.getX(),c.getY());
 }
