@@ -77,7 +77,7 @@ public:
         for(int i=0;i<nb_cells;i++ ) delete[] neighborhood[i];
         delete[] neighborhood;}
     unsigned int getNbNeighbors() const { return nb_neighbors;}
-    Cell*** getNeighborhood() const {return neighborhood;}}
+    Cell*** getNeighborhood() const {return neighborhood;}
 };
 
 #endif //LO21_NEIGHBORHOODSTRATEGY_H
