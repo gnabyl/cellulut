@@ -1,6 +1,8 @@
 #ifndef LO21_SIMULATOR_H
 #define LO21_SIMULATOR_H
 
+#include "automata.h"
+
 
 class Simulator {
 private:
@@ -38,7 +40,6 @@ public:
 
     //const Etat& dernier() const;
     //size_t getRangDernier() const;
-    //void reset();
 
     class Iterator {
         friend class Simulator;
@@ -64,7 +65,7 @@ public:
     };
 
     Iterator getIterator();
-}
+};
 
 
 

@@ -1,12 +1,6 @@
 #include <cstddef>
 #include "Simulator.h"
 
-
-///-------------------------------------------------------------------
-/// Classe Simulator
-///-------------------------------------------------------------------
-
-
 void allocateBuffer() {
     if (grids != nullptr) {
         for(size_t i=0; i<bufferSize; i++) {
@@ -147,9 +141,3 @@ Grid& Simulator::Iterator::getCurrentGrid() const
     if(isDone()) throw AutomateException("Issue : current on finite iteraror !");
     return *sim->grids[gridID%sim->bufferSize];
 }
-
-
-
-
-
-
