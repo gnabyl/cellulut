@@ -1,4 +1,4 @@
-#include "controlpanel.h"
+#include "control_panel.h"
 #include <iostream>
 
 void ControlPanel::setAutomatas()

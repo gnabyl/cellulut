@@ -1,4 +1,4 @@
-#include "simulatorwidget.h"
+#include "simulator_widget.h"
 #include <iostream>
 void SimulatorWidget::initLayout() {
     simulatorLayout = new QVBoxLayout(this);

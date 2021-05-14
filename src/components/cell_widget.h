@@ -1,5 +1,5 @@
-#ifndef CELLWIDGET_H
-#define CELLWIDGET_H
+#ifndef CELL_WIDGET_H
+#define CELL_WIDGET_H
 
 #include <QWidget>
 #include <QPalette>
@@ -16,4 +16,4 @@ signals:
 
 };
 
-#endif // CELLWIDGET_H
+#endif // CELL_WIDGET_H

@@ -1,4 +1,4 @@
-#include "cellwidget.h"
+#include "cell_widget.h"
 
 CellWidget::CellWidget(QWidget *parent, int cellSize) : QWidget(parent)
 {

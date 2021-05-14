@@ -1,5 +1,5 @@
-#ifndef SIMULATORWIDGET_H
-#define SIMULATORWIDGET_H
+#ifndef SIMULATOR_WIDGET_H
+#define SIMULATOR_WIDGET_H
 
 #include <QWidget>
 #include <QGridLayout>
@@ -7,7 +7,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QIcon>
-#include "cellwidget.h"
+#include "cell_widget.h"
 
 class SimulatorWidget : public QWidget
 {
@@ -42,4 +42,4 @@ private slots:
     void setCellSize(int size);
 };
 
-#endif // SIMULATORWIDGET_H
+#endif // SIMULATOR_WIDGET_H

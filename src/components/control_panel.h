@@ -1,5 +1,5 @@
-#ifndef CONTROLPANEL_H
-#define CONTROLPANEL_H
+#ifndef CONTROL_PANEL_H
+#define CONTROL_PANEL_H
 
 #include <QWidget>
 #include <QLabel>
@@ -10,7 +10,7 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QString>
-#include "simulatorwidget.h"
+#include "simulator_widget.h"
 
 class ControlPanel : public QWidget
 {
@@ -44,4 +44,4 @@ signals:
 
 };
 
-#endif // CONTROLPANEL_H
+#endif // CONTROL_PANEL_H

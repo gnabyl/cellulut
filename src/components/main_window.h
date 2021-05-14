@@ -1,12 +1,12 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAIN_WINDOW_H
+#define MAIN_WINDOW_H
 
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <QWidget>
 #include <components/menubar.h>
-#include <components/simulatorwidget.h>
-#include <components/controlpanel.h>
+#include <components/simulator_widget.h>
+#include <components/control_panel.h>
 
 class MainWindow : public QMainWindow
 {
@@ -24,4 +24,4 @@ signals:
 
 };
 
-#endif // MAINWINDOW_H
+#endif // MAIN_WINDOW_H
