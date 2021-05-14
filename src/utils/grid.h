@@ -6,19 +6,19 @@
 
 class Grid{
 private:
-    Cell **cells=nullptr;
-    int width;
-    int height;
+    size_t width;
+    size_t height;
+    Cell ***cells=nullptr;
 
 public:
-    Grid(Cellstate s, int w=0,int h=0);
+    Grid(CellState *s, size_t w=0, size_t h=0);
     Grid(const Grid& g);
     ~Grid();
     Grid& operator= (const Grid& g);
 
-    void setCell(Cell c,int x,int y);
-    Cell& getCell(int x , int y) const;
-    int getwidth() const;
-    int getheight() const;
+    void setCell(Cell *c,int x,int y);
+    Cell* getCell(int x , int y) const;
+    size_t getWidth() const;
+    size_t getHeight() const;
 };
 #endif //LO21_GRID_H

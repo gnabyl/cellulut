@@ -3,7 +3,7 @@
 #include "automata.h"
 using namespace std;
 
-Automata::Automata(CellState** c, TransitionStrategy t,NeighborhoodStrategy n,unsigned short nb, string na, string d,string a,unsigned short y)
+Automata::Automata(CellState** c, TransitionStrategy *t,NeighborhoodStrategy *n,unsigned short nb, string na, string d,string a,unsigned short y)
 {
     name=na;
     description=d;

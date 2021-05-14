@@ -4,14 +4,16 @@
 
 class Cell{
 private:
-	CellState State;
-	int x ;
-	int y ;
+    CellState *state;
+    int x;
+    int y;
 
 public:
-    void setstate(CellState s);
-    CellState getState() const;
-    Cell(CellState s,int i , int j);
+    void setState(CellState *s);
+    CellState* getState() const;
+    Cell(CellState *s,int i , int j);
+    int getX() const;
+    int getY() const;
 };
 
 #endif //LO21_CELL_H

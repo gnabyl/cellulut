@@ -57,19 +57,20 @@ Grid& Gridd::operator= (const Grid& g)
     return *this;
 }
 
-int Grid::getWidth() const{
+size_t Grid::getWidth() const {
     return this->width;
 }
-int Grid::getHeight() const{
+size_t Grid::getHeight() const{
     return this->height;
 }
 
-void Grid::setCell(Cell c,int x,int y)
+void Grid::setCell(Cell *c,int x,int y)
 {
+    delete this->cells[x][y];
     this->cells[x][y]=c;
 }
 
-Cell& Grid::getCell(int x , int y) const
+Cell* Grid::getCell(int x , int y) const
 {
     return this->cells[x][y];
 }

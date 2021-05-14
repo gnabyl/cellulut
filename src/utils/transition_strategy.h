@@ -21,30 +21,30 @@ public:
 
 class TransitionStrategy{ //interface
 public:
-	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const = 0;
+    virtual Cell* calcNextCell(Cell *, Cell**, int, CellState**, int) const = 0;
 };
 
 
 class TotalisticTransition : public TransitionStrategy{
-	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const = 0;
+    virtual Cell* calcNextCell(Cell *, Cell**, int, CellState**, int) const = 0;
 };
 
 
 class StochasticTransition : public TransitionStrategy{
-	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const = 0;
+    virtual Cell* calcNextCell(Cell *, Cell**, int, CellState**, int) const = 0;
 };
 
 class OuterTotalisticTransition : public TotalisticTransition{
-	virtual Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const = 0;
+    virtual Cell* calcNextCell(Cell *, Cell**, int, CellState**, int) const = 0;
 };
 
 ///Concrete strategies///
 class GOLTransition : public OuterTotalisticTransition{
-	Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
+    Cell* calcNextCell(Cell *, Cell**, int, CellState**, int) const;
 };
 
 class BBTransition : public OuterTotalisticTransition{
-	Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
+    Cell* calcNextCell(Cell *, Cell**, int, CellState**, int) const;
 };
 
 #endif

@@ -6,7 +6,13 @@ HEADERS += \
     components/main_window.h \
     components/menubar.h \
     components/simulator_widget.h \
-    utils/*.h
+    utils/automata.h \
+    utils/automata_manager.h \
+    utils/cell.h \
+    utils/cell_state.h \
+    utils/grid.h \
+    utils/neighborhood_strategy.h \
+    utils/transition_strategy.h \
 
 SOURCES += \
     components/cell_widget.cpp \
@@ -15,6 +21,12 @@ SOURCES += \
     components/menubar.cpp \
     components/simulator_widget.cpp \
     main.cpp \
-    utils/*.cpp
+    utils/automata.cpp \
+    utils/automata_manager.cpp \
+    utils/cell.cpp \
+    utils/cell_state.cpp \
+    utils/grid.cpp \
+    utils/neighborhood_strategy.cpp \
+    utils/transition_strategy.cpp \
 
 RESOURCES += ../assets/
