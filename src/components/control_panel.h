@@ -11,6 +11,7 @@
 #include <QSpinBox>
 #include <QString>
 #include "simulator_widget.h"
+#include "utils/automata_manager.h"
 
 class ControlPanel : public QWidget {
     Q_OBJECT
@@ -27,6 +28,8 @@ class ControlPanel : public QWidget {
     QVBoxLayout* mainLayout;
 
     SimulatorWidget* simulatorWidget;
+
+    AutomataManager *automataManager;
   public:
     explicit ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget);
     ~ControlPanel();

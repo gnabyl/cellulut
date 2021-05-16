@@ -2,8 +2,16 @@
 #include <iostream>
 
 void ControlPanel::setAutomatas() {
-    for (int i = 0; i < 5; i ++) {
-        automataCbb->addItem(QString::fromUtf8(("Automata " + std::to_string(i)).c_str()));
+    AutomataManager *automataManager = AutomataManager::getAutomataManager();
+    // Game Of Life automata
+    CellState** golStates = new CellState*[2];
+    golStates[0] = new CellState(0, "dead", Qt::white);
+    golStates[1] = new CellState(1, "alive", Qt::black);
+    Grid* golStartGrid = new Grid(golStates[0], simulatorWidget->width(), simulatorWidget->height());
+    automataManager->addAutomata(golStates, new GOLTransition(), new VonNeumannNeighborhood(*golStartGrid), 2, "Game of Life", "Game of Life Automata", "Conway", 1970);
+    // Game of Life
+    for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
+        automataCbb->addItem(QString(automataManager->getAutomata(i).getName().c_str()));
     }
 }
 
@@ -69,6 +77,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     setLayout(mainLayout);
 
     initEventHandler();
+
 }
 
 ControlPanel::~ControlPanel() {
