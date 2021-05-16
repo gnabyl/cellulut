@@ -22,7 +22,7 @@ class SimulatorWidget : public QWidget {
     QHBoxLayout* controllerLayout;
     QHBoxLayout* configBtnLayout;
 
-    CellWidget** cellWidgets;
+    CellWidget** cellWidgets = nullptr;
 
     QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset;
 

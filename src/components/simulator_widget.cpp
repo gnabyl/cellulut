@@ -34,6 +34,7 @@ void SimulatorWidget::initButtons() {
 
 void SimulatorWidget::updateGrid() {
     // TODO: Show cells
+    cleanGrid();
     gridLayout->setAlignment(Qt::AlignCenter);
     gridLayout->setSpacing(2);
     cellWidgets = new CellWidget*[nbRows * nbCols];
@@ -86,6 +87,9 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
 }
 
 void SimulatorWidget::cleanGrid() {
+    if (cellWidgets == nullptr) {
+        return;
+    }
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             gridLayout->removeWidget(cellWidgets[r * nbCols + c]);
@@ -95,6 +99,7 @@ void SimulatorWidget::cleanGrid() {
         delete cellWidgets[i];
     }
     delete [] cellWidgets;
+    cellWidgets = nullptr;
 }
 
 SimulatorWidget::~SimulatorWidget() {
