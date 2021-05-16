@@ -1,15 +1,28 @@
 #include "control_panel.h"
 #include <iostream>
 
-void ControlPanel::setAutomatas() {
-    AutomataManager *automataManager = AutomataManager::getAutomataManager();
+/*
+ * Pseudo function for loading automatas
+ * It should load automatas from database
+ */
+void ControlPanel::loadAutomatas() {
+
+    AutomataManager* automataManager = AutomataManager::getAutomataManager();
     // Game Of Life automata
     CellState** golStates = new CellState*[2];
     golStates[0] = new CellState(0, "dead", Qt::white);
     golStates[1] = new CellState(1, "alive", Qt::black);
     Grid* golStartGrid = new Grid(golStates[0], simulatorWidget->width(), simulatorWidget->height());
-    automataManager->addAutomata(golStates, new GOLTransition(), new VonNeumannNeighborhood(*golStartGrid), 2, "Game of Life", "Game of Life Automata", "Conway", 1970);
-    // Game of Life
+    automataManager->addAutomata(golStates, new GOLTransition(), new VonNeumannNeighborhood(*golStartGrid), 2,
+                                 "Game of Life", "Game of Life Automata", "Conway", 1970);
+    // Brian's Brain automata
+    CellState** bbStates = new CellState*[3];
+    golStates[0] = new CellState(0, "off", Qt::white);
+    golStates[1] = new CellState(1, "dying", Qt::blue);
+    golStates[2] = new CellState(1, "on", Qt::black);
+    Grid* bbStartGrid = new Grid(bbStates[0], simulatorWidget->width(), simulatorWidget->height());
+    automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(*bbStartGrid), 3,
+                                 "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
     for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
         automataCbb->addItem(QString(automataManager->getAutomata(i).getName().c_str()));
     }
@@ -40,7 +53,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
 
     // Init data
-    setAutomatas();
+    loadAutomatas();
     nbRowsSpb->setKeyboardTracking(false);
     nbRowsSpb->setValue(20);
     nbRowsSpb->setMaximum(100);

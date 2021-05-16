@@ -38,7 +38,7 @@ class ControlPanel : public QWidget {
     void setNbCols(int nbCols);
     void setCellSize(int cellSize);
 
-    void setAutomatas();
+    void loadAutomatas();
     void initEventHandler();
 
 
