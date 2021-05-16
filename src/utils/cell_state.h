@@ -1,6 +1,7 @@
 #ifndef LO21_CELLSTATE_H
 #define LO21_CELLSTATE_H
 
+#include <QColor>
 #include <string>
 
 enum color {blue, red, yellow, pink, cyan, green, orange, purple};
@@ -12,14 +13,14 @@ class CellState {
     void setLabel(std::string s);
     void setCol(color c);
     int getId() const;
-    color getCol() const;
+    QColor getCol() const;
     std::string getLabel() const;
-    CellState(int x, std::string l, color c): id(x), label(l), col(c) {}
+    CellState(int x, std::string l, QColor c): id(x), label(l), col(c) {}
 
   private:
     int id;
     std::string label;
-    color col;
+    QColor col;
 };
 
 #endif //LO21_CELLSTATE_H

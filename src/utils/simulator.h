@@ -7,7 +7,7 @@
 
 class Simulator {
   private:
-    const Automata& automata;
+    Automata* automata;
     int bufferSize;
     const Grid* startGrid = nullptr; // il faut ajouter un pointeur dans l'UML
     Grid** grids = nullptr;
@@ -22,9 +22,9 @@ class Simulator {
 
 
   public:
-    Simulator(const Automata& a, int buf = 2);
+    Simulator(Automata* a, int buf = 2);
 
-    Simulator(const Automata& a, Grid& startG, int buf = 2);
+    Simulator(Automata* a, Grid& startG, int buf = 2);
 
     ~Simulator();
 
@@ -43,6 +43,9 @@ class Simulator {
 
     //const Etat& dernier() const;
     //int getRangDernier() const;
+
+    void setAutomata(Automata* automata);
+    Automata* getAutomata() const;
 
     class Iterator {
         friend class Simulator;

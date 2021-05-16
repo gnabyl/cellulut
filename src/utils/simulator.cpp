@@ -15,13 +15,21 @@ void Simulator::allocateBuffer() {
     for(int i = 0; i < bufferSize; i++) grids[i] = nullptr;
 }
 
-Simulator::Simulator(const Automata& a, int buf): automata(a), bufferSize(buf) {
+void Simulator::setAutomata(Automata *automata) {
+    this->automata = automata;
+}
+
+Automata* Simulator::getAutomata() const {
+    return this->automata;
+}
+
+Simulator::Simulator(Automata* a, int buf): automata(a), bufferSize(buf) {
     /*grids = new Grid*[bufferSize];
     for(int i=0; i<bufferSize; i++) grids[i]=nullptr;*/
     allocateBuffer();
 }
 
-Simulator::Simulator(const Automata& a, Grid& startG, int buf): automata(a),  bufferSize(buf), startGrid(&startG) {
+Simulator::Simulator(Automata* a, Grid& startG, int buf): automata(a),  bufferSize(buf), startGrid(&startG) {
     /*grids = new Grid*[bufferSize];
     for(int i=0; i<bufferSize; i++) grids[i]=nullptr;*/
     allocateBuffer();
@@ -44,7 +52,7 @@ void Simulator::next() {
         return;
     gridIDcurrent++; //important à regarder
 
-    grids[gridIDcurrent % bufferSize] = &automata.applyTransition(grids[(gridIDcurrent - 1) % bufferSize]);
+    grids[gridIDcurrent % bufferSize] = &automata->applyTransition(grids[(gridIDcurrent - 1) % bufferSize]);
 
 
 

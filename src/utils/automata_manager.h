@@ -24,7 +24,7 @@ class AutomataManager {
     void operator=(const AutomataManager& a) = delete;
 
   public:
-    static AutomataManager& getAutomataManager();
+    static AutomataManager* getAutomataManager();
     static void destroyAutomataManager();
 
     const Automata& getAutomata(int id) const;

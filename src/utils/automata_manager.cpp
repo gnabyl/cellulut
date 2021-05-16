@@ -26,9 +26,9 @@ AutomataManager::~AutomataManager() {
     nbAutomatas = 0;
 }
 
-AutomataManager& AutomataManager::getAutomataManager() {
+AutomataManager* AutomataManager::getAutomataManager() {
     if(!instance) instance = new AutomataManager();
-    return *instance;
+    return instance;
 }
 
 void AutomataManager::destroyAutomataManager() {

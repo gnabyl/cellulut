@@ -19,10 +19,11 @@ Grid::Grid(CellState* c, int w, int h) {
         }
     }
 }
-Grid::Grid(const Grid& g): width(g.width), height(g.height), cells(new Cell * * [g.height]) {
+Grid::Grid(const Grid& g): width(g.width), height(g.height), cells(new Cell **[g.height]) {
     for(int i = 0; i < g.height; i++) {
+        this->cells[i] = new Cell*[g.width];
         for(int j = 0; j < g.width; j++) {
-            this->cells[i][j] = g.cells[i][j];
+            this->cells[i][j] = new Cell(*g.cells[i][j]);
         }
     }
 
