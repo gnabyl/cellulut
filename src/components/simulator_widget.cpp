@@ -62,6 +62,10 @@ void SimulatorWidget::setCellSize(int size) {
     updateGrid();
 }
 
+void SimulatorWidget::setAutomata(int index) {
+    this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));
+}
+
 SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent) {
     this->nbCols = nbCols;
     this->nbRows = nbRows;
@@ -77,6 +81,8 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
     setLayout(simulatorLayout);
 
     adjustSize();
+
+    simulator = new Simulator(nullptr, 100);
 }
 
 void SimulatorWidget::cleanGrid() {

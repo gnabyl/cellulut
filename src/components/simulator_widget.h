@@ -8,6 +8,8 @@
 #include <QPushButton>
 #include <QIcon>
 #include "cell_widget.h"
+#include "utils/simulator.h"
+#include "utils/automata_manager.h"
 
 class SimulatorWidget : public QWidget {
     Q_OBJECT
@@ -24,6 +26,9 @@ class SimulatorWidget : public QWidget {
 
     QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset;
 
+    Simulator* simulator;
+
+
   public:
     SimulatorWidget(QWidget* parent, int width, int height, int cellSize);
     ~SimulatorWidget();
@@ -39,6 +44,7 @@ class SimulatorWidget : public QWidget {
     void setNbRows(int nbRows);
     void setNbCols(int nbCols);
     void setCellSize(int size);
+    void setAutomata(int index);
 };
 
 #endif // SIMULATOR_WIDGET_H

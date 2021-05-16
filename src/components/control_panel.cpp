@@ -6,7 +6,6 @@
  * It should load automatas from database
  */
 void ControlPanel::loadAutomatas() {
-
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
     // Game Of Life automata
     CellState** golStates = new CellState*[2];
@@ -24,7 +23,7 @@ void ControlPanel::loadAutomatas() {
     automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(*bbStartGrid), 3,
                                  "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
     for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
-        automataCbb->addItem(QString(automataManager->getAutomata(i).getName().c_str()));
+        automataCbb->addItem(QString(automataManager->getAutomata(i)->getName().c_str()));
     }
 }
 
@@ -32,6 +31,7 @@ void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
+    connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {

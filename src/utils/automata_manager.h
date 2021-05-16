@@ -27,7 +27,7 @@ class AutomataManager {
     static AutomataManager* getAutomataManager();
     static void destroyAutomataManager();
 
-    const Automata& getAutomata(int id) const;
+    Automata* getAutomata(int id) const;
     void changeAutomata(int id, CellState** c, TransitionStrategy* t, NeighborhoodStrategy* n, int nb = 0, string na = "", string d = "", string a = "", int y = 2021);
     void addAutomata(CellState** c, TransitionStrategy* t, NeighborhoodStrategy* n, int nb = 0, string na = "", string d = "", string a = "", int y = 2021);
     void removeAutomata(int id);

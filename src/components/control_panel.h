@@ -17,16 +17,11 @@ class ControlPanel : public QWidget {
     Q_OBJECT
     QFormLayout* gridConfigLayout;
     QSpinBox* nbRowsSpb, *nbColsSpb, *cellSizeSpb;
-
-
     QFormLayout* automatasLayout;
     QComboBox* automataCbb;
-
     QHBoxLayout* automataBtnLayout;
     QPushButton* automataCreateBtn, *automataSaveBtn, *automataDeleteBtn, *automataLoadBtn;
-
     QVBoxLayout* mainLayout;
-
     SimulatorWidget* simulatorWidget;
 
     AutomataManager *automataManager;

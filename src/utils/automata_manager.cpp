@@ -35,11 +35,10 @@ void AutomataManager::destroyAutomataManager() {
     delete instance;
     instance = nullptr;
 }
-
-const Automata& AutomataManager::getAutomata(int id) const {
+Automata* AutomataManager::getAutomata(int id) const {
     if(id > nbMaxAutomatas) throw "Error: Automaton incorrect index";
     if(automatas[id] == nullptr) throw "Error: Undefined automaton";
-    return *automatas[id];
+    return automatas[id];
 }
 
 //Modification d'un automate à un indice donné
