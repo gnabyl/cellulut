@@ -11,9 +11,9 @@ class CellState {
   public:
     void setId(int i);
     void setLabel(std::string s);
-    void setCol(color c);
+    void setColor(QColor c);
     int getId() const;
-    QColor getCol() const;
+    QColor getColor() const;
     std::string getLabel() const;
     CellState(int x, std::string l, QColor c): id(x), label(l), col(c) {}
 

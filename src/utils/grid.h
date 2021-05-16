@@ -3,6 +3,8 @@
 #define LO21_GRID_H
 #include "cell_state.h"
 #include "cell.h"
+#include <cstdlib>
+#include <ctime>
 
 class Grid {
   private:
@@ -11,7 +13,8 @@ class Grid {
     Cell*** cells = nullptr;
 
   public:
-    Grid(CellState* s, int w = 0, int h = 0);
+    Grid(CellState* s, int w, int h);
+    Grid(int nbStates, CellState** availableStates, int w, int h);
     Grid(const Grid& g);
     ~Grid();
     Grid& operator= (const Grid& g);

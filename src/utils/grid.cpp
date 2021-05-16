@@ -19,6 +19,20 @@ Grid::Grid(CellState* c, int w, int h) {
         }
     }
 }
+
+Grid::Grid(int nbStates, CellState** availableStates, int w, int h) {
+    srand(time(nullptr));
+    this->width = w;
+    this->height = h;
+    cells = new Cell** [h];
+    for(int i = 0; i < h; i++) cells[i] = new Cell*[w];
+    for(int i = 0; i < h; i++) {
+        for(int j = 0; j < w; j++) {
+            cells[i][j] = new Cell(availableStates[rand() % nbStates], i, j);
+        }
+    }
+}
+
 Grid::Grid(const Grid& g): width(g.width), height(g.height), cells(new Cell **[g.height]) {
     for(int i = 0; i < g.height; i++) {
         this->cells[i] = new Cell*[g.width];
@@ -62,7 +76,9 @@ int Grid::getHeight() const {
 }
 
 void Grid::setCell(Cell* c, int x, int y) {
-    delete this->cells[x][y];
+    if (cells[x][y]) {
+        delete this->cells[x][y];
+    }
     this->cells[x][y] = c;
 }
 

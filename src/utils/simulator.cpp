@@ -37,8 +37,11 @@ Simulator::Simulator(Automata* a, Grid& startG, int buf): automata(a),  bufferSi
     grids[0] = &startG;
 }
 
-void Simulator::setStartGrid(const Grid& g) {
-    startGrid = &g;
+void Simulator::setStartGrid(Grid *g) {
+    if (startGrid != nullptr) {
+        delete startGrid;
+    }
+    startGrid = g;
     // reset(); // Important à revoir
     reset(); // build(0) va dans ce cas créer une nouvel état
 }
@@ -75,7 +78,7 @@ void Simulator::reset() { // important je ne l'ai pas mis const car pour moi cet
     if (startGrid == nullptr) throw "start grid is not defined";
     gridIDcurrent = 0;
     /*build(0);*/
-    *grids[0] = *startGrid;
+    grids[0] = startGrid;
 }
 /*
 void Simulator::build(int ID)

@@ -11,15 +11,15 @@ void ControlPanel::loadAutomatas() {
     CellState** golStates = new CellState*[2];
     golStates[0] = new CellState(0, "dead", Qt::white);
     golStates[1] = new CellState(1, "alive", Qt::black);
-    Grid* golStartGrid = new Grid(golStates[0], simulatorWidget->width(), simulatorWidget->height());
+    Grid* golStartGrid = new Grid(golStates[0], simulatorWidget->getNbCols(), simulatorWidget->getNbRows());
     automataManager->addAutomata(golStates, new GOLTransition(), new VonNeumannNeighborhood(*golStartGrid), 2,
                                  "Game of Life", "Game of Life Automata", "Conway", 1970);
     // Brian's Brain automata
     CellState** bbStates = new CellState*[3];
-    golStates[0] = new CellState(0, "off", Qt::white);
-    golStates[1] = new CellState(1, "dying", Qt::blue);
-    golStates[2] = new CellState(1, "on", Qt::black);
-    Grid* bbStartGrid = new Grid(bbStates[0], simulatorWidget->width(), simulatorWidget->height());
+    bbStates[0] = new CellState(0, "off", Qt::white);
+    bbStates[1] = new CellState(1, "dying", Qt::blue);
+    bbStates[2] = new CellState(1, "on", Qt::black);
+    Grid* bbStartGrid = new Grid(bbStates[0], simulatorWidget->getNbCols(), simulatorWidget->getNbRows());
     automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(*bbStartGrid), 3,
                                  "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
     for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
@@ -51,6 +51,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     nbRowsSpb = new QSpinBox(this);
     nbColsSpb = new QSpinBox(this);
 
+    initEventHandler();
 
     // Init data
     loadAutomatas();
@@ -88,9 +89,6 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     mainLayout->addLayout(gridConfigLayout);
 
     setLayout(mainLayout);
-
-    initEventHandler();
-
 }
 
 ControlPanel::~ControlPanel() {

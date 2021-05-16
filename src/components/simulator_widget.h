@@ -37,6 +37,8 @@ class SimulatorWidget : public QWidget {
     void updateGrid();
     void initButtons();
     void setButtonIcon(QPushButton* btn, const QString& path);
+    int getNbCols() const;
+    int getNbRows() const;
 
   signals:
 

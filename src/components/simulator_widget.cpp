@@ -33,24 +33,37 @@ void SimulatorWidget::initButtons() {
 }
 
 void SimulatorWidget::updateGrid() {
-    // TODO: Show cells
     cleanGrid();
+    if (this->simulator->getAutomata() == nullptr) {
+        return;
+    }
+    this->simulator->setStartGrid(new Grid(simulator->getAutomata()->getNbStates(),
+                                           simulator->getAutomata()->getAvailableStates(),
+                                           this->nbCols, this->nbRows));
+
     gridLayout->setAlignment(Qt::AlignCenter);
     gridLayout->setSpacing(2);
     cellWidgets = new CellWidget*[nbRows * nbCols];
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize);
+            cellWidgets[r * nbCols + c]->setColor(simulator->getIterator().current().getCell(r, c)->getState()->getColor());
             gridLayout->addWidget(cellWidgets[r * nbCols + c], r, c);
         }
     }
     adjustSize();
 }
 
+int SimulatorWidget::getNbRows() const {
+    return this->nbRows;
+}
 void SimulatorWidget::setNbRows(int nbRows) {
     cleanGrid();
     this->nbRows = nbRows;
     updateGrid();
+}
+int SimulatorWidget::getNbCols() const {
+    return this->nbCols;
 }
 void SimulatorWidget::setNbCols(int nbCols) {
     cleanGrid();
@@ -65,9 +78,12 @@ void SimulatorWidget::setCellSize(int size) {
 
 void SimulatorWidget::setAutomata(int index) {
     this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));
+    updateGrid();
 }
 
 SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent) {
+    simulator = new Simulator(nullptr, 100);
+
     this->nbCols = nbCols;
     this->nbRows = nbRows;
     this->cellSize = cellSize;
@@ -82,8 +98,6 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
     setLayout(simulatorLayout);
 
     adjustSize();
-
-    simulator = new Simulator(nullptr, 100);
 }
 
 void SimulatorWidget::cleanGrid() {

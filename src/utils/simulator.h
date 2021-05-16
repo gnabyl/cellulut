@@ -9,7 +9,7 @@ class Simulator {
   private:
     Automata* automata;
     int bufferSize;
-    const Grid* startGrid = nullptr; // il faut ajouter un pointeur dans l'UML
+    Grid* startGrid = nullptr; // il faut ajouter un pointeur dans l'UML
     Grid** grids = nullptr;
     // Gridfactory gridFactory
     int gridIDcurrent = 0; // il s'agit du rang
@@ -30,7 +30,7 @@ class Simulator {
 
     void allocateBuffer();
 
-    void setStartGrid(const Grid& g);
+    void setStartGrid(Grid* g);
 
     void reset();
 

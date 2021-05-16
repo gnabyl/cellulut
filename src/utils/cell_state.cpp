@@ -7,13 +7,13 @@ void CellState::setLabel(std::string s) {
     this->label = s;
 }
 
-void CellState::setCol(color c) {
+void CellState::setColor(QColor c) {
     this->col = c;
 }
 int CellState::getId() const {
     return this->id;
 }
-QColor CellState::getCol() const {
+QColor CellState::getColor() const {
     return this->col;
 }
 std::string CellState::getLabel() const {
