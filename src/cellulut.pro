@@ -6,6 +6,7 @@ HEADERS += \
     components/main_window.h \
     components/menubar.h \
     components/simulator_widget.h \
+    utils/simulator.h \
     utils/automata.h \
     utils/automata_manager.h \
     utils/cell.h \
@@ -21,6 +22,7 @@ SOURCES += \
     components/menubar.cpp \
     components/simulator_widget.cpp \
     main.cpp \
+    utils/simulator.cpp \
     utils/automata.cpp \
     utils/automata_manager.cpp \
     utils/cell.cpp \

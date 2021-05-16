@@ -28,7 +28,7 @@ class Automata {
     friend class AutomataManager;
 
   public:
-    Grid& applyTransition(const Grid& src) const;
+    Grid& applyTransition(Grid *src) const;
 
     //Getters & Setters
     void setName(const string n) {
