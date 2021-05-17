@@ -32,22 +32,26 @@ void SimulatorWidget::initButtons() {
     controllerLayout->addWidget(btnNext);
 }
 
-void SimulatorWidget::updateGrid() {
-    cleanGrid();
+void SimulatorWidget::updateSimulatorGrid() {
     if (this->simulator->getAutomata() == nullptr) {
         return;
     }
     this->simulator->setStartGrid(new Grid(simulator->getAutomata()->getNbStates(),
                                            simulator->getAutomata()->getAvailableStates(),
                                            this->nbCols, this->nbRows));
+}
 
+void SimulatorWidget::updateGridDisplay() {
+    if (simulator->getIterator().current() == nullptr) {
+        return;
+    }
     gridLayout->setAlignment(Qt::AlignCenter);
     gridLayout->setSpacing(2);
     cellWidgets = new CellWidget*[nbRows * nbCols];
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize);
-            cellWidgets[r * nbCols + c]->setColor(simulator->getIterator().current().getCell(r, c)->getState()->getColor());
+            cellWidgets[r * nbCols + c]->setColor(simulator->getIterator().current()->getCell(r, c)->getState()->getColor());
             gridLayout->addWidget(cellWidgets[r * nbCols + c], r, c);
         }
     }
@@ -60,7 +64,8 @@ int SimulatorWidget::getNbRows() const {
 void SimulatorWidget::setNbRows(int nbRows) {
     cleanGrid();
     this->nbRows = nbRows;
-    updateGrid();
+    updateSimulatorGrid();
+    updateGridDisplay();
 }
 int SimulatorWidget::getNbCols() const {
     return this->nbCols;
@@ -68,17 +73,20 @@ int SimulatorWidget::getNbCols() const {
 void SimulatorWidget::setNbCols(int nbCols) {
     cleanGrid();
     this->nbCols = nbCols;
-    updateGrid();
+    updateSimulatorGrid();
+    updateGridDisplay();
 }
 void SimulatorWidget::setCellSize(int size) {
     cleanGrid();
     this->cellSize = size;
-    updateGrid();
+    updateGridDisplay();
 }
 
 void SimulatorWidget::setAutomata(int index) {
     this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));
-    updateGrid();
+    cleanGrid();
+    updateSimulatorGrid();
+    updateGridDisplay();
 }
 
 SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent) {
@@ -90,7 +98,7 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
 
     initLayout();
     initButtons();
-    updateGrid();
+    updateGridDisplay();
 
     simulatorLayout->addLayout(gridLayout);
     simulatorLayout->addLayout(controllerLayout);

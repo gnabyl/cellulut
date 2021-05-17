@@ -135,7 +135,7 @@ void Simulator::Iterator::previousGrid() {
     gridID--;
 }
 
-Grid& Simulator::Iterator::current() const {
+Grid* Simulator::Iterator::current() const {
     if(isDone()) throw "Issue : current on finite iteraror !";
-    return *sim->grids[gridID % sim->bufferSize];
+    return sim->grids[gridID % sim->bufferSize];
 }

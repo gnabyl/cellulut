@@ -65,7 +65,7 @@ class Simulator {
 
         void nextGrid();
 
-        Grid& current() const;
+        Grid* current() const;
 
         //operator!=(): bool
     };

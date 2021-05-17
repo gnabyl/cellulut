@@ -34,7 +34,8 @@ class SimulatorWidget : public QWidget {
     ~SimulatorWidget();
     void initLayout();
     void cleanGrid();
-    void updateGrid();
+    void updateGridDisplay();
+    void updateSimulatorGrid();
     void initButtons();
     void setButtonIcon(QPushButton* btn, const QString& path);
     int getNbCols() const;
