@@ -1,9 +1,8 @@
 #include "cell_widget.h"
 
-CellWidget::CellWidget(QWidget* parent, int cellSize) : QWidget(parent) {
+CellWidget::CellWidget(QWidget* parent, int cellSize, QString label) : QWidget(parent), label(label) {
     setFixedSize(cellSize, cellSize);
     setAutoFillBackground(true);
-    setColor(Qt::white);
 }
 
 

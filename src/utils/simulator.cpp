@@ -1,4 +1,3 @@
-#include <cstddef>
 #include "simulator.h"
 
 void Simulator::allocateBuffer() {

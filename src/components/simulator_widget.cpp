@@ -50,7 +50,7 @@ void SimulatorWidget::updateGridDisplay() {
     cellWidgets = new CellWidget*[nbRows * nbCols];
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
-            cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize);
+            cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize, QString(simulator->getIterator().current()->getCell(r, c)->getState()->getLabel().c_str()));
             cellWidgets[r * nbCols + c]->setColor(simulator->getIterator().current()->getCell(r, c)->getState()->getColor());
             gridLayout->addWidget(cellWidgets[r * nbCols + c], r, c);
         }
@@ -115,10 +115,8 @@ void SimulatorWidget::cleanGrid() {
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             gridLayout->removeWidget(cellWidgets[r * nbCols + c]);
+            delete cellWidgets[r * nbCols + c];
         }
-    }
-    for (int i = 0; i < nbRows * nbCols; i ++) {
-        delete cellWidgets[i];
     }
     delete [] cellWidgets;
     cellWidgets = nullptr;
