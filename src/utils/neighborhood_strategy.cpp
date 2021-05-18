@@ -30,6 +30,25 @@ VonNeumannNeighborhood::VonNeumannNeighborhood(const Grid g): nb_cells(g.getHeig
     }
 }
 
+//dx = [3 -3 2 2] : transmis par frontend
+//dy = [2 2 -3 3] : transmis par frontend
+//nbvoisin
+//        getX + dx[i], getY + dy[i]
+
+//Cell** getNeighbors(Cell *c, Grid *g) {
+//    for (int k = i - 1; k < i + 1 ; k++) {
+//        for (int l = j - 1; l < j + 1 ; l++) {
+//            //coordonnée cellule voisine
+//            int x = (k + g.getHeight()) % g.getHeight();
+//            int y = (l + g.getWidth()) % g.getWidth();
+//            if((abs(x - 1) + abs(y - j)) == 1) {
+//                neighborhood[m][n] = g.getCell(x, y);
+//                n++;
+//            }
+//        }
+//    }
+//}
+
 VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(const Grid g, int radius): nb_neighbors(radius * radius + (radius + 1) * ((radius + 1)) - 1 ), nb_cells(g.getHeight() * g.getWidth()) {
     neighborhood = new Cell** [g.getHeight()*g.getWidth()];
     for (int i = 0; i < g.getHeight()*g.getWidth() ; i++) {
@@ -55,22 +74,22 @@ VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(const Grid 
     }
 }
 
-MooreNeighborhood::MooreNeighborhood(const Grid g): nb_cells(g.getHeight() * g.getWidth()) {
-    neighborhood = new Cell** [g.getHeight()*g.getWidth()];
-    for (int i = 0; i < g.getHeight()*g.getWidth() ; i++) {
+MooreNeighborhood::MooreNeighborhood(Grid *g): nb_cells(g->getHeight() * g->getWidth()) {
+    neighborhood = new Cell** [g->getHeight()*g->getWidth()];
+    for (int i = 0; i < g->getHeight()*g->getWidth() ; i++) {
         neighborhood[i] = new Cell*[this->nb_neighbors];
     }
     int m = 0; // numero de la cellule
-    for(int i = 0; i < g.getHeight(); i++) {
-        for (int j = 0; j < g.getWidth() ; j++) {
+    for(int i = 0; i < g->getHeight(); i++) {
+        for (int j = 0; j < g->getWidth() ; j++) {
             int n = 0; // indice voisin de la cellule
-            for (int k = i - 1; k < i + 1 ; k++) {
-                for (int l = j - 1; l < j + 1 ; l++) {
+            for (int k = i - 1; k <= i + 1; k++) {
+                for (int l = j - 1; l <= j + 1 ; l++) {
                     //coordonnée cellule voisine
-                    int x = (k + g.getHeight()) % g.getHeight();
-                    int y = (l + g.getWidth()) % g.getWidth();
-                    if(abs(x - i) == 1 && abs(y - j) == 1) {
-                        neighborhood[m][n] = g.getCell(x, y);
+                    int x = (k + g->getHeight()) % g->getHeight();
+                    int y = (l + g->getWidth()) % g->getWidth();
+                    if((k != i) || (l != j)) {
+                        neighborhood[m][n] = g->getCell(x, y);
                         n++;
                     }
                 }

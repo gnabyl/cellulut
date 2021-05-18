@@ -1,6 +1,5 @@
 #ifndef LO21_AUTOMATAMANAGER_H
 #define LO21_AUTOMATAMANAGER_H
-#include <iostream>
 #include "automata.h"
 #include "transition_strategy.h"
 #include "neighborhood_strategy.h"

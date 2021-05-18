@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     centralWidget = new QWidget(this);
 
     mainMenuBar = new MenuBar(this);
-    simulatorWidget = new SimulatorWidget(this, 20, 20, 20);
+    simulatorWidget = new SimulatorWidget(this, 5, 5, 50);
     controlPanel = new ControlPanel(this, simulatorWidget);
 
     // Add components

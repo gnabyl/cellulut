@@ -1,7 +1,6 @@
 #ifndef LO21_AUTOMATA_H
 #define LO21_AUTOMATA_H
 #include <string>
-#include <iostream>
 #include "transition_strategy.h"
 #include "neighborhood_strategy.h"
 #include "cell_state.h"
@@ -28,7 +27,7 @@ class Automata {
     friend class AutomataManager;
 
   public:
-    Grid& applyTransition(Grid *src) const;
+    Grid* applyTransition(Grid *src) const;
 
     //Getters & Setters
     void setName(const string n) {

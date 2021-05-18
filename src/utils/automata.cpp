@@ -1,5 +1,4 @@
 #include <string>
-#include <iostream>
 #include "automata.h"
 using namespace std;
 
@@ -30,7 +29,7 @@ Automata::~Automata() {
     }
 }
 
-Grid& Automata::applyTransition(Grid* src) const {
+Grid* Automata::applyTransition(Grid* src) const {
     Grid* dst = new Grid(availableStates[0], src->getWidth(), src->getHeight());
     for(int i = 0; i < src->getHeight(); i++) {
         for(int j = 0; j < src->getWidth(); j++) {
@@ -42,7 +41,7 @@ Grid& Automata::applyTransition(Grid* src) const {
                                                           nbStates), i, j);
         }
     }
-    return *dst;
+    return dst;
 }
 
 void Automata::setAvailableStates(CellState** c, int taille) {

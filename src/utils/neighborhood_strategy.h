@@ -4,6 +4,8 @@
 
 #ifndef LO21_NEIGHBORHOODSTRATEGY_H
 #define LO21_NEIGHBORHOODSTRATEGY_H
+
+#include <iostream>
 #include<utility>
 #include "cell.h"
 #include "grid.h"
@@ -56,7 +58,7 @@ class MooreNeighborhood: public NeighborhoodStrategy {
     int nb_neighbors = 8;
     int nb_cells;
   public:
-    MooreNeighborhood(const Grid g);
+    MooreNeighborhood(Grid* g);
     ~MooreNeighborhood() {
         for(int i = 0; i < nb_cells; i++ ) delete[] neighborhood[i];
         delete[] neighborhood;

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "automata.h"
 #include "automata_manager.h"
 

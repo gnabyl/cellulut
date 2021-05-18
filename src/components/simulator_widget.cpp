@@ -13,6 +13,18 @@ void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
     btn->setFixedSize(30, 30);
 }
 
+void SimulatorWidget::btnNextClicked() {
+    try {
+        simulator->next();
+        cleanGrid();
+        updateGridDisplay();
+    }  catch (TransitionException e) {
+        QMessageBox msgBox;
+        msgBox.setText(QString(e.getInfo().c_str()));
+        msgBox.exec();
+    }
+}
+
 void SimulatorWidget::initButtons() {
     btnPlay = new QPushButton(this);
     btnPrev = new QPushButton(this);
@@ -30,6 +42,8 @@ void SimulatorWidget::initButtons() {
     controllerLayout->addWidget(btnPlay);
     controllerLayout->addWidget(btnReset);
     controllerLayout->addWidget(btnNext);
+
+    connect(btnNext, &QPushButton::clicked, this, &SimulatorWidget::btnNextClicked);
 }
 
 void SimulatorWidget::updateSimulatorGrid() {

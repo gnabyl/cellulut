@@ -12,15 +12,15 @@ void ControlPanel::loadAutomatas() {
     golStates[0] = new CellState(0, "dead", Qt::white);
     golStates[1] = new CellState(1, "alive", Qt::black);
     Grid* golStartGrid = new Grid(golStates[0], simulatorWidget->getNbCols(), simulatorWidget->getNbRows());
-    automataManager->addAutomata(golStates, new GOLTransition(), new VonNeumannNeighborhood(*golStartGrid), 2,
+    automataManager->addAutomata(golStates, new GOLTransition(), new MooreNeighborhood(golStartGrid), 2,
                                  "Game of Life", "Game of Life Automata", "Conway", 1970);
     // Brian's Brain automata
     CellState** bbStates = new CellState*[3];
     bbStates[0] = new CellState(0, "off", Qt::white);
     bbStates[1] = new CellState(1, "dying", Qt::blue);
-    bbStates[2] = new CellState(1, "on", Qt::black);
+    bbStates[2] = new CellState(2, "on", Qt::black);
     Grid* bbStartGrid = new Grid(bbStates[0], simulatorWidget->getNbCols(), simulatorWidget->getNbRows());
-    automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(*bbStartGrid), 3,
+    automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(bbStartGrid), 3,
                                  "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
     for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
         automataCbb->addItem(QString(automataManager->getAutomata(i)->getName().c_str()));
@@ -56,12 +56,12 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     // Init data
     loadAutomatas();
     nbRowsSpb->setKeyboardTracking(false);
-    nbRowsSpb->setValue(20);
+    nbRowsSpb->setValue(simulatorWidget->getNbRows());
     nbRowsSpb->setMaximum(100);
     nbRowsSpb->setMinimum(2);
 
     nbColsSpb->setKeyboardTracking(false);
-    nbColsSpb->setValue(20);
+    nbColsSpb->setValue(simulatorWidget->getNbCols());
     nbColsSpb->setMaximum(100);
     nbColsSpb->setMinimum(2);
 

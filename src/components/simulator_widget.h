@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QIcon>
+#include <QMessageBox>
 #include "cell_widget.h"
 #include "utils/simulator.h"
 #include "utils/automata_manager.h"
@@ -48,6 +49,8 @@ class SimulatorWidget : public QWidget {
     void setNbCols(int nbCols);
     void setCellSize(int size);
     void setAutomata(int index);
+
+    void btnNextClicked();
 };
 
 #endif // SIMULATOR_WIDGET_H

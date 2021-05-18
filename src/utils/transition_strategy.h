@@ -1,7 +1,6 @@
 #ifndef TRANSITION_STRATEGY_H
 #define TRANSITION_STRATEGY_H
 
-#include <iostream>
 #include <string>
 #include "neighborhood_strategy.h"
 #include "cell_state.h"
