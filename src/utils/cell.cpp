@@ -16,5 +16,5 @@ int Cell::getX() const {
 }
 
 int Cell::getY() const {
-    return this->x;
+    return this->y;
 }

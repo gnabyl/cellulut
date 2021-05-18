@@ -54,8 +54,8 @@ Grid& Grid::operator= (const Grid& g) {
         }
         Cell*** newcells = new Cell** [g.height];
         for(int i = 0; i < g.height; i++) newcells[i] = new Cell*[g.width];
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
                 newcells[i][j] = g.cells[i][j];
             }
         }
