@@ -13,7 +13,6 @@
 
 class NeighborhoodStrategy {
   public:
-    virtual Cell*** getNeighborhood() const = 0;
     virtual Cell** getNeighbors(Cell *c, Grid *g) = 0;
     virtual int getNbNeighbors() const = 0 ;
 };
@@ -57,20 +56,16 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
     virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
 class MooreNeighborhood: public NeighborhoodStrategy {
-    Cell*** neighborhood;
+    Cell** neighbors;
     int nbNeighbors = 8;
-    int nbCells;
   public:
-    MooreNeighborhood(Grid* g);
+    MooreNeighborhood();
     ~MooreNeighborhood() {
-        for(int i = 0; i < nbCells; i++ ) delete[] neighborhood[i];
-        delete[] neighborhood;
+        for(int i = 0; i < nbNeighbors; i++ ) delete neighbors[i];
+        delete[] neighbors;
     }
     int getNbNeighbors() const {
         return nbNeighbors;
-    }
-    Cell*** getNeighborhood() const {
-        return neighborhood;
     }
     virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
