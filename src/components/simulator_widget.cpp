@@ -91,6 +91,7 @@ void SimulatorWidget::resetGridDisplay() {
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize, r, c, QString(currentGrid->getCell(r, c)->getState()->getLabel().c_str()));
+            connect(cellWidgets[r * nbCols + c], SIGNAL(clicked(int, int)), this, SLOT(changeCellState(int, int)));
             cellWidgets[r * nbCols + c]->setColor(currentGrid->getCell(r, c)->getState()->getColor());
             gridLayout->addWidget(cellWidgets[r * nbCols + c], r, c);
         }
@@ -118,6 +119,14 @@ void SimulatorWidget::setNbCols(int nbCols) {
 }
 void SimulatorWidget::setCellSize(int size) {
     this->cellSize = size;
+    updateGridDisplay();
+}
+
+void SimulatorWidget::changeCellState(int x, int y) {
+    Grid* currentGrid = simulator->getIterator().current();
+    int newStateID = (currentGrid->getCell(x, y)->getState()->getId() + 1) % (simulator->getAutomata()->getNbStates());
+    CellState* newState = simulator->getAutomata()->getAvailableStates()[newStateID];
+    currentGrid->getCell(x, y)->setState(newState);
     updateGridDisplay();
 }
 

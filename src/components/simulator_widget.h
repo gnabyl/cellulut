@@ -50,6 +50,7 @@ class SimulatorWidget : public QWidget {
     void setNbCols(int nbCols);
     void setCellSize(int size);
     void setAutomata(int index);
+    void changeCellState(int x, int y);
 
     void btnNextClicked();
     void btnResetClicked();

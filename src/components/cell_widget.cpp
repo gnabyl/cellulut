@@ -16,3 +16,14 @@ void CellWidget::setColor(const QColor& color) {
 void CellWidget::setSize(int size) {
     setFixedSize(size, size);
 }
+
+void CellWidget::mousePressEvent(QMouseEvent *event) {
+    mouseClicked = true;
+}
+
+void CellWidget::mouseReleaseEvent(QMouseEvent *event) {
+    if (mouseClicked) {
+        mouseClicked = false;
+        emit clicked(x, y);
+    }
+}
