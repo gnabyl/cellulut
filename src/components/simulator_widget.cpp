@@ -16,7 +16,6 @@ void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
 void SimulatorWidget::btnNextClicked() {
     try {
         simulator->next();
-        cleanGrid();
         updateGridDisplay();
     }  catch (TransitionException e) {
         QMessageBox msgBox;
@@ -46,7 +45,7 @@ void SimulatorWidget::initButtons() {
     connect(btnNext, &QPushButton::clicked, this, &SimulatorWidget::btnNextClicked);
 }
 
-void SimulatorWidget::updateSimulatorGrid() {
+void SimulatorWidget::regenerateRandomGrid() {
     if (this->simulator->getAutomata() == nullptr) {
         return;
     }
@@ -56,6 +55,18 @@ void SimulatorWidget::updateSimulatorGrid() {
 }
 
 void SimulatorWidget::updateGridDisplay() {
+    if (simulator->getIterator().current() == nullptr) {
+        return;
+    }
+    for (int r = 0; r < nbRows; r ++) {
+        for (int c = 0; c < nbCols; c ++) {
+            cellWidgets[r * nbCols + c]->setColor(simulator->getIterator().current()->getCell(r, c)->getState()->getColor());
+            cellWidgets[r * nbCols + c]->setSize(cellSize);
+        }
+    }
+}
+
+void SimulatorWidget::resetGridDisplay() {
     if (simulator->getIterator().current() == nullptr) {
         return;
     }
@@ -78,8 +89,8 @@ int SimulatorWidget::getNbRows() const {
 void SimulatorWidget::setNbRows(int nbRows) {
     cleanGrid();
     this->nbRows = nbRows;
-    updateSimulatorGrid();
-    updateGridDisplay();
+    regenerateRandomGrid();
+    resetGridDisplay();
 }
 int SimulatorWidget::getNbCols() const {
     return this->nbCols;
@@ -87,11 +98,10 @@ int SimulatorWidget::getNbCols() const {
 void SimulatorWidget::setNbCols(int nbCols) {
     cleanGrid();
     this->nbCols = nbCols;
-    updateSimulatorGrid();
-    updateGridDisplay();
+    regenerateRandomGrid();
+    resetGridDisplay();
 }
 void SimulatorWidget::setCellSize(int size) {
-    cleanGrid();
     this->cellSize = size;
     updateGridDisplay();
 }
@@ -99,8 +109,8 @@ void SimulatorWidget::setCellSize(int size) {
 void SimulatorWidget::setAutomata(int index) {
     this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));
     cleanGrid();
-    updateSimulatorGrid();
-    updateGridDisplay();
+    regenerateRandomGrid();
+    resetGridDisplay();
 }
 
 SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent) {
@@ -112,7 +122,7 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
 
     initLayout();
     initButtons();
-    updateGridDisplay();
+    resetGridDisplay();
 
     simulatorLayout->addLayout(gridLayout);
     simulatorLayout->addLayout(controllerLayout);

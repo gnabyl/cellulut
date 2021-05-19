@@ -8,14 +8,16 @@ class CellWidget : public QWidget {
     Q_OBJECT
   public:
     explicit CellWidget() = default;
-    explicit CellWidget(QWidget* parent, int cellSize, QString label = QString(""));
+    explicit CellWidget(QWidget* parent, int cellSize, int x, int y, QString label = QString(""));
     void setColor(const QColor& color);
+    void setSize(int size);
 
   private:
     QString label;
+    int x, y;
 
   signals:
-
+    void clicked(int x, int y);
 };
 
 #endif // CELL_WIDGET_H

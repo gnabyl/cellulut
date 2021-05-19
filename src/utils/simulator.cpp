@@ -9,6 +9,7 @@ void Simulator::allocateBuffer() {
             }
         }
         delete[] grids;
+        grids = nullptr;
     }
     grids = new Grid*[bufferSize];
     for(int i = 0; i < bufferSize; i++) grids[i] = nullptr;
@@ -39,6 +40,7 @@ Simulator::Simulator(Automata* a, Grid& startG, int buf): automata(a),  bufferSi
 void Simulator::setStartGrid(Grid *g) {
     if (startGrid != nullptr) {
         delete startGrid;
+        startGrid = nullptr;
     }
     startGrid = g;
     // reset(); // Important à revoir
@@ -56,6 +58,7 @@ void Simulator::next() {
 
     if (grids[gridIDcurrent % bufferSize]) {
         delete grids[gridIDcurrent % bufferSize];
+        grids[gridIDcurrent % bufferSize] = nullptr;
     }
     grids[gridIDcurrent % bufferSize] = automata->applyTransition(grids[(gridIDcurrent - 1) % bufferSize]);
 }
@@ -84,8 +87,12 @@ void Simulator::build(int ID)
 }*/
 
 Simulator::~Simulator() {
-    for(int i = 0; i < bufferSize; i++) delete grids[i];
+    for(int i = 0; i < bufferSize; i++) {
+        delete grids[i];
+        grids[i] = nullptr;
+    }
     delete[] grids;
+    grids = nullptr;
 }
 
 

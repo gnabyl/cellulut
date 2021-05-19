@@ -2,8 +2,11 @@
 
 Grid::~Grid() {
     for(int i = 0; i < height; i++)
-        for(int j = 0; j < width; j++)
-            delete cells[i][j];
+        for(int j = 0; j < width; j++) {
+            if (cells[i][j]) {
+                delete cells[i][j];
+            }
+        }
     delete[] cells;
     cells = nullptr;
 }
@@ -33,7 +36,7 @@ Grid::Grid(int nbStates, CellState** availableStates, int w, int h) {
     }
 }
 
-Grid::Grid(const Grid& g): width(g.width), height(g.height), cells(new Cell **[g.height]) {
+Grid::Grid(const Grid& g): width(g.width), height(g.height), cells(new Cell * * [g.height]) {
     for(int i = 0; i < g.height; i++) {
         this->cells[i] = new Cell*[g.width];
         for(int j = 0; j < g.width; j++) {
