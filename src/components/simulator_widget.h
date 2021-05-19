@@ -52,6 +52,7 @@ class SimulatorWidget : public QWidget {
     void setAutomata(int index);
 
     void btnNextClicked();
+    void btnResetClicked();
 };
 
 #endif // SIMULATOR_WIDGET_H

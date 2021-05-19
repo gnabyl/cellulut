@@ -5,6 +5,9 @@ void SimulatorWidget::initLayout() {
     gridLayout = new QGridLayout(this);
     controllerLayout = new QHBoxLayout(this);
     configBtnLayout = new QHBoxLayout(this);
+
+    gridLayout->setAlignment(Qt::AlignCenter);
+    gridLayout->setSpacing(2);
 }
 
 void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
@@ -16,6 +19,17 @@ void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
 void SimulatorWidget::btnNextClicked() {
     try {
         simulator->next();
+        updateGridDisplay();
+    }  catch (TransitionException e) {
+        QMessageBox msgBox;
+        msgBox.setText(QString(e.getInfo().c_str()));
+        msgBox.exec();
+    }
+}
+
+void SimulatorWidget::btnResetClicked() {
+    try {
+        simulator->reset();
         updateGridDisplay();
     }  catch (TransitionException e) {
         QMessageBox msgBox;
@@ -43,6 +57,7 @@ void SimulatorWidget::initButtons() {
     controllerLayout->addWidget(btnNext);
 
     connect(btnNext, &QPushButton::clicked, this, &SimulatorWidget::btnNextClicked);
+    connect(btnReset, &QPushButton::clicked, this, &SimulatorWidget::btnResetClicked);
 }
 
 void SimulatorWidget::regenerateRandomGrid() {
@@ -72,8 +87,6 @@ void SimulatorWidget::resetGridDisplay() {
     if (currentGrid == nullptr) {
         return;
     }
-    gridLayout->setAlignment(Qt::AlignCenter);
-    gridLayout->setSpacing(2);
     cellWidgets = new CellWidget*[nbRows * nbCols];
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
