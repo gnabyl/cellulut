@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QIcon>
 #include <QMessageBox>
+#include <QTimer>
 #include "cell_widget.h"
 #include "utils/simulator.h"
 #include "utils/automata_manager.h"
@@ -27,7 +28,11 @@ class SimulatorWidget : public QWidget {
 
     QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset;
 
+    QTimer* timer;
+
     Simulator* simulator;
+
+    bool playing = false;
 
 
   public:
@@ -52,6 +57,7 @@ class SimulatorWidget : public QWidget {
     void setAutomata(int index);
     void changeCellState(int x, int y);
 
+    void btnPlayPauseClicked();
     void btnNextClicked();
     void btnResetClicked();
 };

@@ -16,6 +16,18 @@ void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
     btn->setFixedSize(30, 30);
 }
 
+void SimulatorWidget::btnPlayPauseClicked() {
+    if (!playing) {
+        playing = true;
+        timer->start(1000);
+        setButtonIcon(btnPlay, ":assets/pause-button.png");
+    } else {
+        playing = false;
+        timer->stop();
+        setButtonIcon(btnPlay, ":assets/play-button.png");
+    }
+}
+
 void SimulatorWidget::btnNextClicked() {
     try {
         simulator->next();
@@ -56,6 +68,7 @@ void SimulatorWidget::initButtons() {
     controllerLayout->addWidget(btnReset);
     controllerLayout->addWidget(btnNext);
 
+    connect(btnPlay, &QPushButton::clicked, this, &SimulatorWidget::btnPlayPauseClicked);
     connect(btnNext, &QPushButton::clicked, this, &SimulatorWidget::btnNextClicked);
     connect(btnReset, &QPushButton::clicked, this, &SimulatorWidget::btnResetClicked);
 }
@@ -91,7 +104,7 @@ void SimulatorWidget::resetGridDisplay() {
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize, r, c, QString(currentGrid->getCell(r, c)->getState()->getLabel().c_str()));
-            connect(cellWidgets[r * nbCols + c], SIGNAL(clicked(int, int)), this, SLOT(changeCellState(int, int)));
+            connect(cellWidgets[r * nbCols + c], &CellWidget::clicked, this, &SimulatorWidget::changeCellState);
             cellWidgets[r * nbCols + c]->setColor(currentGrid->getCell(r, c)->getState()->getColor());
             gridLayout->addWidget(cellWidgets[r * nbCols + c], r, c);
         }
@@ -147,6 +160,9 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
     initLayout();
     initButtons();
     resetGridDisplay();
+
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &SimulatorWidget::btnNextClicked);
 
     simulatorLayout->addLayout(gridLayout);
     simulatorLayout->addLayout(controllerLayout);
