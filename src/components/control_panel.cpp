@@ -11,7 +11,7 @@ void ControlPanel::loadAutomatas() {
     CellState** golStates = new CellState*[2];
     golStates[0] = new CellState(0, "dead", Qt::white);
     golStates[1] = new CellState(1, "alive", Qt::black);
-    automataManager->addAutomata(golStates, new GOLTransition(), new MooreNeighborhood(), 2,
+    automataManager->addAutomata(golStates, new GOLTransition(), new MooreNeighborhoodGeneralized(1), 2,
                                  "Game of Life", "Game of Life Automata", "Conway", 1970);
     // Brian's Brain automata
     CellState** bbStates = new CellState*[3];

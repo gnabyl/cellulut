@@ -61,7 +61,6 @@ class MooreNeighborhood: public NeighborhoodStrategy {
   public:
     MooreNeighborhood();
     ~MooreNeighborhood() {
-        for(int i = 0; i < nbNeighbors; i++ ) delete neighbors[i];
         delete[] neighbors;
     }
     int getNbNeighbors() const {
@@ -71,21 +70,16 @@ class MooreNeighborhood: public NeighborhoodStrategy {
 };
 
 class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
-    Cell*** neighborhood;
+    Cell** neighbors;
     int radius;
-    int nbNeighbors;
-    int nbCells;
+    int nbNeighbors = 0;
   public:
-    MooreNeighborhoodGeneralized(const Grid g, int radius = 1);
+    MooreNeighborhoodGeneralized(int radius = 1);
     ~MooreNeighborhoodGeneralized() {
-        for(int i = 0; i < nbCells; i++ ) delete[] neighborhood[i];
-        delete[] neighborhood;
+        delete[] neighbors;
     }
     int getNbNeighbors() const {
         return nbNeighbors;
-    }
-    Cell*** getNeighborhood() const {
-        return neighborhood;
     }
     virtual Cell** getNeighbors(Cell *c, Grid *g);
 };

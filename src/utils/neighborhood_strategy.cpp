@@ -59,8 +59,6 @@ MooreNeighborhood::MooreNeighborhood() {
     neighbors = new Cell* [nbNeighbors];
 }
 
-
-
 Cell** MooreNeighborhood::getNeighbors(Cell *c, Grid *g) {
     int n=0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
@@ -77,28 +75,26 @@ Cell** MooreNeighborhood::getNeighbors(Cell *c, Grid *g) {
     return neighbors;
 }
 
-MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(const Grid g, int radius): nbNeighbors((2 * radius + 1) * (2 * radius + 1) - 1), nbCells(g.getHeight() * g.getWidth()) {
-    neighborhood = new Cell** [g.getHeight()*g.getWidth()];
-    for (int i = 0; i < g.getHeight()*g.getWidth() ; i++) {
-        neighborhood[i] = new Cell*[this->nbNeighbors];
-    }
+MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(int radius) {
+    this->radius = radius;
+    this->nbNeighbors = (2 * this->radius + 1) * (2 * this->radius + 1) - 1;
+    neighbors = new Cell* [nbNeighbors];
 }
 
 Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
-    int m=((c->getX()-1)*g->getWidth())+c->getY();
     int n=0;
-    for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
-        for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
+    for (int k = c->getX() - radius; k <= c->getX() + radius; k++) {
+        for (int l = c->getY() - radius; l <= c->getY()+ radius; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if(0 < abs(x - c->getX()) && 0 < abs(y - c->getY()) && abs(x - c->getX()) <=radius && abs(y - c->getY()) <= radius) {
-                neighborhood[m][n] = g->getCell(x, y);
+            if(x != c->getX() || y !=c->getY()) {
+                neighbors[n] = g->getCell(x, y);
                 n++;
             }
         }
     }
-    return neighborhood[m];
+    return neighbors;
 }
 
 //dx = [3 -3 2 2] : transmis par frontend
