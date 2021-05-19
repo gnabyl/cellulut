@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QPalette>
+#include <QMouseEvent>
+#include <QToolTip>
 
 class CellWidget : public QWidget {
     Q_OBJECT

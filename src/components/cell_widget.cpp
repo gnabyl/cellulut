@@ -3,6 +3,7 @@
 CellWidget::CellWidget(QWidget* parent, int cellSize, int x, int y, QString label) : QWidget(parent), label(label), x(x), y(y) {
     setFixedSize(cellSize, cellSize);
     setAutoFillBackground(true);
+    this->setToolTip(label);
 }
 
 
