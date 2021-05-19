@@ -35,7 +35,7 @@ Grid* Automata::applyTransition(Grid* src) const {
         for(int j = 0; j < src->getWidth(); j++) {
             //Pour chaque cellule on appele la méthode calcNextCell pour la modifier en fonction de son voisinage et de la fonction de transition
             dst->setCell(transitionStrategy->calcNextCell(src->getCell(i, j),
-                                                          neighborStrategy->getNeighborhood()[i * dst->getWidth() + j],
+                                                          neighborStrategy->getNeighbors(src->getCell(i, j), src),
                                                           neighborStrategy->getNbNeighbors(),
                                                           availableStates,
                                                           nbStates), i, j);

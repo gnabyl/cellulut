@@ -65,14 +65,14 @@ MooreNeighborhood::MooreNeighborhood(Grid *g): nbCells(g->getHeight() * g->getWi
 
 
 Cell** MooreNeighborhood::getNeighbors(Cell *c, Grid *g) {
-    int m=((c->getX()-1)*g->getWidth())+c->getY();
+    int m=(c->getX()*g->getWidth())+c->getY();
     int n=0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
         for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if(x != c->getX()||y !=c->getY()) {
+            if(x != c->getX() || y !=c->getY()) {
                 neighborhood[m][n] = g->getCell(x, y);
                 n++;
             }

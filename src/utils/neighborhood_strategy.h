@@ -14,7 +14,8 @@
 class NeighborhoodStrategy {
   public:
     virtual Cell*** getNeighborhood() const = 0;
-    virtual int getNbNeighbors()const = 0 ;
+    virtual Cell** getNeighbors(Cell *c, Grid *g) = 0;
+    virtual int getNbNeighbors() const = 0 ;
 };
 
 class VonNeumannNeighborhood: public NeighborhoodStrategy {
@@ -33,7 +34,7 @@ class VonNeumannNeighborhood: public NeighborhoodStrategy {
     Cell*** getNeighborhood() const {
         return neighborhood;
     }
-    Cell** getNeighbors(Cell *c, Grid *g);
+    virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
 
 class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
@@ -53,7 +54,7 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
     Cell*** getNeighborhood() const {
         return neighborhood;
     }
-    Cell** getNeighbors(Cell *c, Grid *g);
+    virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
 class MooreNeighborhood: public NeighborhoodStrategy {
     Cell*** neighborhood;
@@ -71,7 +72,7 @@ class MooreNeighborhood: public NeighborhoodStrategy {
     Cell*** getNeighborhood() const {
         return neighborhood;
     }
-    Cell** getNeighbors(Cell *c, Grid *g);
+    virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
 
 class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
@@ -91,7 +92,7 @@ class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
     Cell*** getNeighborhood() const {
         return neighborhood;
     }
-    Cell** getNeighbors(Cell *c, Grid *g);
+    virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
 
 class ArbitraryNeighborhood: public NeighborhoodStrategy {
@@ -110,7 +111,7 @@ class ArbitraryNeighborhood: public NeighborhoodStrategy {
     Cell*** getNeighborhood() const {
         return neighborhood;
     }
-    Cell** getNeighbors(Cell *c, Grid *g);
+    virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
 
 #endif //LO21_NEIGHBORHOODSTRATEGY_H
