@@ -1,22 +1,38 @@
-#include "controlpanel.h"
+#include "control_panel.h"
 #include <iostream>
 
-void ControlPanel::setAutomatas()
-{
-    for (int i = 0; i < 5; i ++) {
-        automataCbb->addItem(QString::fromUtf8(("Automata " + std::to_string(i)).c_str()));
+/*
+ * Pseudo function for loading automatas
+ * It should load automatas from database
+ */
+void ControlPanel::loadAutomatas() {
+    AutomataManager* automataManager = AutomataManager::getAutomataManager();
+    // Game Of Life automata
+    CellState** golStates = new CellState*[2];
+    golStates[0] = new CellState(0, "dead", Qt::white);
+    golStates[1] = new CellState(1, "alive", Qt::black);
+    automataManager->addAutomata(golStates, new GOLTransition(), new MooreNeighborhoodGeneralized(1), 2,
+                                 "Game of Life", "Game of Life Automata", "Conway", 1970);
+    // Brian's Brain automata
+    CellState** bbStates = new CellState*[3];
+    bbStates[0] = new CellState(0, "off", Qt::white);
+    bbStates[1] = new CellState(1, "dying", Qt::blue);
+    bbStates[2] = new CellState(2, "on", Qt::black);
+    automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(), 3,
+                                 "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
+    for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
+        automataCbb->addItem(QString(automataManager->getAutomata(i)->getName().c_str()));
     }
 }
 
-void ControlPanel::initEventHandler()
-{
+void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
+    connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
 }
 
-ControlPanel::ControlPanel(QWidget *parent, SimulatorWidget *simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget)
-{
+ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
     // Layouts
     automatasLayout = new QFormLayout;
     automataBtnLayout = new QHBoxLayout;
@@ -33,16 +49,17 @@ ControlPanel::ControlPanel(QWidget *parent, SimulatorWidget *simulatorWidget) : 
     nbRowsSpb = new QSpinBox(this);
     nbColsSpb = new QSpinBox(this);
 
+    initEventHandler();
 
     // Init data
-    setAutomatas();
+    loadAutomatas();
     nbRowsSpb->setKeyboardTracking(false);
-    nbRowsSpb->setValue(20);
+    nbRowsSpb->setValue(simulatorWidget->getNbRows());
     nbRowsSpb->setMaximum(100);
     nbRowsSpb->setMinimum(2);
 
     nbColsSpb->setKeyboardTracking(false);
-    nbColsSpb->setValue(20);
+    nbColsSpb->setValue(simulatorWidget->getNbCols());
     nbColsSpb->setMaximum(100);
     nbColsSpb->setMinimum(2);
 
@@ -70,12 +87,9 @@ ControlPanel::ControlPanel(QWidget *parent, SimulatorWidget *simulatorWidget) : 
     mainLayout->addLayout(gridConfigLayout);
 
     setLayout(mainLayout);
-
-    initEventHandler();
 }
 
-ControlPanel::~ControlPanel()
-{
+ControlPanel::~ControlPanel() {
     delete automatasLayout;
     delete automataBtnLayout;
     delete gridConfigLayout;

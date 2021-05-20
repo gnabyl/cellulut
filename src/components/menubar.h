@@ -4,12 +4,11 @@
 #include <QMenuBar>
 #include <QMainWindow>
 
-class MenuBar : public QMenuBar
-{
+class MenuBar : public QMenuBar {
     Q_OBJECT
-    QMenu *fileMenu, *editMenu, *runMenu;
-public:
-    MenuBar(QMainWindow *parent = nullptr);
+    QMenu* fileMenu, *editMenu, *runMenu;
+  public:
+    MenuBar(QMainWindow* parent = nullptr);
     ~MenuBar();
 };
 

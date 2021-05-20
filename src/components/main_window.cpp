@@ -1,7 +1,6 @@
-#include "mainwindow.h"
+#include "main_window.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
-{
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     // Window setup
     setWindowTitle("LO21 - CELLULUT - Automate Cellulaire");
 
@@ -10,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     centralWidget = new QWidget(this);
 
     mainMenuBar = new MenuBar(this);
-    simulatorWidget = new SimulatorWidget(this, 20, 20, 20);
+    simulatorWidget = new SimulatorWidget(this, 5, 5, 50);
     controlPanel = new ControlPanel(this, simulatorWidget);
 
     // Add components

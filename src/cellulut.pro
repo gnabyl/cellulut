@@ -1,18 +1,34 @@
 QT += widgets
 
 HEADERS += \
-    components/cellwidget.h \
-    components/controlpanel.h \
-    components/mainwindow.h \
+    components/cell_widget.h \
+    components/control_panel.h \
+    components/main_window.h \
     components/menubar.h \
-    components/simulatorwidget.h
+    components/simulator_widget.h \
+    utils/simulator.h \
+    utils/automata.h \
+    utils/automata_manager.h \
+    utils/cell.h \
+    utils/cell_state.h \
+    utils/grid.h \
+    utils/neighborhood_strategy.h \
+    utils/transition_strategy.h \
 
 SOURCES += \
-    components/cellwidget.cpp \
-    components/controlpanel.cpp \
-    components/mainwindow.cpp \
+    components/cell_widget.cpp \
+    components/control_panel.cpp \
+    components/main_window.cpp \
     components/menubar.cpp \
-    components/simulatorwidget.cpp \
-    main.cpp
+    components/simulator_widget.cpp \
+    main.cpp \
+    utils/simulator.cpp \
+    utils/automata.cpp \
+    utils/automata_manager.cpp \
+    utils/cell.cpp \
+    utils/cell_state.cpp \
+    utils/grid.cpp \
+    utils/neighborhood_strategy.cpp \
+    utils/transition_strategy.cpp \
 
 RESOURCES += ../assets/
