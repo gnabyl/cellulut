@@ -5,16 +5,13 @@
 #include "neighborhood_strategy.h"
 #include <cmath>
 
-VonNeumannNeighborhood::VonNeumannNeighborhood(const Grid g): nbCells(g.getHeight() * g.getWidth()) {
-    neighborhood = new Cell** [g.getHeight()*g.getWidth()];
-    for (int i = 0; i < g.getHeight()*g.getWidth() ; i++) {
-        neighborhood[i] = new Cell*[this->nbNeighbors];
-    }
+VonNeumannNeighborhood::VonNeumannNeighborhood(){
+    neighbors = new Cell* [nbNeighbors];
+
 }
 
 
 Cell** VonNeumannNeighborhood::getNeighbors(Cell *c, Grid *g) {
-    int m=((c->getX()-1)*g->getWidth())+c->getY();
     int n=0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
         for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
@@ -22,24 +19,22 @@ Cell** VonNeumannNeighborhood::getNeighbors(Cell *c, Grid *g) {
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
             if((abs(x - c->getX()) + abs(y - c->getY())) == 1) {
-                neighborhood[m][n] = g->getCell(x, y);
+                neighbors[n] = g->getCell(x, y);
                 n++;
             }
         }
     }
-    return neighborhood[m];
+    return neighbors;
 }
 
-VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(const Grid g, int radius): nbNeighbors(radius * radius + (radius + 1) * ((radius + 1)) - 1 ), nbCells(g.getHeight() * g.getWidth()) {
-    neighborhood = new Cell** [g.getHeight()*g.getWidth()];
-    for (int i = 0; i < g.getHeight()*g.getWidth() ; i++) {
-        neighborhood[i] = new Cell*[this->nbNeighbors];
-    }
+VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(int radius){
+    this->radius = radius;
+    this->nbNeighbors = this->radius * this->radius + (this->radius + 1) * ((this->radius + 1)) - 1 ;
+    neighbors = new Cell* [nbNeighbors];
 }
 
 
 Cell** VonNeumannNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
-    int m=((c->getX()-1)*g->getWidth())+c->getY();
     int n=0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
         for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
@@ -47,12 +42,12 @@ Cell** VonNeumannNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
             if((abs(x - c->getX()) + abs(y - c->getY())) > 0 && (abs(x - c->getX()) + abs(y - c->getY()))<=radius) {
-                neighborhood[m][n] = g->getCell(x, y);
+                neighbors[n] = g->getCell(x, y);
                 n++;
             }
         }
     }
-    return neighborhood[m];
+    return neighbors;
 }
 
 MooreNeighborhood::MooreNeighborhood() {

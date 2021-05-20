@@ -18,40 +18,36 @@ class NeighborhoodStrategy {
 };
 
 class VonNeumannNeighborhood: public NeighborhoodStrategy {
-    Cell*** neighborhood;
+    Cell** neighbors;
     int nbNeighbors = 4;
-    int nbCells;
   public:
-    VonNeumannNeighborhood(const Grid g );
+    VonNeumannNeighborhood();
     ~VonNeumannNeighborhood() {
-        for(int i = 0; i < nbCells; i++ ) delete[] neighborhood[i];
-        delete[] neighborhood;
+        delete[] neighbors;
     }
     int getNbNeighbors() const {
         return nbNeighbors;
     }
-    Cell*** getNeighborhood() const {
-        return neighborhood;
+    Cell** getNeighborhood() const {
+        return neighbors;
     }
     virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
 
 class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
-    Cell*** neighborhood;
+    Cell** neighbors;
     int radius;
     int nbNeighbors;
-    int nbCells;
   public:
-    VonNeumannNeighborhoodGeneralized(const Grid g, int radius = 1);
+    VonNeumannNeighborhoodGeneralized(int radius = 1);
     ~VonNeumannNeighborhoodGeneralized() {
-        for(int i = 0; i < nbCells; i++ ) delete[] neighborhood[i];
-        delete[] neighborhood;
+        delete[] neighbors;
     }
     int getNbNeighbors() const {
         return nbNeighbors;
     }
-    Cell*** getNeighborhood() const {
-        return neighborhood;
+    Cell** getNeighborhood() const {
+        return neighbors;
     }
     virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
@@ -72,7 +68,7 @@ class MooreNeighborhood: public NeighborhoodStrategy {
 class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
     Cell** neighbors;
     int radius;
-    int nbNeighbors = 0;
+    int nbNeighbors;
   public:
     MooreNeighborhoodGeneralized(int radius = 1);
     ~MooreNeighborhoodGeneralized() {
@@ -85,19 +81,18 @@ class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
 };
 
 class ArbitraryNeighborhood: public NeighborhoodStrategy {
-    Cell*** neighborhood;
+    Cell** neighborhood;
     int nbNeighbors;
     int nbCells;
   public:
     ArbitraryNeighborhood(const Grid g);
     ~ArbitraryNeighborhood() {
-        for(int i = 0; i < nbCells; i++ ) delete[] neighborhood[i];
         delete[] neighborhood;
     }
     int getNbNeighbors() const {
         return nbNeighbors;
     }
-    Cell*** getNeighborhood() const {
+    Cell** getNeighborhood() const {
         return neighborhood;
     }
     virtual Cell** getNeighbors(Cell *c, Grid *g);
