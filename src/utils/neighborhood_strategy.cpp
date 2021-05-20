@@ -98,23 +98,20 @@ Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
 //        getX + dx[i], getY + dy[i]
 
 
-//ArbitraryNeighborhood:: ArbitraryNeighborhood(const Grid g): nbCells(g.getHeight() * g.getWidth()),nbNeighbors(/* faire lien avec front*/) {
-//    neighborhood = new Cell** [g.getHeight()*g.getWidth()];
-//    for (int i = 0; i < g.getHeight()*g.getWidth() ; i++) {
-//        neighborhood[i] = new Cell*[this->nbNeighbors];
-//    }
+//ArbitraryNeighborhood:: ArbitraryNeighborhood(int nbNeighbors){
+//      this->nbNeighbors = nbNeighbors;
+//      neighbors = new Cell* [nbNeighbors];
 //}
 
 //dx et dy tableaux contenant le décalage par rapport à une cellule
-//Cell** ArbitraryNeighborhood::getNeighbors(Cell *c, Grid *g,tab* dx, tab* dy) {
-//    int m=((c->getX()-1)*g->getWidth())+c->getY();
+//Cell** ArbitraryNeighborhood::getNeighbors(Cell *c, Grid *g, int* dx, int* dy) {
 //    int n=0;
 //    while(dx!=nullptr && dy!=nullptr){
             //coordonnée cellule voisine
 //            int x = (dx->value+ g->getHeight()) % g->getHeight();
 //            int y = (dy->value + g->getWidth()) % g->getWidth();
 
-//                neighborhood[m][n] = g->getCell(x, y);
+//                neighbors[n] = g->getCell(x, y);
 //                n++;
 //                dx=dx->next;
 //                dy=dy->next;
