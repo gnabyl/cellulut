@@ -58,5 +58,5 @@ Cell* BBTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
     if(c->getState()->getId() == availableStates[0]->getId() && sum == 2) {
         return new Cell(availableStates[2], c->getX(), c->getY());
     }
-    return c;
+    return new Cell(*c);
 }
