@@ -10,6 +10,8 @@ CellState* Cell::getState() const {
 
 Cell::Cell(CellState* s, int x, int y): state(s), x(x), y(y) {}
 
+Cell::Cell(const Cell& c): state(c.getState()), x(c.getX()), y(c.getY()){}
+
 
 int Cell::getX() const {
     return this->x;

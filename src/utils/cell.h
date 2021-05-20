@@ -12,6 +12,7 @@ class Cell {
     void setState(CellState* s);
     CellState* getState() const;
     Cell(CellState* s, int i, int j);
+    Cell(const Cell&);
     int getX() const;
     int getY() const;
 };
