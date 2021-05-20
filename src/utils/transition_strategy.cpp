@@ -16,7 +16,7 @@ Cell* GOLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, C
         throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : Game of Life ne fonctionne qu'avec 2 états possibles.\n");
     int sum = 0;
     for(int i = 0; i < neighborSize; i++) {
-        if(availableStates[0]->getId() == neighbors[i]->getState()->getId()) sum += 1;
+        if(availableStates[1]->getId() == neighbors[i]->getState()->getId()) sum += 1;
     }
     if(c->getState()->getId() == availableStates[0]->getId() && sum == 3)
         return new Cell(availableStates[1], c->getX(), c->getY());
