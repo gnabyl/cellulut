@@ -39,7 +39,7 @@ Suppositions :
 Cell* BBTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
     if(neighborSize != 8)
         throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : Brian's Brain exige un voisinage de 8 cellules.\n");
-    if(nbStates != 2)
+    if(nbStates != 3)
         throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : Brian's Brain ne fonctionne qu'avec 3 états possibles.\n");
     //Toute cellule excitée devient réfractaire.
     if(c->getState()->getId() == availableStates[2]->getId()) {
@@ -58,5 +58,5 @@ Cell* BBTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
     if(c->getState()->getId() == availableStates[0]->getId() && sum == 2) {
         return new Cell(availableStates[2], c->getX(), c->getY());
     }
-    return nullptr;
+    return c;
 }
