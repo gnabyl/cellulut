@@ -1,12 +1,19 @@
 #include "grid.h"
 
 Grid::~Grid() {
-    for(int i = 0; i < height; i++)
-        for(int j = 0; j < width; j++) {
-            if (cells[i][j]) {
-                delete cells[i][j];
+    if (cells == nullptr) {
+        return;
+    }
+    for(int i = 0; i < height; i++) {
+        if (cells[i]) {
+            for(int j = 0; j < width; j++) {
+                if (cells[i][j]) {
+                    delete cells[i][j];
+                }
             }
+            delete[] cells[i];
         }
+    }
     delete[] cells;
     cells = nullptr;
 }

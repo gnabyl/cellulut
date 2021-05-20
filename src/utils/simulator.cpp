@@ -33,8 +33,7 @@ Simulator::Simulator(Automata* a, Grid& startG, int buf): automata(a),  bufferSi
     /*grids = new Grid*[bufferSize];
     for(int i=0; i<bufferSize; i++) grids[i]=nullptr;*/
     allocateBuffer();
-    //grids[0]=new Grid(startG);
-    grids[0] = &startG;
+    grids[0] = new Grid(startG);
 }
 
 void Simulator::setStartGrid(Grid *g) {
@@ -77,7 +76,11 @@ int Simulateur::getRangDernier() const
 void Simulator::reset() { // important je ne l'ai pas mis const car pour moi cette fonction correspond à la fonction reset du TD
     if (startGrid == nullptr) throw "start grid is not defined";
     gridIDcurrent = 0;
-    grids[0] = startGrid;
+    if (grids[0]) {
+        delete grids[0];
+        grids[0] = nullptr;
+    }
+    grids[0] = new Grid(*startGrid);
 }
 /*
 void Simulator::build(int ID)
