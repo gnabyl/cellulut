@@ -47,4 +47,18 @@ class BBTransition : public OuterTotalisticTransition {
     Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const;
 };
 
+class DGTransition : public OuterTotalisticTransition{
+    Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
+};
+
+class LLTransition : public OuterTotalisticTransition{
+    Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
+};
+
+
+class LATransition : public OuterTotalisticTransition{
+    Cell calcNextCell(const Cell, const Cell**, int, CellState**, int) const;
+};
+
+
 #endif
