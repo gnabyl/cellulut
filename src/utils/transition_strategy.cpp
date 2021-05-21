@@ -73,26 +73,25 @@ Suppositions :
 - Les id des états sont forcément 0 (jaune), 1 (orange clair),2 (orange foncé), 3 (rouge)
 */
 
-Cell DGTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const{
+Cell* DGTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const{
     if(neighborSize!=8)
-        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : Brian's Brain exige un voisinage de 8 cellules.\n");
-    if(nbStates!=2)
-        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : Brian's Brain ne fonctionne qu'avec 3 états possibles.\n");
+        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : L'automate circulaire de David Griffeath exige un voisinage de 8 cellules.\n");
+    if(nbStates!=4)
+        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : L'automate circulaire de David Griffeath ne fonctionne qu'avec 4 états possibles.\n");
 
-    // determiner la couleur suivante par rapport à notre cellule dans le cyle des quatres couleurs
-    j = 0 // j est l'indice de la couleur de la cellule c
-   while(c.getState().getid() != availableStates[j%4]->getId())
-    {
-        j++
-    }
+
+    int j= c->getState()->getId(); // indice de la couleur de la cellule courante
    // nous calculons le nombre de voisins ayant la couleur d'indice j+1
     int sum = 0;
-    for(unsigned int i=0;i<neighborSize;i++){
-        if(availableStates[(j+1)%4]->getId() == neighbors[i]->state.getId()) sum+=1;
+    for(int i=0;i<neighborSize;i++){
+        if(availableStates[(j+1)%4]->getId() == neighbors[i]->getState()->getId()) // modulo 3 car les etats vont de 0 à 3
+            sum+=1;
     }
     // si la couleur d'indice j+1 est présente dans au moins 3 cellules voisines, la cellule c prend la couleur d'indice j+1
     if(sum>=3)
-        return new Cell(availableStates[(j+1)%4],c.getX(),c.getY());
+        return new Cell(availableStates[(j+1)%4],c->getX(),c->getY());
+    else
+        return new Cell(*c);
 }
 
 /*
@@ -105,7 +104,7 @@ FONCTION DE TRANSITION DE LANGTON'S LOOP
 #include <map>
 
 
-Cell LLTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const{
+Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const{
 
     // dictionnaire de l'ensemble des règles
     std::map <int, int> langtonRules =
@@ -334,13 +333,13 @@ Cell LLTransition::calcNextCell(const Cell c, const Cell** neighbors, int neighb
 
     for (int i = 0; i < neighborSize; ++i) { // il faut tester chaque combinaison possible
         // on convertit la cellule et le voisinage en clé (nombre de 5 chiffres)
-        key = c*10000+neighbors[i%4]*1000+neighbors[(i+1)%4]*100+ neighbors[(i+2)%4]*10 + neighbors[(i+3)%4];
+        int key = c->getState()->getId()*10000 + neighbors[i%4]->getState()->getId()*1000+neighbors[(i+1)%4]->getState()->getId()*100+ neighbors[(i+2)%4]->getState()->getId()*10 + neighbors[(i+3)%4]->getState()->getId();
         // on vérifie si la clé et donc la règle existe : si oui on modifie.
         if(langtonRules.find(key)!=langtonRules.end())
-            return new Cell(availableStates[langtonRules[key]],c.getX(),c.getY())
-        }
-    }
-
+            return new Cell(availableStates[langtonRules[key]],c->getX(),c->getY());
+       }
+    return new Cell(*c);
+}
 
 
 
@@ -410,8 +409,9 @@ class CellState {
 */
 
 // je ne me sers pas actuellement du voisinage
+/*
 Cell LATransition::calcNextCell(const Cell c, const Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const{
-    /*
+
     // s'assurer que #include "cellstate.h" est bien inclue
     map<Direction,int> list_direction
     {
@@ -422,6 +422,7 @@ Cell LATransition::calcNextCell(const Cell c, const Cell** neighbors, int neighb
     }
      */
     // if c is  white -> move 90° right
+    /*
     if (c.getState().getId() == availableStates[0]->getId()){
 
         // on passe la couleur à blanc
@@ -467,3 +468,4 @@ Cell LATransition::calcNextCell(const Cell c, const Cell** neighbors, int neighb
     }
 
 }
+*/
