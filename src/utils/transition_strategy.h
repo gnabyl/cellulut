@@ -40,11 +40,11 @@ class OuterTotalisticTransition : public TotalisticTransition {
 
 ///Concrete strategies///
 class GOLTransition : public OuterTotalisticTransition {
-    Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const;
+    Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const override;
 };
 
 class BBTransition : public OuterTotalisticTransition {
-    Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const;
+    Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const override;
 };
 
 #endif

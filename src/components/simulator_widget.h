@@ -26,7 +26,7 @@ class SimulatorWidget : public QWidget {
 
     CellWidget** cellWidgets = nullptr;
 
-    QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset;
+    QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset, *btnRandom;
 
     QTimer* timer;
 
@@ -60,6 +60,7 @@ class SimulatorWidget : public QWidget {
     void btnPlayPauseClicked();
     void btnNextClicked();
     void btnResetClicked();
+    void btnRandomClicked();
 };
 
 #endif // SIMULATOR_WIDGET_H

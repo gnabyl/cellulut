@@ -50,27 +50,41 @@ void SimulatorWidget::btnResetClicked() {
     }
 }
 
+void SimulatorWidget::btnRandomClicked(){
+    if(playing){
+        playing = false;
+        timer->stop();
+        setButtonIcon(btnPlay,":assets/play-button.png");
+    }
+    regenerateRandomGrid();
+    updateGridDisplay();
+}
+
 void SimulatorWidget::initButtons() {
     btnPlay = new QPushButton(this);
     btnPrev = new QPushButton(this);
     btnNext = new QPushButton(this);
     btnReset = new QPushButton(this);
+    btnRandom = new QPushButton(this);
 
     setButtonIcon(btnPrev, ":assets/previous-button.png");
     setButtonIcon(btnPlay, ":assets/play-button.png");
     setButtonIcon(btnReset, ":assets/reset-button.png");
     setButtonIcon(btnNext, ":assets/next-button.png");
+    setButtonIcon(btnRandom, ":assets/random-button.png");
 
     controllerLayout->setSizeConstraint(QLayout::SetMinimumSize);
 
     controllerLayout->addWidget(btnPrev);
     controllerLayout->addWidget(btnPlay);
     controllerLayout->addWidget(btnReset);
+    controllerLayout->addWidget(btnRandom);
     controllerLayout->addWidget(btnNext);
 
     connect(btnPlay, &QPushButton::clicked, this, &SimulatorWidget::btnPlayPauseClicked);
     connect(btnNext, &QPushButton::clicked, this, &SimulatorWidget::btnNextClicked);
     connect(btnReset, &QPushButton::clicked, this, &SimulatorWidget::btnResetClicked);
+    connect(btnRandom, &QPushButton::clicked, this, &SimulatorWidget::btnRandomClicked);
 }
 
 void SimulatorWidget::regenerateRandomGrid() {
