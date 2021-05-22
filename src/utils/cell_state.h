@@ -23,4 +23,5 @@ class CellState {
     QColor col;
 };
 
+
 #endif //LO21_CELLSTATE_H
