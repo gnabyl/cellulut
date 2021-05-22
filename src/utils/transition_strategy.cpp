@@ -368,127 +368,139 @@ FONCTION DE TRANSITION DE LANGTON ANT
 - Nombre d'états possibles : 2 (noir ou blanc)
 */
 
-/*
- * j'ai mis ceci car pour pouvoir intancier cette algorithme il faudra pour moi moi modifier cellulestate en rajoutant l'enum direction
- *
- * cellstate.h
- *
- *
-#include <QColor>
-#include <string>
-
-enum direction {up, down, left, right,none};
-
-// https://en.cppreference.com/w/cpp/language/enum
-
-class CellState {
-  public:
-    void setId(int i);
-    void setLabel(std::string s);
-    void setColor(QColor c);
-
-    //modif
-    void setDirection(direction d);
-
-    int getId() const;
-
-    // modif
-    direction getDirection() const;
-
-    QColor getColor() const;
-    std::string getLabel() const;
-
-    // modifier ici le constructeur
-
-    CellState(int x, std::string l, QColor c,direction d): id(x), label(l), col(c), dir(d) {}
-
-  private:
-    int id;
-    std::string label;
-    QColor col;
-    direction dir;
-};
-*/
 
 // je ne me sers pas actuellement du voisinage
-/*
-Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const{
 
- // New algo
+Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
 
-     if (c->getState->getDirection()) {
-
-         // si cellule blanche, move à droite
-         if (c->getState()->getId() == availableStates[1]->getId()){
-
-             if(c->getState()->getDirection()==up)
-                 // changement de banc à noir + changement direction
-                 return new Cell(Direction(availableStates[0],c->getX(),c->getY(),right)); // constructeur avec la direction
-// le constructeur pose porblème ici on ne peut pas mettre right
-// on peut peut etre le mettre au niveau availableSate
-// soit on considére que direction est un attribut de la classe state soit on considere que la direction est un attribut d'une classe hérité de state
+    // si on suit l'héritage il faut faire un truc de ce style mais ça ne fonctionne pas
+     //CellStateDirection ** availableStatesDirection = dynamic_cast<CellStateDirection**>(availableStates);
 
 
+    // ============================== VERSION SANS HERITAGE (AJOUT D'UN ATTRIBUT DIRECTION) ========================================
 
-             if(c.getState().getDirection()==right)
-                 c.getState().setDirection(down);
-                 c.setX(c.getX() + 1);
-
-             if(c.getState().getDirection()==down)
-                 c.getState().setDirection(left);
-                 c.setY(c.getY() - 1);
-
-             if(c.getState().getDirection()==left)
-                 c.getState().setDirection(up);
-                 c.setX(c.getX() - 1);
-         }
-         else // la cellule est noir move 90° left
-         {
-             c.getState().getId() == availableStates[0]->getId();
-
-             if(c.getState().getDirection()==up)
-                 c.getState().setDirection(left);
-                 c.setY(c.getY() - 1);
-
-
-             if(c.getState().getDirection()==right)
-                 c.getState().setDirection(up);
-                 c.setX(c.getX() - 1);
-
-             if(c.getState().getDirection()==down)
-                 c.getState().setDirection(right);
-                 c.setY(c.getY() + 1);
-
-             if(c.getState().getDirection()==left)
-                 c.getState().setDirection(down);
-                 c.setX(c.getX() + 1);
-             }
-         }
-
-       calculer nouvel etat de la cell actuelle;
-       enlever direction;
-       inverser;
-         retourne;
-    }
-     if (ily a direction dans les voisiange) {
-         if (moi je suis la destination de la fourmi dans l'etat suivant) {
-             ajouter direction;
-             retourner;
-         }
-    }
-    /*
-
-    // s'assurer que #include "cellstate.h" est bien inclue
-    map<Direction,int> list_direction
-    {
-        {up, c.getX() - 1},
-        {down, c.getX() + 1},
-        {left, c.getY() - 1},
-        {right, c.getY() + 1},
-    }
+    /* si (direction)
+        calculer nouvel etat de la cell actuelle;
+        enlever direction;
+        inverser;
+          retourne;
      */
-    // if c is  white -> move 90° right
-    /*
 
-}
+
+     if (c->getState()->getDirection()) {
+
+         // si cellule blanche
+        if (c->getState()->getId() == availableStates[1]->getId())
+        {
+            availableStates[0]->setDirection(none); // on enlève la direction
+            return new Cell(availableStates[0],c->getX(),c->getY());
+         }
+        // si cellule noire
+         else if (c->getState()->getId() == availableStates[0]->getId())
+        {
+            availableStates[1]->setDirection(none); // on enlève la direction
+            return new Cell(availableStates[1],c->getX(),c->getY());
+        }
+    }
+
+/*
+        if (ily a direction dans les voisiange) {
+            if (moi je suis la destination de la fourmi dans l'etat suivant) {
+                ajouter direction;
+                retourner;
+            }
 */
+        int i = 0;
+        while (i<neighborSize && neighbors[i]->getState()->getDirection()==none){
+            i++;
+        }
+
+        if (i==neighborSize) // pas de voisin avec une direction
+        {
+            return new Cell (*c);
+        }
+
+        else if (i<neighborSize) // un voisin possède une direction
+        {
+             // ============================================
+            // si la cellule est blanche, on tourne à droite
+           // ==============================================
+            if (neighbors[i]->getState()->getId() == availableStates[1]->getId()){
+
+                if(neighbors[i]->getState()->getDirection()==up){
+                    // on regarde si notre cellule courante est à à droite du voisin possédant une direction
+                    if (c->getY()==neighbors[i]->getY()+1){
+                        c->getState()->setDirection(right);
+                        return new Cell(*c);
+                    }
+                }
+
+                 if(neighbors[i]->getState()->getDirection()==right){
+                     // on regarde si notre cellule courante est en bas du voisin possédant une direction
+                     if (c->getX()==neighbors[i]->getX()+1){
+                         c->getState()->setDirection(down);
+                         return new Cell(*c);
+                     }
+                 }
+
+                 if(neighbors[i]->getState()->getDirection()==down){
+                     // on regarde si notre cellule courante est à gauche du voisin possédant une direction
+                     if (c->getY()==neighbors[i]->getY()-1){
+                         c->getState()->setDirection(left);
+                         return new Cell(*c);
+                     }
+                  }
+
+                 if(neighbors[i]->getState()->getDirection()==left){
+                     // on regarde si notre cellule courante est à en haut du voisin possédant une direction
+                     if (c->getX()==neighbors[i]->getX()-1){
+                         c->getState()->setDirection(up);
+                         return new Cell(*c);
+                     }
+                 }
+            }
+
+
+
+             // =========================================
+            // si la cellule est noir, on tourne à gauche
+           // ===========================================
+            if (neighbors[i]->getState()->getId() == availableStates[0]->getId()){
+
+                if(neighbors[i]->getState()->getDirection()==up){
+                    // on regarde si notre cellule courante est à gauche du voisin possédant une direction
+                    if (c->getY()==neighbors[i]->getY()-1){
+                        c->getState()->setDirection(left);
+                        return new Cell(*c);
+                    }
+                }
+
+                 if(neighbors[i]->getState()->getDirection()==right){
+                     // on regarde si notre cellule courante est en haut du voisin possédant une direction
+                     if (c->getX()==neighbors[i]->getX()-1){
+                         c->getState()->setDirection(up);
+                         return new Cell(*c);
+                     }
+                 }
+
+
+                 if(neighbors[i]->getState()->getDirection()==down){
+                     // on regarde si notre cellule courante est à droite du voisin possédant une direction
+                     if (c->getY()==neighbors[i]->getY()+1){
+                         c->getState()->setDirection(right);
+                         return new Cell(*c);
+                     }
+                 }
+
+                 if(neighbors[i]->getState()->getDirection()==left){
+                     // on regarde si notre cellule courante est à en bas du voisin possédant une direction
+                     if (c->getX()==neighbors[i]->getX()+1){
+                         c->getState()->setDirection(down);
+                         return new Cell(*c);
+                     }
+                  }
+             }
+        }
+ }
+
+
