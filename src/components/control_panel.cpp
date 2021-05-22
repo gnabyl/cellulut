@@ -20,6 +20,32 @@ void ControlPanel::loadAutomatas() {
     bbStates[2] = new CellState(2, "on", Qt::black);
     automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(), 3,
                                  "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
+
+
+    // David griffeath automata
+    CellState** dgStates = new CellState*[4];
+    dgStates[0] = new CellState(0, "y", Qt::yellow);
+    dgStates[1] = new CellState(1, "c", Qt::cyan);
+    dgStates[2] = new CellState(2, "dc", Qt::darkCyan);
+    dgStates[3] = new CellState(3, "r", Qt::red);
+    automataManager->addAutomata(dgStates, new DGTransition(), new MooreNeighborhood(), 4,
+                                 "L’automate circulaire de Griffeath", "Griffeath Ciruclar Automata", "David Griffeath", 1);
+    //(jaune), 1 (orange clair),2 (orange foncé), 3 (rouge)
+
+    // Langton Loop automata
+    CellState** llStates = new CellState*[8];
+    llStates[0] = new CellState(0, "y", Qt::yellow);
+    llStates[1] = new CellState(1, "c", Qt::cyan);
+    llStates[2] = new CellState(2, "dc", Qt::darkCyan);
+    llStates[3] = new CellState(3, "r", Qt::red);
+    llStates[4] = new CellState(4, "b", Qt::blue);
+    llStates[5] = new CellState(5, "g", Qt::green);
+    llStates[6] = new CellState(6, "m", Qt::magenta);
+    llStates[7] = new CellState(7, "dg", Qt::darkGray);
+
+    automataManager->addAutomata(llStates, new LLTransition(), new VonNeumannNeighborhood(), 8,
+                                 "Langton Loop", "Langton Loop Automata", "Christopher Langton", 1984);
+
     for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
         automataCbb->addItem(QString(automataManager->getAutomata(i)->getName().c_str()));
     }

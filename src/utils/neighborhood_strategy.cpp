@@ -5,20 +5,20 @@
 #include "neighborhood_strategy.h"
 #include <cmath>
 
-VonNeumannNeighborhood::VonNeumannNeighborhood(){
+VonNeumannNeighborhood::VonNeumannNeighborhood() {
     neighbors = new Cell* [nbNeighbors];
 
 }
 
 
-Cell** VonNeumannNeighborhood::getNeighbors(Cell *c, Grid *g) {
-    int n=0;
+Cell** VonNeumannNeighborhood::getNeighbors(Cell* c, Grid* g) {
+    int n = 0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
-        for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
+        for (int l = c->getY() - 1; l <= c->getY() + 1 ; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if((abs(x - c->getX()) + abs(y - c->getY())) == 1) {
+            if((abs(k - c->getX()) + abs(l - c->getY())) == 1) {
                 neighbors[n] = g->getCell(x, y);
                 n++;
             }
@@ -27,21 +27,21 @@ Cell** VonNeumannNeighborhood::getNeighbors(Cell *c, Grid *g) {
     return neighbors;
 }
 
-VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(int radius){
+VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(int radius) {
     this->radius = radius;
     this->nbNeighbors = this->radius * this->radius + (this->radius + 1) * ((this->radius + 1)) - 1 ;
     neighbors = new Cell* [nbNeighbors];
 }
 
 
-Cell** VonNeumannNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
-    int n=0;
+Cell** VonNeumannNeighborhoodGeneralized::getNeighbors(Cell* c, Grid* g) {
+    int n = 0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
-        for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
+        for (int l = c->getY() - 1; l <= c->getY() + 1 ; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if((abs(x - c->getX()) + abs(y - c->getY())) > 0 && (abs(x - c->getX()) + abs(y - c->getY()))<=radius) {
+            if( (abs(k - c->getX()) + abs(l - c->getY())) <= radius) {
                 neighbors[n] = g->getCell(x, y);
                 n++;
             }
@@ -54,14 +54,14 @@ MooreNeighborhood::MooreNeighborhood() {
     neighbors = new Cell* [nbNeighbors];
 }
 
-Cell** MooreNeighborhood::getNeighbors(Cell *c, Grid *g) {
-    int n=0;
+Cell** MooreNeighborhood::getNeighbors(Cell* c, Grid* g) {
+    int n = 0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
-        for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
+        for (int l = c->getY() - 1; l <= c->getY() + 1 ; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if(x != c->getX() || y !=c->getY()) {
+            if(x != c->getX() || y != c->getY()) {
                 neighbors[n] = g->getCell(x, y);
                 n++;
             }
@@ -76,14 +76,14 @@ MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(int radius) {
     neighbors = new Cell* [nbNeighbors];
 }
 
-Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
-    int n=0;
+Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell* c, Grid* g) {
+    int n = 0;
     for (int k = c->getX() - radius; k <= c->getX() + radius; k++) {
-        for (int l = c->getY() - radius; l <= c->getY()+ radius; l++) {
+        for (int l = c->getY() - radius; l <= c->getY() + radius; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if(x != c->getX() || y !=c->getY()) {
+            if(x != c->getX() || y != c->getY()) {
                 neighbors[n] = g->getCell(x, y);
                 n++;
             }
@@ -107,7 +107,7 @@ Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
 //Cell** ArbitraryNeighborhood::getNeighbors(Cell *c, Grid *g, int* dx, int* dy) {
 //    int n=0;
 //    while(dx!=nullptr && dy!=nullptr){
-            //coordonnée cellule voisine
+//coordonnée cellule voisine
 //            int x = (dx->value+ g->getHeight()) % g->getHeight();
 //            int y = (dy->value + g->getWidth()) % g->getWidth();
 
