@@ -1,5 +1,6 @@
 #include "control_panel.h"
 #include <iostream>
+#include <string>
 
 /*
  * Pseudo function for loading automatas
@@ -30,29 +31,53 @@ void ControlPanel::initEventHandler() {
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
     connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+    connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
-    // Layouts
-    automatasLayout = new QFormLayout;
-    automataBtnLayout = new QHBoxLayout;
-    gridConfigLayout = new QFormLayout;
     mainLayout = new QVBoxLayout(this);
 
-    // Widgets
+    //Automata spinbox
     automataCbb = new QComboBox(this);
-    automataCreateBtn = new QPushButton("Create new", this);
-    automataDeleteBtn = new QPushButton("Delete", this);
-    automataSaveBtn = new QPushButton("Save", this);
-    automataLoadBtn = new QPushButton("Load", this);
-    cellSizeSpb = new QSpinBox(this);
-    nbRowsSpb = new QSpinBox(this);
-    nbColsSpb = new QSpinBox(this);
+    automatasLayout = new QFormLayout;
+    automatasLayout->addRow("Automata", automataCbb);
+    mainLayout->addLayout(automatasLayout);
+
+    // 1 : grid settings
+    gridSettingsBox = new QGroupBox(tr("Grid settings"));
+    initGridSettings();
+    mainLayout->addWidget(gridSettingsBox);
+
+    //2 : automata settings
+    automataSettingsBox = new QGroupBox(tr("Automata settings"));
+    initAutomataSettings();
+    mainLayout->addWidget(automataSettingsBox);
+
+    //3 : run settings
+    runSettingsBox = new QGroupBox(tr("Run settings"));
+    initRunSettings();
+    mainLayout->addWidget(runSettingsBox);
 
     initEventHandler();
 
     // Init data
     loadAutomatas();
+
+//    mainLayout->addLayout(automatasLayout);
+//    mainLayout->addLayout(automataBtnLayout);
+//    mainLayout->addLayout(gridSettingsLayout);
+//    mainLayout->addLayout(automataSettingsLayout);
+//    mainLayout->addLayout(runSettingsLayout);
+
+    setLayout(mainLayout);
+}
+
+void ControlPanel::initGridSettings(){
+    //Creation of the boxes widget
+    nbRowsSpb = new QSpinBox(gridSettingsBox);
+    nbColsSpb = new QSpinBox(gridSettingsBox);
+    cellSizeSpb = new QSpinBox(gridSettingsBox);
+
     nbRowsSpb->setKeyboardTracking(false);
     nbRowsSpb->setValue(simulatorWidget->getNbRows());
     nbRowsSpb->setMaximum(100);
@@ -68,29 +93,79 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     cellSizeSpb->setMaximum(50);
     cellSizeSpb->setMinimum(5);
 
-    // Add
-    automatasLayout->addRow("Automata", automataCbb);
+    //Creation of the boxes layout
+    gridSettingsLayout = new QVBoxLayout(gridSettingsBox);
 
-    automataBtnLayout->addWidget(automataCreateBtn);
-    automataBtnLayout->addWidget(automataDeleteBtn);
-    automataBtnLayout->addWidget(automataSaveBtn);
-    automataBtnLayout->addWidget(automataLoadBtn);
+    nbRowsLayout = new QFormLayout(gridSettingsBox);
+    nbRowsLayout->addRow("Rows number : ", nbRowsSpb);
 
+    nbColsLayout = new QFormLayout(gridSettingsBox);
+    nbColsLayout->addRow("Cols number : ", nbColsSpb);
 
-    gridConfigLayout->addRow("Rows Number", nbRowsSpb);
-    gridConfigLayout->addRow("Cols Number", nbColsSpb);
-    gridConfigLayout->addRow("Cell size", cellSizeSpb);
+    cellSizeLayout = new QFormLayout(gridSettingsBox);
+    cellSizeLayout->addRow("Cell size : ", cellSizeSpb);
 
+    gridSettingsLayout->addLayout(nbRowsLayout);
+    gridSettingsLayout->addLayout(nbColsLayout);
+    gridSettingsLayout->addLayout(cellSizeLayout);
+}
 
-    mainLayout->addLayout(automatasLayout);
-    mainLayout->addLayout(automataBtnLayout);
-    mainLayout->addLayout(gridConfigLayout);
+void ControlPanel::initAutomataSettings(){
+    automataSettingsLayout = new QVBoxLayout(automataSettingsBox);
 
-    setLayout(mainLayout);
+    //Choose automata
+    btnBrowseAutomatas = new QPushButton(automataSettingsBox);
+    btnBrowseAutomatas->setText(tr("Browse..."));
+    automataFieldLayout = new QFormLayout(automataSettingsBox);
+    automataFieldLayout->addRow("Automata", btnBrowseAutomatas);
+    automataSettingsLayout->addLayout(automataFieldLayout);
+
+    //Choose state x8
+    btnBrowseStates = new QPushButton*[8];
+    statesFieldLayout = new QFormLayout*[8];
+    for(int i=0; i<8; i++){
+        char num = i+49;
+        btnBrowseStates[i] = new QPushButton(automataSettingsBox);
+        btnBrowseStates[i]->setText(tr("Browse..."));
+        statesFieldLayout[i] = new QFormLayout(automataSettingsBox);
+        statesFieldLayout[i]->addRow(QString("State ").append(QString(num)),btnBrowseStates[i]);
+        automataSettingsLayout->addLayout(statesFieldLayout[i]);
+   }
+
+    //Choose neighborhood
+    btnBrowseNeighborhoods = new QPushButton(automataSettingsBox);
+    btnBrowseNeighborhoods->setText(tr("Browse..."));
+    neighborhoodFieldLayout = new QFormLayout(automataSettingsBox);
+    neighborhoodFieldLayout->addRow("Neighborhood",btnBrowseNeighborhoods);
+    automataSettingsLayout->addLayout(neighborhoodFieldLayout);
+
+    //Choose transition rule
+    btnBrowseRules = new QPushButton(automataSettingsBox);
+    btnBrowseRules->setText(tr("Browse..."));
+    ruleFieldLayout = new QFormLayout(automataSettingsBox);
+    ruleFieldLayout->addRow("Transition rule", btnBrowseRules);
+    automataSettingsLayout->addLayout(ruleFieldLayout);
+}
+
+void ControlPanel::initRunSettings(){
+    runSettingsLayout = new QVBoxLayout(runSettingsBox);
+
+    sliderSpeed = new QSlider(Qt::Horizontal,runSettingsBox);
+    sliderSpeedLayout = new QFormLayout(runSettingsBox);
+    sliderSpeedLayout->addRow("Execution speed",sliderSpeed);
+    runSettingsLayout->addLayout(sliderSpeedLayout);
+
+    bufferSizeSpb = new QSpinBox(runSettingsBox);
+    bufferSizeSpb->setKeyboardTracking(false);
+    bufferSizeSpb->setValue(simulatorWidget->getSimulator()->getBufferSize());
+    bufferSizeSpb->setMaximum(100);
+    bufferSizeSpb->setMinimum(2);
+    bufferSizeFieldLayout = new QFormLayout(runSettingsBox);
+    bufferSizeFieldLayout->addRow("Buffer size",bufferSizeSpb);
+    runSettingsLayout->addLayout(bufferSizeFieldLayout);
 }
 
 ControlPanel::~ControlPanel() {
     delete automatasLayout;
-    delete automataBtnLayout;
-    delete gridConfigLayout;
+    delete gridSettingsLayout;
 }
