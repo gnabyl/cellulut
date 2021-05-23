@@ -129,6 +129,11 @@ void SimulatorWidget::resetGridDisplay() {
 int SimulatorWidget::getNbRows() const {
     return this->nbRows;
 }
+
+Simulator* SimulatorWidget::getSimulator() const{
+    return this->simulator;
+}
+
 void SimulatorWidget::setNbRows(int nbRows) {
     cleanGrid();
     this->nbRows = nbRows;
@@ -138,6 +143,7 @@ void SimulatorWidget::setNbRows(int nbRows) {
 int SimulatorWidget::getNbCols() const {
     return this->nbCols;
 }
+
 void SimulatorWidget::setNbCols(int nbCols) {
     cleanGrid();
     this->nbCols = nbCols;
@@ -162,6 +168,10 @@ void SimulatorWidget::setAutomata(int index) {
     cleanGrid();
     regenerateRandomGrid();
     resetGridDisplay();
+}
+
+void SimulatorWidget::setBufferSize(int size){
+    this->simulator->setBufferSize(size);
 }
 
 SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent) {

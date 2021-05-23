@@ -47,6 +47,7 @@ class SimulatorWidget : public QWidget {
     void setButtonIcon(QPushButton* btn, const QString& path);
     int getNbCols() const;
     int getNbRows() const;
+    Simulator* getSimulator() const;
 
   signals:
 
@@ -56,6 +57,7 @@ class SimulatorWidget : public QWidget {
     void setCellSize(int size);
     void setAutomata(int index);
     void changeCellState(int x, int y);
+    void setBufferSize(int size);
 
     void btnPlayPauseClicked();
     void btnNextClicked();
