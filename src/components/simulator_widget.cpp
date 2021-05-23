@@ -50,11 +50,24 @@ void SimulatorWidget::btnResetClicked() {
     }
 }
 
+// modification direction de seulement une cellule de coordonne (3,3) =============================================
+void SimulatorWidget::changeCellStateDirection() {
+    Grid* currentGrid = simulator->getIterator().current();
+    // modification direction ============================================
+    currentGrid->getCell(3,3)->getState()->setDirection(up);
+    // juste pour identifier l'endroit cellule (3,3) qui a pris la direction up
+    currentGrid->getCell(3,3)->getState()->setColor(Qt::magenta);
+    updateGridDisplay();
+}
+
 void SimulatorWidget::initButtons() {
     btnPlay = new QPushButton(this);
     btnPrev = new QPushButton(this);
     btnNext = new QPushButton(this);
     btnReset = new QPushButton(this);
+
+    // modification direction ==============================================================
+    cellDirection = new QPushButton("Cell(3,3)=up", this);
 
     setButtonIcon(btnPrev, ":assets/previous-button.png");
     setButtonIcon(btnPlay, ":assets/play-button.png");
@@ -68,9 +81,17 @@ void SimulatorWidget::initButtons() {
     controllerLayout->addWidget(btnReset);
     controllerLayout->addWidget(btnNext);
 
+    // modification direction ==============================================================
+     controllerLayout->addWidget(cellDirection);
+
     connect(btnPlay, &QPushButton::clicked, this, &SimulatorWidget::btnPlayPauseClicked);
     connect(btnNext, &QPushButton::clicked, this, &SimulatorWidget::btnNextClicked);
     connect(btnReset, &QPushButton::clicked, this, &SimulatorWidget::btnResetClicked);
+
+    // modification direction de seulement une cellule de coordonne (3,3) =============================================
+    // ERREUR ICI !!!!!!!!!!!!!!!!!!!!!!!!!!!
+    connect(cellDirection, &QPushButton::clicked, this, &SimulatorWidget::changeCellState);
+
 }
 
 void SimulatorWidget::regenerateRandomGrid() {
@@ -80,6 +101,7 @@ void SimulatorWidget::regenerateRandomGrid() {
     this->simulator->setStartGrid(new Grid(simulator->getAutomata()->getNbStates(),
                                            simulator->getAutomata()->getAvailableStates(),
                                            this->nbCols, this->nbRows));
+
 }
 
 void SimulatorWidget::updateGridDisplay() {
@@ -142,6 +164,7 @@ void SimulatorWidget::changeCellState(int x, int y) {
     currentGrid->getCell(x, y)->setState(newState);
     updateGridDisplay();
 }
+
 
 void SimulatorWidget::setAutomata(int index) {
     this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));

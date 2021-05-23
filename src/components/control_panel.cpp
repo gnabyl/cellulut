@@ -46,6 +46,13 @@ void ControlPanel::loadAutomatas() {
     automataManager->addAutomata(llStates, new LLTransition(), new VonNeumannNeighborhood(), 8,
                                  "Langton Loop", "Langton Loop Automata", "Christopher Langton", 1984);
 
+    // Langton ant automata
+    CellState** laStates = new CellState*[2];
+    laStates[0] = new CellState(0, "dead", Qt::white);
+    laStates[1] = new CellState(1, "alive", Qt::black);
+    automataManager->addAutomata(laStates, new LATransition(), new VonNeumannNeighborhood(), 2,
+                                 "Langton ant", "Langton ant Automata", "Christopher Langton", 1986);
+
     for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
         automataCbb->addItem(QString(automataManager->getAutomata(i)->getName().c_str()));
     }
@@ -71,6 +78,8 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     automataDeleteBtn = new QPushButton("Delete", this);
     automataSaveBtn = new QPushButton("Save", this);
     automataLoadBtn = new QPushButton("Load", this);
+
+
     cellSizeSpb = new QSpinBox(this);
     nbRowsSpb = new QSpinBox(this);
     nbColsSpb = new QSpinBox(this);
@@ -106,6 +115,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     gridConfigLayout->addRow("Rows Number", nbRowsSpb);
     gridConfigLayout->addRow("Cols Number", nbColsSpb);
     gridConfigLayout->addRow("Cell size", cellSizeSpb);
+
 
 
     mainLayout->addLayout(automatasLayout);

@@ -26,7 +26,7 @@ class SimulatorWidget : public QWidget {
 
     CellWidget** cellWidgets = nullptr;
 
-    QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset;
+    QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset,*cellDirection;
 
     QTimer* timer;
 
@@ -50,12 +50,15 @@ class SimulatorWidget : public QWidget {
 
   signals:
 
-  private slots:
+    private slots:
     void setNbRows(int nbRows);
     void setNbCols(int nbCols);
     void setCellSize(int size);
     void setAutomata(int index);
     void changeCellState(int x, int y);
+
+    // modification direction ==========================================
+    void changeCellStateDirection();
 
     void btnPlayPauseClicked();
     void btnNextClicked();

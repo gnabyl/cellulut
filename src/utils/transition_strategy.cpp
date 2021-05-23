@@ -387,7 +387,7 @@ Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
      */
 
 
-     if (c->getState()->getDirection()) {
+     if (c->getState()->getDirection()!=none) {
 
          // si cellule blanche
         if (c->getState()->getId() == availableStates[1]->getId())
