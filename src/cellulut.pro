@@ -33,4 +33,5 @@ SOURCES += \
     utils/neighborhood_strategy.cpp \
     utils/transition_strategy.cpp \
 
-RESOURCES += ../assets/
+RESOURCES += \
+    images_resource.qrc
