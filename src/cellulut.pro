@@ -6,6 +6,7 @@ HEADERS += \
     components/main_window.h \
     components/menubar.h \
     components/simulator_widget.h \
+    constants.h \
     utils/simulator.h \
     utils/automata.h \
     utils/automata_manager.h \
