@@ -35,6 +35,11 @@ void ControlPanel::initEventHandler() {
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
+    //Init automatas
+    loadAutomatas();
+
+    initEventHandler();
+
     mainLayout = new QVBoxLayout(this);
 
     //Automata spinbox
@@ -57,17 +62,6 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     runSettingsBox = new QGroupBox(tr("Run settings"));
     initRunSettings();
     mainLayout->addWidget(runSettingsBox);
-
-    initEventHandler();
-
-    // Init data
-    loadAutomatas();
-
-//    mainLayout->addLayout(automatasLayout);
-//    mainLayout->addLayout(automataBtnLayout);
-//    mainLayout->addLayout(gridSettingsLayout);
-//    mainLayout->addLayout(automataSettingsLayout);
-//    mainLayout->addLayout(runSettingsLayout);
 
     setLayout(mainLayout);
 }
@@ -118,7 +112,7 @@ void ControlPanel::initAutomataSettings(){
     btnBrowseAutomatas = new QPushButton(automataSettingsBox);
     btnBrowseAutomatas->setText(tr("Browse..."));
     textAutomataName = new QLineEdit(automataSettingsBox);
-//    textAutomataName->setText(QString::fromStdString(simulatorWidget->getSimulator()->getAutomata()->getName()));
+    textAutomataName->setText(QString::fromStdString(simulatorWidget->getSimulator()->getAutomata()->getName()));
     automataFieldLayout = new QHBoxLayout(automataSettingsBox);
     automataFieldLayout->addWidget(automataLabel);
     automataFieldLayout->addWidget(textAutomataName);
