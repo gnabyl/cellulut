@@ -20,11 +20,11 @@ void SimulatorWidget::btnPlayPauseClicked() {
     if (!playing) {
         playing = true;
         timer->start(1000);
-        setButtonIcon(btnPlay, ":assets/pause-button.png");
+        setButtonIcon(btnPlay, PAUSE_BTN_ICON_PATH);
     } else {
         playing = false;
         timer->stop();
-        setButtonIcon(btnPlay, ":assets/play-button.png");
+        setButtonIcon(btnPlay, PLAY_BTN_ICON_PATH);
     }
 }
 
@@ -54,7 +54,7 @@ void SimulatorWidget::btnRandomClicked(){
     if(playing){
         playing = false;
         timer->stop();
-        setButtonIcon(btnPlay,":assets/play-button.png");
+        setButtonIcon(btnPlay, PLAY_BTN_ICON_PATH);
     }
     regenerateRandomGrid();
     updateGridDisplay();
@@ -67,11 +67,11 @@ void SimulatorWidget::initButtons() {
     btnReset = new QPushButton(this);
     btnRandom = new QPushButton(this);
 
-    setButtonIcon(btnPrev, ":assets/previous-button.png");
-    setButtonIcon(btnPlay, ":assets/play-button.png");
-    setButtonIcon(btnReset, ":assets/reset-button.png");
-    setButtonIcon(btnNext, ":assets/next-button.png");
-    setButtonIcon(btnRandom, ":assets/random-button.png");
+    setButtonIcon(btnPrev, PREV_BTN_ICON_PATH);
+    setButtonIcon(btnPlay, PLAY_BTN_ICON_PATH);
+    setButtonIcon(btnReset, RESET_BTN_ICON_PATH);
+    setButtonIcon(btnNext, NEXT_BTN_ICON_PATH);
+    setButtonIcon(btnRandom, RANDOM_BTN_ICON_PATH);
 
     controllerLayout->setSizeConstraint(QLayout::SetMinimumSize);
 

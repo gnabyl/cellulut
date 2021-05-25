@@ -9,6 +9,7 @@
 #include <QIcon>
 #include <QMessageBox>
 #include <QTimer>
+#include "../constants.h"
 #include "cell_widget.h"
 #include "utils/simulator.h"
 #include "utils/automata_manager.h"
