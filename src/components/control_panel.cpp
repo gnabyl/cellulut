@@ -114,10 +114,16 @@ void ControlPanel::initAutomataSettings(){
     automataSettingsLayout = new QVBoxLayout(automataSettingsBox);
 
     //Choose automata
-    btnBrowseAutomatas = new QPushButton(automataSettingsBox);
-    btnBrowseAutomatas->setText(tr("Browse..."));
-    automataFieldLayout = new QFormLayout(automataSettingsBox);
-    automataFieldLayout->addRow("Automata", btnBrowseAutomatas);
+    automataLabel = new QLabel(automataSettingsBox);
+//    automataLabel->setText("Automata");
+//    btnBrowseAutomatas = new QPushButton(automataSettingsBox);
+//    btnBrowseAutomatas->setText(tr("Browse..."));
+//    textAutomataName = new QLineEdit(automataSettingsBox);
+//    textAutomataName->setText(QString::fromStdString(simulatorWidget->getSimulator()->getAutomata()->getName()));
+//    automataFieldLayout = new QHBoxLayout(automataSettingsBox);
+//    automataFieldLayout->addWidget(automataLabel);
+//    automataFieldLayout->addWidget(textAutomataName);
+//    automataFieldLayout->addWidget(btnBrowseAutomatas);
     automataSettingsLayout->addLayout(automataFieldLayout);
 
     //Choose state x8

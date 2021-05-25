@@ -12,6 +12,7 @@
 #include <QString>
 #include <QSlider>
 #include <QGroupBox>
+#include <QLineEdit>
 #include "simulator_widget.h"
 #include "utils/automata_manager.h"
 
@@ -36,8 +37,10 @@ class ControlPanel : public QWidget {
     QGroupBox* automataSettingsBox;
     QVBoxLayout* automataSettingsLayout;
         //Choose automata
+    QLabel* automataLabel;
     QPushButton* btnBrowseAutomatas;
-    QFormLayout* automataFieldLayout;
+    QLineEdit* textAutomataName;
+    QHBoxLayout* automataFieldLayout;
 
         //Chose states
     QPushButton** btnBrowseStates;
