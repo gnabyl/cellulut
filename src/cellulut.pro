@@ -1,6 +1,7 @@
 QT += widgets
 
 HEADERS += \
+    components/automata_settings_window.h \
     components/cell_widget.h \
     components/control_panel.h \
     components/main_window.h \
