@@ -47,6 +47,7 @@ void ControlPanel::initEventHandler() {
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
     connect(automataCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(setAutomata(int)));
     connect(this, SIGNAL(automataChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+    connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -191,4 +192,8 @@ void ControlPanel::setAutomata(int id) {
     textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
 
     emit automataChanged(id);
+}
+
+void FrequencyDisplayBox::setFrequency(int f){
+    setText(QString::number(f));
 }

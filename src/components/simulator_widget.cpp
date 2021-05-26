@@ -20,7 +20,7 @@ void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
 void SimulatorWidget::btnPlayPauseClicked() {
     if (!playing) {
         playing = true;
-        timer->start(1000);
+        timer->start(1000/frequency);
         setButtonIcon(btnPlay, PAUSE_BTN_ICON_PATH);
     } else {
         playing = false;
@@ -193,7 +193,19 @@ void SimulatorWidget::setBufferSize(int size){
     this->simulator->setBufferSize(size);
 }
 
-SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent) {
+void SimulatorWidget::setFrequency(int f){
+    this->frequency = f;
+}
+
+void SimulatorWidget::changeFrequency(int f){
+    setFrequency(f);
+    if(playing){
+        timer->stop();
+        timer->start(1000/f);
+    }
+}
+
+SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent), frequency(1) {
     simulator = new Simulator(nullptr, 100);
 
     this->nbCols = nbCols;

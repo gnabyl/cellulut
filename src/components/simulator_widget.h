@@ -33,6 +33,7 @@ class SimulatorWidget : public QWidget {
     QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset, *btnRandom;
 
     QTimer* timer;
+    int frequency;
 
     Simulator* simulator;
 
@@ -54,6 +55,7 @@ class SimulatorWidget : public QWidget {
     int getNbRows() const;
     int getCellSize() const;
     Simulator* getSimulator() const;
+    void setFrequency(int f);
 
   signals:
 
@@ -64,6 +66,7 @@ class SimulatorWidget : public QWidget {
     void setAutomata(int index);
     void changeCellState(int x, int y);
     void setBufferSize(int size);
+    void changeFrequency(int f);
 
     void btnPlayPauseClicked();
     void btnNextClicked();
