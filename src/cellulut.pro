@@ -1,6 +1,7 @@
 QT += widgets
 
 HEADERS += \
+    components/automata_settings_windows.h \
     components/cell_widget.h \
     components/control_panel.h \
     components/main_window.h \
@@ -17,6 +18,7 @@ HEADERS += \
     utils/transition_strategy.h \
 
 SOURCES += \
+    components/automata_settings_windows.cpp \
     components/cell_widget.cpp \
     components/control_panel.cpp \
     components/main_window.cpp \

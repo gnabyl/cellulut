@@ -15,6 +15,7 @@
 #include <QLineEdit>
 #include "simulator_widget.h"
 #include "utils/automata_manager.h"
+#include "automata_settings_windows.h"
 
 class AutomataNameBox : public QLineEdit{
     Q_OBJECT
@@ -144,8 +145,12 @@ class ControlPanel : public QWidget {
 public slots:
     void changeAutomataName(int id);
 
-   signals:
-    void automataChanged(int id);
+
+  signals:
+    private slots:
+    void neighborhoodSetting();
+    void automataChanged(int id){};
+
 };
 
 #endif // CONTROL_PANEL_H

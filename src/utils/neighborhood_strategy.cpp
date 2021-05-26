@@ -5,7 +5,7 @@
 #include "neighborhood_strategy.h"
 #include <cmath>
 
-VonNeumannNeighborhood::VonNeumannNeighborhood(){
+VonNeumannNeighborhood::VonNeumannNeighborhood():NeighborhoodStrategy("Von Neumann Neighborhood"){
     neighbors = new Cell* [nbNeighbors];
 
 }
@@ -27,7 +27,7 @@ Cell** VonNeumannNeighborhood::getNeighbors(Cell *c, Grid *g) {
     return neighbors;
 }
 
-VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(int radius){
+VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(int radius):NeighborhoodStrategy("Von Neumann Neighborhood Generalized"){
     this->radius = radius;
     this->nbNeighbors = this->radius * this->radius + (this->radius + 1) * ((this->radius + 1)) - 1 ;
     neighbors = new Cell* [nbNeighbors];
@@ -50,7 +50,7 @@ Cell** VonNeumannNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
     return neighbors;
 }
 
-MooreNeighborhood::MooreNeighborhood() {
+MooreNeighborhood::MooreNeighborhood():NeighborhoodStrategy("Moore Neighborhood") {
     neighbors = new Cell* [nbNeighbors];
 }
 
@@ -70,7 +70,7 @@ Cell** MooreNeighborhood::getNeighbors(Cell *c, Grid *g) {
     return neighbors;
 }
 
-MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(int radius) {
+MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(int radius):NeighborhoodStrategy("Moore Neighborhood Generalized") {
     this->radius = radius;
     this->nbNeighbors = (2 * this->radius + 1) * (2 * this->radius + 1) - 1;
     neighbors = new Cell* [nbNeighbors];
@@ -98,7 +98,7 @@ Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
 //        getX + dx[i], getY + dy[i]
 
 
-ArbitraryNeighborhood:: ArbitraryNeighborhood(int nbNeighbors, int* dx, int* dy):dx(dx),dy(dy){
+ArbitraryNeighborhood:: ArbitraryNeighborhood(int nbNeighbors, int* dx, int* dy,std::string na): NeighborhoodStrategy(na),dx(dx),dy(dy){
       this->nbNeighbors = nbNeighbors;
       neighbors = new Cell* [nbNeighbors];
 }

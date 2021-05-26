@@ -12,9 +12,12 @@
 #include "cell_state.h"
 
 class NeighborhoodStrategy {
+    std::string name;
   public:
+    NeighborhoodStrategy(std::string na):name(na){}
     virtual Cell** getNeighbors(Cell *c, Grid *g) = 0;
     virtual int getNbNeighbors() const = 0 ;
+    std::string getNeighborhoodName() {return name;}
 };
 
 class VonNeumannNeighborhood: public NeighborhoodStrategy {
@@ -38,6 +41,7 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
     Cell** neighbors;
     int radius;
     int nbNeighbors;
+    std::string name= "Von Neumann Neighborhood Generalized";
   public:
     VonNeumannNeighborhoodGeneralized(int radius = 1);
     ~VonNeumannNeighborhoodGeneralized() {
@@ -86,7 +90,7 @@ class ArbitraryNeighborhood: public NeighborhoodStrategy {
     int* dx;
     int* dy;
   public:
-    ArbitraryNeighborhood(int nbNeighbors, int* dx, int* dy);
+    ArbitraryNeighborhood(int nbNeighbors, int* dx, int* dy,std::string na);
     ~ArbitraryNeighborhood() {
         delete[] neighbors;
     }

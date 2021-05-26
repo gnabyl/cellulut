@@ -6,6 +6,17 @@
  * Pseudo function for loading automatas
  * It should load automatas from database
  */
+
+
+
+void ControlPanel::neighborhoodSetting(){
+    NeighborsBrowseWindow* neigborhoods= new NeighborsBrowseWindow;
+    neigborhoods->show();
+}
+
+
+
+
 void ControlPanel::loadAutomatas() {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
     // Game Of Life automata
@@ -137,6 +148,8 @@ void ControlPanel::initAutomataSettings(){
         statesFieldLayout[i]->addWidget(textStatesNames[i]);
         statesFieldLayout[i]->addWidget(btnBrowseStates[i]);
         automataSettingsLayout->addLayout(statesFieldLayout[i]);
+        //connect(btnBrowseStates[i], SIGNAL(clicked()), this, SLOT(slotButtonClicked(int i)));
+
    }
 
     //Choose neighborhood
@@ -150,6 +163,7 @@ void ControlPanel::initAutomataSettings(){
     neighborhoodFieldLayout->addWidget(textNeighborhoodName);
     neighborhoodFieldLayout->addWidget(btnBrowseNeighborhoods);
     automataSettingsLayout->addLayout(neighborhoodFieldLayout);
+    connect(btnBrowseNeighborhoods, SIGNAL(clicked()), this, SLOT(neighborhoodSetting()));
 
     //Choose transition rule
     ruleLabel = new QLabel(automataSettingsBox);

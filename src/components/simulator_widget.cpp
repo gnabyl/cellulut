@@ -61,6 +61,7 @@ void SimulatorWidget::btnRandomClicked(){
     updateGridDisplay();
 }
 
+
 void SimulatorWidget::initButtons() {
     btnPlay = new QPushButton(this);
     btnPrev = new QPushButton(this);
