@@ -12,8 +12,8 @@ void SimulatorWidget::initLayout() {
 
 void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
     btn->setIcon(QIcon(path));
-    btn->setIconSize(QSize(64, 64));
-    btn->setFixedSize(64, 64);
+    btn->setIconSize(QSize(48, 48));
+    btn->setFixedSize(48, 48);
     btn->setStyleSheet("border-radius : 50;");
 }
 

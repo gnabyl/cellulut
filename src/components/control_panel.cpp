@@ -113,8 +113,7 @@ void ControlPanel::initAutomataSettings(){
 
     //Choose automata
     automataLabel = new QLabel("Automata",automataSettingsBox);
-    btnBrowseAutomatas = new QPushButton(automataSettingsBox);
-    btnBrowseAutomatas->setText(tr("Browse..."));
+    btnBrowseAutomatas = new QPushButton(tr("Browse..."), automataSettingsBox);
     textAutomataName = new AutomataNameBox(automataSettingsBox);
     automataFieldLayout = new QHBoxLayout(automataSettingsBox);
     automataFieldLayout->addWidget(automataLabel);
