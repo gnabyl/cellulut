@@ -83,8 +83,10 @@ class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
 class ArbitraryNeighborhood: public NeighborhoodStrategy {
     Cell** neighbors;
     int nbNeighbors;
+    int* dx;
+    int* dy;
   public:
-    ArbitraryNeighborhood(int nbNeighbors);
+    ArbitraryNeighborhood(int nbNeighbors, int* dx, int* dy);
     ~ArbitraryNeighborhood() {
         delete[] neighbors;
     }
@@ -94,7 +96,7 @@ class ArbitraryNeighborhood: public NeighborhoodStrategy {
     Cell** getNeighborhood() const {
         return neighbors;
     }
-    virtual Cell** getNeighbors(Cell *c, Grid *g, int* dx, int* dy);
+    virtual Cell** getNeighbors(Cell *c, Grid *g);
 };
 
 #endif //LO21_NEIGHBORHOODSTRATEGY_H

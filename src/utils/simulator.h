@@ -45,7 +45,9 @@ class Simulator {
     //int getRangDernier() const;
 
     void setAutomata(Automata* automata);
+    void setBufferSize(int);
     Automata* getAutomata() const;
+    int getBufferSize() const;
 
     class Iterator {
         friend class Simulator;

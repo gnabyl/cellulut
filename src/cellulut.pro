@@ -6,7 +6,7 @@ HEADERS += \
     components/main_window.h \
     components/menubar.h \
     components/simulator_widget.h \
-    utils/neighborhood_factory.h \
+    constants.h \
     utils/simulator.h \
     utils/automata.h \
     utils/automata_manager.h \
@@ -14,6 +14,7 @@ HEADERS += \
     utils/cell_state.h \
     utils/grid.h \
     utils/neighborhood_strategy.h \
+    utils/neighborhood_factory.h \
     utils/transition_factory.h \
     utils/transition_strategy.h \
 
@@ -35,4 +36,5 @@ SOURCES += \
     utils/transition_factory.cpp \
     utils/transition_strategy.cpp \
 
-RESOURCES += ../assets/
+RESOURCES += \
+    images_resource.qrc

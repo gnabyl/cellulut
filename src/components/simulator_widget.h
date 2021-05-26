@@ -9,6 +9,7 @@
 #include <QIcon>
 #include <QMessageBox>
 #include <QTimer>
+#include "../constants.h"
 #include "cell_widget.h"
 #include "utils/simulator.h"
 #include "utils/automata_manager.h"
@@ -26,7 +27,7 @@ class SimulatorWidget : public QWidget {
 
     CellWidget** cellWidgets = nullptr;
 
-    QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset;
+    QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset, *btnRandom;
 
     QTimer* timer;
 
@@ -47,6 +48,7 @@ class SimulatorWidget : public QWidget {
     void setButtonIcon(QPushButton* btn, const QString& path);
     int getNbCols() const;
     int getNbRows() const;
+    Simulator* getSimulator() const;
 
   signals:
 
@@ -56,10 +58,12 @@ class SimulatorWidget : public QWidget {
     void setCellSize(int size);
     void setAutomata(int index);
     void changeCellState(int x, int y);
+    void setBufferSize(int size);
 
     void btnPlayPauseClicked();
     void btnNextClicked();
     void btnResetClicked();
+    void btnRandomClicked();
 };
 
 #endif // SIMULATOR_WIDGET_H

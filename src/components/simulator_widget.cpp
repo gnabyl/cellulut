@@ -12,19 +12,20 @@ void SimulatorWidget::initLayout() {
 
 void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
     btn->setIcon(QIcon(path));
-    btn->setIconSize(QSize(28, 28));
-    btn->setFixedSize(30, 30);
+    btn->setIconSize(QSize(64, 64));
+    btn->setFixedSize(64, 64);
+    btn->setStyleSheet("border-radius : 50;");
 }
 
 void SimulatorWidget::btnPlayPauseClicked() {
     if (!playing) {
         playing = true;
         timer->start(1000);
-        setButtonIcon(btnPlay, ":assets/pause-button.png");
+        setButtonIcon(btnPlay, PAUSE_BTN_ICON_PATH);
     } else {
         playing = false;
         timer->stop();
-        setButtonIcon(btnPlay, ":assets/play-button.png");
+        setButtonIcon(btnPlay, PLAY_BTN_ICON_PATH);
     }
 }
 
@@ -50,27 +51,41 @@ void SimulatorWidget::btnResetClicked() {
     }
 }
 
+void SimulatorWidget::btnRandomClicked(){
+    if(playing){
+        playing = false;
+        timer->stop();
+        setButtonIcon(btnPlay, PLAY_BTN_ICON_PATH);
+    }
+    regenerateRandomGrid();
+    updateGridDisplay();
+}
+
 void SimulatorWidget::initButtons() {
     btnPlay = new QPushButton(this);
     btnPrev = new QPushButton(this);
     btnNext = new QPushButton(this);
     btnReset = new QPushButton(this);
+    btnRandom = new QPushButton(this);
 
-    setButtonIcon(btnPrev, ":assets/previous-button.png");
-    setButtonIcon(btnPlay, ":assets/play-button.png");
-    setButtonIcon(btnReset, ":assets/reset-button.png");
-    setButtonIcon(btnNext, ":assets/next-button.png");
+    setButtonIcon(btnPrev, PREV_BTN_ICON_PATH);
+    setButtonIcon(btnPlay, PLAY_BTN_ICON_PATH);
+    setButtonIcon(btnReset, RESET_BTN_ICON_PATH);
+    setButtonIcon(btnNext, NEXT_BTN_ICON_PATH);
+    setButtonIcon(btnRandom, RANDOM_BTN_ICON_PATH);
 
     controllerLayout->setSizeConstraint(QLayout::SetMinimumSize);
 
     controllerLayout->addWidget(btnPrev);
     controllerLayout->addWidget(btnPlay);
     controllerLayout->addWidget(btnReset);
+    controllerLayout->addWidget(btnRandom);
     controllerLayout->addWidget(btnNext);
 
     connect(btnPlay, &QPushButton::clicked, this, &SimulatorWidget::btnPlayPauseClicked);
     connect(btnNext, &QPushButton::clicked, this, &SimulatorWidget::btnNextClicked);
     connect(btnReset, &QPushButton::clicked, this, &SimulatorWidget::btnResetClicked);
+    connect(btnRandom, &QPushButton::clicked, this, &SimulatorWidget::btnRandomClicked);
 }
 
 void SimulatorWidget::regenerateRandomGrid() {
@@ -115,6 +130,11 @@ void SimulatorWidget::resetGridDisplay() {
 int SimulatorWidget::getNbRows() const {
     return this->nbRows;
 }
+
+Simulator* SimulatorWidget::getSimulator() const{
+    return this->simulator;
+}
+
 void SimulatorWidget::setNbRows(int nbRows) {
     cleanGrid();
     this->nbRows = nbRows;
@@ -124,6 +144,7 @@ void SimulatorWidget::setNbRows(int nbRows) {
 int SimulatorWidget::getNbCols() const {
     return this->nbCols;
 }
+
 void SimulatorWidget::setNbCols(int nbCols) {
     cleanGrid();
     this->nbCols = nbCols;
@@ -148,6 +169,10 @@ void SimulatorWidget::setAutomata(int index) {
     cleanGrid();
     regenerateRandomGrid();
     resetGridDisplay();
+}
+
+void SimulatorWidget::setBufferSize(int size){
+    this->simulator->setBufferSize(size);
 }
 
 SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int cellSize) : QWidget(parent) {
@@ -185,6 +210,7 @@ void SimulatorWidget::cleanGrid() {
     delete [] cellWidgets;
     cellWidgets = nullptr;
 }
+
 
 SimulatorWidget::~SimulatorWidget() {
     cleanGrid();

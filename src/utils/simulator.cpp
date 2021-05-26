@@ -102,6 +102,14 @@ Simulator::~Simulator() {
 Simulator::Iterator Simulator::getIterator() {
     return Iterator(this);
 }
+
+int Simulator::getBufferSize() const{
+    return bufferSize;
+}
+
+void Simulator::setBufferSize(int size){
+    bufferSize = size;
+}
 /*
 Simulateur::ConstIterator Simulateur::getIterator() const
 {
