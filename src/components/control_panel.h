@@ -16,6 +16,17 @@
 #include "simulator_widget.h"
 #include "utils/automata_manager.h"
 
+class AutomataNameBox : public QLineEdit{
+    Q_OBJECT
+
+    using QLineEdit::QLineEdit; /*enables QLineEdit constructor to be used*/
+
+signals:
+    void automataChanged(int id);
+public slots:
+    void setAutomataName(int id);
+};
+
 class ControlPanel : public QWidget {
     Q_OBJECT
 
@@ -39,7 +50,7 @@ class ControlPanel : public QWidget {
         //Choose automata
     QLabel* automataLabel;
     QPushButton* btnBrowseAutomatas;
-    QLineEdit* textAutomataName;
+    AutomataNameBox* textAutomataName;
     QHBoxLayout* automataFieldLayout;
 
         //Chose states
@@ -80,9 +91,11 @@ class ControlPanel : public QWidget {
     void loadAutomatas();
     void initEventHandler();
 
+public slots:
+    void changeAutomataName(int id);
 
-  signals:
-
+   signals:
+    void automataChanged(int id);
 };
 
 #endif // CONTROL_PANEL_H

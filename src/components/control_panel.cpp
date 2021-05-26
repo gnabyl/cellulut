@@ -30,8 +30,10 @@ void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
-    connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+    //connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
+    connect(automataCbb, SIGNAL(currentIndexChanged(int)), textAutomataName, SLOT(setAutomataName(int)));
+    connect(textAutomataName, SIGNAL(automataChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -110,7 +112,7 @@ void ControlPanel::initAutomataSettings(){
     automataLabel = new QLabel("Automata",automataSettingsBox);
     btnBrowseAutomatas = new QPushButton(automataSettingsBox);
     btnBrowseAutomatas->setText(tr("Browse..."));
-    textAutomataName = new QLineEdit(automataSettingsBox);
+    textAutomataName = new AutomataNameBox(automataSettingsBox);
     automataFieldLayout = new QHBoxLayout(automataSettingsBox);
     automataFieldLayout->addWidget(automataLabel);
     automataFieldLayout->addWidget(textAutomataName);
@@ -162,7 +164,22 @@ void ControlPanel::initRunSettings(){
     runSettingsLayout->addLayout(bufferSizeFieldLayout);
 }
 
+void ControlPanel::changeAutomataName(int id){
+    if(id==-1) textAutomataName->setText("Personnalisé");
+    else
+        textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName().c_str()));
+
+}
+
 ControlPanel::~ControlPanel() {
     delete automatasLayout;
     delete gridSettingsLayout;
+}
+
+void AutomataNameBox::setAutomataName(int id){
+    if(id==-1)
+        setText("Personnalisé");
+    else
+        setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
+    emit automataChanged(id);
 }
