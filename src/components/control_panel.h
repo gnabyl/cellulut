@@ -15,6 +15,7 @@
 #include <QLineEdit>
 #include "simulator_widget.h"
 #include "utils/automata_manager.h"
+#include "automata_settings_windows.h"
 
 class ControlPanel : public QWidget {
     Q_OBJECT
@@ -82,6 +83,8 @@ class ControlPanel : public QWidget {
 
 
   signals:
+    private slots:
+    void neighborhoodSetting();
 
 };
 

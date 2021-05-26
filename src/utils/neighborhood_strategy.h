@@ -15,11 +15,13 @@ class NeighborhoodStrategy {
   public:
     virtual Cell** getNeighbors(Cell *c, Grid *g) = 0;
     virtual int getNbNeighbors() const = 0 ;
+    //std::string getNeighborhoodName() {return name;}
 };
 
 class VonNeumannNeighborhood: public NeighborhoodStrategy {
     Cell** neighbors;
     int nbNeighbors = 4;
+    std::string name= "Von Neumann Neighborhood";
   public:
     VonNeumannNeighborhood();
     ~VonNeumannNeighborhood() {
@@ -38,6 +40,7 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
     Cell** neighbors;
     int radius;
     int nbNeighbors;
+    std::string name= "Von Neumann Neighborhood Generalized";
   public:
     VonNeumannNeighborhoodGeneralized(int radius = 1);
     ~VonNeumannNeighborhoodGeneralized() {
@@ -54,6 +57,8 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
 class MooreNeighborhood: public NeighborhoodStrategy {
     Cell** neighbors;
     int nbNeighbors = 8;
+    std::string name= "Moore Neighborhood";
+
   public:
     MooreNeighborhood();
     ~MooreNeighborhood() {
@@ -69,6 +74,7 @@ class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
     Cell** neighbors;
     int radius;
     int nbNeighbors;
+    std::string name= "Moore Neighborhood Generalized";
   public:
     MooreNeighborhoodGeneralized(int radius = 1);
     ~MooreNeighborhoodGeneralized() {
@@ -85,8 +91,9 @@ class ArbitraryNeighborhood: public NeighborhoodStrategy {
     int nbNeighbors;
     int* dx;
     int* dy;
+    std::string name;
   public:
-    ArbitraryNeighborhood(int nbNeighbors, int* dx, int* dy);
+    ArbitraryNeighborhood(int nbNeighbors, int* dx, int* dy, std::string name);
     ~ArbitraryNeighborhood() {
         delete[] neighbors;
     }

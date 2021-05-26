@@ -6,6 +6,17 @@
  * Pseudo function for loading automatas
  * It should load automatas from database
  */
+
+
+
+void ControlPanel::neighborhoodSetting(){
+    NeighborsBrowseWindow* neigborhoods= new NeighborsBrowseWindow;
+    neigborhoods->show();
+}
+
+
+
+
 void ControlPanel::loadAutomatas() {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
     // Game Of Life automata
@@ -32,6 +43,7 @@ void ControlPanel::initEventHandler() {
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
     connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
+
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -127,6 +139,8 @@ void ControlPanel::initAutomataSettings(){
         statesFieldLayout[i] = new QFormLayout(automataSettingsBox);
         statesFieldLayout[i]->addRow(QString("State ").append(QString(num)),btnBrowseStates[i]);
         automataSettingsLayout->addLayout(statesFieldLayout[i]);
+        //connect(btnBrowseStates[i], SIGNAL(clicked()), this, SLOT(slotButtonClicked(int i)));
+
    }
 
     //Choose neighborhood
@@ -135,6 +149,7 @@ void ControlPanel::initAutomataSettings(){
     neighborhoodFieldLayout = new QFormLayout(automataSettingsBox);
     neighborhoodFieldLayout->addRow("Neighborhood",btnBrowseNeighborhoods);
     automataSettingsLayout->addLayout(neighborhoodFieldLayout);
+    connect(btnBrowseNeighborhoods, SIGNAL(clicked()), this, SLOT(neighborhoodSetting()));
 
     //Choose transition rule
     btnBrowseRules = new QPushButton(automataSettingsBox);
