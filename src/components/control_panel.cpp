@@ -33,6 +33,8 @@ void ControlPanel::initEventHandler() {
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
     connect(automataCbb, SIGNAL(currentIndexChanged(int)), textAutomataName, SLOT(setAutomataName(int)));
     connect(textAutomataName, SIGNAL(automataChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+    connect(sliderSpeed, SIGNAL(valueChanged(int)), textSpeed, SLOT(setFrequency(int)));
+    connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -164,10 +166,17 @@ void ControlPanel::initAutomataSettings(){
 
 void ControlPanel::initRunSettings(){
     runSettingsLayout = new QVBoxLayout(runSettingsBox);
-
+    speedLabel = new QLabel(automataSettingsBox);
+    speedLabel->setText("Frequency");
     sliderSpeed = new QSlider(Qt::Horizontal,runSettingsBox);
-    sliderSpeedLayout = new QFormLayout(runSettingsBox);
-    sliderSpeedLayout->addRow("Execution speed",sliderSpeed);
+    sliderSpeed->setRange(1,20);
+    sliderSpeed->setValue(1);
+    textSpeed = new FrequencyDisplayBox(automataSettingsBox);
+    textSpeed->setText("1");
+    sliderSpeedLayout = new QHBoxLayout(runSettingsBox);
+    sliderSpeedLayout->addWidget(speedLabel);
+    sliderSpeedLayout->addWidget(sliderSpeed);
+    sliderSpeedLayout->addWidget(textSpeed);
     runSettingsLayout->addLayout(sliderSpeedLayout);
 
     bufferSizeSpb = new QSpinBox(runSettingsBox);
@@ -184,7 +193,6 @@ void ControlPanel::changeAutomataName(int id){
     if(id==-1) textAutomataName->setText("Personnalisé");
     else
         textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName().c_str()));
-
 }
 
 ControlPanel::~ControlPanel() {
@@ -198,4 +206,8 @@ void AutomataNameBox::setAutomataName(int id){
     else
         setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
     emit automataChanged(id);
+}
+
+void FrequencyDisplayBox::setFrequency(int f){
+    setText(QString::number(f));
 }

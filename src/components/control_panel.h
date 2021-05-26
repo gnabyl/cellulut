@@ -60,6 +60,15 @@ class RuleNameBox : public QLineEdit{
 //    void setRuleName(int id);
 };
 
+class FrequencyDisplayBox : public QLineEdit{
+    Q_OBJECT
+
+    using QLineEdit::QLineEdit;
+
+public slots:
+    void setFrequency(int);
+};
+
 class ControlPanel : public QWidget {
     Q_OBJECT
 
@@ -108,8 +117,10 @@ class ControlPanel : public QWidget {
     QGroupBox* runSettingsBox;
     QVBoxLayout* runSettingsLayout;
     QSlider* sliderSpeed;
+    QLabel* speedLabel;
     QSpinBox* bufferSizeSpb;
-    QFormLayout* sliderSpeedLayout;
+    FrequencyDisplayBox* textSpeed;
+    QHBoxLayout* sliderSpeedLayout;
     QFormLayout* bufferSizeFieldLayout;
 
     SimulatorWidget* simulatorWidget;
