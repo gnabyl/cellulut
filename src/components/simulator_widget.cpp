@@ -12,8 +12,9 @@ void SimulatorWidget::initLayout() {
 
 void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
     btn->setIcon(QIcon(path));
-    btn->setIconSize(QSize(28, 28));
-    btn->setFixedSize(30, 30);
+    btn->setIconSize(QSize(64, 64));
+    btn->setFixedSize(64, 64);
+    btn->setStyleSheet("border-radius : 50;");
 }
 
 void SimulatorWidget::btnPlayPauseClicked() {
