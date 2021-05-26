@@ -48,6 +48,7 @@ class SimulatorWidget : public QWidget {
     void setButtonIcon(QPushButton* btn, const QString& path);
     int getNbCols() const;
     int getNbRows() const;
+    int getCellSize() const;
     Simulator* getSimulator() const;
 
   signals:

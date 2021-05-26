@@ -156,6 +156,9 @@ void SimulatorWidget::setCellSize(int size) {
     this->cellSize = size;
     updateGridDisplay();
 }
+int SimulatorWidget::getCellSize() const {
+    return this->cellSize;
+}
 
 void SimulatorWidget::changeCellState(int x, int y) {
     Grid* currentGrid = simulator->getIterator().current();

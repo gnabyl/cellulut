@@ -72,11 +72,8 @@ class ControlPanel : public QWidget {
 
     //Grid settings box
     QGroupBox* gridSettingsBox;
-    QVBoxLayout* gridSettingsLayout;
+    QFormLayout* gridSettingsLayout;
     QSpinBox* nbRowsSpb, *nbColsSpb, *cellSizeSpb;
-    QFormLayout* nbRowsLayout;
-    QFormLayout* nbColsLayout;
-    QFormLayout* cellSizeLayout;
 
     //Automata settings box
     QGroupBox* automataSettingsBox;

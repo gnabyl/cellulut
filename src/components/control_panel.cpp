@@ -97,25 +97,15 @@ void ControlPanel::initGridSettings(){
     nbColsSpb->setMinimum(2);
 
     cellSizeSpb->setKeyboardTracking(false);
-    cellSizeSpb->setValue(20);
+    cellSizeSpb->setValue(simulatorWidget->getCellSize());
     cellSizeSpb->setMaximum(50);
     cellSizeSpb->setMinimum(5);
 
     //Creation of the boxes layout
-    gridSettingsLayout = new QVBoxLayout(gridSettingsBox);
-
-    nbRowsLayout = new QFormLayout(gridSettingsBox);
-    nbRowsLayout->addRow("Rows number : ", nbRowsSpb);
-
-    nbColsLayout = new QFormLayout(gridSettingsBox);
-    nbColsLayout->addRow("Cols number : ", nbColsSpb);
-
-    cellSizeLayout = new QFormLayout(gridSettingsBox);
-    cellSizeLayout->addRow("Cell size : ", cellSizeSpb);
-
-    gridSettingsLayout->addLayout(nbRowsLayout);
-    gridSettingsLayout->addLayout(nbColsLayout);
-    gridSettingsLayout->addLayout(cellSizeLayout);
+    gridSettingsLayout = new QFormLayout(gridSettingsBox);
+    gridSettingsLayout->addRow("Rows number", nbRowsSpb);
+    gridSettingsLayout->addRow("Cols number", nbColsSpb);
+    gridSettingsLayout->addRow("Cell size", cellSizeSpb);
 }
 
 void ControlPanel::initAutomataSettings(){
