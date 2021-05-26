@@ -212,6 +212,7 @@ void SimulatorWidget::cleanGrid() {
     cellWidgets = nullptr;
 }
 
+
 SimulatorWidget::~SimulatorWidget() {
     cleanGrid();
 }

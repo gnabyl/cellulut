@@ -17,6 +17,50 @@
 #include "utils/automata_manager.h"
 #include "automata_settings_windows.h"
 
+class AutomataNameBox : public QLineEdit{
+    Q_OBJECT
+
+    using QLineEdit::QLineEdit; /*enables QLineEdit constructor to be used*/
+
+signals:
+    void automataChanged(int id);
+public slots:
+    void setAutomataName(int id);
+};
+
+class StateNameBox : public QLineEdit{
+    Q_OBJECT
+
+    using QLineEdit::QLineEdit;
+
+//signals:
+//    void stateChanged(int id);
+//public slots:
+//    void setStateName(int id);
+};
+
+class NeighborhoodNameBox : public QLineEdit{
+    Q_OBJECT
+
+    using QLineEdit::QLineEdit;
+
+//signals:
+//    void neighborhoodChanged(int id);
+//public slots:
+//    void setNeighborhoodName(int id);
+};
+
+class RuleNameBox : public QLineEdit{
+    Q_OBJECT
+
+    using QLineEdit::QLineEdit;
+
+//signals:
+//    void ruleChanged(int id);
+//public slots:
+//    void setRuleName(int id);
+};
+
 class ControlPanel : public QWidget {
     Q_OBJECT
 
@@ -40,20 +84,26 @@ class ControlPanel : public QWidget {
         //Choose automata
     QLabel* automataLabel;
     QPushButton* btnBrowseAutomatas;
-    QLineEdit* textAutomataName;
+    AutomataNameBox* textAutomataName;
     QHBoxLayout* automataFieldLayout;
 
         //Chose states
+    QLabel** statesLabels;
     QPushButton** btnBrowseStates;
-    QFormLayout** statesFieldLayout;
+    StateNameBox** textStatesNames;
+    QHBoxLayout** statesFieldLayout;
 
         //Chose neighborhood
+    QLabel* neighborhoodLabel;
+    NeighborhoodNameBox* textNeighborhoodName;
     QPushButton* btnBrowseNeighborhoods;
-    QFormLayout* neighborhoodFieldLayout;
+    QHBoxLayout* neighborhoodFieldLayout;
 
         //Chose transition rule
+    QLabel* ruleLabel;
+    RuleNameBox* textRuleName;
     QPushButton* btnBrowseRules;
-    QFormLayout* ruleFieldLayout;
+    QHBoxLayout* ruleFieldLayout;
 
     //Run settings box
     QGroupBox* runSettingsBox;
@@ -81,10 +131,14 @@ class ControlPanel : public QWidget {
     void loadAutomatas();
     void initEventHandler();
 
+public slots:
+    void changeAutomataName(int id);
+
 
   signals:
     private slots:
     void neighborhoodSetting();
+    void automataChanged(int id){};
 
 };
 

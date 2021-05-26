@@ -41,9 +41,9 @@ void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
-    connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
-
+    connect(automataCbb, SIGNAL(currentIndexChanged(int)), textAutomataName, SLOT(setAutomataName(int)));
+    connect(textAutomataName, SIGNAL(automataChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -122,7 +122,7 @@ void ControlPanel::initAutomataSettings(){
     automataLabel = new QLabel("Automata",automataSettingsBox);
     btnBrowseAutomatas = new QPushButton(automataSettingsBox);
     btnBrowseAutomatas->setText(tr("Browse..."));
-    textAutomataName = new QLineEdit(automataSettingsBox);
+    textAutomataName = new AutomataNameBox(automataSettingsBox);
     automataFieldLayout = new QHBoxLayout(automataSettingsBox);
     automataFieldLayout->addWidget(automataLabel);
     automataFieldLayout->addWidget(textAutomataName);
@@ -130,32 +130,49 @@ void ControlPanel::initAutomataSettings(){
     automataSettingsLayout->addLayout(automataFieldLayout);
 
     //Choose state x8
+    statesLabels = new QLabel*[8];
     btnBrowseStates = new QPushButton*[8];
-    statesFieldLayout = new QFormLayout*[8];
+    textStatesNames = new StateNameBox*[8];
+    statesFieldLayout = new QHBoxLayout*[8];
     for(int i=0; i<8; i++){
         char num = i+49;
+        statesLabels[i] = new QLabel(automataSettingsBox);
+        statesLabels[i]->setText(QString("State ").append(QString(num)));
         btnBrowseStates[i] = new QPushButton(automataSettingsBox);
         btnBrowseStates[i]->setText(tr("Browse..."));
-        statesFieldLayout[i] = new QFormLayout(automataSettingsBox);
-        statesFieldLayout[i]->addRow(QString("State ").append(QString(num)),btnBrowseStates[i]);
+        textStatesNames[i] = new StateNameBox(automataSettingsBox);
+        statesFieldLayout[i] = new QHBoxLayout(automataSettingsBox);
+        statesFieldLayout[i]->addWidget(statesLabels[i]);
+        statesFieldLayout[i]->addWidget(textStatesNames[i]);
+        statesFieldLayout[i]->addWidget(btnBrowseStates[i]);
         automataSettingsLayout->addLayout(statesFieldLayout[i]);
         //connect(btnBrowseStates[i], SIGNAL(clicked()), this, SLOT(slotButtonClicked(int i)));
 
    }
 
     //Choose neighborhood
+    neighborhoodLabel = new QLabel(automataSettingsBox);
+    neighborhoodLabel->setText("Neighborhood");
+    textNeighborhoodName = new NeighborhoodNameBox(automataSettingsBox);
     btnBrowseNeighborhoods = new QPushButton(automataSettingsBox);
     btnBrowseNeighborhoods->setText(tr("Browse..."));
-    neighborhoodFieldLayout = new QFormLayout(automataSettingsBox);
-    neighborhoodFieldLayout->addRow("Neighborhood",btnBrowseNeighborhoods);
+    neighborhoodFieldLayout = new QHBoxLayout(automataSettingsBox);
+    neighborhoodFieldLayout->addWidget(neighborhoodLabel);
+    neighborhoodFieldLayout->addWidget(textNeighborhoodName);
+    neighborhoodFieldLayout->addWidget(btnBrowseNeighborhoods);
     automataSettingsLayout->addLayout(neighborhoodFieldLayout);
     connect(btnBrowseNeighborhoods, SIGNAL(clicked()), this, SLOT(neighborhoodSetting()));
 
     //Choose transition rule
+    ruleLabel = new QLabel(automataSettingsBox);
+    ruleLabel->setText("Transition rule");
+    textRuleName = new RuleNameBox(automataSettingsBox);
     btnBrowseRules = new QPushButton(automataSettingsBox);
     btnBrowseRules->setText(tr("Browse..."));
-    ruleFieldLayout = new QFormLayout(automataSettingsBox);
-    ruleFieldLayout->addRow("Transition rule", btnBrowseRules);
+    ruleFieldLayout = new QHBoxLayout(automataSettingsBox);
+    ruleFieldLayout->addWidget(ruleLabel);
+    ruleFieldLayout->addWidget(textRuleName);
+    ruleFieldLayout->addWidget(btnBrowseRules);
     automataSettingsLayout->addLayout(ruleFieldLayout);
 }
 
@@ -177,7 +194,22 @@ void ControlPanel::initRunSettings(){
     runSettingsLayout->addLayout(bufferSizeFieldLayout);
 }
 
+void ControlPanel::changeAutomataName(int id){
+    if(id==-1) textAutomataName->setText("Personnalisé");
+    else
+        textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName().c_str()));
+
+}
+
 ControlPanel::~ControlPanel() {
     delete automatasLayout;
     delete gridSettingsLayout;
+}
+
+void AutomataNameBox::setAutomataName(int id){
+    if(id==-1)
+        setText("Personnalisé");
+    else
+        setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
+    emit automataChanged(id);
 }
