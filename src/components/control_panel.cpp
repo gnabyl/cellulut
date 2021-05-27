@@ -179,12 +179,15 @@ void ControlPanel::initRunSettings(){
     runSettingsLayout = new QFormLayout(runSettingsBox);
 
     sliderSpeed = new BSlider(Qt::Horizontal, runSettingsBox);
+    sliderSpeed->setValue(simulatorWidget->getFrequency());
+    sliderSpeed->setMinimum(simulatorWidget->getFrequency());
+    sliderSpeed->setMaximum(10);
     runSettingsLayout->addRow("Execution speed",sliderSpeed);
 
     bufferSizeSpb = new QSpinBox(runSettingsBox);
     bufferSizeSpb->setKeyboardTracking(false);
     bufferSizeSpb->setValue(simulatorWidget->getSimulator()->getBufferSize());
-    bufferSizeSpb->setMaximum(100);
+    bufferSizeSpb->setMaximum(500);
     bufferSizeSpb->setMinimum(2);
     runSettingsLayout->addRow("Buffer size",bufferSizeSpb);
 }

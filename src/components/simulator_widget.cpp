@@ -148,7 +148,7 @@ Simulator* SimulatorWidget::getSimulator() const{
 void SimulatorWidget::setNbRows(int nbRows) {
     cleanGrid();
     this->nbRows = nbRows;
-    regenerateRandomGrid();
+    regenerateEmptyGrid();
     resetGridDisplay();
 }
 int SimulatorWidget::getNbCols() const {
@@ -158,7 +158,7 @@ int SimulatorWidget::getNbCols() const {
 void SimulatorWidget::setNbCols(int nbCols) {
     cleanGrid();
     this->nbCols = nbCols;
-    regenerateRandomGrid();
+    regenerateEmptyGrid();
     resetGridDisplay();
 }
 void SimulatorWidget::setCellSize(int size) {
@@ -196,6 +196,9 @@ void SimulatorWidget::setBufferSize(int size){
 void SimulatorWidget::setFrequency(int f){
     this->frequency = f;
 }
+int SimulatorWidget::getFrequency() const {
+    return this->frequency;
+}
 
 void SimulatorWidget::changeFrequency(int f){
     setFrequency(f);
@@ -221,8 +224,9 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
 
     lblCurrentGeneration = new QLabel("Generation #0");
 
-    simulatorLayout->addLayout(gridLayout);
     simulatorLayout->addWidget(lblCurrentGeneration);
+    simulatorLayout->addLayout(gridLayout);
+    simulatorLayout->addStretch();
     simulatorLayout->addLayout(controllerLayout);
 
     setLayout(simulatorLayout);

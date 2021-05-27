@@ -54,6 +54,7 @@ class SimulatorWidget : public QWidget {
     int getNbCols() const;
     int getNbRows() const;
     int getCellSize() const;
+    int getFrequency() const;
     Simulator* getSimulator() const;
     void setFrequency(int f);
 
