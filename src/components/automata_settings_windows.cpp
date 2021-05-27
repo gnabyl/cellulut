@@ -7,6 +7,32 @@ StateBrowseWindow:: StateBrowseWindow(){
     connect(confirm, SIGNAL(clicked()), stateSettings, SLOT(quit()));
 };
 
+
+
+void NeighborsBrowseWindow::clickedactions(int indexItem){
+
+    std::cout << indexItem << std::endl;
+
+
+    switch (indexItem) {
+        case 0:case 2 :
+
+            if (radius)
+                neighborhoodLayout->removeRow(radius);
+
+
+            break;
+        case 1: case 3: case 4:
+        radiusSetting = new QGroupBox(tr("Radius Setting"));
+        radius = new QSpinBox(radiusSetting);
+        radius->setKeyboardTracking(false);
+        radius->setValue(1);
+        radius->setMinimum(1);
+        radius->setMaximum(5);
+        neighborhoodLayout->addRow("Radius :",radius);
+            break;
+    }
+
 NeighborsBrowseWindow::NeighborsBrowseWindow(){
 
     mainLayout = new QVBoxLayout(this);
@@ -22,44 +48,7 @@ NeighborsBrowseWindow::NeighborsBrowseWindow(){
     neighborhoodCbb->addItem("Arbitrary Neighborhood");
     neighborhoodLayout->addRow("Neighborhood", neighborhoodCbb);
 
-    radiusSetting = new QGroupBox(tr("Radius Setting"));
-    radius = new QSpinBox(radiusSetting);
-    radius->setKeyboardTracking(false);
-    radius->setValue(1);
-    radius->setMinimum(1);
-    radius->setMaximum(5);
-
-
-    if (neighborhoodCbb->currentText()=="Von Neumann Neighborhood") {
-
-
-    }
-    if(neighborhoodCbb->currentText()=="Von Neumann Neighborhood Generalized"){
-
-
-
-        neighborhoodLayout->addRow("Radius :",radius);
-
-
-
-    }
-    if (neighborhoodCbb->currentText()=="Moore Neighborhood") {
-
-    }
-    if(neighborhoodCbb->currentText()=="Moore Neighborhood Generalized"){
-
-        neighborhoodLayout->addRow("Radius :",radius);
-
-    }
-    else{
-
-
-        neighborhoodLayout->addRow("Radius :",radius);
-
-    }
-
-
-
+    connect(neighborhoodCbb,SIGNAL(activated(int)),this,SLOT(clickedactions(int)));
 
     QPushButton *Confirm = new QPushButton("Confirm", this);
     connect(Confirm, SIGNAL(clicked()), this, SLOT(quit()));
