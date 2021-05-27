@@ -17,37 +17,6 @@
 #include "automata_settings_windows.h"
 #include "bslider.h"
 
-class StateNameBox : public QLineEdit {
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit;
-
-    //signals:
-    //    void stateChanged(int id);
-    //public slots:
-    //    void setStateName(int id);
-};
-
-class RuleNameBox : public QLineEdit {
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit;
-
-    //signals:
-    //    void ruleChanged(int id);
-    //public slots:
-    //    void setRuleName(int id);
-};
-
-class FrequencyDisplayBox : public QLineEdit{
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit;
-
-public slots:
-    void setFrequency(int);
-};
-
 class ControlPanel : public QWidget {
     Q_OBJECT
 
@@ -74,7 +43,7 @@ class ControlPanel : public QWidget {
     //Chose states
     QLabel** statesLabels;
     QPushButton** btnBrowseStates;
-    StateNameBox** textStatesNames;
+    QLineEdit** textStatesNames;
     QHBoxLayout** statesFieldLayout;
 
     //Chose neighborhood
@@ -85,7 +54,7 @@ class ControlPanel : public QWidget {
 
     //Chose transition rule
     QLabel* ruleLabel;
-    RuleNameBox* textRuleName;
+    QLineEdit* textRuleName;
     QPushButton* btnBrowseRules;
     QHBoxLayout* ruleFieldLayout;
 

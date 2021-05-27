@@ -20,30 +20,45 @@ class TransitionException {
 ///Basic interface///
 
 class TransitionStrategy { //interface
+    std::string name;
   public:
+    TransitionStrategy(std::string name) : name(name) {};
     virtual Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const = 0;
+    std::string getName() const {
+        return name;
+    }
 };
 
 
 class TotalisticTransition : public TransitionStrategy {
+  public:
+    TotalisticTransition(std::string name = "Totalistic Transition") : TransitionStrategy(name) {}
     virtual Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const = 0;
 };
 
 
 class StochasticTransition : public TransitionStrategy {
+  public:
+    StochasticTransition(std::string name = "Stochastic Transition") : TransitionStrategy(name) {}
     virtual Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const = 0;
 };
 
 class OuterTotalisticTransition : public TotalisticTransition {
+  public:
+    OuterTotalisticTransition(std::string name = "OuterTotalistic Transition") : TotalisticTransition(name) {}
     virtual Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const = 0;
 };
 
 ///Concrete strategies///
 class GOLTransition : public OuterTotalisticTransition {
+  public:
+    GOLTransition(std::string name = "Game Of Life Transition") : OuterTotalisticTransition(name) {}
     Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const override;
 };
 
 class BBTransition : public OuterTotalisticTransition {
+  public:
+    BBTransition(std::string name = "Brian's Brain Transition") : OuterTotalisticTransition(name) {}
     Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const override;
 };
 

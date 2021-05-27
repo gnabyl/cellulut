@@ -50,7 +50,7 @@ void ControlPanel::initEventHandler() {
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
     connect(automataCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(setAutomata(int)));
-    connect(this, SIGNAL(automataChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+    connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
     connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
 }
 
@@ -129,7 +129,7 @@ void ControlPanel::initAutomataSettings(){
     //Choose state x8
     statesLabels = new QLabel*[8];
     btnBrowseStates = new QPushButton*[8];
-    textStatesNames = new StateNameBox*[8];
+    textStatesNames = new QLineEdit*[8];
     statesFieldLayout = new QHBoxLayout*[8];
     for(int i=0; i<8; i++){
         char num = i+49;
@@ -137,7 +137,7 @@ void ControlPanel::initAutomataSettings(){
         statesLabels[i]->setText(QString("State ").append(QString(num)));
         btnBrowseStates[i] = new QPushButton(automataSettingsBox);
         btnBrowseStates[i]->setText(tr("Browse..."));
-        textStatesNames[i] = new StateNameBox(automataSettingsBox);
+        textStatesNames[i] = new QLineEdit(automataSettingsBox);
         statesFieldLayout[i] = new QHBoxLayout(automataSettingsBox);
         statesFieldLayout[i]->addWidget(statesLabels[i]);
         statesFieldLayout[i]->addWidget(textStatesNames[i]);
@@ -163,7 +163,7 @@ void ControlPanel::initAutomataSettings(){
     //Choose transition rule
     ruleLabel = new QLabel(automataSettingsBox);
     ruleLabel->setText("Transition rule");
-    textRuleName = new RuleNameBox(automataSettingsBox);
+    textRuleName = new QLineEdit(automataSettingsBox);
     btnBrowseRules = new QPushButton(automataSettingsBox);
     btnBrowseRules->setText(tr("Browse..."));
     ruleFieldLayout = new QHBoxLayout(automataSettingsBox);
@@ -199,10 +199,6 @@ ControlPanel::~ControlPanel() {
 
 void ControlPanel::setAutomata(int id) {
     textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
-
-    emit automataChanged(id);
-}
-
-void FrequencyDisplayBox::setFrequency(int f){
-    setText(QString::number(f));
+    textNeighborhoodName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getNeighborhoodStrategy()->getName()));
+    textRuleName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getTransitionStrategy()->getName()));
 }
