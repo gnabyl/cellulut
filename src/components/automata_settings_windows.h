@@ -21,6 +21,7 @@ class StateBrowseWindow : public QDialog{
 public:
     StateBrowseWindow();
     ~StateBrowseWindow(){};
+
 };
 
 
@@ -36,6 +37,8 @@ class NeighborsBrowseWindow : public QDialog{
 public:
     NeighborsBrowseWindow();
     ~NeighborsBrowseWindow(){};
+private slots:
+    void clickedactions(int indexItem);
 
 };
 
