@@ -10,11 +10,14 @@
 
 
 void ControlPanel::neighborhoodSetting(){
-    NeighborsBrowseWindow* neigborhoods= new NeighborsBrowseWindow;
-    neigborhoods->show();
+    NeighborsBrowseWindow* neigborhoodsWindow= new NeighborsBrowseWindow;
+    neigborhoodsWindow->show();
 }
 
-
+void ControlPanel::stateSettings(){
+    StateBrowseWindow* stateWindow= new StateBrowseWindow;
+    stateWindow ->show();
+}
 
 
 void ControlPanel::loadAutomatas() {
@@ -146,7 +149,7 @@ void ControlPanel::initAutomataSettings(){
         statesFieldLayout[i]->addWidget(textStatesNames[i]);
         statesFieldLayout[i]->addWidget(btnBrowseStates[i]);
         automataSettingsLayout->addLayout(statesFieldLayout[i]);
-        //connect(btnBrowseStates[i], SIGNAL(clicked()), this, SLOT(slotButtonClicked(int i)));
+        connect(btnBrowseStates[i], SIGNAL(clicked()), this, SLOT(stateSettings()));
 
    }
 
