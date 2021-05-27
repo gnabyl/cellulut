@@ -3,9 +3,15 @@
 
 #include "automata.h"
 #include "grid.h"
+#include "grid_factory.h"
 
 
 class Simulator {
+  public:
+    static GridFactory& getGridFactory() {
+        static GridFactory gridFactory;
+        return gridFactory;
+    }
   private:
     Automata* automata;
     int bufferSize;

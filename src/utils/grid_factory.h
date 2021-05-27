@@ -12,7 +12,7 @@ enum GridType {
 class GridFactory {
   public:
     GridFactory();
-    Grid* generateGrid(GridType type, int width, int height, Automata* automata, bool showAnt = false, int antX = 0, int antY = 0);
+    Grid* generateGrid(GridType type, int width, int height, Automata* automata);
 };
 
 #endif // GRID_FACTORY_H
