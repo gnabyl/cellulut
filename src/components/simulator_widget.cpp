@@ -173,6 +173,7 @@ void SimulatorWidget::changeCellState(int x, int y) {
     int newStateID = (currentGrid->getCell(x, y)->getState()->getId() + 1) % (simulator->getAutomata()->getNbStates());
     CellState* newState = simulator->getAutomata()->getAvailableStates()[newStateID];
     currentGrid->getCell(x, y)->setState(newState);
+    this->simulator->setStartGrid(new Grid(*currentGrid));
     updateGridDisplay();
 }
 
