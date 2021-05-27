@@ -44,10 +44,15 @@ class TransitionBrowseWindow : public QDialog {
     QComboBox* transitionCbb;
     QFormLayout* directionLayout;
     QComboBox* directionCbb;
+    QPushButton *Confirm;
+
 
 public:
     TransitionBrowseWindow();
     ~TransitionBrowseWindow(){};
+private slots:
+    void clickedaction(int indexItem);
+
 };
 
 
