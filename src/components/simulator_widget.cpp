@@ -111,6 +111,7 @@ void SimulatorWidget::updateGridDisplay() {
     if (currentGrid == nullptr) {
         return;
     }
+    lblCurrentGeneration->setText(tr("Generation #").append(QString::number(simulator->getCurrentGridID())));
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             cellWidgets[r * nbCols + c]->setColor(currentGrid->getCell(r, c)->getState()->getColor());
@@ -173,7 +174,11 @@ void SimulatorWidget::changeCellState(int x, int y) {
     int newStateID = (currentGrid->getCell(x, y)->getState()->getId() + 1) % (simulator->getAutomata()->getNbStates());
     CellState* newState = simulator->getAutomata()->getAvailableStates()[newStateID];
     currentGrid->getCell(x, y)->setState(newState);
-    this->simulator->setStartGrid(new Grid(*currentGrid));
+
+    if (this->simulator->getCurrentGridID() == 0) {
+        // Change the start grid if use config the first one
+        this->simulator->setStartGrid(new Grid(*currentGrid));
+    }
     updateGridDisplay();
 }
 
@@ -202,7 +207,10 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &SimulatorWidget::btnNextClicked);
 
+    lblCurrentGeneration = new QLabel("Generation #0");
+
     simulatorLayout->addLayout(gridLayout);
+    simulatorLayout->addWidget(lblCurrentGeneration);
     simulatorLayout->addLayout(controllerLayout);
 
     setLayout(simulatorLayout);

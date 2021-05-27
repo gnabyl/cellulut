@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QLabel>
 #include <QPushButton>
 #include <QIcon>
 #include <QMessageBox>
@@ -26,6 +27,8 @@ class SimulatorWidget : public QWidget {
     QHBoxLayout* configBtnLayout;
 
     CellWidget** cellWidgets = nullptr;
+
+    QLabel* lblCurrentGeneration;
 
     QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset, *btnRandom;
 

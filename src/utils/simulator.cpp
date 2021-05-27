@@ -53,13 +53,13 @@ void Simulator::run(int nbSteps) {
 void Simulator::next() {
     if(startGrid == nullptr)
         return;
-    gridIDcurrent++; //important à regarder
+    currentGridID++; //important à regarder
 
-    if (grids[gridIDcurrent % bufferSize]) {
-        delete grids[gridIDcurrent % bufferSize];
-        grids[gridIDcurrent % bufferSize] = nullptr;
+    if (grids[currentGridID % bufferSize]) {
+        delete grids[currentGridID % bufferSize];
+        grids[currentGridID % bufferSize] = nullptr;
     }
-    grids[gridIDcurrent % bufferSize] = automata->applyTransition(grids[(gridIDcurrent - 1) % bufferSize]);
+    grids[currentGridID % bufferSize] = automata->applyTransition(grids[(currentGridID - 1) % bufferSize]);
 }
 /*
 const Etat& Simulateur::dernier() const
@@ -75,7 +75,7 @@ int Simulateur::getRangDernier() const
 */
 void Simulator::reset() { // important je ne l'ai pas mis const car pour moi cette fonction correspond à la fonction reset du TD
     if (startGrid == nullptr) throw "start grid is not defined";
-    gridIDcurrent = 0;
+    currentGridID = 0;
     if (grids[0]) {
         delete grids[0];
         grids[0] = nullptr;
@@ -110,6 +110,10 @@ int Simulator::getBufferSize() const{
 void Simulator::setBufferSize(int size){
     bufferSize = size;
 }
+
+int Simulator::getCurrentGridID() const {
+    return this->currentGridID;
+}
 /*
 Simulateur::ConstIterator Simulateur::getIterator() const
 {
@@ -131,12 +135,12 @@ Simulator::Iterator::Iterator() {
 
 }
 
-Simulator::Iterator::Iterator(Simulator* s): sim(s), gridID(s->gridIDcurrent) { // important regarder l'histoire de rang
+Simulator::Iterator::Iterator(Simulator* s): sim(s), gridID(s->currentGridID) { // important regarder l'histoire de rang
 
 }
 
 bool Simulator::Iterator::isDone() const {
-    return sim == nullptr || gridID == -1 || gridID == sim->gridIDcurrent - sim->bufferSize; // important
+    return sim == nullptr || gridID == -1 || gridID == sim->currentGridID - sim->bufferSize; // important
 }
 
 void Simulator::Iterator::nextGrid() {
