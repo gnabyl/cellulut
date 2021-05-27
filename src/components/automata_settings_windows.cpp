@@ -8,32 +8,39 @@ StateBrowseWindow:: StateBrowseWindow(){
 };
 
 
-
+static bool oneButton = false;
 void NeighborsBrowseWindow::clickedactions(int indexItem){
 
     std::cout << indexItem << std::endl;
 
 
     switch (indexItem) {
+
         case 0:case 2 :
+            if (radius){
+               neighborhoodLayout->removeRow(radius);
+               oneButton = false;
+             }
+        break;
 
-            if (radius)
-                neighborhoodLayout->removeRow(radius);
-
-
-            break;
         case 1: case 3: case 4:
-        radiusSetting = new QGroupBox(tr("Radius Setting"));
-        radius = new QSpinBox(radiusSetting);
-        radius->setKeyboardTracking(false);
-        radius->setValue(1);
-        radius->setMinimum(1);
-        radius->setMaximum(5);
-        neighborhoodLayout->addRow("Radius :",radius);
-            break;
-    }
 
-NeighborsBrowseWindow::NeighborsBrowseWindow(){
+        if(oneButton==false){
+            oneButton=true;
+            std::cout << "onebutton = " << oneButton << std::endl;
+            radiusSetting = new QGroupBox(tr("Radius Setting"));
+            radius = new QSpinBox(radiusSetting);
+            radius->setKeyboardTracking(false);
+            radius->setValue(1);
+            radius->setMinimum(1);
+            radius->setMaximum(5);
+            neighborhoodLayout->addRow("Radius :",radius);
+        }
+        break;
+        }
+  }
+
+NeighborsBrowseWindow::NeighborsBrowseWindow() {
 
     mainLayout = new QVBoxLayout(this);
     neighborhoodLayout = new QFormLayout(this);
@@ -46,17 +53,20 @@ NeighborsBrowseWindow::NeighborsBrowseWindow(){
     neighborhoodCbb->addItem("Moore Neighborhood");
     neighborhoodCbb->addItem("Moore Neighborhood Generalized");
     neighborhoodCbb->addItem("Arbitrary Neighborhood");
+
     neighborhoodLayout->addRow("Neighborhood", neighborhoodCbb);
 
     connect(neighborhoodCbb,SIGNAL(activated(int)),this,SLOT(clickedactions(int)));
 
     QPushButton *Confirm = new QPushButton("Confirm", this);
-    connect(Confirm, SIGNAL(clicked()), this, SLOT(quit()));
-    neighborhoodLayout->addRow(Confirm);
-     mainLayout->addLayout(neighborhoodLayout);
-      }
+    connect(Confirm, SIGNAL(clicked()), this, SLOT(close()));
+    mainLayout->addLayout(neighborhoodLayout);
+    mainLayout->addWidget(Confirm);
+
+ }
 
 
+static bool oneButton2 = false;
 
 void TransitionBrowseWindow::clickedaction(int indexItem){
 
@@ -66,18 +76,22 @@ void TransitionBrowseWindow::clickedaction(int indexItem){
     switch (indexItem) {
         case 0:case 1:case 2 : case 3:
 
-            if (directionCbb)
+            if (directionCbb){
                 transitionLayout->removeRow(directionCbb);
-
+                oneButton2 = false;
+            }
 
             break;
         case 4:
+        if (oneButton2==false){
+            oneButton2 = true;
             directionCbb = new QComboBox(this);
             directionCbb->addItem("Up");
             directionCbb->addItem("Down");
             directionCbb->addItem("Left");
             directionCbb->addItem("Right");
             transitionLayout->addRow("Direction", directionCbb);
+           }
             break;
     }
 }
@@ -110,4 +124,5 @@ TransitionBrowseWindow::TransitionBrowseWindow(){
     connect(Confirm, SIGNAL(clicked()), this, SLOT(close()));
 
 
-}
+    }
+
