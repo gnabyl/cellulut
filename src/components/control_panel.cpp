@@ -14,7 +14,10 @@ void ControlPanel::neighborhoodSetting(){
     neigborhoods->show();
 }
 
-
+void ControlPanel::transitionSetting(){
+    TransitionBrowseWindow* transition= new TransitionBrowseWindow;
+    transition->show();
+}
 
 
 void ControlPanel::loadAutomatas() {
@@ -176,6 +179,8 @@ void ControlPanel::initAutomataSettings(){
     ruleFieldLayout->addWidget(textRuleName);
     ruleFieldLayout->addWidget(btnBrowseRules);
     automataSettingsLayout->addLayout(ruleFieldLayout);
+    connect(btnBrowseRules, SIGNAL(clicked()), this, SLOT(transitionSetting()));
+
 }
 
 void ControlPanel::initRunSettings(){

@@ -149,6 +149,7 @@ public slots:
   signals:
     private slots:
     void neighborhoodSetting();
+    void transitionSetting();
     void automataChanged(int id){};
 
 };

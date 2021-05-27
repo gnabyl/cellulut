@@ -36,6 +36,20 @@ public:
 
 };
 
+class TransitionBrowseWindow : public QDialog {
+    Q_OBJECT
+    //transition Spinbox
+    QVBoxLayout* mainLayout;
+    QFormLayout* transitionLayout;
+    QComboBox* transitionCbb;
+    QFormLayout* directionLayout;
+    QComboBox* directionCbb;
+
+public:
+    TransitionBrowseWindow();
+    ~TransitionBrowseWindow(){};
+};
+
 
 
 #endif // AUTOMATA_SETTINGS_WINDOWS_H
