@@ -120,6 +120,7 @@ class ControlPanel : public QWidget {
     void stateSettings();
     void neighborhoodSetting();
     void setAutomata(int id);
+    void transitionSetting();
 
 };
 
