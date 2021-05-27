@@ -80,6 +80,7 @@ void TransitionBrowseWindow::clickedaction(int indexItem){
             if (directionCbb)
                 transitionLayout->removeRow(directionCbb);
 
+
             break;
         case 4:
             directionCbb = new QComboBox(this);
