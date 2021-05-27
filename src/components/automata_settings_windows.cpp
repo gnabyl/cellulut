@@ -68,6 +68,35 @@ NeighborsBrowseWindow::NeighborsBrowseWindow(){
       }
 
 
+
+void TransitionBrowseWindow::clickedaction(int indexItem){
+
+    std::cout << indexItem << std::endl;
+
+
+    switch (indexItem) {
+        case 0:case 1:case 2 : case 3:
+
+            if (directionCbb)
+                transitionLayout->removeRow(directionCbb);
+
+            break;
+        case 4:
+            directionCbb = new QComboBox(this);
+            directionCbb->addItem("Up");
+            directionCbb->addItem("Down");
+            directionCbb->addItem("Left");
+            directionCbb->addItem("Right");
+            transitionLayout->addRow("Direction", directionCbb);
+            break;
+    }
+
+
+
+
+}
+
+
 TransitionBrowseWindow::TransitionBrowseWindow(){
 
     mainLayout = new QVBoxLayout(this);
@@ -83,48 +112,16 @@ TransitionBrowseWindow::TransitionBrowseWindow(){
     transitionCbb->addItem("Langton Loop Transition");
     transitionCbb->addItem("Langton Ant Transition");
 
+
     transitionLayout->addRow("Transition", transitionCbb);
-
-    if (transitionCbb->currentText()=="Langton Ant Transition") {
-
-        directionCbb = new QComboBox(this);
-        directionCbb->addItem("Up");
-        directionCbb->addItem("Down");
-        directionCbb->addItem("Left");
-        directionCbb->addItem("Right");
-
-        transitionLayout->addRow("Direction", directionCbb);
-
-    }
-    /*
-    if (neighborhoodCbb->currentText()=="Moore Neighborhood") {
-
-    }
-    if(neighborhoodCbb->currentText()=="Moore Neighborhood Generalized"){
-        radius = new QSpinBox(radiusSetting);
-        radius->setKeyboardTracking(false);
-        radius->setValue(1);
-        radius->setMinimum(1);
-        radius->setMaximum(5);
-        neighborhoodLayout->addRow("Radius :",radius);
-        mainLayout->addLayout(neighborhoodLayout);
-    }
-    else{
-        radius = new QSpinBox(radiusSetting);
-        radius->setKeyboardTracking(false);
-        radius->setValue(1);
-        radius->setMinimum(1);
-        radius->setMaximum(5);
-        neighborhoodLayout->addRow("Radius :",radius);
-        mainLayout->addLayout(neighborhoodLayout);
-    }
-
-*/
-
+    connect(transitionCbb,SIGNAL(activated(int)),this,SLOT(clickedaction(int)));
 
     QPushButton *Confirm = new QPushButton("Confirm", this);
-    transitionLayout->addRow("", Confirm);
+
     mainLayout->addLayout(transitionLayout);
 
+    mainLayout->addWidget(Confirm);
     connect(Confirm, SIGNAL(clicked()), this, SLOT(quit()));
+
+
 }
