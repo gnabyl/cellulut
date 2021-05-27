@@ -98,6 +98,14 @@ void SimulatorWidget::regenerateRandomGrid() {
                                            this->nbCols, this->nbRows));
 }
 
+void SimulatorWidget::regenerateEmptyGrid() {
+    if (this->simulator->getAutomata() == nullptr) {
+        return;
+    }
+    this->simulator->setStartGrid(new Grid(simulator->getAutomata()->getAvailableStates()[0],
+                                           this->nbCols, this->nbRows));
+}
+
 void SimulatorWidget::updateGridDisplay() {
     Grid* currentGrid = simulator->getIterator().current();
     if (currentGrid == nullptr) {
@@ -171,7 +179,7 @@ void SimulatorWidget::changeCellState(int x, int y) {
 void SimulatorWidget::setAutomata(int index) {
     this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));
     cleanGrid();
-    regenerateRandomGrid();
+    regenerateEmptyGrid();
     resetGridDisplay();
 }
 

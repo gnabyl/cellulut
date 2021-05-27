@@ -44,6 +44,7 @@ class SimulatorWidget : public QWidget {
     void resetGridDisplay();
     void updateGridDisplay();
     void regenerateRandomGrid();
+    void regenerateEmptyGrid();
     void initButtons();
     void setButtonIcon(QPushButton* btn, const QString& path);
     int getNbCols() const;
