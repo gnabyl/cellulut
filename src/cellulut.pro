@@ -9,6 +9,7 @@ HEADERS += \
     components/menubar.h \
     components/simulator_widget.h \
     constants.h \
+    utils/grid_factory.h \
     utils/simulator.h \
     utils/automata.h \
     utils/automata_manager.h \
@@ -27,6 +28,7 @@ SOURCES += \
     components/menubar.cpp \
     components/simulator_widget.cpp \
     main.cpp \
+    utils/grid_factory.cpp \
     utils/simulator.cpp \
     utils/automata.cpp \
     utils/automata_manager.cpp \

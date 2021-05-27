@@ -23,11 +23,11 @@ std::string CellState::getLabel() const {
 
 
 
-direction CellState::getDirection() const {
+Direction CellState::getDirection() const {
     return this->dir;
 }
 
-void CellState::setDirection(direction d) {
+void CellState::setDirection(Direction d) {
     this->dir = d;
 }
 
