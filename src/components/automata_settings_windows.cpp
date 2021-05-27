@@ -91,10 +91,6 @@ void TransitionBrowseWindow::clickedaction(int indexItem){
             transitionLayout->addRow("Direction", directionCbb);
             break;
     }
-
-
-
-
 }
 
 
@@ -122,7 +118,7 @@ TransitionBrowseWindow::TransitionBrowseWindow(){
     mainLayout->addLayout(transitionLayout);
 
     mainLayout->addWidget(Confirm);
-    connect(Confirm, SIGNAL(clicked()), this, SLOT(quit()));
+    connect(Confirm, SIGNAL(clicked()), this, SLOT(close()));
 
 
 }

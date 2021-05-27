@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QVariant>
 #include "utils/neighborhood_strategy.h"
+
 class StateBrowseWindow : public QDialog{
     Q_OBJECT
     QVBoxLayout* mainLayout;
@@ -38,7 +39,7 @@ public:
 
 };
 
-class TransitionBrowseWindow : public QDialog {
+class TransitionBrowseWindow : public QDialog{
     Q_OBJECT
     //transition Spinbox
     QVBoxLayout* mainLayout;
