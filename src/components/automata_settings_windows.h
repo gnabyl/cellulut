@@ -8,6 +8,7 @@
 #include <QSpinBox>
 #include <QGroupBox>
 #include "utils/neighborhood_strategy.h"
+
 class StateBrowseWindow : public QDialog{
     Q_OBJECT
 
@@ -36,7 +37,7 @@ public:
 
 };
 
-class TransitionBrowseWindow : public QDialog {
+class TransitionBrowseWindow : public QDialog{
     Q_OBJECT
     //transition Spinbox
     QVBoxLayout* mainLayout;

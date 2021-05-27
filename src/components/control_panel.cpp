@@ -1,7 +1,6 @@
 #include "control_panel.h"
 #include <iostream>
 #include <string>
-
 /*
  * Pseudo function for loading automatas
  * It should load automatas from database
