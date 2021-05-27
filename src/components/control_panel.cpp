@@ -45,8 +45,8 @@ void ControlPanel::initEventHandler() {
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
-    connect(automataCbb, SIGNAL(currentIndexChanged(int)), textAutomataName, SLOT(setAutomataName(int)));
-    connect(textAutomataName, SIGNAL(automataChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+    connect(automataCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(setAutomata(int)));
+    connect(this, SIGNAL(automataChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -114,7 +114,7 @@ void ControlPanel::initAutomataSettings(){
     //Choose automata
     automataLabel = new QLabel("Automata",automataSettingsBox);
     btnBrowseAutomatas = new QPushButton(tr("Browse..."), automataSettingsBox);
-    textAutomataName = new AutomataNameBox(automataSettingsBox);
+    textAutomataName = new QLineEdit(automataSettingsBox);
     automataFieldLayout = new QHBoxLayout(automataSettingsBox);
     automataFieldLayout->addWidget(automataLabel);
     automataFieldLayout->addWidget(textAutomataName);
@@ -198,10 +198,7 @@ ControlPanel::~ControlPanel() {
     delete gridSettingsLayout;
 }
 
-void AutomataNameBox::setAutomataName(int id){
-    if(id==-1)
-        setText("Personnalisé");
-    else
-        setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
+void ControlPanel::setAutomata(int id) {
+    textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
     emit automataChanged(id);
 }
