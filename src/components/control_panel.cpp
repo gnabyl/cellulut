@@ -145,7 +145,7 @@ void ControlPanel::initAutomataSettings(){
     //Choose neighborhood
     neighborhoodLabel = new QLabel(automataSettingsBox);
     neighborhoodLabel->setText("Neighborhood");
-    textNeighborhoodName = new NeighborhoodNameBox(automataSettingsBox);
+    textNeighborhoodName = new QLineEdit(automataSettingsBox);
     btnBrowseNeighborhoods = new QPushButton(automataSettingsBox);
     btnBrowseNeighborhoods->setText(tr("Browse..."));
     neighborhoodFieldLayout = new QHBoxLayout(automataSettingsBox);
@@ -169,28 +169,17 @@ void ControlPanel::initAutomataSettings(){
 }
 
 void ControlPanel::initRunSettings(){
-    runSettingsLayout = new QVBoxLayout(runSettingsBox);
+    runSettingsLayout = new QFormLayout(runSettingsBox);
 
     sliderSpeed = new QSlider(Qt::Horizontal,runSettingsBox);
-    sliderSpeedLayout = new QFormLayout(runSettingsBox);
-    sliderSpeedLayout->addRow("Execution speed",sliderSpeed);
-    runSettingsLayout->addLayout(sliderSpeedLayout);
+    runSettingsLayout->addRow("Execution speed",sliderSpeed);
 
     bufferSizeSpb = new QSpinBox(runSettingsBox);
     bufferSizeSpb->setKeyboardTracking(false);
     bufferSizeSpb->setValue(simulatorWidget->getSimulator()->getBufferSize());
     bufferSizeSpb->setMaximum(100);
     bufferSizeSpb->setMinimum(2);
-    bufferSizeFieldLayout = new QFormLayout(runSettingsBox);
-    bufferSizeFieldLayout->addRow("Buffer size",bufferSizeSpb);
-    runSettingsLayout->addLayout(bufferSizeFieldLayout);
-}
-
-void ControlPanel::changeAutomataName(int id){
-    if(id==-1) textAutomataName->setText("Personnalisé");
-    else
-        textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName().c_str()));
-
+    runSettingsLayout->addRow("Buffer size",bufferSizeSpb);
 }
 
 ControlPanel::~ControlPanel() {
@@ -200,5 +189,6 @@ ControlPanel::~ControlPanel() {
 
 void ControlPanel::setAutomata(int id) {
     textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
+
     emit automataChanged(id);
 }

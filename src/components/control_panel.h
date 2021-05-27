@@ -28,17 +28,6 @@ class StateNameBox : public QLineEdit {
     //    void setStateName(int id);
 };
 
-class NeighborhoodNameBox : public QLineEdit {
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit;
-
-    //signals:
-    //    void neighborhoodChanged(int id);
-    //public slots:
-    //    void setNeighborhoodName(int id);
-};
-
 class RuleNameBox : public QLineEdit {
     Q_OBJECT
 
@@ -81,7 +70,7 @@ class ControlPanel : public QWidget {
 
     //Chose neighborhood
     QLabel* neighborhoodLabel;
-    NeighborhoodNameBox* textNeighborhoodName;
+    QLineEdit* textNeighborhoodName;
     QPushButton* btnBrowseNeighborhoods;
     QHBoxLayout* neighborhoodFieldLayout;
 
@@ -93,11 +82,9 @@ class ControlPanel : public QWidget {
 
     //Run settings box
     QGroupBox* runSettingsBox;
-    QVBoxLayout* runSettingsLayout;
     QSlider* sliderSpeed;
     QSpinBox* bufferSizeSpb;
-    QFormLayout* sliderSpeedLayout;
-    QFormLayout* bufferSizeFieldLayout;
+    QFormLayout* runSettingsLayout;
 
     SimulatorWidget* simulatorWidget;
     AutomataManager* automataManager;
@@ -116,9 +103,6 @@ class ControlPanel : public QWidget {
 
     void loadAutomatas();
     void initEventHandler();
-
-  public slots:
-    void changeAutomataName(int id);
 
   signals:
     void automataChanged(int id);
