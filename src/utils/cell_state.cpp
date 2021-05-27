@@ -19,3 +19,25 @@ QColor CellState::getColor() const {
 std::string CellState::getLabel() const {
     return this->label;
 }
+
+
+
+
+direction CellState::getDirection() const {
+    return this->dir;
+}
+
+void CellState::setDirection(direction d) {
+    this->dir = d;
+}
+
+
+/*
+direction CellStateDirection::getDirection() const {
+    return this->dir;
+}
+
+void CellStateDirection::setDirection(direction d) {
+    this->dir = d;
+}
+*/

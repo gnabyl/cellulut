@@ -61,7 +61,6 @@ void SimulatorWidget::btnRandomClicked(){
     updateGridDisplay();
 }
 
-
 void SimulatorWidget::initButtons() {
     btnPlay = new QPushButton(this);
     btnPrev = new QPushButton(this);
@@ -96,6 +95,7 @@ void SimulatorWidget::regenerateRandomGrid() {
     this->simulator->setStartGrid(new Grid(simulator->getAutomata()->getNbStates(),
                                            simulator->getAutomata()->getAvailableStates(),
                                            this->nbCols, this->nbRows));
+
 }
 
 void SimulatorWidget::regenerateEmptyGrid() {
@@ -181,6 +181,7 @@ void SimulatorWidget::changeCellState(int x, int y) {
     }
     updateGridDisplay();
 }
+
 
 void SimulatorWidget::setAutomata(int index) {
     this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));

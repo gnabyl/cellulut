@@ -41,7 +41,9 @@ void Simulator::setStartGrid(Grid *g) {
         delete startGrid;
         startGrid = nullptr;
     }
+
     startGrid = g;
+
     // reset(); // Important à revoir
     reset(); // build(0) va dans ce cas créer une nouvel état
 }

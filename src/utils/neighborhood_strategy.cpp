@@ -7,18 +7,17 @@
 
 VonNeumannNeighborhood::VonNeumannNeighborhood():NeighborhoodStrategy("Von Neumann Neighborhood"){
     neighbors = new Cell* [nbNeighbors];
-
 }
 
 
-Cell** VonNeumannNeighborhood::getNeighbors(Cell *c, Grid *g) {
-    int n=0;
+Cell** VonNeumannNeighborhood::getNeighbors(Cell* c, Grid* g) {
+    int n = 0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
-        for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
+        for (int l = c->getY() - 1; l <= c->getY() + 1 ; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if((abs(x - c->getX()) + abs(y - c->getY())) == 1) {
+            if((abs(k - c->getX()) + abs(l - c->getY())) == 1) {
                 neighbors[n] = g->getCell(x, y);
                 n++;
             }
@@ -34,14 +33,14 @@ VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(int radius)
 }
 
 
-Cell** VonNeumannNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
-    int n=0;
+Cell** VonNeumannNeighborhoodGeneralized::getNeighbors(Cell* c, Grid* g) {
+    int n = 0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
-        for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
+        for (int l = c->getY() - 1; l <= c->getY() + 1 ; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if((abs(x - c->getX()) + abs(y - c->getY())) > 0 && (abs(x - c->getX()) + abs(y - c->getY()))<=radius) {
+            if( (abs(k - c->getX()) + abs(l - c->getY())) <= radius) {
                 neighbors[n] = g->getCell(x, y);
                 n++;
             }
@@ -54,14 +53,14 @@ MooreNeighborhood::MooreNeighborhood():NeighborhoodStrategy("Moore Neighborhood"
     neighbors = new Cell* [nbNeighbors];
 }
 
-Cell** MooreNeighborhood::getNeighbors(Cell *c, Grid *g) {
-    int n=0;
+Cell** MooreNeighborhood::getNeighbors(Cell* c, Grid* g) {
+    int n = 0;
     for (int k = c->getX() - 1; k <= c->getX() + 1 ; k++) {
-        for (int l = c->getY() - 1; l <= c->getY()+ 1 ; l++) {
+        for (int l = c->getY() - 1; l <= c->getY() + 1 ; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if(x != c->getX() || y !=c->getY()) {
+            if(x != c->getX() || y != c->getY()) {
                 neighbors[n] = g->getCell(x, y);
                 n++;
             }
@@ -76,14 +75,14 @@ MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(int radius):Neighborh
     neighbors = new Cell* [nbNeighbors];
 }
 
-Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell *c, Grid *g) {
-    int n=0;
+Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell* c, Grid* g) {
+    int n = 0;
     for (int k = c->getX() - radius; k <= c->getX() + radius; k++) {
-        for (int l = c->getY() - radius; l <= c->getY()+ radius; l++) {
+        for (int l = c->getY() - radius; l <= c->getY() + radius; l++) {
             //coordonnée cellule voisine
             int x = (k + g->getHeight()) % g->getHeight();
             int y = (l + g->getWidth()) % g->getWidth();
-            if(x != c->getX() || y !=c->getY()) {
+            if(x != c->getX() || y != c->getY()) {
                 neighbors[n] = g->getCell(x, y);
                 n++;
             }
