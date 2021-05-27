@@ -178,7 +178,7 @@ void ControlPanel::initAutomataSettings(){
 void ControlPanel::initRunSettings(){
     runSettingsLayout = new QFormLayout(runSettingsBox);
 
-    sliderSpeed = new QSlider(Qt::Horizontal,runSettingsBox);
+    sliderSpeed = new BSlider(Qt::Horizontal, runSettingsBox);
     runSettingsLayout->addRow("Execution speed",sliderSpeed);
 
     bufferSizeSpb = new QSpinBox(runSettingsBox);

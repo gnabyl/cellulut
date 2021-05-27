@@ -10,12 +10,12 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QString>
-#include <QSlider>
 #include <QGroupBox>
 #include <QLineEdit>
 #include "simulator_widget.h"
 #include "utils/automata_manager.h"
 #include "automata_settings_windows.h"
+#include "bslider.h"
 
 class StateNameBox : public QLineEdit {
     Q_OBJECT
@@ -91,7 +91,7 @@ class ControlPanel : public QWidget {
 
     //Run settings box
     QGroupBox* runSettingsBox;
-    QSlider* sliderSpeed;
+    BSlider* sliderSpeed;
     QLabel* speedLabel;
     QSpinBox* bufferSizeSpb;
     QFormLayout* runSettingsLayout;

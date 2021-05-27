@@ -2,6 +2,7 @@ QT += widgets
 
 HEADERS += \
     components/automata_settings_windows.h \
+    components/bslider.h \
     components/cell_widget.h \
     components/control_panel.h \
     components/main_window.h \
@@ -19,6 +20,7 @@ HEADERS += \
 
 SOURCES += \
     components/automata_settings_windows.cpp \
+    components/bslider.cpp \
     components/cell_widget.cpp \
     components/control_panel.cpp \
     components/main_window.cpp \
