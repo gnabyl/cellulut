@@ -6,7 +6,7 @@ Caractéristiques :
 - Règle totalistique
 - Taille du voisinage : 8
 - Nombre d'états possibles : 2
-Suppositions :
+SUPpositions :
 - Les id des états sont forcément 0 ou 1. On pourra gérer ça avec des modulo ensuite si besoin.
 */
 Cell* GOLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
@@ -33,7 +33,7 @@ Caractéristiques :
 - Règle totalistique
 - Taille du voisinage : 8
 - Nombre d'états possibles : 3
-Suppositions :
+SUPpositions :
 - Les id des états sont forcément 0 (repos), 1 (réfractaire) ou 2 (excitée).
 */
 Cell* BBTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
@@ -69,7 +69,7 @@ FONCTION DE TRANSITION DE L'AUTOMATE CIRCULAIRE DE DAVID GRIFFEATH
 - Règle totalistique
 - Taille du voisinage : 8 (MOORE)
 - Nombre d'états possibles : 4
-Suppositions :
+SUPpositions :
 - Les id des états sont forcément 0 (jaune), 1 (orange clair),2 (orange foncé), 3 (rouge)
 */
 
@@ -360,7 +360,7 @@ FONCTION DE TRANSITION DE LANGTON ANT
  http://www.dim.uchile.cl/~anmoreir/oficial/langton_dam.pdf
  https://www.researchgate.net/profile/Majid-Vafaei-Jahan/publication/268289802_From_Complexity_to_Random_Behaviors_Generate_Random_Numbers_by_Confusion_in_Cellular_Automata_State%27s/links/551396f60cf283ee08348aed/From-Complexity-to-Random-Behaviors-Generate-Random-Numbers-by-Confusion-in-Cellular-Automata-States.pdf
 
- Il est également possible de définir la fourmi de Langton comme un automate cellulaire où la plupart des cases de la grille sont blanches ou noires et
+ Il est également possible de définir la fourmi de Langton comme un automate cellulaire où la plUPart des cases de la grille sont blanches ou noires et
  où la case de la fourmi peut prendre huit états différents, codant à la fois sa couleur et la direction de la fourmi.
 -> en effet on a pour chacune des 2 couleurs 4 directions possibles suivant la direction / orientation de base de la cellule étudiée
  - Règle totalistique
@@ -387,17 +387,17 @@ Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
      */
 
 
-     if (c->getDirection()!=none) {
+     if (c->getDirection()!=NONE) {
 
          // si cellule blanche
        if (c->getState()->getId() == availableStates[1]->getId())
        {
-           return new Cell(availableStates[0],c->getX(),c->getY(),none);
+           return new Cell(availableStates[0],c->getX(),c->getY(),NONE);
         }
        // si cellule noire
         else if (c->getState()->getId() == availableStates[0]->getId())
       {
-           return new Cell(availableStates[1],c->getX(),c->getY(),none);
+           return new Cell(availableStates[1],c->getX(),c->getY(),NONE);
        }
    }
 
@@ -409,7 +409,7 @@ Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
            }
 */
         int i = 0;
-        while (i<neighborSize && neighbors[i]->getDirection()==none){
+        while (i<neighborSize && neighbors[i]->getDirection()==NONE){
          i++;
         }
 
@@ -425,34 +425,34 @@ Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
            // ==============================================
             if (neighbors[i]->getState()->getId() == availableStates[1]->getId()){
 
-                if(neighbors[i]->getDirection()==up){
+                if(neighbors[i]->getDirection()==UP){
                     // on regarde si notre cellule courante est à à droite du voisin possédant une direction
                     if (c->getY()==neighbors[i]->getY()+1){
-                        c->setDirection(Direction::right);
+                        c->setDirection(Direction::RIGHT);
                         return new Cell(*c);
                     }
                 }
 
-                 if(neighbors[i]->getDirection()==right){
+                 if(neighbors[i]->getDirection()==RIGHT){
                      // on regarde si notre cellule courante est en bas du voisin possédant une direction
                      if (c->getX()==neighbors[i]->getX()+1){
-                         c->setDirection(down);
+                         c->setDirection(DOWN);
                          return new Cell(*c);
                      }
                  }
 
-                 if(neighbors[i]->getDirection()==down){
+                 if(neighbors[i]->getDirection()==DOWN){
                      // on regarde si notre cellule courante est à gauche du voisin possédant une direction
                      if (c->getY()==neighbors[i]->getY()-1){
-                         c->setDirection(left);
+                         c->setDirection(LEFT);
                          return new Cell(*c);
                      }
                   }
 
-                 if(neighbors[i]->getDirection()==left){
+                 if(neighbors[i]->getDirection()==LEFT){
                      // on regarde si notre cellule courante est à en haut du voisin possédant une direction
                      if (c->getX()==neighbors[i]->getX()-1){
-                         c->setDirection(up);
+                         c->setDirection(UP);
                          return new Cell(*c);
                      }
                  }
@@ -465,35 +465,35 @@ Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
            // ===========================================
             if (neighbors[i]->getState()->getId() == availableStates[0]->getId()){
 
-                if(neighbors[i]->getDirection()==up){
+                if(neighbors[i]->getDirection()==UP){
                     // on regarde si notre cellule courante est à gauche du voisin possédant une direction
                     if (c->getY()==neighbors[i]->getY()-1){
-                        c->setDirection(left);
+                        c->setDirection(LEFT);
                         return new Cell(*c);
                     }
                 }
 
-                 if(neighbors[i]->getDirection()==right){
+                 if(neighbors[i]->getDirection()==RIGHT){
                      // on regarde si notre cellule courante est en haut du voisin possédant une direction
                      if (c->getX()==neighbors[i]->getX()-1){
-                         c->setDirection(up);
+                         c->setDirection(UP);
                          return new Cell(*c);
                      }
                  }
 
 
-                 if(neighbors[i]->getDirection()==down){
+                 if(neighbors[i]->getDirection()==DOWN){
                      // on regarde si notre cellule courante est à droite du voisin possédant une direction
                      if (c->getY()==neighbors[i]->getY()+1){
-                         c->setDirection(right);
+                         c->setDirection(RIGHT);
                          return new Cell(*c);
                      }
                  }
 
-                 if(neighbors[i]->getDirection()==left){
+                 if(neighbors[i]->getDirection()==LEFT){
                      // on regarde si notre cellule courante est à en bas du voisin possédant une direction
                      if (c->getX()==neighbors[i]->getX()+1){
-                         c->setDirection(down);
+                         c->setDirection(DOWN);
                          return new Cell(*c);
                      }
                   }
