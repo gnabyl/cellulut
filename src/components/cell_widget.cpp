@@ -23,17 +23,7 @@ void CellWidget::setColor(const QColor& color) {
 }
 
 void CellWidget::drawAnt(QPainter painter, int rotateDegree) {
-    QPainterPath path;
-    path.moveTo(this->rect().left() + (this->rect().width() / 2.0), this->rect().top() + this->rect().height() / 4.0);
-    path.lineTo(this->rect().left() + (this->rect().width() / 4.0), this->rect().bottom() - this->rect().height() / 4.0);
-    path.lineTo(this->rect().right() - (this->rect().width() / 4.0), this->rect().bottom() - this->rect().height() / 4.0);
-    path.lineTo(this->rect().left() + (this->rect().width() / 2.0), this->rect().top() + this->rect().height() / 4.0);
 
-    painter.translate(this->rect().center());
-    painter.rotate(rotateDegree);
-    painter.translate(-this->rect().center());
-
-    painter.fillPath(path, QBrush(Qt::red));
 }
 
 void CellWidget::paintEvent(QPaintEvent* event) {
@@ -56,7 +46,19 @@ void CellWidget::paintEvent(QPaintEvent* event) {
                 return;
                 break;
         }
-        //drawAnt(QPainter(this), rotateDegree);
+        // draw ant
+        QPainter painter(this);
+        QPainterPath path;
+        path.moveTo(this->rect().left() + (this->rect().width() / 2.0), this->rect().top() + this->rect().height() / 4.0);
+        path.lineTo(this->rect().left() + (this->rect().width() / 4.0), this->rect().bottom() - this->rect().height() / 4.0);
+        path.lineTo(this->rect().right() - (this->rect().width() / 4.0), this->rect().bottom() - this->rect().height() / 4.0);
+        path.lineTo(this->rect().left() + (this->rect().width() / 2.0), this->rect().top() + this->rect().height() / 4.0);
+
+        painter.translate(this->rect().center());
+        painter.rotate(rotateDegree);
+        painter.translate(-this->rect().center());
+
+        painter.fillPath(path, QBrush(Qt::red));
     }
 }
 
