@@ -21,17 +21,6 @@ std::string CellState::getLabel() const {
 }
 
 
-
-
-Direction CellState::getDirection() const {
-    return this->dir;
-}
-
-void CellState::setDirection(Direction d) {
-    this->dir = d;
-}
-
-
 /*
 direction CellStateDirection::getDirection() const {
     return this->dir;

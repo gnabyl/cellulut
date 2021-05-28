@@ -4,26 +4,20 @@
 #include <QColor>
 #include <string>
 
-enum Direction {up, down, left, right, none};
-
-
 class CellState {
   public:
     void setId(int i);
     void setLabel(std::string s);
     void setColor(QColor c);
-    void setDirection(Direction d);
-    Direction getDirection() const;
     int getId() const;
     QColor getColor() const;
     std::string getLabel() const;
-    CellState(int x, std::string l, QColor c, Direction d = none): id(x), label(l), col(c), dir(d) {}
+    CellState(int x, std::string l, QColor c): id(x), label(l), col(c) {}
 
   private:
     int id;
     std::string label;
     QColor col;
-    Direction dir;
 };
 
 /*

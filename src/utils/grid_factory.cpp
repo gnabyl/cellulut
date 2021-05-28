@@ -18,7 +18,7 @@ Grid* GridFactory::generateGrid(GridType type, int width, int height, Automata* 
             break;
     }
     if (instanceof<LATransition>(automata->getTransitionStrategy())) {
-        grid->getCell(0, 0)->getState()->setDirection(Direction::up);
+        grid->getCell(0, 0)->setDirection(Direction::up);
     }
     return grid;
 }

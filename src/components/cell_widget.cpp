@@ -11,8 +11,8 @@ CellWidget::CellWidget(QWidget* parent, int cellSize, Cell* cell)
 }
 
 void CellWidget::updateDisplay() {
-    if (cell->getState()->getDirection() != none) {
-        std::cout<<"Cell " << cell->getX() << ", " << cell->getY() << " => ant\n";
+    if (cell->getDirection() != none) {
+        // TODO: Draw ant
     }
     this->setToolTip(cell->getState()->getLabel().c_str());
     this->setColor(cell->getState()->getColor());
