@@ -110,8 +110,8 @@ void SimulatorWidget::updateGridDisplay() {
     lblCurrentGeneration->setText(tr("Generation #").append(QString::number(simulator->getCurrentGridID())));
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
-            cellWidgets[r * nbCols + c]->setColor(currentGrid->getCell(r, c)->getState()->getColor());
-            cellWidgets[r * nbCols + c]->setSize(cellSize);
+            cellWidgets[r * nbCols + c]->setCell(currentGrid->getCell(r, c));
+            cellWidgets[r * nbCols + c]->updateDisplay();
         }
     }
 }
@@ -121,13 +121,13 @@ void SimulatorWidget::resetGridDisplay() {
     if (currentGrid == nullptr) {
         return;
     }
+    lblCurrentGeneration->setText(tr("Generation #").append(QString::number(simulator->getCurrentGridID())));
     cellWidgets = new CellWidget*[nbRows * nbCols];
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
-            cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize, r, c, QString(currentGrid->getCell(r, c)->getState()->getLabel().c_str()));
-            connect(cellWidgets[r * nbCols + c], &CellWidget::clicked, this, &SimulatorWidget::changeCellState);
-            cellWidgets[r * nbCols + c]->setColor(currentGrid->getCell(r, c)->getState()->getColor());
+            cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize, currentGrid->getCell(r, c));
             gridLayout->addWidget(cellWidgets[r * nbCols + c], r, c);
+            connect(cellWidgets[r * nbCols + c], &CellWidget::clicked, this, &SimulatorWidget::changeCellState);
         }
     }
     adjustSize();

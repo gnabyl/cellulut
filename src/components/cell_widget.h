@@ -5,18 +5,21 @@
 #include <QPalette>
 #include <QMouseEvent>
 #include <QToolTip>
+#include "utils/cell.h"
 
 class CellWidget : public QWidget {
     Q_OBJECT
   public:
     explicit CellWidget() = default;
-    explicit CellWidget(QWidget* parent, int cellSize, int x, int y, QString label = QString(""));
+    explicit CellWidget(QWidget* parent, int cellSize, Cell* cell);
     void setColor(const QColor& color);
     void setSize(int size);
+    void setCell(Cell* cell);
+    Cell* getCell() const;
+    void updateDisplay();
 
   private:
-    QString label;
-    int x, y;
+    Cell* cell;
     bool mouseClicked = false;
 
   protected:

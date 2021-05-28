@@ -1,9 +1,21 @@
 #include "cell_widget.h"
+#include <iostream>
 
-CellWidget::CellWidget(QWidget* parent, int cellSize, int x, int y, QString label) : QWidget(parent), label(label), x(x), y(y) {
+CellWidget::CellWidget(QWidget* parent, int cellSize, Cell* cell)
+    : QWidget(parent), cell(cell) {
+
     setFixedSize(cellSize, cellSize);
     setAutoFillBackground(true);
-    this->setToolTip(label);
+
+    this->updateDisplay();
+}
+
+void CellWidget::updateDisplay() {
+    if (cell->getState()->getDirection() != none) {
+        std::cout<<"Cell " << cell->getX() << ", " << cell->getY() << " => ant\n";
+    }
+    this->setToolTip(cell->getState()->getLabel().c_str());
+    this->setColor(cell->getState()->getColor());
 }
 
 
@@ -17,13 +29,21 @@ void CellWidget::setSize(int size) {
     setFixedSize(size, size);
 }
 
-void CellWidget::mousePressEvent(QMouseEvent *event) {
+void CellWidget::setCell(Cell *cell) {
+    this->cell = cell;
+}
+
+Cell* CellWidget::getCell() const {
+    return this->cell;
+}
+
+void CellWidget::mousePressEvent(QMouseEvent* event) {
     mouseClicked = true;
 }
 
-void CellWidget::mouseReleaseEvent(QMouseEvent *event) {
+void CellWidget::mouseReleaseEvent(QMouseEvent* event) {
     if (mouseClicked) {
         mouseClicked = false;
-        emit clicked(x, y);
+        emit clicked(cell->getX(), cell->getY());
     }
 }

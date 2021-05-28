@@ -1,8 +1,8 @@
 #include "grid_factory.h"
 
 template<typename Base, typename T>
-inline bool instanceof(const T*) {
-    return std::is_base_of<Base, T>::value;
+inline bool instanceof(const T* ptr) {
+    return dynamic_cast<const Base*>(ptr) != nullptr;
 }
 
 GridFactory::GridFactory() {}
@@ -18,7 +18,6 @@ Grid* GridFactory::generateGrid(GridType type, int width, int height, Automata* 
             break;
     }
     if (instanceof<LATransition>(automata->getTransitionStrategy())) {
-        std::cout << "we have an ant\n";
         grid->getCell(0, 0)->getState()->setDirection(Direction::up);
     }
     return grid;
