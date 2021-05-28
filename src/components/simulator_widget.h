@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QLabel>
 #include <QPushButton>
 #include <QIcon>
 #include <QMessageBox>
@@ -27,6 +28,8 @@ class SimulatorWidget : public QWidget {
 
     CellWidget** cellWidgets = nullptr;
 
+    QLabel* lblCurrentGeneration;
+
     QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset, *btnRandom;
 
     QTimer* timer;
@@ -45,16 +48,19 @@ class SimulatorWidget : public QWidget {
     void resetGridDisplay();
     void updateGridDisplay();
     void regenerateRandomGrid();
+    void regenerateEmptyGrid();
     void initButtons();
     void setButtonIcon(QPushButton* btn, const QString& path);
     int getNbCols() const;
     int getNbRows() const;
+    int getCellSize() const;
+    int getFrequency() const;
     Simulator* getSimulator() const;
     void setFrequency(int f);
 
   signals:
 
-  private slots:
+    private slots:
     void setNbRows(int nbRows);
     void setNbCols(int nbCols);
     void setCellSize(int size);

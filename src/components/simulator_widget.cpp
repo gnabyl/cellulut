@@ -12,8 +12,8 @@ void SimulatorWidget::initLayout() {
 
 void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
     btn->setIcon(QIcon(path));
-    btn->setIconSize(QSize(64, 64));
-    btn->setFixedSize(64, 64);
+    btn->setIconSize(QSize(48, 48));
+    btn->setFixedSize(48, 48);
     btn->setStyleSheet("border-radius : 50;");
 }
 
@@ -61,7 +61,6 @@ void SimulatorWidget::btnRandomClicked(){
     updateGridDisplay();
 }
 
-
 void SimulatorWidget::initButtons() {
     btnPlay = new QPushButton(this);
     btnPrev = new QPushButton(this);
@@ -93,9 +92,14 @@ void SimulatorWidget::regenerateRandomGrid() {
     if (this->simulator->getAutomata() == nullptr) {
         return;
     }
-    this->simulator->setStartGrid(new Grid(simulator->getAutomata()->getNbStates(),
-                                           simulator->getAutomata()->getAvailableStates(),
-                                           this->nbCols, this->nbRows));
+    this->simulator->setStartGrid(Simulator::getGridFactory().generateGrid(RANDOM, this->nbCols, this->nbRows, this->simulator->getAutomata()));
+}
+
+void SimulatorWidget::regenerateEmptyGrid() {
+    if (this->simulator->getAutomata() == nullptr) {
+        return;
+    }
+    this->simulator->setStartGrid(Simulator::getGridFactory().generateGrid(EMPTY, this->nbCols, this->nbRows, this->simulator->getAutomata()));
 }
 
 void SimulatorWidget::updateGridDisplay() {
@@ -103,10 +107,11 @@ void SimulatorWidget::updateGridDisplay() {
     if (currentGrid == nullptr) {
         return;
     }
+    lblCurrentGeneration->setText(tr("Generation #").append(QString::number(simulator->getCurrentGridID())));
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
-            cellWidgets[r * nbCols + c]->setColor(currentGrid->getCell(r, c)->getState()->getColor());
-            cellWidgets[r * nbCols + c]->setSize(cellSize);
+            cellWidgets[r * nbCols + c]->setCell(currentGrid->getCell(r, c));
+            cellWidgets[r * nbCols + c]->updateDisplay();
         }
     }
 }
@@ -116,13 +121,13 @@ void SimulatorWidget::resetGridDisplay() {
     if (currentGrid == nullptr) {
         return;
     }
+    lblCurrentGeneration->setText(tr("Generation #").append(QString::number(simulator->getCurrentGridID())));
     cellWidgets = new CellWidget*[nbRows * nbCols];
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
-            cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize, r, c, QString(currentGrid->getCell(r, c)->getState()->getLabel().c_str()));
-            connect(cellWidgets[r * nbCols + c], &CellWidget::clicked, this, &SimulatorWidget::changeCellState);
-            cellWidgets[r * nbCols + c]->setColor(currentGrid->getCell(r, c)->getState()->getColor());
+            cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize, currentGrid->getCell(r, c));
             gridLayout->addWidget(cellWidgets[r * nbCols + c], r, c);
+            connect(cellWidgets[r * nbCols + c], &CellWidget::leftClicked, this, &SimulatorWidget::changeCellState);
         }
     }
     adjustSize();
@@ -139,7 +144,7 @@ Simulator* SimulatorWidget::getSimulator() const{
 void SimulatorWidget::setNbRows(int nbRows) {
     cleanGrid();
     this->nbRows = nbRows;
-    regenerateRandomGrid();
+    regenerateEmptyGrid();
     resetGridDisplay();
 }
 int SimulatorWidget::getNbCols() const {
@@ -149,12 +154,15 @@ int SimulatorWidget::getNbCols() const {
 void SimulatorWidget::setNbCols(int nbCols) {
     cleanGrid();
     this->nbCols = nbCols;
-    regenerateRandomGrid();
+    regenerateEmptyGrid();
     resetGridDisplay();
 }
 void SimulatorWidget::setCellSize(int size) {
     this->cellSize = size;
     updateGridDisplay();
+}
+int SimulatorWidget::getCellSize() const {
+    return this->cellSize;
 }
 
 void SimulatorWidget::changeCellState(int x, int y) {
@@ -162,13 +170,19 @@ void SimulatorWidget::changeCellState(int x, int y) {
     int newStateID = (currentGrid->getCell(x, y)->getState()->getId() + 1) % (simulator->getAutomata()->getNbStates());
     CellState* newState = simulator->getAutomata()->getAvailableStates()[newStateID];
     currentGrid->getCell(x, y)->setState(newState);
+
+    if (this->simulator->getCurrentGridID() == 0) {
+        // Change the start grid if use config the first one
+        this->simulator->setStartGrid(new Grid(*currentGrid));
+    }
     updateGridDisplay();
 }
+
 
 void SimulatorWidget::setAutomata(int index) {
     this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));
     cleanGrid();
-    regenerateRandomGrid();
+    regenerateEmptyGrid();
     resetGridDisplay();
 }
 
@@ -179,6 +193,11 @@ void SimulatorWidget::setBufferSize(int size){
 void SimulatorWidget::setFrequency(int f){
     this->frequency = f;
 }
+
+int SimulatorWidget::getFrequency() const {
+    return this->frequency;
+}
+
 
 void SimulatorWidget::changeFrequency(int f){
     setFrequency(f);
@@ -202,7 +221,11 @@ SimulatorWidget::SimulatorWidget(QWidget* parent, int nbRows, int nbCols, int ce
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &SimulatorWidget::btnNextClicked);
 
+    lblCurrentGeneration = new QLabel("Generation #0");
+
+    simulatorLayout->addWidget(lblCurrentGeneration);
     simulatorLayout->addLayout(gridLayout);
+    simulatorLayout->addStretch();
     simulatorLayout->addLayout(controllerLayout);
 
     setLayout(simulatorLayout);

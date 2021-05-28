@@ -77,3 +77,7 @@ design.*
 
 # build config folder
 build-*
+
+# Jetbrains stuff
+.idea/*
+

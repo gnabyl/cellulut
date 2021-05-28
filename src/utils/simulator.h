@@ -3,16 +3,22 @@
 
 #include "automata.h"
 #include "grid.h"
+#include "grid_factory.h"
 
 
 class Simulator {
+  public:
+    static GridFactory& getGridFactory() {
+        static GridFactory gridFactory;
+        return gridFactory;
+    }
   private:
     Automata* automata;
     int bufferSize;
     Grid* startGrid = nullptr; // il faut ajouter un pointeur dans l'UML
     Grid** grids = nullptr;
     // Gridfactory gridFactory
-    int gridIDcurrent = 0; // il s'agit du rang
+    int currentGridID = 0; // il s'agit du rang
 
     //void build(int c);
 
@@ -48,6 +54,8 @@ class Simulator {
     void setBufferSize(int);
     Automata* getAutomata() const;
     int getBufferSize() const;
+
+    int getCurrentGridID() const;
 
     class Iterator {
         friend class Simulator;

@@ -10,56 +10,12 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QString>
-#include <QSlider>
 #include <QGroupBox>
 #include <QLineEdit>
 #include "simulator_widget.h"
 #include "utils/automata_manager.h"
 #include "automata_settings_windows.h"
-
-class AutomataNameBox : public QLineEdit{
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit; /*enables QLineEdit constructor to be used*/
-
-signals:
-    void automataChanged(int id);
-public slots:
-    void setAutomataName(int id);
-};
-
-class StateNameBox : public QLineEdit{
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit;
-
-//signals:
-//    void stateChanged(int id);
-//public slots:
-//    void setStateName(int id);
-};
-
-class NeighborhoodNameBox : public QLineEdit{
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit;
-
-//signals:
-//    void neighborhoodChanged(int id);
-//public slots:
-//    void setNeighborhoodName(int id);
-};
-
-class RuleNameBox : public QLineEdit{
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit;
-
-//signals:
-//    void ruleChanged(int id);
-//public slots:
-//    void setRuleName(int id);
-};
+#include "bslider.h"
 
 class FrequencyDisplayBox : public QLineEdit{
     Q_OBJECT
@@ -81,48 +37,42 @@ class ControlPanel : public QWidget {
 
     //Grid settings box
     QGroupBox* gridSettingsBox;
-    QVBoxLayout* gridSettingsLayout;
+    QFormLayout* gridSettingsLayout;
     QSpinBox* nbRowsSpb, *nbColsSpb, *cellSizeSpb;
-    QFormLayout* nbRowsLayout;
-    QFormLayout* nbColsLayout;
-    QFormLayout* cellSizeLayout;
 
     //Automata settings box
     QGroupBox* automataSettingsBox;
     QVBoxLayout* automataSettingsLayout;
-        //Choose automata
+    //Choose automata
     QLabel* automataLabel;
     QPushButton* btnBrowseAutomatas;
-    AutomataNameBox* textAutomataName;
+    QLineEdit* textAutomataName;
     QHBoxLayout* automataFieldLayout;
 
-        //Chose states
+    //Chose states
     QLabel** statesLabels;
     QPushButton** btnBrowseStates;
-    StateNameBox** textStatesNames;
+    QLineEdit** textStatesNames;
     QHBoxLayout** statesFieldLayout;
 
-        //Chose neighborhood
+    //Chose neighborhood
     QLabel* neighborhoodLabel;
-    NeighborhoodNameBox* textNeighborhoodName;
+    QLineEdit* textNeighborhoodName;
     QPushButton* btnBrowseNeighborhoods;
     QHBoxLayout* neighborhoodFieldLayout;
 
-        //Chose transition rule
+    //Chose transition rule
     QLabel* ruleLabel;
-    RuleNameBox* textRuleName;
+    QLineEdit* textRuleName;
     QPushButton* btnBrowseRules;
     QHBoxLayout* ruleFieldLayout;
 
     //Run settings box
     QGroupBox* runSettingsBox;
-    QVBoxLayout* runSettingsLayout;
-    QSlider* sliderSpeed;
+    BSlider* sliderSpeed;
     QLabel* speedLabel;
     QSpinBox* bufferSizeSpb;
-    FrequencyDisplayBox* textSpeed;
-    QHBoxLayout* sliderSpeedLayout;
-    QFormLayout* bufferSizeFieldLayout;
+    QFormLayout* runSettingsLayout;
 
     SimulatorWidget* simulatorWidget;
     AutomataManager* automataManager;
@@ -142,14 +92,13 @@ class ControlPanel : public QWidget {
     void loadAutomatas();
     void initEventHandler();
 
-public slots:
-    void changeAutomataName(int id);
-
-
   signals:
-    private slots:
+    void automataChanged(int id);
+  private slots:
+    void stateSettings();
     void neighborhoodSetting();
-    void automataChanged(int id){};
+    void setAutomata(int id);
+    void transitionSetting();
 
 };
 

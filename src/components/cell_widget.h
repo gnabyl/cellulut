@@ -5,26 +5,38 @@
 #include <QPalette>
 #include <QMouseEvent>
 #include <QToolTip>
+#include <QPainter>
+#include <QPainterPath>
+#include <QPen>
+#include <QBrush>
+#include "utils/cell.h"
 
 class CellWidget : public QWidget {
     Q_OBJECT
   public:
     explicit CellWidget() = default;
-    explicit CellWidget(QWidget* parent, int cellSize, int x, int y, QString label = QString(""));
+    explicit CellWidget(QWidget* parent, int cellSize, Cell* cell);
     void setColor(const QColor& color);
     void setSize(int size);
+    void setCell(Cell* cell);
+    Cell* getCell() const;
+    void updateDisplay();
+
+    virtual void paintEvent(QPaintEvent*);
 
   private:
-    QString label;
-    int x, y;
-    bool mouseClicked = false;
+    Cell* cell;
+    bool leftMouseClicked = false;
+    bool rightMouseClicked = false;
+    void drawAnt(QPainter painter, int rotateDegree);
 
   protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
 
   signals:
-    void clicked(int x, int y);
+    void leftClicked(int x, int y);
+    void rightClicked(int x, int y);
 };
 
 #endif // CELL_WIDGET_H

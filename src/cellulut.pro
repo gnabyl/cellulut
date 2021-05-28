@@ -2,12 +2,14 @@ QT += widgets
 
 HEADERS += \
     components/automata_settings_windows.h \
+    components/bslider.h \
     components/cell_widget.h \
     components/control_panel.h \
     components/main_window.h \
     components/menubar.h \
     components/simulator_widget.h \
     constants.h \
+    utils/grid_factory.h \
     utils/simulator.h \
     utils/automata.h \
     utils/automata_manager.h \
@@ -19,12 +21,14 @@ HEADERS += \
 
 SOURCES += \
     components/automata_settings_windows.cpp \
+    components/bslider.cpp \
     components/cell_widget.cpp \
     components/control_panel.cpp \
     components/main_window.cpp \
     components/menubar.cpp \
     components/simulator_widget.cpp \
     main.cpp \
+    utils/grid_factory.cpp \
     utils/simulator.cpp \
     utils/automata.cpp \
     utils/automata_manager.cpp \
