@@ -2,7 +2,7 @@
 #define LO21_CELL_H
 #include "cell_state.h"
 
-enum Direction {up, down, left, right, none};
+enum Direction {none, up, right, down, left};
 
 class Cell {
   private:

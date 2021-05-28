@@ -26,7 +26,8 @@ class CellWidget : public QWidget {
 
   private:
     Cell* cell;
-    bool mouseClicked = false;
+    bool leftMouseClicked = false;
+    bool rightMouseClicked = false;
     void drawAnt(QPainter painter, int rotateDegree);
 
   protected:
@@ -34,7 +35,8 @@ class CellWidget : public QWidget {
     void mouseReleaseEvent(QMouseEvent* event);
 
   signals:
-    void clicked(int x, int y);
+    void leftClicked(int x, int y);
+    void rightClicked(int x, int y);
 };
 
 #endif // CELL_WIDGET_H

@@ -73,12 +73,23 @@ Cell* CellWidget::getCell() const {
 }
 
 void CellWidget::mousePressEvent(QMouseEvent* event) {
-    mouseClicked = true;
+    if (event->button() == Qt::LeftButton) {
+        leftMouseClicked = true;
+        rightMouseClicked = false;
+    } else {
+        leftMouseClicked = false;
+        rightMouseClicked = true;
+    }
 }
 
 void CellWidget::mouseReleaseEvent(QMouseEvent* event) {
-    if (mouseClicked) {
-        mouseClicked = false;
-        emit clicked(cell->getX(), cell->getY());
+    if (event->button() == Qt::LeftButton && leftMouseClicked) {
+        leftMouseClicked = false;
+        rightMouseClicked = false;
+        emit leftClicked(cell->getX(), cell->getY());
+    } else if (event->button() == Qt::RightButton && rightMouseClicked){
+        leftMouseClicked = false;
+        rightMouseClicked = false;
+        emit rightClicked(cell->getX(), cell->getY());
     }
 }
