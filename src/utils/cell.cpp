@@ -28,3 +28,17 @@ Direction Cell::getDirection() const {
 void Cell::setDirection(Direction d) {
     this->dir = d;
 }
+
+void Cell::turnRight() {
+    if (this->dir != NONE) {
+        this->dir = static_cast<Direction>(this->dir - 1);
+        this->dir = static_cast<Direction>(1 + ((this->dir + 1) % (LEFT)));
+    }
+}
+
+void Cell::turnLeft() {
+    if (this->dir != NONE) {
+        this->dir = static_cast<Direction>(this->dir - 1);
+        this->dir = static_cast<Direction>(1 + ((this->dir - 1 + LEFT) % (LEFT)));
+    }
+}

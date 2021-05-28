@@ -72,6 +72,10 @@ class LLTransition : public OuterTotalisticTransition {
 
 
 class LATransition : public OuterTotalisticTransition {
+  public:
+    bool isDestination(Cell*, Cell*) const;
+    bool isUnder(Cell*, Cell*) const;
+    bool isLeft(Cell*, Cell*) const;
     Cell* calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const;
 };
 

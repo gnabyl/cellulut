@@ -20,6 +20,8 @@ class Cell {
     int getY() const;
     Direction getDirection() const;
     void setDirection(Direction d);
+    void turnRight();
+    void turnLeft();
 };
 
 #endif //LO21_CELL_H
