@@ -68,7 +68,7 @@ void ControlPanel::loadAutomatas() {
     CellState** laStates = new CellState*[2];
     laStates[0] = new CellState(0, "dead", Qt::white);
     laStates[1] = new CellState(1, "alive", Qt::black);
-    automataManager->addAutomata(laStates, new LATransition(), new VonNeumannNeighborhood(), 2,
+    automataManager->addAutomata(laStates, new LATransition(), new MooreNeighborhood(), 2,
                                  "Langton ant", "Langton ant Automata", "Christopher Langton", 1986);
 
     for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
