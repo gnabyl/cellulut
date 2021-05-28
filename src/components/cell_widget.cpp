@@ -22,21 +22,41 @@ void CellWidget::setColor(const QColor& color) {
     setPalette(pal);
 }
 
-void CellWidget::drawAnt(QPainter painter) {
-    QRectF rect = this->rect();
-
+void CellWidget::drawAnt(QPainter painter, int rotateDegree) {
     QPainterPath path;
-    path.moveTo(rect.left() + (rect.width() / 2.0), rect.top() + rect.height() / 4.0);
-    path.lineTo(rect.left() + (rect.width() / 4.0), rect.bottom() - rect.height() / 4.0);
-    path.lineTo(rect.right() - (rect.width() / 4.0), rect.bottom() - rect.height() / 4.0);
-    path.lineTo(rect.left() + (rect.width() / 2.0), rect.top() + rect.height() / 4.0);
+    path.moveTo(this->rect().left() + (this->rect().width() / 2.0), this->rect().top() + this->rect().height() / 4.0);
+    path.lineTo(this->rect().left() + (this->rect().width() / 4.0), this->rect().bottom() - this->rect().height() / 4.0);
+    path.lineTo(this->rect().right() - (this->rect().width() / 4.0), this->rect().bottom() - this->rect().height() / 4.0);
+    path.lineTo(this->rect().left() + (this->rect().width() / 2.0), this->rect().top() + this->rect().height() / 4.0);
+
+    painter.translate(this->rect().center());
+    painter.rotate(rotateDegree);
+    painter.translate(-this->rect().center());
 
     painter.fillPath(path, QBrush(Qt::red));
 }
 
 void CellWidget::paintEvent(QPaintEvent* event) {
     if (cell->getDirection() != none) {
-        drawAnt(QPainter(this));
+        int rotateDegree = 0;
+        switch (cell->getDirection()) {
+            case up:
+                rotateDegree = 0;
+                break;
+            case left:
+                rotateDegree = -90;
+                break;
+            case down:
+                rotateDegree = 180;
+                break;
+            case right:
+                rotateDegree = 90;
+                break;
+            case none:
+                return;
+                break;
+        }
+        drawAnt(QPainter(this), rotateDegree);
     }
 }
 
