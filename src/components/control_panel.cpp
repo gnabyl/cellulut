@@ -13,16 +13,15 @@ void ControlPanel::neighborhoodSetting(){
     neigborhoodsWindow->show();
 }
 
-
-void ControlPanel::stateSettings(){
-    StateBrowseWindow* stateWindow= new StateBrowseWindow;
-    stateWindow ->show();
-}
 void ControlPanel::transitionSetting(){
     TransitionBrowseWindow* transition= new TransitionBrowseWindow;
     transition->show();
 }
 
+void ControlPanel::stateSettings(){
+    StateBrowseWindow* stateWindow= new StateBrowseWindow;
+    stateWindow ->show();
+}
 
 void ControlPanel::loadAutomatas() {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();

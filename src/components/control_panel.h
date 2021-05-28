@@ -97,9 +97,9 @@ class ControlPanel : public QWidget {
   private slots:
     void stateSettings();
     void neighborhoodSetting();
+
     void setAutomata(int id);
     void transitionSetting();
-
 };
 
 #endif // CONTROL_PANEL_H
