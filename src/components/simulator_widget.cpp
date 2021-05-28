@@ -20,7 +20,7 @@ void SimulatorWidget::setButtonIcon(QPushButton* btn, const QString& path) {
 void SimulatorWidget::btnPlayPauseClicked() {
     if (!playing) {
         playing = true;
-        timer->start(1000/frequency);
+        timer->start(1000 / frequency);
         setButtonIcon(btnPlay, PAUSE_BTN_ICON_PATH);
     } else {
         playing = false;
@@ -51,8 +51,8 @@ void SimulatorWidget::btnResetClicked() {
     }
 }
 
-void SimulatorWidget::btnRandomClicked(){
-    if(playing){
+void SimulatorWidget::btnRandomClicked() {
+    if(playing) {
         playing = false;
         timer->stop();
         setButtonIcon(btnPlay, PLAY_BTN_ICON_PATH);
@@ -129,6 +129,7 @@ void SimulatorWidget::resetGridDisplay() {
             cellWidgets[r * nbCols + c] = new CellWidget(this, cellSize, currentGrid->getCell(r, c));
             gridLayout->addWidget(cellWidgets[r * nbCols + c], r, c);
             connect(cellWidgets[r * nbCols + c], &CellWidget::leftClicked, this, &SimulatorWidget::changeCellState);
+            connect(cellWidgets[r * nbCols + c], &CellWidget::rightClicked, this, &SimulatorWidget::changeAnt);
         }
     }
     adjustSize();
@@ -138,7 +139,7 @@ int SimulatorWidget::getNbRows() const {
     return this->nbRows;
 }
 
-Simulator* SimulatorWidget::getSimulator() const{
+Simulator* SimulatorWidget::getSimulator() const {
     return this->simulator;
 }
 
@@ -179,6 +180,25 @@ void SimulatorWidget::changeCellState(int x, int y) {
     updateGridDisplay();
 }
 
+void SimulatorWidget::changeAnt(int x, int y) {
+    Grid* currentGrid = simulator->getIterator().current();
+    Direction currentDir = currentGrid->getCell(x, y)->getDirection();
+    Direction newDir = static_cast<Direction>((currentDir + 1) % (LEFT + 1));
+
+    for (int r = 0; r < currentGrid->getHeight(); r ++) {
+        for (int c = 0; c < currentGrid->getWidth(); c ++) {
+            currentGrid->getCell(r, c)->setDirection(NONE);
+        }
+    }
+    currentGrid->getCell(x, y)->setDirection(newDir);
+
+    if (this->simulator->getCurrentGridID() == 0) {
+        // Change the start grid if use config the first one
+        this->simulator->setStartGrid(new Grid(*currentGrid));
+    }
+    updateGridDisplay();
+}
+
 
 void SimulatorWidget::setAutomata(int index) {
     this->simulator->setAutomata(AutomataManager::getAutomataManager()->getAutomata(index));
@@ -187,11 +207,11 @@ void SimulatorWidget::setAutomata(int index) {
     resetGridDisplay();
 }
 
-void SimulatorWidget::setBufferSize(int size){
+void SimulatorWidget::setBufferSize(int size) {
     this->simulator->setBufferSize(size);
 }
 
-void SimulatorWidget::setFrequency(int f){
+void SimulatorWidget::setFrequency(int f) {
     this->frequency = f;
 }
 
@@ -200,11 +220,11 @@ int SimulatorWidget::getFrequency() const {
 }
 
 
-void SimulatorWidget::changeFrequency(int f){
+void SimulatorWidget::changeFrequency(int f) {
     setFrequency(f);
-    if(playing){
+    if(playing) {
         timer->stop();
-        timer->start(1000/f);
+        timer->start(1000 / f);
     }
 }
 

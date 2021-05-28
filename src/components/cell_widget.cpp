@@ -13,6 +13,7 @@ CellWidget::CellWidget(QWidget* parent, int cellSize, Cell* cell)
 void CellWidget::updateDisplay() {
     this->setToolTip(cell->getState()->getLabel().c_str());
     this->setColor(cell->getState()->getColor());
+    repaint();
 }
 
 
@@ -22,27 +23,23 @@ void CellWidget::setColor(const QColor& color) {
     setPalette(pal);
 }
 
-void CellWidget::drawAnt(QPainter painter, int rotateDegree) {
-
-}
-
 void CellWidget::paintEvent(QPaintEvent* event) {
-    if (cell->getDirection() != none) {
+    if (cell->getDirection() != NONE) {
         int rotateDegree = 0;
         switch (cell->getDirection()) {
-            case up:
+            case UP:
                 rotateDegree = 0;
                 break;
-            case left:
+            case LEFT:
                 rotateDegree = -90;
                 break;
-            case down:
+            case DOWN:
                 rotateDegree = 180;
                 break;
-            case right:
+            case RIGHT:
                 rotateDegree = 90;
                 break;
-            case none:
+            case NONE:
                 return;
                 break;
         }
@@ -78,7 +75,7 @@ void CellWidget::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         leftMouseClicked = true;
         rightMouseClicked = false;
-    } else {
+    } else if (event->button() == Qt::RightButton) {
         leftMouseClicked = false;
         rightMouseClicked = true;
     }

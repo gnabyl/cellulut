@@ -60,12 +60,13 @@ class SimulatorWidget : public QWidget {
 
   signals:
 
-    private slots:
+  private slots:
     void setNbRows(int nbRows);
     void setNbCols(int nbCols);
     void setCellSize(int size);
     void setAutomata(int index);
     void changeCellState(int x, int y);
+    void changeAnt(int x, int y);
     void setBufferSize(int size);
     void changeFrequency(int f);
 

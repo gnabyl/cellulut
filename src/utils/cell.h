@@ -2,7 +2,7 @@
 #define LO21_CELL_H
 #include "cell_state.h"
 
-enum Direction {none, up, right, down, left};
+enum Direction {NONE, UP, RIGHT, DOWN, LEFT};
 
 class Cell {
   private:
@@ -14,7 +14,7 @@ class Cell {
   public:
     void setState(CellState* s);
     CellState* getState() const;
-    Cell(CellState* s, int i, int j, Direction d = none);
+    Cell(CellState* s, int i, int j, Direction d = NONE);
     Cell(const Cell&);
     int getX() const;
     int getY() const;

@@ -28,7 +28,6 @@ class CellWidget : public QWidget {
     Cell* cell;
     bool leftMouseClicked = false;
     bool rightMouseClicked = false;
-    void drawAnt(QPainter painter, int rotateDegree);
 
   protected:
     void mousePressEvent(QMouseEvent* event);
