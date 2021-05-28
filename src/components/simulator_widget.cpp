@@ -111,6 +111,7 @@ void SimulatorWidget::updateGridDisplay() {
     for (int r = 0; r < nbRows; r ++) {
         for (int c = 0; c < nbCols; c ++) {
             cellWidgets[r * nbCols + c]->setCell(currentGrid->getCell(r, c));
+            cellWidgets[r * nbCols + c]->setSize(this->cellSize);
             cellWidgets[r * nbCols + c]->updateDisplay();
         }
     }
