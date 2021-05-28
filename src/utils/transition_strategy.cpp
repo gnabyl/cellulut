@@ -432,12 +432,12 @@ Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
     if (c->getDirection() != NONE) {
         // Cette cellule possede une fourmi
         Cell* newCell;
-        if (c->getState()->getId() == availableStates[1]->getId()) {
+        if (c->getState()->getId() == availableStates[0]->getId()) {
             // si cellule blanche
-            newCell = new Cell(availableStates[0], c->getX(), c->getY(), NONE);
+            newCell = new Cell(availableStates[1], c->getX(), c->getY(), NONE);
         } else {
             // si cellule noire
-            newCell = new Cell(availableStates[1], c->getX(), c->getY(), NONE);
+            newCell = new Cell(availableStates[0], c->getX(), c->getY(), NONE);
         }
         return newCell;
     } else {
@@ -455,16 +455,16 @@ Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
             // un voisin possède une direction
             // Il nous faut calculer la destination du voisin
             // On commence par calculer la nouvelle direction
-            Cell* neighbor = new Cell(*neighbors[i]);
-            if (neighbors[i]->getState()->getId() == availableStates[1]->getId()) {
+            Cell neighbor = Cell(*neighbors[i]);
+            if (neighbor.getState()->getId() == availableStates[0]->getId()) {
                 // si cellule blanche, tourner a droite
-                neighbor->turnRight();
+                neighbor.turnRight();
             } else {
                 // si cellule noire, tourner a gauche
-                neighbor->turnLeft();
+                neighbor.turnLeft();
             }
-            if (isDestination(c, neighbor)) {
-                return new Cell(c->getState(), c->getX(), c->getY(), neighbor->getDirection());
+            if (isDestination(c, &neighbor)) {
+                return new Cell(c->getState(), c->getX(), c->getY(), neighbor.getDirection());
             } else {
                 return new Cell(*c);
             }

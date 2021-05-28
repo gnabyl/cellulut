@@ -8,18 +8,18 @@
 
 
 
-void ControlPanel::neighborhoodSetting(){
-    NeighborsBrowseWindow* neigborhoodsWindow= new NeighborsBrowseWindow;
+void ControlPanel::neighborhoodSetting() {
+    NeighborsBrowseWindow* neigborhoodsWindow = new NeighborsBrowseWindow;
     neigborhoodsWindow->show();
 }
 
-void ControlPanel::transitionSetting(){
-    TransitionBrowseWindow* transition= new TransitionBrowseWindow;
+void ControlPanel::transitionSetting() {
+    TransitionBrowseWindow* transition = new TransitionBrowseWindow;
     transition->show();
 }
 
-void ControlPanel::stateSettings(){
-    StateBrowseWindow* stateWindow= new StateBrowseWindow;
+void ControlPanel::stateSettings() {
+    StateBrowseWindow* stateWindow = new StateBrowseWindow;
     stateWindow ->show();
 }
 
@@ -66,8 +66,8 @@ void ControlPanel::loadAutomatas() {
 
     // Langton ant automata
     CellState** laStates = new CellState*[2];
-    laStates[0] = new CellState(0, "dead", Qt::white);
-    laStates[1] = new CellState(1, "alive", Qt::black);
+    laStates[0] = new CellState(0, "white", Qt::white);
+    laStates[1] = new CellState(1, "black", Qt::black);
     automataManager->addAutomata(laStates, new LATransition(), new MooreNeighborhood(), 2,
                                  "Langton ant", "Langton ant Automata", "Christopher Langton", 1986);
 
@@ -117,7 +117,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     setLayout(mainLayout);
 }
 
-void ControlPanel::initGridSettings(){
+void ControlPanel::initGridSettings() {
     //Creation of the boxes widget
     nbRowsSpb = new QSpinBox(gridSettingsBox);
     nbColsSpb = new QSpinBox(gridSettingsBox);
@@ -145,11 +145,11 @@ void ControlPanel::initGridSettings(){
     gridSettingsLayout->addRow("Cell size", cellSizeSpb);
 }
 
-void ControlPanel::initAutomataSettings(){
+void ControlPanel::initAutomataSettings() {
     automataSettingsLayout = new QVBoxLayout(automataSettingsBox);
 
     //Choose automata
-    automataLabel = new QLabel("Automata",automataSettingsBox);
+    automataLabel = new QLabel("Automata", automataSettingsBox);
     btnBrowseAutomatas = new QPushButton(tr("Browse..."), automataSettingsBox);
     textAutomataName = new QLineEdit(automataSettingsBox);
     automataFieldLayout = new QHBoxLayout(automataSettingsBox);
@@ -163,8 +163,8 @@ void ControlPanel::initAutomataSettings(){
     btnBrowseStates = new QPushButton*[8];
     textStatesNames = new QLineEdit*[8];
     statesFieldLayout = new QHBoxLayout*[8];
-    for(int i=0; i<8; i++){
-        char num = i+49;
+    for(int i = 0; i < 8; i++) {
+        char num = i + 49;
         statesLabels[i] = new QLabel(automataSettingsBox);
         statesLabels[i]->setText(QString("State ").append(QString(num)));
         btnBrowseStates[i] = new QPushButton(automataSettingsBox);
@@ -177,7 +177,7 @@ void ControlPanel::initAutomataSettings(){
         automataSettingsLayout->addLayout(statesFieldLayout[i]);
         connect(btnBrowseStates[i], SIGNAL(clicked()), this, SLOT(stateSettings()));
 
-   }
+    }
 
     //Choose neighborhood
     neighborhoodLabel = new QLabel(automataSettingsBox);
@@ -206,20 +206,20 @@ void ControlPanel::initAutomataSettings(){
     connect(btnBrowseRules, SIGNAL(clicked()), this, SLOT(transitionSetting()));
 }
 
-void ControlPanel::initRunSettings(){
+void ControlPanel::initRunSettings() {
     runSettingsLayout = new QFormLayout(runSettingsBox);
 
     sliderSpeed = new BSlider(Qt::Horizontal, runSettingsBox);
     sliderSpeed->setValue(simulatorWidget->getFrequency());
     sliderSpeed->setMinimum(simulatorWidget->getFrequency());
     sliderSpeed->setMaximum(10);
-    runSettingsLayout->addRow("Execution speed",sliderSpeed);
+    runSettingsLayout->addRow("Execution speed", sliderSpeed);
     bufferSizeSpb = new QSpinBox(runSettingsBox);
     bufferSizeSpb->setKeyboardTracking(false);
     bufferSizeSpb->setValue(simulatorWidget->getSimulator()->getBufferSize());
     bufferSizeSpb->setMaximum(500);
     bufferSizeSpb->setMinimum(2);
-    runSettingsLayout->addRow("Buffer size",bufferSizeSpb);
+    runSettingsLayout->addRow("Buffer size", bufferSizeSpb);
 }
 
 ControlPanel::~ControlPanel() {
@@ -233,6 +233,6 @@ void ControlPanel::setAutomata(int id) {
     textRuleName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getTransitionStrategy()->getName()));
 }
 
-void FrequencyDisplayBox::setFrequency(int f){
+void FrequencyDisplayBox::setFrequency(int f) {
     setText(QString::number(f));
 }
