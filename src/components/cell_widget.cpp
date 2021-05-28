@@ -11,9 +11,6 @@ CellWidget::CellWidget(QWidget* parent, int cellSize, Cell* cell)
 }
 
 void CellWidget::updateDisplay() {
-    if (cell->getDirection() != none) {
-        // TODO: Draw ant
-    }
     this->setToolTip(cell->getState()->getLabel().c_str());
     this->setColor(cell->getState()->getColor());
 }
@@ -25,11 +22,29 @@ void CellWidget::setColor(const QColor& color) {
     setPalette(pal);
 }
 
+void CellWidget::drawAnt(QPainter painter) {
+    QRectF rect = this->rect();
+
+    QPainterPath path;
+    path.moveTo(rect.left() + (rect.width() / 2.0), rect.top() + rect.height() / 4.0);
+    path.lineTo(rect.left() + (rect.width() / 4.0), rect.bottom() - rect.height() / 4.0);
+    path.lineTo(rect.right() - (rect.width() / 4.0), rect.bottom() - rect.height() / 4.0);
+    path.lineTo(rect.left() + (rect.width() / 2.0), rect.top() + rect.height() / 4.0);
+
+    painter.fillPath(path, QBrush(Qt::red));
+}
+
+void CellWidget::paintEvent(QPaintEvent* event) {
+    if (cell->getDirection() != none) {
+        drawAnt(QPainter(this));
+    }
+}
+
 void CellWidget::setSize(int size) {
     setFixedSize(size, size);
 }
 
-void CellWidget::setCell(Cell *cell) {
+void CellWidget::setCell(Cell* cell) {
     this->cell = cell;
 }
 

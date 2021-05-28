@@ -5,6 +5,10 @@
 #include <QPalette>
 #include <QMouseEvent>
 #include <QToolTip>
+#include <QPainter>
+#include <QPainterPath>
+#include <QPen>
+#include <QBrush>
 #include "utils/cell.h"
 
 class CellWidget : public QWidget {
@@ -18,9 +22,12 @@ class CellWidget : public QWidget {
     Cell* getCell() const;
     void updateDisplay();
 
+    virtual void paintEvent(QPaintEvent*);
+
   private:
     Cell* cell;
     bool mouseClicked = false;
+    void drawAnt(QPainter painter);
 
   protected:
     void mousePressEvent(QMouseEvent* event);
