@@ -24,4 +24,5 @@ class Grid {
     int getWidth() const;
     int getHeight() const;
 };
+
 #endif //LO21_GRID_H

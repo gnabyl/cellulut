@@ -1,4 +1,5 @@
-QT += widgets
+QT += widgets \
+    sql \
 
 HEADERS += \
     components/automata_settings_windows.h \
@@ -9,6 +10,7 @@ HEADERS += \
     components/menubar.h \
     components/simulator_widget.h \
     constants.h \
+    utils/database.h \
     utils/grid_factory.h \
     utils/simulator.h \
     utils/automata.h \
@@ -28,6 +30,7 @@ SOURCES += \
     components/menubar.cpp \
     components/simulator_widget.cpp \
     main.cpp \
+    utils/database.cpp \
     utils/grid_factory.cpp \
     utils/simulator.cpp \
     utils/automata.cpp \
