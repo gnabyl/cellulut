@@ -65,6 +65,8 @@ class SimulatorWidget : public QWidget {
     void setNbCols(int nbCols);
     void setCellSize(int size);
     void setAutomata(int index);
+    void setNeighbor(NeighborhoodStrategy* neighbor);
+
     void changeCellState(int x, int y);
     void changeAnt(int x, int y);
     void setBufferSize(int size);

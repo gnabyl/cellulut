@@ -9,7 +9,6 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
-#include <QVariant>
 #include "utils/neighborhood_strategy.h"
 
 class NeighborsBrowser : public QDialog{
@@ -18,9 +17,11 @@ class NeighborsBrowser : public QDialog{
     QFormLayout* neighborhoodLayout;
     QComboBox* neighborhoodCbb;
     QSpinBox* radius;
+    QPushButton* btnConfirm;
 
     int nbNeighbors = 0;
-    NeighborhoodStrategy** neighbors;
+    NeighborhoodStrategy** neighbors = nullptr;
+    NeighborhoodStrategy* selectedNeighbor = nullptr;
 
     void updateCombobox();
 
@@ -30,9 +31,12 @@ public:
 
     void setNeighborhoods(int nbNeighbors, NeighborhoodStrategy** neighbors);
 
+signals:
+    void neighborChanged(NeighborhoodStrategy* neighbor);
 
-private slots:
-//    void clickedactions(int indexItem);
+public slots:
+    void chooseNeighbor();
+    void neighborCbbChanged(int id);
 
 };
 

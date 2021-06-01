@@ -207,6 +207,10 @@ void SimulatorWidget::setAutomata(int index) {
     resetGridDisplay();
 }
 
+void SimulatorWidget::setNeighbor(NeighborhoodStrategy* neighbor) {
+    this->simulator->getAutomata()->setNeighborhoodStrategy(neighbor);
+}
+
 void SimulatorWidget::setBufferSize(int size) {
     this->simulator->setBufferSize(size);
 }

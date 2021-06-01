@@ -101,9 +101,11 @@ class ControlPanel : public QWidget {
     void automataChanged(int id);
   private slots:
     void stateSettings();
-    void neighborhoodSetting();
+    void openNeighborsBrowser();
 
     void setAutomata(int id);
+    void setNeighbor(NeighborhoodStrategy* neighbor);
+
     void transitionSetting();
 
     void openAutomatasBrowser();

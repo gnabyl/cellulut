@@ -8,7 +8,7 @@
 
 
 
-void ControlPanel::neighborhoodSetting() {
+void ControlPanel::openNeighborsBrowser() {
     neighborsBrowser->exec();
 }
 
@@ -69,6 +69,8 @@ void ControlPanel::loadAutomatas() {
                                  "Langton ant", "Langton ant Automata", "Christopher Langton", 1986);
 
     automatasBrowser = new AutomatasBrowser(this);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
 }
 
 void ControlPanel::loadNeighborhoods() {
@@ -80,6 +82,8 @@ void ControlPanel::loadNeighborhoods() {
     neighbors[3] = new MooreNeighborhoodGeneralized();
     neighborsBrowser = new NeighborsBrowser(this);
     neighborsBrowser->setNeighborhoods(nbNeighbors, neighbors);
+    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
+    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
 }
 
 void ControlPanel::initEventHandler() {
@@ -90,8 +94,7 @@ void ControlPanel::initEventHandler() {
 
 //    connect(automataCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(setAutomata(int)));
 //    connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
-    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
-    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
+
 
     connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
 
@@ -200,7 +203,7 @@ void ControlPanel::initAutomataSettings() {
     neighborhoodFieldLayout->addWidget(textNeighborhoodName);
     neighborhoodFieldLayout->addWidget(btnBrowseNeighborhoods);
     automataSettingsLayout->addLayout(neighborhoodFieldLayout);
-    connect(btnBrowseNeighborhoods, SIGNAL(clicked()), this, SLOT(neighborhoodSetting()));
+    connect(btnBrowseNeighborhoods, SIGNAL(clicked()), this, SLOT(openNeighborsBrowser()));
 
     //Choose transition rule
     ruleLabel = new QLabel(automataSettingsBox);
@@ -242,6 +245,10 @@ void ControlPanel::setAutomata(int id) {
     textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
     textNeighborhoodName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getNeighborhoodStrategy()->getName()));
     textRuleName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getTransitionStrategy()->getName()));
+}
+
+void ControlPanel::setNeighbor(NeighborhoodStrategy* neighbor) {
+    textNeighborhoodName->setText(QString::fromStdString(neighbor->getName()));
 }
 
 void FrequencyDisplayBox::setFrequency(int f) {
