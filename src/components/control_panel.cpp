@@ -9,18 +9,15 @@
 
 
 void ControlPanel::neighborhoodSetting() {
-    NeighborsBrowseWindow* neigborhoodsWindow = new NeighborsBrowseWindow;
-    neigborhoodsWindow->show();
+    neighborsBrowser->exec();
 }
 
 void ControlPanel::transitionSetting() {
-    TransitionBrowseWindow* transition = new TransitionBrowseWindow;
-    transition->show();
+
 }
 
 void ControlPanel::stateSettings() {
-    StateBrowseWindow* stateWindow = new StateBrowseWindow;
-    stateWindow ->show();
+
 }
 
 void ControlPanel::loadAutomatas() {
@@ -74,6 +71,17 @@ void ControlPanel::loadAutomatas() {
     automatasBrowser = new AutomatasBrowser(this);
 }
 
+void ControlPanel::loadNeighborhoods() {
+    int nbNeighbors = 4;
+    NeighborhoodStrategy** neighbors = new NeighborhoodStrategy* [nbNeighbors];
+    neighbors[0] = new VonNeumannNeighborhood();
+    neighbors[1] = new VonNeumannNeighborhoodGeneralized();
+    neighbors[2] = new MooreNeighborhood();
+    neighbors[3] = new MooreNeighborhoodGeneralized();
+    neighborsBrowser = new NeighborsBrowser(this);
+    neighborsBrowser->setNeighborhoods(nbNeighbors, neighbors);
+}
+
 void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
@@ -110,8 +118,9 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
     mainLayout->addStretch();
 
-    //Init automatas
+    //Init data
     loadAutomatas();
+    loadNeighborhoods();
 
     setLayout(mainLayout);
 
@@ -226,6 +235,7 @@ void ControlPanel::initRunSettings() {
 ControlPanel::~ControlPanel() {
     delete gridSettingsLayout;
     delete automatasBrowser;
+    delete neighborsBrowser;
 }
 
 void ControlPanel::setAutomata(int id) {

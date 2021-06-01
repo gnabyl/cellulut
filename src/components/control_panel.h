@@ -13,10 +13,11 @@
 #include <QGroupBox>
 #include <QLineEdit>
 #include "simulator_widget.h"
-#include "utils/automata_manager.h"
-#include "automata_settings_windows.h"
+//#include "automata_settings_windows.h"
 #include "bslider.h"
+#include "utils/automata_manager.h"
 #include "subwindows/automatas_browser.h"
+#include "subwindows/neighbors_browser.h"
 
 class FrequencyDisplayBox : public QLineEdit{
     Q_OBJECT
@@ -40,7 +41,6 @@ class ControlPanel : public QWidget {
     //Automata settings box
     QGroupBox* automataSettingsBox;
     QVBoxLayout* automataSettingsLayout;
-    AutomatasBrowser*  automatasBrowser;
 
     //Choose automata
     QLabel* automataLabel;
@@ -76,6 +76,13 @@ class ControlPanel : public QWidget {
     SimulatorWidget* simulatorWidget;
     AutomataManager* automataManager;
 
+    // Popups
+    AutomatasBrowser* automatasBrowser;
+    NeighborsBrowser* neighborsBrowser;
+
+    void loadAutomatas();
+    void loadNeighborhoods();
+
   public:
     explicit ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget);
     ~ControlPanel();
@@ -88,7 +95,6 @@ class ControlPanel : public QWidget {
     void setNbCols(int nbCols);
     void setCellSize(int cellSize);
 
-    void loadAutomatas();
     void initEventHandler();
 
   signals:
