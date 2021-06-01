@@ -11,6 +11,7 @@ HEADERS += \
     components/simulator_widget.h \
     components/subwindows/automatas_browser.h \
     components/subwindows/neighbors_browser.h \
+    components/subwindows/transitions_browser.h \
     constants.h \
     utils/database.h \
     utils/grid_factory.h \
@@ -33,6 +34,7 @@ SOURCES += \
     components/simulator_widget.cpp \
     components/subwindows/automatas_browser.cpp \
     components/subwindows/neighbors_browser.cpp \
+    components/subwindows/transitions_browser.cpp \
     main.cpp \
     utils/database.cpp \
     utils/grid_factory.cpp \

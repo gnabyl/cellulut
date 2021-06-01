@@ -12,8 +12,8 @@ void ControlPanel::openNeighborsBrowser() {
     neighborsBrowser->exec();
 }
 
-void ControlPanel::transitionSetting() {
-
+void ControlPanel::openTransitionsBrowser() {
+    transitionsBrowser->exec();
 }
 
 void ControlPanel::stateSettings() {
@@ -86,6 +86,18 @@ void ControlPanel::loadNeighborhoods() {
     connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
 }
 
+void ControlPanel::loadTransitions() {
+    int nbTransitions = AutomataManager::getAutomataManager()->getNbAutomatas();
+    TransitionStrategy** transitions = new TransitionStrategy* [nbTransitions];
+    for (int i = 0; i < nbTransitions; i ++) {
+        transitions[i] = AutomataManager::getAutomataManager()->getAutomata(i)->getTransitionStrategy();
+    }
+    transitionsBrowser = new TransitionsBrowser(this);
+    transitionsBrowser->setTransitions(nbTransitions, transitions);
+    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
+    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
+}
+
 void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
@@ -124,6 +136,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     //Init data
     loadAutomatas();
     loadNeighborhoods();
+    loadTransitions();
 
     setLayout(mainLayout);
 
@@ -208,15 +221,15 @@ void ControlPanel::initAutomataSettings() {
     //Choose transition rule
     ruleLabel = new QLabel(automataSettingsBox);
     ruleLabel->setText("Transition rule");
-    textRuleName = new QLineEdit(automataSettingsBox);
+    textTransitionName = new QLineEdit(automataSettingsBox);
     btnBrowseRules = new QPushButton(automataSettingsBox);
     btnBrowseRules->setText(tr("Browse..."));
     ruleFieldLayout = new QHBoxLayout(automataSettingsBox);
     ruleFieldLayout->addWidget(ruleLabel);
-    ruleFieldLayout->addWidget(textRuleName);
+    ruleFieldLayout->addWidget(textTransitionName);
     ruleFieldLayout->addWidget(btnBrowseRules);
     automataSettingsLayout->addLayout(ruleFieldLayout);
-    connect(btnBrowseRules, SIGNAL(clicked()), this, SLOT(transitionSetting()));
+    connect(btnBrowseRules, SIGNAL(clicked()), this, SLOT(openTransitionsBrowser()));
 }
 
 void ControlPanel::initRunSettings() {
@@ -244,11 +257,15 @@ ControlPanel::~ControlPanel() {
 void ControlPanel::setAutomata(int id) {
     textAutomataName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getName()));
     textNeighborhoodName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getNeighborhoodStrategy()->getName()));
-    textRuleName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getTransitionStrategy()->getName()));
+    textTransitionName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getTransitionStrategy()->getName()));
 }
 
 void ControlPanel::setNeighbor(NeighborhoodStrategy* neighbor) {
     textNeighborhoodName->setText(QString::fromStdString(neighbor->getName()));
+}
+
+void ControlPanel::setTransition(TransitionStrategy* transition) {
+    textTransitionName->setText(QString::fromStdString(transition->getName()));
 }
 
 void FrequencyDisplayBox::setFrequency(int f) {

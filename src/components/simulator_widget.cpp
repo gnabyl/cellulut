@@ -211,6 +211,10 @@ void SimulatorWidget::setNeighbor(NeighborhoodStrategy* neighbor) {
     this->simulator->getAutomata()->setNeighborhoodStrategy(neighbor);
 }
 
+void SimulatorWidget::setTransition(TransitionStrategy* transition) {
+    this->simulator->getAutomata()->setTransitionStrategy(transition);
+}
+
 void SimulatorWidget::setBufferSize(int size) {
     this->simulator->setBufferSize(size);
 }

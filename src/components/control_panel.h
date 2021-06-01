@@ -18,6 +18,7 @@
 #include "utils/automata_manager.h"
 #include "subwindows/automatas_browser.h"
 #include "subwindows/neighbors_browser.h"
+#include "subwindows/transitions_browser.h"
 
 class FrequencyDisplayBox : public QLineEdit{
     Q_OBJECT
@@ -62,7 +63,7 @@ class ControlPanel : public QWidget {
 
     //Chose transition rule
     QLabel* ruleLabel;
-    QLineEdit* textRuleName;
+    QLineEdit* textTransitionName;
     QPushButton* btnBrowseRules;
     QHBoxLayout* ruleFieldLayout;
 
@@ -79,9 +80,11 @@ class ControlPanel : public QWidget {
     // Popups
     AutomatasBrowser* automatasBrowser;
     NeighborsBrowser* neighborsBrowser;
+    TransitionsBrowser* transitionsBrowser;
 
     void loadAutomatas();
     void loadNeighborhoods();
+    void loadTransitions();
 
   public:
     explicit ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget);
@@ -105,8 +108,9 @@ class ControlPanel : public QWidget {
 
     void setAutomata(int id);
     void setNeighbor(NeighborhoodStrategy* neighbor);
+    void setTransition(TransitionStrategy* transition);
 
-    void transitionSetting();
+    void openTransitionsBrowser();
 
     void openAutomatasBrowser();
 };
