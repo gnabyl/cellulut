@@ -55,13 +55,18 @@ void Simulator::run(int nbSteps) {
 void Simulator::next() {
     if(startGrid == nullptr)
         return;
-    currentGridID++; //important à regarder
+    try {
+        currentGridID++; //important à regarder
 
-    if (grids[currentGridID % bufferSize]) {
-        delete grids[currentGridID % bufferSize];
-        grids[currentGridID % bufferSize] = nullptr;
+        if (grids[currentGridID % bufferSize]) {
+            delete grids[currentGridID % bufferSize];
+            grids[currentGridID % bufferSize] = nullptr;
+        }
+        grids[currentGridID % bufferSize] = automata->applyTransition(grids[(currentGridID - 1) % bufferSize]);
+    }  catch (TransitionException e) {
+        currentGridID --;
+        throw;
     }
-    grids[currentGridID % bufferSize] = automata->applyTransition(grids[(currentGridID - 1) % bufferSize]);
 }
 /*
 const Etat& Simulateur::dernier() const
