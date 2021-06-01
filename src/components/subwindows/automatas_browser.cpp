@@ -47,6 +47,7 @@ void AutomatasBrowser::initAutomatasTable() {
     }
 
     automatasTable->setFixedWidth(totalWidth);
+    automatasTable->selectRow(0);
 }
 
 void AutomatasBrowser::initButtons() {

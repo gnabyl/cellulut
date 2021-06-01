@@ -108,6 +108,8 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     initRunSettings();
     mainLayout->addWidget(runSettingsBox);
 
+    mainLayout->addStretch();
+
     //Init automatas
     loadAutomatas();
 
