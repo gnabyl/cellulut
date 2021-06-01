@@ -16,6 +16,7 @@
 #include "utils/automata_manager.h"
 #include "automata_settings_windows.h"
 #include "bslider.h"
+#include "subwindows/automatas_browser.h"
 
 class FrequencyDisplayBox : public QLineEdit{
     Q_OBJECT
@@ -100,6 +101,8 @@ class ControlPanel : public QWidget {
 
     void setAutomata(int id);
     void transitionSetting();
+
+    void openAutomatasBrowser();
 };
 
 #endif // CONTROL_PANEL_H

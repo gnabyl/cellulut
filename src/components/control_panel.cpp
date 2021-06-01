@@ -81,9 +81,13 @@ void ControlPanel::initEventHandler() {
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
+
     connect(automataCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(setAutomata(int)));
     connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+
     connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
+
+    connect(btnBrowseAutomatas, &QPushButton::clicked, this, &ControlPanel::openAutomatasBrowser);
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -235,4 +239,9 @@ void ControlPanel::setAutomata(int id) {
 
 void FrequencyDisplayBox::setFrequency(int f) {
     setText(QString::number(f));
+}
+
+void ControlPanel::openAutomatasBrowser() {
+    AutomatasBrowser automataBrowser(this);
+    automataBrowser.exec();
 }

@@ -9,6 +9,7 @@ HEADERS += \
     components/main_window.h \
     components/menubar.h \
     components/simulator_widget.h \
+    components/subwindows/automatas_browser.h \
     constants.h \
     utils/database.h \
     utils/grid_factory.h \
@@ -29,6 +30,7 @@ SOURCES += \
     components/main_window.cpp \
     components/menubar.cpp \
     components/simulator_widget.cpp \
+    components/subwindows/automatas_browser.cpp \
     main.cpp \
     utils/database.cpp \
     utils/grid_factory.cpp \
