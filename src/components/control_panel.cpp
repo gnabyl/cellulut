@@ -71,9 +71,7 @@ void ControlPanel::loadAutomatas() {
     automataManager->addAutomata(laStates, new LATransition(), new MooreNeighborhood(), 2,
                                  "Langton ant", "Langton ant Automata", "Christopher Langton", 1986);
 
-    for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
-        automataCbb->addItem(QString(automataManager->getAutomata(i)->getName().c_str()));
-    }
+    automatasBrowser = new AutomatasBrowser(this);
 }
 
 void ControlPanel::initEventHandler() {
@@ -82,8 +80,10 @@ void ControlPanel::initEventHandler() {
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
 
-    connect(automataCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(setAutomata(int)));
-    connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+//    connect(automataCbb, SIGNAL(currentIndexChanged(int)), this, SLOT(setAutomata(int)));
+//    connect(automataCbb, SIGNAL(currentIndexChanged(int)), simulatorWidget, SLOT(setAutomata(int)));
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
 
     connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
 
@@ -92,12 +92,6 @@ void ControlPanel::initEventHandler() {
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
     mainLayout = new QVBoxLayout(this);
-
-    //Automata spinbox
-    automataCbb = new QComboBox(this);
-    automatasLayout = new QFormLayout;
-    automatasLayout->addRow("Automata", automataCbb);
-    mainLayout->addLayout(automatasLayout);
 
     // 1 : grid settings
     gridSettingsBox = new QGroupBox(tr("Grid settings"));
@@ -114,11 +108,12 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     initRunSettings();
     mainLayout->addWidget(runSettingsBox);
 
-    initEventHandler();
     //Init automatas
     loadAutomatas();
 
     setLayout(mainLayout);
+
+    initEventHandler();
 }
 
 void ControlPanel::initGridSettings() {
@@ -216,7 +211,7 @@ void ControlPanel::initRunSettings() {
     sliderSpeed = new BSlider(Qt::Horizontal, runSettingsBox);
     sliderSpeed->setValue(simulatorWidget->getFrequency());
     sliderSpeed->setMinimum(simulatorWidget->getFrequency());
-    sliderSpeed->setMaximum(10);
+    sliderSpeed->setMaximum(50);
     runSettingsLayout->addRow("Execution speed", sliderSpeed);
     bufferSizeSpb = new QSpinBox(runSettingsBox);
     bufferSizeSpb->setKeyboardTracking(false);
@@ -227,8 +222,8 @@ void ControlPanel::initRunSettings() {
 }
 
 ControlPanel::~ControlPanel() {
-    delete automatasLayout;
     delete gridSettingsLayout;
+    delete automatasBrowser;
 }
 
 void ControlPanel::setAutomata(int id) {
@@ -242,6 +237,5 @@ void FrequencyDisplayBox::setFrequency(int f) {
 }
 
 void ControlPanel::openAutomatasBrowser() {
-    AutomatasBrowser automataBrowser(this);
-    automataBrowser.exec();
+    automatasBrowser->exec();
 }

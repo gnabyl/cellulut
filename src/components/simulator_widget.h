@@ -60,7 +60,7 @@ class SimulatorWidget : public QWidget {
 
   signals:
 
-  private slots:
+  public slots:
     void setNbRows(int nbRows);
     void setNbCols(int nbCols);
     void setCellSize(int size);

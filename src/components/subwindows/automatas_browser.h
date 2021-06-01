@@ -27,6 +27,12 @@ class AutomatasBrowser : public QDialog {
   public:
     AutomatasBrowser(QWidget* parent);
     ~AutomatasBrowser();
+
+  signals:
+    void automataChanged(int id);
+
+  private slots:
+    void chooseAutomata();
 };
 
 #endif // AUTOMATASBROWSER_H

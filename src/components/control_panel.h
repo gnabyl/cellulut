@@ -32,10 +32,6 @@ class ControlPanel : public QWidget {
 
     QVBoxLayout* mainLayout;
 
-    //Automata Spinbox
-    QFormLayout* automatasLayout;
-    QComboBox* automataCbb;
-
     //Grid settings box
     QGroupBox* gridSettingsBox;
     QFormLayout* gridSettingsLayout;
@@ -44,6 +40,8 @@ class ControlPanel : public QWidget {
     //Automata settings box
     QGroupBox* automataSettingsBox;
     QVBoxLayout* automataSettingsLayout;
+    AutomatasBrowser*  automatasBrowser;
+
     //Choose automata
     QLabel* automataLabel;
     QPushButton* btnBrowseAutomatas;

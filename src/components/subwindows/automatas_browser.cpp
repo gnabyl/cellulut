@@ -60,7 +60,21 @@ void AutomatasBrowser::initButtons() {
     buttonsLayout->addWidget(btnCreate);
     buttonsLayout->addWidget(btnDelete);
     buttonsLayout->addWidget(btnSave);
+
+
+    connect(btnChoose, &QPushButton::clicked, this, &AutomatasBrowser::chooseAutomata);
 }
+
+/*
+ *          SLOTS
+ */
+void AutomatasBrowser::chooseAutomata() {
+    if (automatasTable->selectionModel()->selectedIndexes().size() > 0) {
+        emit automataChanged(automatasTable->selectionModel()->selectedIndexes().at(0).row());
+        close();
+    }
+}
+
 
 AutomatasBrowser::~AutomatasBrowser() {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
