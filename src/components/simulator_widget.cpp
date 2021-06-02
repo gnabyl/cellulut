@@ -188,9 +188,11 @@ void SimulatorWidget::changeAnt(int x, int y) {
     for (int r = 0; r < currentGrid->getHeight(); r ++) {
         for (int c = 0; c < currentGrid->getWidth(); c ++) {
             currentGrid->getCell(r, c)->setDirection(NONE);
+            cellWidgets[r + nbCols + c]->repaint();
         }
     }
     currentGrid->getCell(x, y)->setDirection(newDir);
+    cellWidgets[x + nbCols + y]->repaint();
 
     if (this->simulator->getCurrentGridID() == 0) {
         // Change the start grid if use config the first one

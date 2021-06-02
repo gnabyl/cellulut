@@ -141,6 +141,8 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     btnEditState->setDisabled(true);
 
     initEventHandler();
+
+    setMaximumWidth(500);
 }
 
 void ControlPanel::initGridSettings() {

@@ -11,9 +11,12 @@ CellWidget::CellWidget(QWidget* parent, int cellSize, Cell* cell)
 }
 
 void CellWidget::updateDisplay() {
-    this->setToolTip(cell->getState()->getLabel().c_str());
-    this->setColor(cell->getState()->getColor());
-    repaint();
+    if (this->toolTip() != cell->getState()->getLabel().c_str()) {
+        this->setToolTip(cell->getState()->getLabel().c_str());
+    }
+    if (this->palette().color(QPalette::Window) != cell->getState()->getColor()) {
+        this->setColor(cell->getState()->getColor());
+    }
 }
 
 
