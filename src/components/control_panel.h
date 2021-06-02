@@ -12,6 +12,7 @@
 #include <QString>
 #include <QGroupBox>
 #include <QLineEdit>
+#include <QListWidget>
 #include "simulator_widget.h"
 //#include "automata_settings_windows.h"
 #include "bslider.h"
@@ -44,16 +45,17 @@ class ControlPanel : public QWidget {
     QVBoxLayout* automataSettingsLayout;
 
     //Choose automata
-    QLabel* automataLabel;
+    QLabel* automatasLabel;
     QPushButton* btnBrowseAutomatas;
     QLineEdit* textAutomataName;
     QHBoxLayout* automataFieldLayout;
 
     //Chose states
-    QLabel** statesLabels;
-    QPushButton** btnBrowseStates;
-    QLineEdit** textStatesNames;
-    QHBoxLayout** statesFieldLayout;
+    QLabel* statesLabel;
+    QPushButton* btnEditState;
+    QListWidget* statesListWidget;
+    QListWidgetItem** statesListItem;
+    QHBoxLayout* statesFieldLayout;
 
     //Chose neighborhood
     QLabel* neighborhoodLabel;
@@ -62,10 +64,10 @@ class ControlPanel : public QWidget {
     QHBoxLayout* neighborhoodFieldLayout;
 
     //Chose transition rule
-    QLabel* ruleLabel;
+    QLabel* transitionsLabel;
     QLineEdit* textTransitionName;
-    QPushButton* btnBrowseRules;
-    QHBoxLayout* ruleFieldLayout;
+    QPushButton* btnBrowseTransitions;
+    QHBoxLayout* transitionsFieldLayout;
 
     //Run settings box
     QGroupBox* runSettingsBox;
