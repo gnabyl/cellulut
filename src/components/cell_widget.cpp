@@ -8,6 +8,7 @@ CellWidget::CellWidget(QWidget* parent, int cellSize, Cell* cell)
     setAutoFillBackground(true);
 
     this->updateDisplay();
+    repaint();
 }
 
 void CellWidget::updateDisplay() {
@@ -67,7 +68,12 @@ void CellWidget::setSize(int size) {
 }
 
 void CellWidget::setCell(Cell* cell) {
-    this->cell = cell;
+    if (this->cell == nullptr || this->cell->getDirection() != cell->getDirection()) {
+        this->cell = cell;
+        repaint();
+    } else {
+        this->cell = cell;
+    }
 }
 
 Cell* CellWidget::getCell() const {
