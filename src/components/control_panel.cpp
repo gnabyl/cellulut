@@ -137,7 +137,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
     // Make all button disabled
     btnBrowseNeighborhoods->setDisabled(true);
-    btnBrowseRules->setDisabled(true);
+    btnBrowseTransitions->setDisabled(true);
     btnEditState->setDisabled(true);
 
     initEventHandler();
@@ -211,16 +211,16 @@ void ControlPanel::initAutomataSettings() {
     automataSettingsLayout->addLayout(neighborhoodFieldLayout);
 
     //Choose transition rule
-    ruleLabel = new QLabel("Transition rule", automataSettingsBox);
+    transitionsLabel = new QLabel("Transition rule", automataSettingsBox);
     textTransitionName = new QLineEdit(automataSettingsBox);
-    btnBrowseRules = new QPushButton("Browse", automataSettingsBox);
-    ruleFieldLayout = new QHBoxLayout(automataSettingsBox);
-    connect(btnBrowseRules, SIGNAL(clicked()), this, SLOT(openTransitionsBrowser()));
+    btnBrowseTransitions = new QPushButton("Browse", automataSettingsBox);
+    transitionsFieldLayout = new QHBoxLayout(automataSettingsBox);
+    connect(btnBrowseTransitions, SIGNAL(clicked()), this, SLOT(openTransitionsBrowser()));
 
-    ruleFieldLayout->addWidget(ruleLabel);
-    ruleFieldLayout->addWidget(textTransitionName);
-    ruleFieldLayout->addWidget(btnBrowseRules);
-    automataSettingsLayout->addLayout(ruleFieldLayout);
+    transitionsFieldLayout->addWidget(transitionsLabel);
+    transitionsFieldLayout->addWidget(textTransitionName);
+    transitionsFieldLayout->addWidget(btnBrowseTransitions);
+    automataSettingsLayout->addLayout(transitionsFieldLayout);
 
 
 }
@@ -253,7 +253,7 @@ void ControlPanel::setAutomata(int id) {
     textTransitionName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getTransitionStrategy()->getName()));
 
     btnBrowseNeighborhoods->setDisabled(false);
-    btnBrowseRules->setDisabled(false);
+    btnBrowseTransitions->setDisabled(false);
 
     statesListWidget->clear();
     for (int i = 0; i < AutomataManager::getAutomataManager()->getAutomata(id)->getNbStates(); i ++) {
