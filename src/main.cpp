@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    DBManager* db = new DBManager(QString::fromStdString("./DBB.db"));
+    DBManager db = DBManager::getDB();
 
     MainWindow mainWindow;
     mainWindow.show();

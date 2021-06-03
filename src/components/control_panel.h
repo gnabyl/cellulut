@@ -20,6 +20,7 @@
 #include "subwindows/automatas_browser.h"
 #include "subwindows/neighbors_browser.h"
 #include "subwindows/transitions_browser.h"
+#include "utils/database.h"
 
 class FrequencyDisplayBox : public QLineEdit{
     Q_OBJECT

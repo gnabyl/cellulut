@@ -22,6 +22,8 @@ void ControlPanel::stateSettings() {
 
 void ControlPanel::loadAutomatas() {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
+
+
     // Game Of Life automata
     CellState** golStates = new CellState*[2];
     golStates[0] = new CellState(0, "dead", Qt::white);
@@ -33,21 +35,19 @@ void ControlPanel::loadAutomatas() {
     bbStates[0] = new CellState(0, "off", Qt::white);
     bbStates[1] = new CellState(1, "dying", Qt::blue);
     bbStates[2] = new CellState(2, "on", Qt::black);
-    automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(), 3,
-                                 "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
+    automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(), 3, "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
 
 
-    // David griffeath automata
+//    // David griffeath automata
     CellState** dgStates = new CellState*[4];
     dgStates[0] = new CellState(0, "y", Qt::yellow);
     dgStates[1] = new CellState(1, "c", Qt::cyan);
     dgStates[2] = new CellState(2, "dc", Qt::darkCyan);
     dgStates[3] = new CellState(3, "r", Qt::red);
-    automataManager->addAutomata(dgStates, new DGTransition(), new MooreNeighborhood(), 4,
-                                 "L’automate circulaire de Griffeath", "Griffeath Ciruclar Automata", "David Griffeath", 1);
-    //(jaune), 1 (orange clair),2 (orange foncé), 3 (rouge)
+    automataManager->addAutomata(dgStates, new DGTransition(), new MooreNeighborhood(), 4, "L’automate circulaire de Griffeath", "Griffeath Ciruclar Automata", "David Griffeath", 1);
+//    //(jaune), 1 (orange clair),2 (orange foncé), 3 (rouge)
 
-    // Langton Loop automata
+//    // Langton Loop automata
     CellState** llStates = new CellState*[8];
     llStates[0] = new CellState(0, "y", Qt::yellow);
     llStates[1] = new CellState(1, "c", Qt::cyan);
@@ -61,7 +61,7 @@ void ControlPanel::loadAutomatas() {
     automataManager->addAutomata(llStates, new LLTransition(), new VonNeumannNeighborhood(), 8,
                                  "Langton Loop", "Langton Loop Automata", "Christopher Langton", 1984);
 
-    // Langton ant automata
+//    // Langton ant automata
     CellState** laStates = new CellState*[2];
     laStates[0] = new CellState(0, "white", Qt::white);
     laStates[1] = new CellState(1, "black", Qt::black);
@@ -128,7 +128,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     mainLayout->addStretch();
 
     //Init data
-    loadAutomatas();
+    loadAutomatas(); /*To replace by automata loading from database*/
     loadNeighborhoods();
     loadTransitions();
 

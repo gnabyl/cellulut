@@ -2,6 +2,7 @@
 #define DATABASE_H
 
 #include <QSqlDatabase>
+#include "automata_manager.h"
 
 class DBException{
     std::string info;
@@ -11,10 +12,18 @@ public:
 };
 
 class DBManager{
+    DBManager(const QString&);
     QSqlDatabase db;
+    DBManager(const DBManager*) = delete;
+    DBManager operator=(const DBManager*) = delete;
+    static DBManager* DBManInstance;
 
 public:
-    DBManager(const QString&);
+    ~DBManager();
+    static DBManager& getDB();
+    static void closeDB();
+
+    void loadAutomatasFromDB() const;
 };
 
 #endif // DATABASE_H
