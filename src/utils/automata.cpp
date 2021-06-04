@@ -2,18 +2,18 @@
 #include "automata.h"
 using namespace std;
 
-Automata::Automata(CellState** c, TransitionStrategy* t, NeighborhoodStrategy* n, int nb, string na, string d, string a, int y) {
-    name = na;
-    description = d;
-    author = a;
-    creationYear = y;
-    nbStates = nb;
-    availableStates = new CellState*[nbStates];
+Automata::Automata(CellState** availableStates, TransitionStrategy* transition, NeighborhoodStrategy* neighborhood, int nbStates, string name, string desc, string author, int year) {
+    this->name = name;
+    this->description = desc;
+    this->author = author;
+    this->creationYear = year;
+    this->nbStates = nbStates;
+    this->availableStates = new CellState*[nbStates];
     for(int i = 0; i < nbStates; i++) {
-        availableStates[i] = c[i];
+        this->availableStates[i] = availableStates[i];
     }
-    transitionStrategy = t;
-    neighborStrategy = n;
+    this->transitionStrategy = transition;
+    this->neighborStrategy = neighborhood;
 }
 
 Automata::~Automata() {
@@ -44,25 +44,25 @@ Grid* Automata::applyTransition(Grid* src) const {
     return dst;
 }
 
-void Automata::setAvailableStates(CellState** c, int taille) {
-    if(nbStates != taille) {
-        nbStates = taille;
-        CellState** newTab = new CellState*[taille];
-        for(int i = 0; i < taille; i++) newTab[i] = c[i];
-        CellState** old = availableStates;
-        availableStates = newTab;
+void Automata::setAvailableStates(CellState** availableStates, int nbStates) {
+    if(this->nbStates != nbStates) {
+        this->nbStates = nbStates;
+        CellState** newTab = new CellState*[nbStates];
+        for(int i = 0; i < nbStates; i++) newTab[i] = availableStates[i];
+        CellState** old = this->availableStates;
+        this->availableStates = newTab;
         delete[] old;
     }
-    for(int i = 0; i < taille; i++) availableStates[i] = c[i];
+    for(int i = 0; i < nbStates; i++) this->availableStates[i] = availableStates[i];
 }
 
-void Automata::setAvailableState(CellState* c, const int i) {
-    if(i >= nbStates) throw "Error: availableStates incorrect index";
-    availableStates[i] = c;
+void Automata::setAvailableState(CellState* state, const int id) {
+    if(id >= nbStates) throw "Error: availableStates incorrect index";
+    availableStates[id] = state;
 
 }
 
-CellState* Automata::getAvailableState(const int i) const {
-    if(i >= nbStates) throw "Error: availableStates incorrect index";
-    return availableStates[i];
+CellState* Automata::getAvailableState(const int id) const {
+    if(id >= nbStates) throw "Error: availableStates incorrect index";
+    return availableStates[id];
 }

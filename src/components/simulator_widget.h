@@ -77,6 +77,7 @@ class SimulatorWidget : public QWidget {
     void btnNextClicked();
     void btnResetClicked();
     void btnRandomClicked();
+    void btnPrevClicked();
 };
 
 #endif // SIMULATOR_WIDGET_H

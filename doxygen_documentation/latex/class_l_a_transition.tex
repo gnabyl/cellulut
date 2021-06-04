@@ -1,0 +1,60 @@
+\hypertarget{class_l_a_transition}{}\doxysection{LATransition Class Reference}
+\label{class_l_a_transition}\index{LATransition@{LATransition}}
+
+
+{\ttfamily \#include $<$transition\+\_\+strategy.\+h$>$}
+
+Inheritance diagram for LATransition\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_l_a_transition}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_l_a_transition_acb9f8cef8af032b6dc88dc478d236bef}{is\+Destination}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$, \mbox{\hyperlink{class_cell}{Cell}} $\ast$) const
+\item 
+bool \mbox{\hyperlink{class_l_a_transition_a3787a4e0353125acd80643d6d0fdc143}{is\+Under}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$, \mbox{\hyperlink{class_cell}{Cell}} $\ast$) const
+\item 
+bool \mbox{\hyperlink{class_l_a_transition_acb3d1c7843a784de30d88ee253ebddb3}{is\+Left}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$, \mbox{\hyperlink{class_cell}{Cell}} $\ast$) const
+\item 
+\mbox{\hyperlink{class_cell}{Cell}} $\ast$ \mbox{\hyperlink{class_l_a_transition_a97187840033bc43c904d0c20568e8fa1}{calc\+Next\+Cell}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$c, \mbox{\hyperlink{class_cell}{Cell}} $\ast$$\ast$neighbors, int neighbor\+Size, \mbox{\hyperlink{class_cell_state}{Cell\+State}} $\ast$$\ast$available\+States, int nb\+States) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_l_a_transition_a97187840033bc43c904d0c20568e8fa1}\label{class_l_a_transition_a97187840033bc43c904d0c20568e8fa1}} 
+\index{LATransition@{LATransition}!calcNextCell@{calcNextCell}}
+\index{calcNextCell@{calcNextCell}!LATransition@{LATransition}}
+\doxysubsubsection{\texorpdfstring{calcNextCell()}{calcNextCell()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_cell}{Cell}} $\ast$ LATransition\+::calc\+Next\+Cell (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{c,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$$\ast$}]{neighbors,  }\item[{int}]{neighbor\+Size,  }\item[{\mbox{\hyperlink{class_cell_state}{Cell\+State}} $\ast$$\ast$}]{available\+States,  }\item[{int}]{nb\+States }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_outer_totalistic_transition_a1df5fdcef6a37ad0e23049d1a0c87246}{Outer\+Totalistic\+Transition}}.
+
+\mbox{\Hypertarget{class_l_a_transition_acb9f8cef8af032b6dc88dc478d236bef}\label{class_l_a_transition_acb9f8cef8af032b6dc88dc478d236bef}} 
+\index{LATransition@{LATransition}!isDestination@{isDestination}}
+\index{isDestination@{isDestination}!LATransition@{LATransition}}
+\doxysubsubsection{\texorpdfstring{isDestination()}{isDestination()}}
+{\footnotesize\ttfamily bool LATransition\+::is\+Destination (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{c,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{neighbor }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_l_a_transition_acb3d1c7843a784de30d88ee253ebddb3}\label{class_l_a_transition_acb3d1c7843a784de30d88ee253ebddb3}} 
+\index{LATransition@{LATransition}!isLeft@{isLeft}}
+\index{isLeft@{isLeft}!LATransition@{LATransition}}
+\doxysubsubsection{\texorpdfstring{isLeft()}{isLeft()}}
+{\footnotesize\ttfamily bool LATransition\+::is\+Left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{b }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_l_a_transition_a3787a4e0353125acd80643d6d0fdc143}\label{class_l_a_transition_a3787a4e0353125acd80643d6d0fdc143}} 
+\index{LATransition@{LATransition}!isUnder@{isUnder}}
+\index{isUnder@{isUnder}!LATransition@{LATransition}}
+\doxysubsubsection{\texorpdfstring{isUnder()}{isUnder()}}
+{\footnotesize\ttfamily bool LATransition\+::is\+Under (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{b }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+utils/\mbox{\hyperlink{transition__strategy_8h}{transition\+\_\+strategy.\+h}}\item 
+utils/\mbox{\hyperlink{transition__strategy_8cpp}{transition\+\_\+strategy.\+cpp}}\end{DoxyCompactItemize}

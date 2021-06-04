@@ -5,6 +5,12 @@
 #include "grid.h"
 #include "grid_factory.h"
 
+class BufferException{
+    std::string info;
+public:
+    BufferException(std::string);
+    std::string getInfo() const{return info;}
+};
 
 class Simulator {
   public:
@@ -19,6 +25,7 @@ class Simulator {
     Grid** grids = nullptr;
     // Gridfactory gridFactory
     int currentGridID = 0; // il s'agit du rang
+    int maxID;
 
     //void build(int c);
 

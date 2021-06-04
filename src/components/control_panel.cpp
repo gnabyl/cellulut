@@ -40,10 +40,10 @@ void ControlPanel::loadAutomatas() {
 
 //    // David griffeath automata
     CellState** dgStates = new CellState*[4];
-    dgStates[0] = new CellState(0, "y", Qt::yellow);
-    dgStates[1] = new CellState(1, "c", Qt::cyan);
-    dgStates[2] = new CellState(2, "dc", Qt::darkCyan);
-    dgStates[3] = new CellState(3, "r", Qt::red);
+    dgStates[0] = new CellState(0, "Grif1", Qt::yellow);
+    dgStates[1] = new CellState(1, "Grif2", Qt::cyan);
+    dgStates[2] = new CellState(2, "Grif3", Qt::darkCyan);
+    dgStates[3] = new CellState(3, "Grif4", Qt::red);
     automataManager->addAutomata(dgStates, new DGTransition(), new MooreNeighborhood(), 4, "L’automate circulaire de Griffeath", "Griffeath Ciruclar Automata", "David Griffeath", 1);
 //    //(jaune), 1 (orange clair),2 (orange foncé), 3 (rouge)
 
@@ -128,6 +128,15 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     mainLayout->addStretch();
 
     //Init data
+//    try{
+//        DBManager dbMan = DBManager::getDB();
+//        dbMan.loadAutomatasFromDB();
+//    }
+//    catch(DBException e){
+//        QMessageBox* window = new QMessageBox;
+//        window->setText(QString::fromStdString(e.getInfo()));
+//        window->show();
+//    }
     loadAutomatas(); /*To replace by automata loading from database*/
     loadNeighborhoods();
     loadTransitions();
