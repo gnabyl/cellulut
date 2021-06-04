@@ -1,0 +1,270 @@
+\hypertarget{class_simulator_widget}{}\doxysection{Simulator\+Widget Class Reference}
+\label{class_simulator_widget}\index{SimulatorWidget@{SimulatorWidget}}
+
+
+{\ttfamily \#include $<$simulator\+\_\+widget.\+h$>$}
+
+Inheritance diagram for Simulator\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_simulator_widget}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_simulator_widget_ac65d5a01ff74db1b9fe37d88b5f89668}{set\+Nb\+Rows}} (int nb\+Rows)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_afc0bd74e5da7bd5f74d25057abcfdbf2}{set\+Nb\+Cols}} (int nb\+Cols)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a9149c0f55fd4c96bf9d0b3791de2082e}{set\+Cell\+Size}} (int size)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_ad8b88508b1c3a1623847c01f885f39f4}{set\+Automata}} (int index)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a3b8ce00721b3f2ec5ef087745ef831f5}{set\+Neighbor}} (\mbox{\hyperlink{class_neighborhood_strategy}{Neighborhood\+Strategy}} $\ast$neighbor)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_abae7d1038e74ab03e018bb6c62b8ea48}{set\+Transition}} (\mbox{\hyperlink{class_transition_strategy}{Transition\+Strategy}} $\ast$transition)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_ac8213fc2a3e27780d8f2205f77629db2}{change\+Cell\+State}} (int x, int y)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_aecdd7c6fe067bd72388ac7732b3d3d44}{change\+Ant}} (int x, int y)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a218c73a6533a1e0c12f633db59ca7c6d}{set\+Buffer\+Size}} (int size)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a1a1951a677d2eafad403c057faa6220f}{change\+Frequency}} (int f)
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a9a5370621e141c6690a1ad0771049f6c}{btn\+Play\+Pause\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_af5f7bbe604092a3df7522c028ffeac8b}{btn\+Next\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a517a7d9f62a53f7dfbb00676d3f37d34}{btn\+Reset\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_aa94cd3ec7f5e6d094d6929fe8debe18d}{btn\+Random\+Clicked}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_simulator_widget_a70987472b0cc1f16675526a8bd164abf}{Simulator\+Widget}} (QWidget $\ast$parent, int width, int height, int cell\+Size)
+\item 
+\mbox{\hyperlink{class_simulator_widget_a9dea29e8bf20a6b80db27ae438e89771}{$\sim$\+Simulator\+Widget}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_af9bd48b6ace5e95be8ce5b68908bf6fc}{init\+Layout}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a5ed903f0006aa59705989245449b72d0}{clean\+Grid}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a82c2b3bf265927f6bb2c0a926805668a}{reset\+Grid\+Display}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a396a65cf0912e0ef2bbe9b5340fc7046}{update\+Grid\+Display}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_a92c68047eddfa8cda4d8f82a9a3204ff}{regenerate\+Random\+Grid}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_aead2b8381f1a908cf5b69117cf860081}{regenerate\+Empty\+Grid}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_afe0519d7dda4c213273f0234b1a7c53b}{init\+Buttons}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_widget_ae04c8f81663d31c62168967750fa6470}{set\+Button\+Icon}} (QPush\+Button $\ast$btn, const QString \&path)
+\item 
+int \mbox{\hyperlink{class_simulator_widget_a7dc32f8030f7c5e384a4aa0243c7edef}{get\+Nb\+Cols}} () const
+\item 
+int \mbox{\hyperlink{class_simulator_widget_a256d4da1dbab19f22a276d3395d8f216}{get\+Nb\+Rows}} () const
+\item 
+int \mbox{\hyperlink{class_simulator_widget_a67c148b30e1d1235bace74956251884a}{get\+Cell\+Size}} () const
+\item 
+int \mbox{\hyperlink{class_simulator_widget_a9d2eb10a830d83645ee375f485b62951}{get\+Frequency}} () const
+\item 
+\mbox{\hyperlink{class_simulator}{Simulator}} $\ast$ \mbox{\hyperlink{class_simulator_widget_aeba07b84c9987eb75b350d71c5699cba}{get\+Simulator}} () const
+\item 
+void \mbox{\hyperlink{class_simulator_widget_aab2f7a10aa356bfbb34457e877440e08}{set\+Frequency}} (int f)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_simulator_widget_a70987472b0cc1f16675526a8bd164abf}\label{class_simulator_widget_a70987472b0cc1f16675526a8bd164abf}} 
+\index{SimulatorWidget@{SimulatorWidget}!SimulatorWidget@{SimulatorWidget}}
+\index{SimulatorWidget@{SimulatorWidget}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{SimulatorWidget()}{SimulatorWidget()}}
+{\footnotesize\ttfamily Simulator\+Widget\+::\+Simulator\+Widget (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{int}]{cell\+Size }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_a9dea29e8bf20a6b80db27ae438e89771}\label{class_simulator_widget_a9dea29e8bf20a6b80db27ae438e89771}} 
+\index{SimulatorWidget@{SimulatorWidget}!````~SimulatorWidget@{$\sim$SimulatorWidget}}
+\index{````~SimulatorWidget@{$\sim$SimulatorWidget}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{$\sim$SimulatorWidget()}{~SimulatorWidget()}}
+{\footnotesize\ttfamily Simulator\+Widget\+::$\sim$\+Simulator\+Widget (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulator_widget_af5f7bbe604092a3df7522c028ffeac8b}\label{class_simulator_widget_af5f7bbe604092a3df7522c028ffeac8b}} 
+\index{SimulatorWidget@{SimulatorWidget}!btnNextClicked@{btnNextClicked}}
+\index{btnNextClicked@{btnNextClicked}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{btnNextClicked}{btnNextClicked}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::btn\+Next\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_a9a5370621e141c6690a1ad0771049f6c}\label{class_simulator_widget_a9a5370621e141c6690a1ad0771049f6c}} 
+\index{SimulatorWidget@{SimulatorWidget}!btnPlayPauseClicked@{btnPlayPauseClicked}}
+\index{btnPlayPauseClicked@{btnPlayPauseClicked}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{btnPlayPauseClicked}{btnPlayPauseClicked}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::btn\+Play\+Pause\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_aa94cd3ec7f5e6d094d6929fe8debe18d}\label{class_simulator_widget_aa94cd3ec7f5e6d094d6929fe8debe18d}} 
+\index{SimulatorWidget@{SimulatorWidget}!btnRandomClicked@{btnRandomClicked}}
+\index{btnRandomClicked@{btnRandomClicked}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{btnRandomClicked}{btnRandomClicked}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::btn\+Random\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_a517a7d9f62a53f7dfbb00676d3f37d34}\label{class_simulator_widget_a517a7d9f62a53f7dfbb00676d3f37d34}} 
+\index{SimulatorWidget@{SimulatorWidget}!btnResetClicked@{btnResetClicked}}
+\index{btnResetClicked@{btnResetClicked}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{btnResetClicked}{btnResetClicked}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::btn\+Reset\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_aecdd7c6fe067bd72388ac7732b3d3d44}\label{class_simulator_widget_aecdd7c6fe067bd72388ac7732b3d3d44}} 
+\index{SimulatorWidget@{SimulatorWidget}!changeAnt@{changeAnt}}
+\index{changeAnt@{changeAnt}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{changeAnt}{changeAnt}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::change\+Ant (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_ac8213fc2a3e27780d8f2205f77629db2}\label{class_simulator_widget_ac8213fc2a3e27780d8f2205f77629db2}} 
+\index{SimulatorWidget@{SimulatorWidget}!changeCellState@{changeCellState}}
+\index{changeCellState@{changeCellState}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{changeCellState}{changeCellState}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::change\+Cell\+State (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_a1a1951a677d2eafad403c057faa6220f}\label{class_simulator_widget_a1a1951a677d2eafad403c057faa6220f}} 
+\index{SimulatorWidget@{SimulatorWidget}!changeFrequency@{changeFrequency}}
+\index{changeFrequency@{changeFrequency}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{changeFrequency}{changeFrequency}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::change\+Frequency (\begin{DoxyParamCaption}\item[{int}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_a5ed903f0006aa59705989245449b72d0}\label{class_simulator_widget_a5ed903f0006aa59705989245449b72d0}} 
+\index{SimulatorWidget@{SimulatorWidget}!cleanGrid@{cleanGrid}}
+\index{cleanGrid@{cleanGrid}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{cleanGrid()}{cleanGrid()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::clean\+Grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_a67c148b30e1d1235bace74956251884a}\label{class_simulator_widget_a67c148b30e1d1235bace74956251884a}} 
+\index{SimulatorWidget@{SimulatorWidget}!getCellSize@{getCellSize}}
+\index{getCellSize@{getCellSize}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{getCellSize()}{getCellSize()}}
+{\footnotesize\ttfamily int Simulator\+Widget\+::get\+Cell\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_simulator_widget_a9d2eb10a830d83645ee375f485b62951}\label{class_simulator_widget_a9d2eb10a830d83645ee375f485b62951}} 
+\index{SimulatorWidget@{SimulatorWidget}!getFrequency@{getFrequency}}
+\index{getFrequency@{getFrequency}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{getFrequency()}{getFrequency()}}
+{\footnotesize\ttfamily int Simulator\+Widget\+::get\+Frequency (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_simulator_widget_a7dc32f8030f7c5e384a4aa0243c7edef}\label{class_simulator_widget_a7dc32f8030f7c5e384a4aa0243c7edef}} 
+\index{SimulatorWidget@{SimulatorWidget}!getNbCols@{getNbCols}}
+\index{getNbCols@{getNbCols}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{getNbCols()}{getNbCols()}}
+{\footnotesize\ttfamily int Simulator\+Widget\+::get\+Nb\+Cols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_simulator_widget_a256d4da1dbab19f22a276d3395d8f216}\label{class_simulator_widget_a256d4da1dbab19f22a276d3395d8f216}} 
+\index{SimulatorWidget@{SimulatorWidget}!getNbRows@{getNbRows}}
+\index{getNbRows@{getNbRows}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{getNbRows()}{getNbRows()}}
+{\footnotesize\ttfamily int Simulator\+Widget\+::get\+Nb\+Rows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_simulator_widget_aeba07b84c9987eb75b350d71c5699cba}\label{class_simulator_widget_aeba07b84c9987eb75b350d71c5699cba}} 
+\index{SimulatorWidget@{SimulatorWidget}!getSimulator@{getSimulator}}
+\index{getSimulator@{getSimulator}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{getSimulator()}{getSimulator()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_simulator}{Simulator}} $\ast$ Simulator\+Widget\+::get\+Simulator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_simulator_widget_afe0519d7dda4c213273f0234b1a7c53b}\label{class_simulator_widget_afe0519d7dda4c213273f0234b1a7c53b}} 
+\index{SimulatorWidget@{SimulatorWidget}!initButtons@{initButtons}}
+\index{initButtons@{initButtons}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{initButtons()}{initButtons()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::init\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_af9bd48b6ace5e95be8ce5b68908bf6fc}\label{class_simulator_widget_af9bd48b6ace5e95be8ce5b68908bf6fc}} 
+\index{SimulatorWidget@{SimulatorWidget}!initLayout@{initLayout}}
+\index{initLayout@{initLayout}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{initLayout()}{initLayout()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::init\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_aead2b8381f1a908cf5b69117cf860081}\label{class_simulator_widget_aead2b8381f1a908cf5b69117cf860081}} 
+\index{SimulatorWidget@{SimulatorWidget}!regenerateEmptyGrid@{regenerateEmptyGrid}}
+\index{regenerateEmptyGrid@{regenerateEmptyGrid}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{regenerateEmptyGrid()}{regenerateEmptyGrid()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::regenerate\+Empty\+Grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_a92c68047eddfa8cda4d8f82a9a3204ff}\label{class_simulator_widget_a92c68047eddfa8cda4d8f82a9a3204ff}} 
+\index{SimulatorWidget@{SimulatorWidget}!regenerateRandomGrid@{regenerateRandomGrid}}
+\index{regenerateRandomGrid@{regenerateRandomGrid}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{regenerateRandomGrid()}{regenerateRandomGrid()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::regenerate\+Random\+Grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_a82c2b3bf265927f6bb2c0a926805668a}\label{class_simulator_widget_a82c2b3bf265927f6bb2c0a926805668a}} 
+\index{SimulatorWidget@{SimulatorWidget}!resetGridDisplay@{resetGridDisplay}}
+\index{resetGridDisplay@{resetGridDisplay}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{resetGridDisplay()}{resetGridDisplay()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::reset\+Grid\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_ad8b88508b1c3a1623847c01f885f39f4}\label{class_simulator_widget_ad8b88508b1c3a1623847c01f885f39f4}} 
+\index{SimulatorWidget@{SimulatorWidget}!setAutomata@{setAutomata}}
+\index{setAutomata@{setAutomata}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setAutomata}{setAutomata}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Automata (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_a218c73a6533a1e0c12f633db59ca7c6d}\label{class_simulator_widget_a218c73a6533a1e0c12f633db59ca7c6d}} 
+\index{SimulatorWidget@{SimulatorWidget}!setBufferSize@{setBufferSize}}
+\index{setBufferSize@{setBufferSize}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setBufferSize}{setBufferSize}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Buffer\+Size (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_ae04c8f81663d31c62168967750fa6470}\label{class_simulator_widget_ae04c8f81663d31c62168967750fa6470}} 
+\index{SimulatorWidget@{SimulatorWidget}!setButtonIcon@{setButtonIcon}}
+\index{setButtonIcon@{setButtonIcon}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setButtonIcon()}{setButtonIcon()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Button\+Icon (\begin{DoxyParamCaption}\item[{QPush\+Button $\ast$}]{btn,  }\item[{const QString \&}]{path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_a9149c0f55fd4c96bf9d0b3791de2082e}\label{class_simulator_widget_a9149c0f55fd4c96bf9d0b3791de2082e}} 
+\index{SimulatorWidget@{SimulatorWidget}!setCellSize@{setCellSize}}
+\index{setCellSize@{setCellSize}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setCellSize}{setCellSize}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Cell\+Size (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_aab2f7a10aa356bfbb34457e877440e08}\label{class_simulator_widget_aab2f7a10aa356bfbb34457e877440e08}} 
+\index{SimulatorWidget@{SimulatorWidget}!setFrequency@{setFrequency}}
+\index{setFrequency@{setFrequency}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setFrequency()}{setFrequency()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Frequency (\begin{DoxyParamCaption}\item[{int}]{f }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_simulator_widget_afc0bd74e5da7bd5f74d25057abcfdbf2}\label{class_simulator_widget_afc0bd74e5da7bd5f74d25057abcfdbf2}} 
+\index{SimulatorWidget@{SimulatorWidget}!setNbCols@{setNbCols}}
+\index{setNbCols@{setNbCols}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setNbCols}{setNbCols}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Nb\+Cols (\begin{DoxyParamCaption}\item[{int}]{nb\+Cols }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_ac65d5a01ff74db1b9fe37d88b5f89668}\label{class_simulator_widget_ac65d5a01ff74db1b9fe37d88b5f89668}} 
+\index{SimulatorWidget@{SimulatorWidget}!setNbRows@{setNbRows}}
+\index{setNbRows@{setNbRows}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setNbRows}{setNbRows}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Nb\+Rows (\begin{DoxyParamCaption}\item[{int}]{nb\+Rows }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_a3b8ce00721b3f2ec5ef087745ef831f5}\label{class_simulator_widget_a3b8ce00721b3f2ec5ef087745ef831f5}} 
+\index{SimulatorWidget@{SimulatorWidget}!setNeighbor@{setNeighbor}}
+\index{setNeighbor@{setNeighbor}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setNeighbor}{setNeighbor}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Neighbor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_neighborhood_strategy}{Neighborhood\+Strategy}} $\ast$}]{neighbor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_abae7d1038e74ab03e018bb6c62b8ea48}\label{class_simulator_widget_abae7d1038e74ab03e018bb6c62b8ea48}} 
+\index{SimulatorWidget@{SimulatorWidget}!setTransition@{setTransition}}
+\index{setTransition@{setTransition}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{setTransition}{setTransition}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::set\+Transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_transition_strategy}{Transition\+Strategy}} $\ast$}]{transition }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_simulator_widget_a396a65cf0912e0ef2bbe9b5340fc7046}\label{class_simulator_widget_a396a65cf0912e0ef2bbe9b5340fc7046}} 
+\index{SimulatorWidget@{SimulatorWidget}!updateGridDisplay@{updateGridDisplay}}
+\index{updateGridDisplay@{updateGridDisplay}!SimulatorWidget@{SimulatorWidget}}
+\doxysubsubsection{\texorpdfstring{updateGridDisplay()}{updateGridDisplay()}}
+{\footnotesize\ttfamily void Simulator\+Widget\+::update\+Grid\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+components/\mbox{\hyperlink{simulator__widget_8h}{simulator\+\_\+widget.\+h}}\item 
+components/\mbox{\hyperlink{simulator__widget_8cpp}{simulator\+\_\+widget.\+cpp}}\end{DoxyCompactItemize}
