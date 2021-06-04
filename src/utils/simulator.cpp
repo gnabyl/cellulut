@@ -1,5 +1,7 @@
 #include "simulator.h"
 
+BufferException::BufferException(std::string s) : info(s){}
+
 void Simulator::allocateBuffer() {
     if (grids != nullptr) {
         for(int i = 0; i < bufferSize; i++) {
@@ -23,13 +25,13 @@ Automata* Simulator::getAutomata() const {
     return this->automata;
 }
 
-Simulator::Simulator(Automata* a, int buf): automata(a), bufferSize(buf) {
+Simulator::Simulator(Automata* a, int buf): automata(a), bufferSize(buf), maxID(0) {
     /*grids = new Grid*[bufferSize];
     for(int i=0; i<bufferSize; i++) grids[i]=nullptr;*/
     allocateBuffer();
 }
 
-Simulator::Simulator(Automata* a, Grid& startG, int buf): automata(a),  bufferSize(buf), startGrid(&startG) {
+Simulator::Simulator(Automata* a, Grid& startG, int buf): automata(a),  bufferSize(buf), startGrid(&startG), maxID(0){
     /*grids = new Grid*[bufferSize];
     for(int i=0; i<bufferSize; i++) grids[i]=nullptr;*/
     allocateBuffer();
@@ -57,6 +59,7 @@ void Simulator::next() {
         return;
     try {
         currentGridID++; //important à regarder
+        if(currentGridID > maxID) maxID = currentGridID;
 
         if (grids[currentGridID % bufferSize]) {
             delete grids[currentGridID % bufferSize];
@@ -142,25 +145,27 @@ Simulator::Iterator::Iterator() {
 
 }
 
-Simulator::Iterator::Iterator(Simulator* s): sim(s), gridID(s->currentGridID) { // important regarder l'histoire de rang
+Simulator::Iterator::Iterator(Simulator* s): sim(s), gridID(s->currentGridID % s->getBufferSize()) { // important regarder l'histoire de rang
 
 }
 
 bool Simulator::Iterator::isDone() const {
-    return sim == nullptr || gridID == -1 || gridID == sim->currentGridID - sim->bufferSize; // important
+    return sim == nullptr || gridID == -1 || (sim->currentGridID <= sim->maxID-sim->bufferSize);
+    //return sim == nullptr || gridID == -1 || sim->currentGridID % (sim->getBufferSize()) != gridID ; // important
 }
 
 void Simulator::Iterator::nextGrid() {
-    if(isDone()) throw "Issue : next on a finite iterator!";
-    gridID++;
+    //if(isDone()) throw "Issue : next on a finite iterator!";
+    gridID = (gridID+1) % sim->getBufferSize();
 }
 
 void Simulator::Iterator::previousGrid() {
     if(isDone()) throw "Issue : previous on a finite iteraror !";
-    gridID--;
+    sim->currentGridID--;
+    gridID = (gridID-1 + sim->getBufferSize()) % (sim->getBufferSize());
 }
 
 Grid* Simulator::Iterator::current() const {
-    if(isDone()) throw "Issue : current on finite iteraror !";
-    return sim->grids[gridID % sim->bufferSize];
+    //if(isDone()) throw "Issue : current on finite iteraror !";
+    return sim->grids[gridID];
 }

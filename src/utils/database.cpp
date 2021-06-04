@@ -21,7 +21,7 @@ DBManager::DBManager(const QString& path){
 
 DBManager& DBManager::getDB(){
     if(DBManInstance == nullptr)
-        DBManInstance = new DBManager(QString::fromStdString("/home/sbenarro/Documents/UTC/GI02/LO21/lo21/src/utils/DBB.db"));
+        DBManInstance = new DBManager(QString::fromStdString("../DBB.db"));
     return *DBManInstance;
 }
 

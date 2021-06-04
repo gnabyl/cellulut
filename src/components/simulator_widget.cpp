@@ -61,6 +61,18 @@ void SimulatorWidget::btnRandomClicked() {
     updateGridDisplay();
 }
 
+void SimulatorWidget::btnPrevClicked(){
+    if(simulator->getIterator().isDone()){
+       QMessageBox window;
+       window.setText("End of buffer reached  (assshole)!");
+       window.exec();
+    }
+    else if(simulator->getCurrentGridID() != 0){
+        simulator->getIterator().previousGrid();
+        updateGridDisplay();
+    }
+}
+
 void SimulatorWidget::initButtons() {
     btnPlay = new QPushButton(this);
     btnPrev = new QPushButton(this);
@@ -86,6 +98,7 @@ void SimulatorWidget::initButtons() {
     connect(btnNext, &QPushButton::clicked, this, &SimulatorWidget::btnNextClicked);
     connect(btnReset, &QPushButton::clicked, this, &SimulatorWidget::btnResetClicked);
     connect(btnRandom, &QPushButton::clicked, this, &SimulatorWidget::btnRandomClicked);
+    connect(btnPrev, &QPushButton::clicked, this, &SimulatorWidget::btnPrevClicked);
 }
 
 void SimulatorWidget::regenerateRandomGrid() {

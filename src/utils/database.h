@@ -24,6 +24,9 @@ public:
     static void closeDB();
 
     void loadAutomatasFromDB() const;
+    void loadNeighborhoodsFromDB() const;
+    void loadStatesFromDB() const;
+    void loadTransitionsFromDB();
 };
 
 #endif // DATABASE_H
