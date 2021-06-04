@@ -49,14 +49,14 @@ void ControlPanel::loadAutomatas() {
 
 //    // Langton Loop automata
     CellState** llStates = new CellState*[8];
-    llStates[0] = new CellState(0, "y", Qt::yellow);
-    llStates[1] = new CellState(1, "c", Qt::cyan);
-    llStates[2] = new CellState(2, "dc", Qt::darkCyan);
-    llStates[3] = new CellState(3, "r", Qt::red);
-    llStates[4] = new CellState(4, "b", Qt::blue);
-    llStates[5] = new CellState(5, "g", Qt::green);
-    llStates[6] = new CellState(6, "m", Qt::magenta);
-    llStates[7] = new CellState(7, "dg", Qt::darkGray);
+    llStates[0] = new CellState(0, "y", Qt::black);
+    llStates[1] = new CellState(1, "c", Qt::blue);
+    llStates[2] = new CellState(2, "dc", Qt::red);
+    llStates[3] = new CellState(3, "r", Qt::green);
+    llStates[4] = new CellState(4, "b", Qt::yellow);
+    llStates[5] = new CellState(5, "g", Qt::magenta);
+    llStates[6] = new CellState(6, "m", Qt::white);
+    llStates[7] = new CellState(7, "dg", Qt::cyan);
 
     automataManager->addAutomata(llStates, new LLTransition(), new VonNeumannNeighborhood(), 8,
                                  "Langton Loop", "Langton Loop Automata", "Christopher Langton", 1984);

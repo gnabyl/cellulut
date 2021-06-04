@@ -47,6 +47,7 @@ NeighborsBrowseWindow::NeighborsBrowseWindow() {
     QDialog *neighborhoodSettings = new QDialog;
     neighborhoodSettings->setWindowTitle("Neighborhood settings");
 
+
     neighborhoodCbb = new QComboBox(this);
     neighborhoodCbb->addItem("Von Neumann Neighborhood");
     neighborhoodCbb->addItem("Von Neumann Neighborhood Generalized");

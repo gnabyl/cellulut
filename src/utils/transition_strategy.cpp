@@ -329,15 +329,47 @@ Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
         {"70252", 5},
         {"70272", 0},
     };
+
+    // On trie le tableau de voisinage selon l'ordre suivant : [up, right, down, left]
+    Cell** neighborsSort = new Cell * [neighborSize];
+    for (int i=0,j=0; i<neighborSize;i++,j++)
+    {
+        neighborsSort[i]=new Cell(*availableStates,i,j);
+    }
+
+    for (int i=0;i<neighborSize;i++)
+    {
+        //up
+        if (neighbors[i]->getX()==c->getX()-1)
+            neighborsSort[0]=neighbors[i];
+
+        //right
+        if (neighbors[i]->getY()==c->getY()+1)
+            neighborsSort[1]=neighbors[i];
+
+        //down
+        if (neighbors[i]->getX()==c->getX()+1)
+            neighborsSort[2]=neighbors[i];
+
+        //left
+        if (neighbors[i]->getY()==c->getY()-1)
+            neighborsSort[3]=neighbors[i];
+
+    }
+
+    // Boucle qui va permettre de trouver ou non une règle pour changer éventuellement l'état de la cellule
+
     for (int i = 0; i < neighborSize; ++i) { // il faut tester chaque combinaison possible
         // on convertit la cellule et le voisinage en clé (nombre de 5 chiffres)
 
-        std::string key = std::to_string(c->getState()->getId()) + std::to_string(neighbors[i % neighborSize]->getState()->getId()) + std::to_string(neighbors[(i + 1) % neighborSize]->getState()->getId()) + std::to_string(neighbors[(i + 2) % neighborSize]->getState()->getId()) + std::to_string(neighbors[(i + 3) % neighborSize]->getState()->getId());
+        std::string key = std::to_string(c->getState()->getId()) + std::to_string(neighborsSort[i % neighborSize]->getState()->getId()) + std::to_string(neighborsSort[(i + 1) % neighborSize]->getState()->getId()) + std::to_string(neighborsSort[(i + 2) % neighborSize]->getState()->getId()) + std::to_string(neighborsSort[(i + 3) % neighborSize]->getState()->getId());
         //std::cout << key << std::endl;
         // on vérifie si la clé et donc la règle existe : si oui on modifie.
-        //std::cout <<"Avant test "<< c->getX() <<" "<< c->getY() <<" "<< c->getState()->getId()<< std::endl;
+        //std::cout <<"Avant test "<< c->getX() <<" "<< c->getY() <<" "<< c->getState()->getId()<< "-> "<< key <<std::endl;
         if(langtonRules.find(key) != langtonRules.end()) {
             //std::cout << c->getX() <<" "<< c->getY() <<" "<< c->getState()->getId() <<" "<<"->"<<langtonRules[key]<<" car "<<key <<std::endl;
+            //std::cout << key << " -> " << key << std::endl;
+            //std:: cout << " new couleur " << availableStates[langtonRules[key]]->getLabel() << std::endl << std::endl;
             return new Cell(availableStates[langtonRules[key]], c->getX(), c->getY());
         }
     }
