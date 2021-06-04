@@ -21,16 +21,20 @@ DBManager::DBManager(const QString& path){
 
 DBManager& DBManager::getDB(){
     if(DBManInstance == nullptr)
-        DBManInstance = new DBManager(QString::fromStdString("./DBB.db"));
+        DBManInstance = new DBManager(QString::fromStdString("/home/sbenarro/Documents/UTC/GI02/LO21/lo21/src/utils/DBB.db"));
     return *DBManInstance;
 }
 
 void DBManager::loadAutomatasFromDB() const{
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
-    QSqlQuery query;
-    query.prepare("SELECT * FROM Automata");
+    QSqlQuery query(this->db);
+    bool test = query.prepare("SELECT * FROM Automata");
     query.exec();
-    //Et voilà, c'est la merde. query.exec() renvoie false, je ne sais pas pourquoi la commande ne veut pas s'exécuter...
+    while(query.next()){
+        QMessageBox* window = new QMessageBox;
+        window->setText(query.value("name").toString());
+        window->show();
+    }
 }
 
 DBManager::~DBManager(){

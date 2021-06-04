@@ -6,5 +6,6 @@
         <file>../assets/previous-button.png</file>
         <file>../assets/random-button.png</file>
         <file>../assets/reset-button.png</file>
+        <file>utils/DBB.db</file>
     </qresource>
 </RCC>
