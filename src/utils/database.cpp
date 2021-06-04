@@ -1,6 +1,7 @@
 #include"database.h"
 #include <QMessageBox>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QVariant>
 #include <QDebug>
 
@@ -36,3 +37,43 @@ void DBManager::loadAutomatasFromDB() const{
 DBManager::~DBManager(){
     db.close();
 }
+
+void DBManager::DBaddNeighborhood(const QString& name, int nbNeighbors ,int* dx, int* dy ){
+    QSqlQuery query;
+    query.prepare("INSERT INTO Neighborhood (:name);");
+    query.bindValue(":name", name);
+       if(!query.exec()){
+            qDebug() << "addNeighborhood error:"
+                     << query.lastError().text();
+       }
+       int n = 0;
+       while(n < nbNeighbors){
+           QSqlQuery query;
+           query.prepare("INSERT INTO Neighbor (:name, :dx,:dy);");
+           query.bindValue(":name", name);
+           query.bindValue(":dx", dx[n]);
+           query.bindValue(":dy", dy[n]);
+           if(!query.exec()){
+                qDebug() << "addNeighbor error:"
+                         << query.lastError().text();
+           }
+           n++;
+       }
+}
+
+std::pair<std::pair< int*, int* >,int> DBManager::DBSelectNeighborhood(const QString& name){
+    QSqlQuery query;
+    query.prepare("SELECT dx,dy FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name);");
+    query.bindValue(":name", name);
+    int * dx;
+    int*dy;
+    int i=0;
+    while (query.next()) {
+        dx[i]=query.value(0).toInt();
+        dy[i]=query.value(1).toInt();
+        i++;
+    }
+    return std::make_pair(std::make_pair(dx, dy),i);
+
+};
+
