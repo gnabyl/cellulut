@@ -2,6 +2,7 @@
 #define DATABASE_H
 
 #include <QSqlDatabase>
+#include "../constants.h"
 #include "automata_manager.h"
 
 class DBException{
