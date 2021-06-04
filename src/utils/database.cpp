@@ -3,6 +3,7 @@
 #include <QSqlQuery>
 #include <QVariant>
 #include <QDebug>
+#include <iostream>
 
 DBManager* DBManager::DBManInstance = nullptr;
 
@@ -21,7 +22,7 @@ DBManager::DBManager(const QString& path){
 
 DBManager& DBManager::getDB(){
     if(DBManInstance == nullptr)
-        DBManInstance = new DBManager(QString::fromStdString("../DBB.db"));
+        DBManInstance = new DBManager(DB_PATH);
     return *DBManInstance;
 }
 
