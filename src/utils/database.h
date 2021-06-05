@@ -4,9 +4,9 @@
 #include <QSqlDatabase>
 #include "../constants.h"
 #include "automata_manager.h"
-
 #include <QSqlQuery>
-
+#include <QColor>
+#include <map>
 
 class DBException{
     std::string info;
@@ -28,6 +28,9 @@ public:
     static void closeDB();
 
     void loadAutomatasFromDB() const;
+    QColor toColor(const QString& col) const;
+    TransitionStrategy* toTransition(const QString& rule) const;
+    NeighborhoodStrategy* toNeighborhood(const QString& neighborhood) const;
 
     void DBaddNeighborhood(const NeighborhoodStrategy* neighborhood);
     NeighborhoodStrategy** loadNeighborhood() const;
