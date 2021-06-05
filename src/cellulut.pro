@@ -22,6 +22,8 @@ HEADERS += \
     utils/cell_state.h \
     utils/grid.h \
     utils/neighborhood_strategy.h \
+    utils/neighborhood_factory.h \
+    utils/transition_factory.h \
     utils/transition_strategy.h \
 
 SOURCES += \
@@ -38,6 +40,7 @@ SOURCES += \
     main.cpp \
     utils/database.cpp \
     utils/grid_factory.cpp \
+    utils/neighborhood_factory.cpp \
     utils/simulator.cpp \
     utils/automata.cpp \
     utils/automata_manager.cpp \
@@ -45,6 +48,7 @@ SOURCES += \
     utils/cell_state.cpp \
     utils/grid.cpp \
     utils/neighborhood_strategy.cpp \
+    utils/transition_factory.cpp \
     utils/transition_strategy.cpp \
 
 RESOURCES += \
