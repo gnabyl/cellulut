@@ -32,9 +32,8 @@ public:
     TransitionStrategy* toTransition(const QString& rule) const;
     NeighborhoodStrategy* toNeighborhood(const QString& neighborhood) const;
 
-    void DBaddNeighborhood(const QString& name,int nbNeighbors,int* dx, int* dy );
-    std::pair<std::pair< int*, int* >,int> DBSelectNeighborhood(const QString& name);
-    void loadNeighborhoodsFromDB() const;
+    void DBaddNeighborhood(const NeighborhoodStrategy* neighborhood);
+    NeighborhoodStrategy** loadNeighborhood() const;
     void loadStatesFromDB() const;
     void loadTransitionsFromDB();
 
