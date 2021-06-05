@@ -44,7 +44,7 @@ class Grid {
      * @brief Grid constructeur de recopie d'une grille
      * @param g grille à recopier
      */
-    Grid(const Grid& g ());
+    Grid(const Grid& g);
     /**
      * @brief Destructeur d'une grille
      */
