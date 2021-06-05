@@ -69,8 +69,6 @@ void ControlPanel::loadAutomatas() {
                                  "Langton ant", "Langton ant Automata", "Christopher Langton", 1986);
 
     automatasBrowser = new AutomatasBrowser(this);
-    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
-    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
 }
 
 void ControlPanel::loadNeighborhoods() {
@@ -138,6 +136,8 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
         window->show();
     }
     automatasBrowser = new AutomatasBrowser(this);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
     //loadAutomatas(); /*To replace by automata loading from database*/
     loadNeighborhoods();
     loadTransitions();
