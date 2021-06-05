@@ -103,7 +103,6 @@ ArbitraryNeighborhood:: ArbitraryNeighborhood(int nbNeighbors, int* dx, int* dy,
 }
 
 //dx et dy tableaux contenant le décalage par rapport à une cellule
-<<<<<<< HEAD
 Cell** ArbitraryNeighborhood::getNeighbors(Cell* c, Grid* g) {
     int n = 0;
     while(n < nbNeighbors) {

@@ -4,6 +4,7 @@
 #include <QSqlDatabase>
 #include "../constants.h"
 #include "automata_manager.h"
+#include "neighborhood_factory.h"
 #include <QSqlQuery>
 #include <QColor>
 #include <map>
@@ -32,8 +33,8 @@ public:
     TransitionStrategy* toTransition(const QString& rule) const;
     NeighborhoodStrategy* toNeighborhood(const QString& neighborhood) const;
 
-    void DBaddNeighborhood(const NeighborhoodStrategy* neighborhood);
-    NeighborhoodStrategy** loadNeighborhood() const;
+//    void DBaddNeighborhood(const NeighborhoodStrategy* neighborhood);
+//    NeighborhoodStrategy** loadNeighborhood() const;
     //std::pair<std::pair< int*, int* >,int> DBSelectNeighborhood(const QString& name);
     void loadNeighborhoodsFromDB() const;
     void loadStatesFromDB() const;
