@@ -10,16 +10,42 @@
 #include "cell.h"
 #include "grid.h"
 #include "cell_state.h"
-
+/**
+ * @brief NeighborhoodStrategy classe abstraite permettant de déléguer les différents types de voisinages
+ */
 class NeighborhoodStrategy {
+    /**
+     * @brief name nom du voisinage
+     */
     std::string name;
   public:
+    /**
+     * @brief NeighborhoodStrategy Constructeur de la classe NeighborhoodStrategy
+     * @param na nom a donné au voisinage
+     */
     NeighborhoodStrategy(std::string na): name(na) {}
+    /**
+     * @brief getNeighbors  méthode virtuelle dont le comportement est définies dans les classe filles
+     * @param c cellule
+     * @param g
+     * @return Cell**
+     */
     virtual Cell** getNeighbors(Cell* c, Grid* g) = 0;
+    /**
+     * @brief getNbNeighbors
+     * @return
+     */
     virtual int getNbNeighbors() const = 0 ;
-    std::string getName() {
+    /**
+     * @brief getName
+     * @return
+     */
+    std::string getName() const  {
         return name;
     }
+    virtual int getRadius() const = 0 ;
+    virtual int* getDx() const=0;
+    virtual int* getDy() const=0;
 };
 
 class VonNeumannNeighborhood: public NeighborhoodStrategy {
@@ -32,9 +58,6 @@ class VonNeumannNeighborhood: public NeighborhoodStrategy {
     }
     int getNbNeighbors() const {
         return nbNeighbors;
-    }
-    Cell** getNeighborhood() const {
-        return neighbors;
     }
     virtual Cell** getNeighbors(Cell* c, Grid* g);
 };
@@ -52,9 +75,7 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
     int getNbNeighbors() const {
         return nbNeighbors;
     }
-    Cell** getNeighborhood() const {
-        return neighbors;
-    }
+    int getRadius() const {return radius;}
     virtual Cell** getNeighbors(Cell* c, Grid* g);
 };
 class MooreNeighborhood: public NeighborhoodStrategy {
@@ -83,6 +104,7 @@ class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
     int getNbNeighbors() const {
         return nbNeighbors;
     }
+    int getRadius() const {return radius;}
     virtual Cell** getNeighbors(Cell* c, Grid* g);
 };
 
@@ -99,9 +121,8 @@ class ArbitraryNeighborhood: public NeighborhoodStrategy {
     int getNbNeighbors() const {
         return nbNeighbors;
     }
-    Cell** getNeighborhood() const {
-        return neighbors;
-    }
+    int* getDx(){return dx;}
+    int* getDy(){return dy;}
     virtual Cell** getNeighbors(Cell* c, Grid* g);
 };
 
