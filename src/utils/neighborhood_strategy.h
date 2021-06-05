@@ -121,8 +121,8 @@ class ArbitraryNeighborhood: public NeighborhoodStrategy {
     int getNbNeighbors() const {
         return nbNeighbors;
     }
-//    int* getDx(){return dx;}
-//    int* getDy(){return dy;}
+    int* getDx()const{return dx;}
+    int* getDy()const{return dy;}
     virtual Cell** getNeighbors(Cell* c, Grid* g);
 };
 
