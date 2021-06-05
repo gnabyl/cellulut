@@ -64,7 +64,7 @@ void SimulatorWidget::btnRandomClicked() {
 void SimulatorWidget::btnPrevClicked(){
     if(simulator->getIterator().isDone()){
        QMessageBox window;
-       window.setText("End of buffer reached  (assshole)!");
+       window.setText("End of buffer reached !");
        window.exec();
     }
     else if(simulator->getCurrentGridID() != 0){

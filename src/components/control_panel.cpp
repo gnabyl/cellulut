@@ -128,16 +128,17 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     mainLayout->addStretch();
 
     //Init data
-//    try{
-//        DBManager dbMan = DBManager::getDB();
-//        dbMan.loadAutomatasFromDB();
-//    }
-//    catch(DBException e){
-//        QMessageBox* window = new QMessageBox;
-//        window->setText(QString::fromStdString(e.getInfo()));
-//        window->show();
-//    }
-    loadAutomatas(); /*To replace by automata loading from database*/
+    try{
+        DBManager dbMan = DBManager::getDB();
+        dbMan.loadAutomatasFromDB();
+    }
+    catch(DBException e){
+        QMessageBox* window = new QMessageBox;
+        window->setText(QString::fromStdString(e.getInfo()));
+        window->show();
+    }
+    automatasBrowser = new AutomatasBrowser(this);
+    //loadAutomatas(); /*To replace by automata loading from database*/
     loadNeighborhoods();
     loadTransitions();
 

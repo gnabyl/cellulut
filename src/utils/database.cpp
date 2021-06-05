@@ -30,13 +30,74 @@ DBManager& DBManager::getDB(){
 void DBManager::loadAutomatasFromDB() const{
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
     QSqlQuery query(this->db);
-    bool test = query.prepare("SELECT * FROM Automata");
+    query.prepare("SELECT * FROM Automata");
     query.exec();
     while(query.next()){
-        QMessageBox* window = new QMessageBox;
-        window->setText(query.value("name").toString());
-        window->show();
+        // Infos that are easy to take from DB :
+        QString name, description, author;
+        int nbStates, creationYear;
+
+        name = query.value("name").toString();
+        description = query.value("description").toString();
+        author = query.value("author").toString();
+        nbStates = query.value("nbStates").toInt();
+        creationYear = query.value("creationYear").toInt();
+
+        //Slightly more difficult infos :
+            // Available states
+        CellState** availableStates = new CellState*[nbStates];
+        QSqlQuery queryAux(this->db);
+        queryAux.prepare(QString("SELECT stateID FROM AutomataState WHERE automataName = :name"));
+        queryAux.bindValue(":name",name);
+        queryAux.exec();
+
+        int i = 0;
+
+        while(queryAux.next()){ //Take infos about the concerned states to dynamically create those objects
+            int stateID = queryAux.value("stateID").toInt();
+            QSqlQuery queryAuxState(this->db);
+            queryAuxState.prepare(QString("SELECT * FROM CellState WHERE id = :stateID"));
+            queryAuxState.bindValue(":stateID",stateID);
+            queryAuxState.exec();
+
+            queryAuxState.next();
+
+            QString label = queryAuxState.value("label").toString();
+            QString col = queryAuxState.value("color").toString();
+            QColor color = toColor(col);
+            //See how to handle direction
+
+            availableStates[i] = new CellState(stateID,queryAuxState.value("description").toString().toStdString(),color);
+
+            i++;
+        }
+
+        QString rule = query.value("transition").toString();
+        QString neighborhood = query.value("neighborhood").toString();
+
+        automataManager->addAutomata(availableStates,toTransition(rule),toNeighborhood(neighborhood),nbStates,name.toStdString(),description.toStdString(),author.toStdString(),creationYear);
     }
+}
+
+QColor DBManager::toColor(const QString& col) const{
+    if(col == "black") return Qt::black;
+    if(col == "white") return Qt::white;
+    if(col == "yellow") return Qt::yellow;
+    if(col == "blue") return Qt::blue;
+}
+
+TransitionStrategy* DBManager::toTransition(const QString& rule) const{
+    if(rule == "Game of Life's Transition Rule") return new GOLTransition;
+    if(rule == "Brian's Brain Transition") return new BBTransition;
+    if(rule == "David Grieffath Transition") return new DGTransition;
+    if(rule == "Langton Loop Transition") return new LLTransition;
+    if(rule == "Langton Ant Transition") return new LATransition;
+}
+
+NeighborhoodStrategy* DBManager::toNeighborhood(const QString &neighborhood) const{
+    if(neighborhood == "Moore Neighborhood") return new MooreNeighborhood;
+    if(neighborhood == "Von Neumann Neighborhood") return new VonNeumannNeighborhood;
+    if(neighborhood == "Moore Generilized Neighborhood") return new MooreNeighborhoodGeneralized(1);
 }
 
 DBManager::~DBManager(){
