@@ -76,7 +76,11 @@ void DBManager::loadAutomatasFromDB() const {
         QString rule = query.value("transition").toString();
         QString neighborhood = query.value("neighborhood").toString();
 
-        automataManager->addAutomata(availableStates, transitionFac.production(rule.toStdString()), toNeighborhood(neighborhood), nbStates, name.toStdString(), description.toStdString(), author.toStdString(), creationYear);
+        automataManager->addAutomata(availableStates,
+                                     transitionFac.production(rule.toStdString()),
+                                     neighborFac.production(neighborhood.toStdString()),
+                                     nbStates, name.toStdString(), description.toStdString(),
+                                     author.toStdString(), creationYear);
     }
 }
 
@@ -85,13 +89,6 @@ QColor DBManager::toColor(const QString& col) const {
     if(col == "white") return Qt::white;
     if(col == "yellow") return Qt::yellow;
     if(col == "blue") return Qt::blue;
-}
-
-NeighborhoodStrategy* DBManager::toNeighborhood(const QString& neighborhood) const {
-    if(neighborhood == "Moore Neighborhood") return new MooreNeighborhood;
-    if(neighborhood == "Von Neumann Neighborhood") return new VonNeumannNeighborhood;
-    if(neighborhood == "Moore Neighborhood Generalized") return new MooreNeighborhoodGeneralized(1);
-    if(neighborhood == "Von Neumann Neighborhood Generalized") return new MooreNeighborhoodGeneralized(1);
 }
 
 DBManager::~DBManager() {
