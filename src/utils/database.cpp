@@ -9,7 +9,8 @@
 
 DBManager* DBManager::DBManInstance = nullptr;
 
-DBManager::DBManager(const QString& path){
+DBManager::DBManager(const QString& path) {
+
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(path);
 
@@ -61,22 +62,22 @@ void DBManager::loadAutomatasFromDB() const{
             queryAuxState.bindValue(":stateID",stateID);
             queryAuxState.exec();
 
-            queryAuxState.next();
+            while (queryAuxState.next()) {
+                QString label = queryAuxState.value("label").toString();
+                QString col = queryAuxState.value("color").toString();
+                QColor color = toColor(col);
+                //See how to handle direction
 
-            QString label = queryAuxState.value("label").toString();
-            QString col = queryAuxState.value("color").toString();
-            QColor color = toColor(col);
-            //See how to handle direction
+                availableStates[i] = new CellState(stateID, label.toStdString(), color);
 
-            availableStates[i] = new CellState(stateID,queryAuxState.value("description").toString().toStdString(),color);
-
-            i++;
+                i++;
+            }
         }
 
         QString rule = query.value("transition").toString();
         QString neighborhood = query.value("neighborhood").toString();
 
-        automataManager->addAutomata(availableStates,toTransition(rule),toNeighborhood(neighborhood),nbStates,name.toStdString(),description.toStdString(),author.toStdString(),creationYear);
+        automataManager->addAutomata(availableStates,transitionFac.production(rule.toStdString()),toNeighborhood(neighborhood),nbStates,name.toStdString(),description.toStdString(),author.toStdString(),creationYear);
     }
 }
 
@@ -87,18 +88,11 @@ QColor DBManager::toColor(const QString& col) const{
     if(col == "blue") return Qt::blue;
 }
 
-TransitionStrategy* DBManager::toTransition(const QString& rule) const{
-    if(rule == "Game of Life's Transition Rule") return new GOLTransition;
-    if(rule == "Brian's Brain Transition") return new BBTransition;
-    if(rule == "David Grieffath Transition") return new DGTransition;
-    if(rule == "Langton Loop Transition") return new LLTransition;
-    if(rule == "Langton Ant Transition") return new LATransition;
-}
-
 NeighborhoodStrategy* DBManager::toNeighborhood(const QString &neighborhood) const{
     if(neighborhood == "Moore Neighborhood") return new MooreNeighborhood;
     if(neighborhood == "Von Neumann Neighborhood") return new VonNeumannNeighborhood;
-    if(neighborhood == "Moore Generilized Neighborhood") return new MooreNeighborhoodGeneralized(1);
+    if(neighborhood == "Moore Neighborhood Generalized") return new MooreNeighborhoodGeneralized(1);
+    if(neighborhood == "Von Neumann Neighborhood Generalized") return new MooreNeighborhoodGeneralized(1);
 }
 
 DBManager::~DBManager(){

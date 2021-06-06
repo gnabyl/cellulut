@@ -2,12 +2,13 @@
 #define DATABASE_H
 
 #include <QSqlDatabase>
-#include "../constants.h"
-#include "automata_manager.h"
-#include "neighborhood_factory.h"
 #include <QSqlQuery>
 #include <QColor>
 #include <map>
+#include "../constants.h"
+#include "automata_manager.h"
+#include "neighborhood_factory.h"
+#include "transition_factory.h"
 
 class DBException{
     std::string info;
@@ -22,6 +23,8 @@ class DBManager{
     DBManager(const DBManager*) = delete;
     DBManager operator=(const DBManager*) = delete;
     static DBManager* DBManInstance;
+    TransitionFactory transitionFac;
+    NeighborhoodFactory neighborFac;
 
 public:
     ~DBManager();
@@ -30,7 +33,6 @@ public:
 
     void loadAutomatasFromDB() const;
     QColor toColor(const QString& col) const;
-    TransitionStrategy* toTransition(const QString& rule) const;
     NeighborhoodStrategy* toNeighborhood(const QString& neighborhood) const;
 
     void DBaddNeighborhood(const QString name, const int radius) const;
