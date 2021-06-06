@@ -97,7 +97,7 @@ Cell** MooreNeighborhoodGeneralized::getNeighbors(Cell* c, Grid* g) {
 //        getX + dx[i], getY + dy[i]
 
 
-ArbitraryNeighborhood:: ArbitraryNeighborhood(int nbNeighbors, int* dx,  int* dy, std::string na): NeighborhoodStrategy(na), dx(dx), dy(dy) {
+ArbitraryNeighborhood::ArbitraryNeighborhood(int nbNeighbors, int* dx,  int* dy, std::string na): NeighborhoodStrategy(na), dx(dx), dy(dy) {
     this->nbNeighbors = nbNeighbors;
     neighbors = new Cell* [nbNeighbors];
 }

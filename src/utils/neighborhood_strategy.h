@@ -43,9 +43,6 @@ class NeighborhoodStrategy {
     std::string getName() const  {
         return name;
     }
-    //virtual int getRadius() const;
-    //virtual int* getDx() const;
-    //virtual int* getDy() const;
 };
 
 class VonNeumannNeighborhood: public NeighborhoodStrategy {
