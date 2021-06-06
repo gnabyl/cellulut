@@ -62,16 +62,15 @@ void DBManager::loadAutomatasFromDB() const{
             queryAuxState.bindValue(":stateID",stateID);
             queryAuxState.exec();
 
-            while (queryAuxState.next()) {
-                QString label = queryAuxState.value("label").toString();
-                QString col = queryAuxState.value("color").toString();
-                QColor color = toColor(col);
-                //See how to handle direction
+            queryAuxState.next();
+            QString label = queryAuxState.value("label").toString();
+            QString col = queryAuxState.value("color").toString();
+            QColor color = toColor(col);
+            //See how to handle direction
 
-                availableStates[i] = new CellState(stateID, label.toStdString(), color);
+            availableStates[i] = new CellState(stateID, label.toStdString(), color);
 
-                i++;
-            }
+            i++;
         }
 
         QString rule = query.value("transition").toString();
