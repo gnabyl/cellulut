@@ -2,17 +2,12 @@
 
 using namespace std;
 
-TransitionStrategy* TransitionFactory::production(const string name)
-{
-    if (name.compare("GOL")) return new GOLTransition();
+TransitionStrategy* TransitionFactory::production(const string& ruleName) const {
+    if(ruleName == "Game of Life's Transition Rule") return new GOLTransition;
+    if(ruleName == "Brian's Brain Transition") return new BBTransition;
+    if(ruleName == "David Grieffath Transition") return new DGTransition;
+    if(ruleName == "Langton Loop Transition") return new LLTransition;
+    if(ruleName == "Langton Ant Transition") return new LATransition;
 
-    if (name.compare("BB")) return new BBTransition();
-/*
-    if(name.compare("DG")) return new DGTransition();
-
-    if(name.compare("LL")) return new LLTransition();
-
-    if(name.compare("LA")) return new LATransition();
-*/
     throw "Unknown Transition";
 }
