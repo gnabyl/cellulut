@@ -182,7 +182,12 @@ int SimulatorWidget::getCellSize() const {
 
 void SimulatorWidget::changeCellState(int x, int y) {
     Grid* currentGrid = simulator->getIterator().current();
-    int newStateID = (currentGrid->getCell(x, y)->getState()->getId() + 1) % (simulator->getAutomata()->getNbStates());
+    int newStateID;
+    for (int i = 0; i < simulator->getAutomata()->getNbStates(); i ++) {
+        if (currentGrid->getCell(x, y)->getState()->getId() == simulator->getAutomata()->getAvailableState(i)->getId()) {
+            newStateID = (i + 1) % (simulator->getAutomata()->getNbStates());
+        }
+    }
     CellState* newState = simulator->getAutomata()->getAvailableStates()[newStateID];
     currentGrid->getCell(x, y)->setState(newState);
 
