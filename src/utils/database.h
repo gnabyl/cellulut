@@ -33,7 +33,8 @@ public:
     TransitionStrategy* toTransition(const QString& rule) const;
     NeighborhoodStrategy* toNeighborhood(const QString& neighborhood) const;
 
-    void DBaddNeighborhood(const NeighborhoodStrategy* neighborhood);
+    void DBaddNeighborhood(const QString name, const int radius) const;
+    void DBaddNeighborhood(const QString name, const int* dx,const int *dy)const;
     NeighborhoodStrategy** loadNeighborhood() const;
     void loadNeighborhoodsFromDB() const;
     void loadStatesFromDB() const;

@@ -5,6 +5,7 @@
 #include <QVariant>
 #include <QDebug>
 #include <iostream>
+#include"neighborhood_factory.h"
 
 DBManager* DBManager::DBManInstance = nullptr;
 
@@ -104,51 +105,46 @@ DBManager::~DBManager(){
     db.close();
 }
 
-template<typename Base, typename T>
-inline bool instanceof(const T* ptr) {
-    return dynamic_cast<const Base*>(ptr) != nullptr;
-}
-/*
-void DBManager::DBaddNeighborhood(const NeighborhoodStrategy* neighborhood ){
-    if (instanceof<VonNeumannNeighborhoodGeneralized>(neighborhood)||instanceof<MooreNeighborhoodGeneralized>(neighborhood)){
+
+void DBManager::DBaddNeighborhood(const QString name, const int radius) const{
         QSqlQuery query;
         query.prepare("INSERT INTO Neighborhood (:name,:radius);");
-        query.bindValue(":name", QString::fromStdString(neighborhood->getName())+QString::number(neighborhood->getRadius()));
-        query.bindValue(":radius",neighborhood->getRadius());
+        query.bindValue(":name", name+QString::number(radius));
+        query.bindValue(":radius",radius);
            if(!query.exec()){
                 qDebug() << "addNeighborhood error:"
                          << query.lastError().text();
            }
-    }
 
 
-    else if(instanceof<ArbitraryNeighborhood>(neighborhood)){
-        QSqlQuery query;
-        query.prepare("INSERT INTO Neighborhood (:name);");
-        query.bindValue(":name", QString::fromStdString(neighborhood->getName()));
-           if(!query.exec()){
-                qDebug() << "addNeighborhood error:"
-                         << query.lastError().text();}
-       int n = 0;
-       int* dx=neighborhood->getDx();
-       int* dy=neighborhood->getDy();
-       while(n < neighborhood->getNbNeighbors()){
-           QSqlQuery query;
-           query.prepare("INSERT INTO Neighbor (:name, :dx,:dy);");
-           query.bindValue(":name", QString::fromStdString(neighborhood->getName()));
-           query.bindValue(":dx", dx[n]);
-           query.bindValue(":dy", dy[n]);
-           if(!query.exec()){
-                qDebug() << "addNeighbor error:"
-                         << query.lastError().text();}
-
-           n++;
-       }
-
-    }
 }
-*/
+void DBManager::DBaddNeighborhood(const QString name, const int* dx,const int *dy) const{
+    QSqlQuery query;
+    query.prepare("INSERT INTO Neighborhood (:name);");
+    query.bindValue(":name", name);
+       if(!query.exec()){
+            qDebug() << "addNeighborhood error:"
+                     << query.lastError().text();}
+   int n = 0;
+   while(dx[n]){
+       QSqlQuery query;
+       query.prepare("INSERT INTO Neighbor (:name, :dx,:dy);");
+       query.bindValue(":name", name);
+       query.bindValue(":dx", dx[n]);
+       query.bindValue(":dy", dy[n]);
+       if(!query.exec()){
+            qDebug() << "addNeighbor error:"
+                     << query.lastError().text();}
+
+       n++;
+   }
+
+
+}
+
+
 NeighborhoodStrategy** DBManager::loadNeighborhood() const{
+    NeighborhoodFactory* e=new NeighborhoodFactory;
     QSqlQuery query;
     query.exec("SELECT count(name) FROM Neighborhood;");
     unsigned int n=query.value(0).toInt();
@@ -160,29 +156,33 @@ NeighborhoodStrategy** DBManager::loadNeighborhood() const{
         QString name=query.value(0).toString();
         int radius=query.value(1).toInt();
         QSqlQuery query1;
+        query1.exec("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name) GROUP BY dx;");
+        int nbNeighbors=query1.value(0).toInt();
         query1.prepare("SELECT dx,dy FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name);");
         query1.bindValue(":name", name);
         query1.exec();
+        std::string stringName=name.toStdString();
         if(query1.value(0).isNull()){
             if(query1.value(1).isNull()){
-                //neighborhood=NeighborhoodFactory::production(name);
+                neighborhood=e->production(stringName);
             }
-            else{//neighborhood=NeighborhoodFactory::production(name,radius);
-            }
+            else{neighborhood=e->production(stringName,radius);}
         }
         else{
-            int * dx;
-            int*dy;
+            int *dx =new int[nbNeighbors];
+            int*dy= new int[nbNeighbors];
             int j=0;
             while (query1.next()) {
                 dx[j]=query1.value(0).toInt();
                 dy[j]=query1.value(1).toInt();
                 j++;
             }
-            //neighborhood=NeighborhoodFactory::production(name,dx,dy);
+            neighborhood=e->production(stringName,nbNeighbors,dx,dy);
         }
         res[i]=neighborhood;
         i++;
     }
+    delete e;
+    return res;
 }
 

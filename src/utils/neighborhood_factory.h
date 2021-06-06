@@ -10,7 +10,9 @@ class NeighborhoodFactory {
 
 public:
     // Permet de créer le type de voisinage correspondant au nom passé en paramètre
-    NeighborhoodStrategy* production(const string name, const int radius=1, const int nbVoisins=0, int* dx=nullptr, int* dy=nullptr);
+    NeighborhoodStrategy* production(const string name);
+    NeighborhoodStrategy* production(const string name, const int radius);
+    NeighborhoodStrategy* production(const string name, const int nbVoisins, int* dx, int* dy);
 
 };
 
