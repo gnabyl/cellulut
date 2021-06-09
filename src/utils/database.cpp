@@ -17,9 +17,9 @@ DBManager::DBManager(const QString& path) {
     if(!db.open())
         throw DBException("Error : failed to access database !");
     else {
-        QMessageBox* window = new QMessageBox();
-        window->setText("Connection with database correctly established !");
-        window->show();
+        QMessageBox window;
+        window.setText("Connection with database correctly established !");
+        window.exec();
     }
 }
 
