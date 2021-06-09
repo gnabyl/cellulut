@@ -80,11 +80,16 @@ Cell* DGTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
         throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : L'automate circulaire de David Griffeath ne fonctionne qu'avec 4 états possibles.\n");
 
 
-    int j = c->getState()->getId(); // indice de la couleur de la cellule courante
+    int j; // indice de la couleur de la cellule courante
+    for (j = 0; j < nbStates; j ++) {
+        if (availableStates[j]->getId() == c->getState()->getId()) {
+            break;
+        }
+    }
     // nous calculons le nombre de voisins ayant la couleur d'indice j+1
     int sum = 0;
     for(int i = 0; i < neighborSize; i++) {
-        if(availableStates[(j + 1) % nbStates]->getId() == neighbors[i]->getState()->getId()) // modulo 3 car les etats vont de 0 à 3
+        if(availableStates[(j + 1) % nbStates]->getId() == neighbors[i]->getState()->getId())
             sum += 1;
     }
     // si la couleur d'indice j+1 est présente dans au moins 3 cellules voisines, la cellule c prend la couleur d'indice j+1
