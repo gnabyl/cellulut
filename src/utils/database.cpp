@@ -141,7 +141,7 @@ void DBManager::DBaddNeighborhood(const QString name, const int* dx, const int* 
 }
 
 
-NeighborhoodStrategy** DBManager::loadNeighborhood() const {
+std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const {
     NeighborhoodFactory* e = new NeighborhoodFactory;
     QSqlQuery query;
     query.exec("SELECT count(name) FROM Neighborhood;");

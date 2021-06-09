@@ -24,6 +24,7 @@ class TransitionStrategy { //interface
     std::string name;
   public:
     TransitionStrategy(std::string name) : name(name) {};
+    int getStatePosFromId(int nbStates, CellState** availableStates, int id) const;
     virtual Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const = 0;
     std::string getName() const {
         return name;
@@ -71,7 +72,6 @@ class DGTransition : public OuterTotalisticTransition {
 };
 
 class LLTransition : public OuterTotalisticTransition {
-    int getStatePosFromId(int nbStates, CellState** availableStates, int id) const;
     Cell* calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const;
 };
 

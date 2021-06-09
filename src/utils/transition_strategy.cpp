@@ -1,5 +1,15 @@
 #include "transition_strategy.h"
 #include <string>
+
+int TransitionStrategy::getStatePosFromId(int nbStates, CellState** availableStates, int id) const {
+    for (int i = 0; i < nbStates; i ++) {
+        if (availableStates[i]->getId() == id) {
+            return i;
+        }
+    }
+    return 0;
+}
+
 /*
 FONCTION DE TRANSITION DU JEU DE LA VIE
 Caractéristiques :
@@ -105,15 +115,6 @@ FONCTION DE TRANSITION DE LANGTON'S LOOP
 - Taille du voisinage : 4 (VON NEUMANN)
 - Nombre d'états possibles : 8
 */
-
-int LLTransition::getStatePosFromId(int nbStates, CellState** availableStates, int id) const {
-    for (int i = 0; i < nbStates; i ++) {
-        if (availableStates[i]->getId() == id) {
-            return i;
-        }
-    }
-    return 0;
-}
 
 Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
 
