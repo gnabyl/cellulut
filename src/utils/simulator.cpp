@@ -86,6 +86,7 @@ int Simulateur::getRangDernier() const
 void Simulator::reset() { // important je ne l'ai pas mis const car pour moi cette fonction correspond à la fonction reset du TD
     if (startGrid == nullptr) throw "start grid is not defined";
     currentGridID = 0;
+    maxID = 0;
     if (grids[0]) {
         delete grids[0];
         grids[0] = nullptr;
