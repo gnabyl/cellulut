@@ -106,8 +106,14 @@ FONCTION DE TRANSITION DE LANGTON'S LOOP
 - Nombre d'états possibles : 8
 */
 
-#include <map>
-
+int LLTransition::getStatePosFromId(int nbStates, CellState** availableStates, int id) const {
+    for (int i = 0; i < nbStates; i ++) {
+        if (availableStates[i]->getId() == id) {
+            return i;
+        }
+    }
+    return 0;
+}
 
 Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
 
@@ -337,37 +343,38 @@ Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
 
     // On trie le tableau de voisinage selon l'ordre suivant : [up, right, down, left]
     Cell** neighborsSort = new Cell * [neighborSize];
-    for (int i=0,j=0; i<neighborSize;i++,j++)
-    {
-        neighborsSort[i]=new Cell(*availableStates,i,j);
-    }
 
     for (int i=0;i<neighborSize;i++)
     {
         //up
-        if (neighbors[i]->getX()==c->getX()-1)
+        if (isUnder(c, neighbors[i]))
             neighborsSort[0]=neighbors[i];
 
         //right
-        if (neighbors[i]->getY()==c->getY()+1)
+        if (isLeft(c, neighbors[i]))
             neighborsSort[1]=neighbors[i];
 
         //down
-        if (neighbors[i]->getX()==c->getX()+1)
+        if (isUnder(neighbors[i], c))
             neighborsSort[2]=neighbors[i];
 
         //left
-        if (neighbors[i]->getY()==c->getY()-1)
+        if (isLeft(neighbors[i], c))
             neighborsSort[3]=neighbors[i];
 
     }
+    int cellStatePos = getStatePosFromId(nbStates, availableStates, c->getState()->getId());
 
     // Boucle qui va permettre de trouver ou non une règle pour changer éventuellement l'état de la cellule
 
+
     for (int i = 0; i < neighborSize; ++i) { // il faut tester chaque combinaison possible
         // on convertit la cellule et le voisinage en clé (nombre de 5 chiffres)
-
-        std::string key = std::to_string(c->getState()->getId()) + std::to_string(neighborsSort[i % neighborSize]->getState()->getId()) + std::to_string(neighborsSort[(i + 1) % neighborSize]->getState()->getId()) + std::to_string(neighborsSort[(i + 2) % neighborSize]->getState()->getId()) + std::to_string(neighborsSort[(i + 3) % neighborSize]->getState()->getId());
+        std::string key = std::to_string(cellStatePos)
+                        + std::to_string(getStatePosFromId(nbStates, availableStates, neighborsSort[i % neighborSize]->getState()->getId()))
+                        + std::to_string(getStatePosFromId(nbStates, availableStates, neighborsSort[(i + 1) % neighborSize]->getState()->getId()))
+                        + std::to_string(getStatePosFromId(nbStates, availableStates, neighborsSort[(i + 2) % neighborSize]->getState()->getId()))
+                        + std::to_string(getStatePosFromId(nbStates, availableStates, neighborsSort[(i + 3) % neighborSize]->getState()->getId()));
         //std::cout << key << std::endl;
         // on vérifie si la clé et donc la règle existe : si oui on modifie.
         //std::cout <<"Avant test "<< c->getX() <<" "<< c->getY() <<" "<< c->getState()->getId()<< "-> "<< key <<std::endl;
@@ -375,9 +382,11 @@ Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
             //std::cout << c->getX() <<" "<< c->getY() <<" "<< c->getState()->getId() <<" "<<"->"<<langtonRules[key]<<" car "<<key <<std::endl;
             //std::cout << key << " -> " << key << std::endl;
             //std:: cout << " new couleur " << availableStates[langtonRules[key]]->getLabel() << std::endl << std::endl;
+            delete[] neighborsSort;
             return new Cell(availableStates[langtonRules[key]], c->getX(), c->getY());
         }
     }
+    delete[] neighborsSort;
     return new Cell(*c);
 }
 
@@ -406,7 +415,7 @@ FONCTION DE TRANSITION DE LANGTON ANT
 
 
 // Verifier si a est au-dessus de b
-bool LATransition::isUnder(Cell* a, Cell* b) const {
+bool OuterTotalisticTransition::isUnder(Cell* a, Cell* b) const {
     if (a->getY() != b->getY()) {
         return false;
     }
@@ -419,7 +428,7 @@ bool LATransition::isUnder(Cell* a, Cell* b) const {
 }
 
 // Verifier si a est a gauche de b
-bool LATransition::isLeft(Cell* a, Cell* b) const {
+bool OuterTotalisticTransition::isLeft(Cell* a, Cell* b) const {
     if (a->getX() != b->getX()) {
         return false;
     }
@@ -432,7 +441,7 @@ bool LATransition::isLeft(Cell* a, Cell* b) const {
 }
 
 // Verifier si c est la destination de la fourmi dans neighbor
-bool LATransition::isDestination(Cell* c, Cell* neighbor) const {
+bool OuterTotalisticTransition::isDestination(Cell* c, Cell* neighbor) const {
     if (neighbor->getDirection() == UP && isUnder(neighbor, c)) {
         return true;
     }

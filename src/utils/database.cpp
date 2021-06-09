@@ -181,6 +181,6 @@ NeighborhoodStrategy** DBManager::loadNeighborhood() const {
         i++;
     }
     delete e;
-    return res;
+    return {n, res};
 }
 

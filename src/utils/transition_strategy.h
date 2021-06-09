@@ -2,6 +2,7 @@
 #define TRANSITION_STRATEGY_H
 
 #include <string>
+#include <map>
 #include "neighborhood_strategy.h"
 #include "cell_state.h"
 #include "grid.h"
@@ -45,6 +46,9 @@ class StochasticTransition : public TransitionStrategy {
 
 class OuterTotalisticTransition : public TotalisticTransition {
   public:
+    bool isDestination(Cell*, Cell*) const;
+    bool isUnder(Cell*, Cell*) const;
+    bool isLeft(Cell*, Cell*) const;
     OuterTotalisticTransition(std::string name = "OuterTotalistic Transition") : TotalisticTransition(name) {}
     virtual Cell* calcNextCell(Cell*, Cell**, int, CellState**, int) const = 0;
 };
@@ -67,15 +71,13 @@ class DGTransition : public OuterTotalisticTransition {
 };
 
 class LLTransition : public OuterTotalisticTransition {
+    int getStatePosFromId(int nbStates, CellState** availableStates, int id) const;
     Cell* calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const;
 };
 
 
 class LATransition : public OuterTotalisticTransition {
   public:
-    bool isDestination(Cell*, Cell*) const;
-    bool isUnder(Cell*, Cell*) const;
-    bool isLeft(Cell*, Cell*) const;
     Cell* calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const;
 };
 
