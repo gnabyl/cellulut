@@ -21,54 +21,21 @@ void ControlPanel::stateSettings() {
 }
 
 void ControlPanel::loadAutomatas() {
-    AutomataManager* automataManager = AutomataManager::getAutomataManager();
-
-
-    // Game Of Life automata
-    CellState** golStates = new CellState*[2];
-    golStates[0] = new CellState(0, "dead", Qt::white);
-    golStates[1] = new CellState(1, "alive", Qt::black);
-    automataManager->addAutomata(golStates, new GOLTransition(), new MooreNeighborhoodGeneralized(1), 2,
-                                 "Game of Life", "Game of Life Automata", "Conway", 1970);
-    // Brian's Brain automata
-    CellState** bbStates = new CellState*[3];
-    bbStates[0] = new CellState(0, "off", Qt::white);
-    bbStates[1] = new CellState(1, "dying", Qt::blue);
-    bbStates[2] = new CellState(2, "on", Qt::black);
-    automataManager->addAutomata(bbStates, new BBTransition(), new MooreNeighborhood(), 3, "Brian's Brain", "Brian's Brain Automata", "Brian Silverman", 1996);
-
-
-//    // David griffeath automata
-    CellState** dgStates = new CellState*[4];
-    dgStates[0] = new CellState(0, "Grif1", Qt::yellow);
-    dgStates[1] = new CellState(1, "Grif2", Qt::cyan);
-    dgStates[2] = new CellState(2, "Grif3", Qt::darkCyan);
-    dgStates[3] = new CellState(3, "Grif4", Qt::red);
-    automataManager->addAutomata(dgStates, new DGTransition(), new MooreNeighborhood(), 4, "L’automate circulaire de Griffeath", "Griffeath Ciruclar Automata", "David Griffeath", 1);
-//    //(jaune), 1 (orange clair),2 (orange foncé), 3 (rouge)
-
-//    // Langton Loop automata
-    CellState** llStates = new CellState*[8];
-    llStates[0] = new CellState(0, "y", Qt::black);
-    llStates[1] = new CellState(1, "c", Qt::blue);
-    llStates[2] = new CellState(2, "dc", Qt::red);
-    llStates[3] = new CellState(3, "r", Qt::green);
-    llStates[4] = new CellState(4, "b", Qt::yellow);
-    llStates[5] = new CellState(5, "g", Qt::magenta);
-    llStates[6] = new CellState(6, "m", Qt::white);
-    llStates[7] = new CellState(7, "dg", Qt::cyan);
-
-    automataManager->addAutomata(llStates, new LLTransition(), new VonNeumannNeighborhood(), 8,
-                                 "Langton Loop", "Langton Loop Automata", "Christopher Langton", 1984);
-
-//    // Langton ant automata
-    CellState** laStates = new CellState*[2];
-    laStates[0] = new CellState(0, "white", Qt::white);
-    laStates[1] = new CellState(1, "black", Qt::black);
-    automataManager->addAutomata(laStates, new LATransition(), new MooreNeighborhood(), 2,
-                                 "Langton ant", "Langton ant Automata", "Christopher Langton", 1986);
-
+    //Init data
+    try{
+        DBManager dbMan = DBManager::getDB();
+        dbMan.loadAutomatasFromDB();
+        setAutomata(0);
+        simulatorWidget->setAutomata(0);
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.exec();
+    }
     automatasBrowser = new AutomatasBrowser(this);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
 }
 
 void ControlPanel::loadNeighborhoods() {
@@ -125,22 +92,8 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
     mainLayout->addStretch();
 
-    //Init data
-    try{
-        DBManager dbMan = DBManager::getDB();
-        dbMan.loadAutomatasFromDB();
-        setAutomata(0);
-        simulatorWidget->setAutomata(0);
-    }
-    catch(DBException e){
-        QMessageBox* window = new QMessageBox;
-        window->setText(QString::fromStdString(e.getInfo()));
-        window->show();
-    }
-    automatasBrowser = new AutomatasBrowser(this);
-    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
-    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
-    //loadAutomatas(); /*To replace by automata loading from database*/
+
+    loadAutomatas(); /*To replace by automata loading from database*/
     loadNeighborhoods();
     loadTransitions();
 
