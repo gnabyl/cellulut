@@ -58,7 +58,7 @@ void DBManager::loadAutomatasFromDB() const {
         while(queryAux.next()) { //Take infos about the concerned states to dynamically create those objects
             int stateID = queryAux.value("stateID").toInt();
             QSqlQuery queryAuxState(this->db);
-            queryAuxState.prepare(QString("SELECT * FROM CellState WHERE id = :stateID"));
+            queryAuxState.prepare(QString("SELECT * FROM State WHERE id = :stateID"));
             queryAuxState.bindValue(":stateID", stateID);
             queryAuxState.exec();
 
