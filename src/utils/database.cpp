@@ -89,6 +89,10 @@ QColor DBManager::toColor(const QString& col) const {
     if(col == "white") return Qt::white;
     if(col == "yellow") return Qt::yellow;
     if(col == "blue") return Qt::blue;
+    if(col == "cyan") return Qt::cyan;
+    if(col == "darkcyan") return Qt::darkCyan;
+    if(col == "red") return Qt::red;
+    return Qt::white;
 }
 
 DBManager::~DBManager() {

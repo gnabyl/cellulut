@@ -129,6 +129,8 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     try{
         DBManager dbMan = DBManager::getDB();
         dbMan.loadAutomatasFromDB();
+        setAutomata(0);
+        simulatorWidget->setAutomata(0);
     }
     catch(DBException e){
         QMessageBox* window = new QMessageBox;
