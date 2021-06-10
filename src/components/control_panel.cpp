@@ -46,7 +46,17 @@ void ControlPanel::loadNeighborhoods() {
 //    neighbors[2] = new MooreNeighborhood();
 //    neighbors[3] = new MooreNeighborhoodGeneralized();
     std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
-    loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
+    try{
+        DBManager dbMan = DBManager::getDB();
+        dbMan.loadNeighborhoodFromDB();
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.show();
+    }
+
+    //loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
     neighborsBrowser = new NeighborsBrowser(this);
     neighborsBrowser->setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
     connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
@@ -95,7 +105,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     mainLayout->addStretch();
 
 
-    loadAutomatas(); /*To replace by automata loading from database*/
+    loadAutomatas();
     loadNeighborhoods();
     loadTransitions();
 

@@ -34,6 +34,8 @@ void DBManager::loadAutomatasFromDB() const {
     QSqlQuery query(this->db);
     query.prepare("SELECT * FROM Automata");
     query.exec();
+    bool test3 = query.isActive();
+    QSqlQuery queryAux(this->db);
     while(query.next()) {
         // Infos that are easy to take from DB :
         QString name, description, author;
@@ -48,20 +50,18 @@ void DBManager::loadAutomatasFromDB() const {
         //Slightly more difficult infos :
         // Available states
         CellState** availableStates = new CellState*[nbStates];
-        QSqlQuery queryAux(this->db);
         queryAux.prepare(QString("SELECT stateID FROM AutomataState WHERE automataName = :name"));
         queryAux.bindValue(":name", name);
         queryAux.exec();
 
         int i = 0;
 
+        QSqlQuery queryAuxState(this->db);
         while(queryAux.next()) { //Take infos about the concerned states to dynamically create those objects
             int stateID = queryAux.value("stateID").toInt();
-            QSqlQuery queryAuxState(this->db);
             queryAuxState.prepare(QString("SELECT * FROM State WHERE id = :stateID"));
             queryAuxState.bindValue(":stateID", stateID);
             queryAuxState.exec();
-
             queryAuxState.next();
             QString label = queryAuxState.value("label").toString();
             QString col = queryAuxState.value("color").toString();
@@ -72,6 +72,11 @@ void DBManager::loadAutomatasFromDB() const {
 
             i++;
         }
+        queryAux.finish();
+        queryAuxState.finish();
+
+        bool test = queryAux.isActive();
+        bool test2 = queryAuxState.isActive();
 
         QString rule = query.value("transition").toString();
         QString neighborhood = query.value("neighborhood").toString();
@@ -81,7 +86,11 @@ void DBManager::loadAutomatasFromDB() const {
                                      neighborFac.production(neighborhood.toStdString()),
                                      nbStates, name.toStdString(), description.toStdString(),
                                      author.toStdString(), creationYear);
+
     }
+
+    query.finish();
+    test3 = query.isActive();
 }
 
 QColor DBManager::toColor(const QString& col) const {
@@ -103,8 +112,8 @@ DBManager::~DBManager() {
 
 
 void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
-    QSqlQuery query;
-    query.prepare("INSERT INTO Neighborhood (:name,:radius);");
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("INSERT INTO Neighborhood (:name,:radius)");
     query.bindValue(":name", name + QString::number(radius));
     query.bindValue(":radius", radius);
     if(!query.exec()) {
@@ -115,8 +124,8 @@ void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
 
 }
 void DBManager::DBaddNeighborhood(const QString name, const int* dx, const int* dy) const {
-    QSqlQuery query;
-    query.prepare("INSERT INTO Neighborhood (:name);");
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("INSERT INTO Neighborhood (:name)");
     query.bindValue(":name", name);
     if(!query.exec()) {
         qDebug() << "addNeighborhood error:"
@@ -124,8 +133,8 @@ void DBManager::DBaddNeighborhood(const QString name, const int* dx, const int* 
     }
     int n = 0;
     while(dx[n]) {
-        QSqlQuery query;
-        query.prepare("INSERT INTO Neighbor (:name, :dx,:dy);");
+        QSqlQuery query(QSqlDatabase::database());
+        query.prepare("INSERT INTO Neighbor (:name, :dx,:dy)");
         query.bindValue(":name", name);
         query.bindValue(":dx", dx[n]);
         query.bindValue(":dy", dy[n]);
@@ -143,17 +152,22 @@ void DBManager::DBaddNeighborhood(const QString name, const int* dx, const int* 
 
 std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const {
     NeighborhoodFactory* e = new NeighborhoodFactory;
-    QSqlQuery query;
-    query.exec("SELECT count(name) FROM Neighborhood;");
-    unsigned int n = query.value(0).toInt();
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("SELECT COUNT(*) FROM Neighborhood");
+    query.exec();
+    query.next();
+    int n = query.value(0).toInt();
     NeighborhoodStrategy** res = new NeighborhoodStrategy*[n];
     NeighborhoodStrategy* neighborhood;
-    query.exec("SELECT name, radius FROM Neighborhood;");
+    query.finish();
+    QSqlQuery queryAux(QSqlDatabase::database());
+    queryAux.prepare("SELECT name, radius FROM Neighborhood");
+    queryAux.exec();
     int i = 0;
-    while(query.next()) {
-        QString name = query.value(0).toString();
-        int radius = query.value(1).toInt();
-        QSqlQuery query1;
+    while(queryAux.next()) {
+        QString name = queryAux.value(0).toString();
+        int radius = queryAux.value(1).toInt();
+        QSqlQuery query1(QSqlDatabase::database());
         query1.prepare("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name) GROUP BY dx;");
         query1.bindValue(":name", name);
         query1.exec();
@@ -162,11 +176,11 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const
         query1.bindValue(":name", name);
         query1.exec();
         std::string stringName = name.toStdString();
-        if(query1.value(0).isNull()) {
-            if(query1.value(1).isNull()) {
-                neighborhood = e->production(stringName);
+        if(query1.value(0).toInt() == 0) {
+            if(query1.value(1).toInt() == 0) {
+                neighborhood = e->production(name.toStdString());
             } else {
-                neighborhood = e->production(stringName, radius);
+                neighborhood = e->production(name.toStdString(), radius);
             }
         } else {
             int* dx = new int[nbNeighbors];
@@ -177,12 +191,12 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const
                 dy[j] = query1.value(1).toInt();
                 j++;
             }
-            neighborhood = e->production(stringName, nbNeighbors, dx, dy);
+            neighborhood = e->production(name.toStdString(), nbNeighbors, dx, dy);
         }
         res[i] = neighborhood;
         i++;
     }
     delete e;
+    query.finish();
     return {n, res};
 }
-
