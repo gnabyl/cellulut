@@ -54,18 +54,19 @@ void ControlPanel::loadAutomatas() {
 }
 
 void ControlPanel::loadNeighborhoods() {
-//    int nbNeighbors = 4;
-//    NeighborhoodStrategy** neighbors = new NeighborhoodStrategy* [nbNeighbors];
-//    neighbors[0] = new VonNeumannNeighborhood();
-//    neighbors[1] = new VonNeumannNeighborhoodGeneralized();
-//    neighbors[2] = new MooreNeighborhood();
-//    neighbors[3] = new MooreNeighborhoodGeneralized();
     std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
-    loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
-    neighborsBrowser = new NeighborsBrowser(this);
-    neighborsBrowser->setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
-    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
-    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
+    try{
+        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
+        neighborsBrowser = new NeighborsBrowser(this);
+        neighborsBrowser->setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
+        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
+        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.show();
+    }
 }
 
 void ControlPanel::loadTransitions() {
@@ -111,7 +112,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     mainLayout->addStretch();
 
 
-    loadAutomatas(); /*To replace by automata loading from database*/
+    loadAutomatas();
     loadNeighborhoods();
     loadTransitions();
     loadStates();
@@ -122,7 +123,9 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     // Make all button disabled
     btnBrowseNeighborhoods->setDisabled(true);
     btnBrowseTransitions->setDisabled(true);
-    //btnEditState->setDisabled(true);
+    btnEditState->setDisabled(true);
+
+
 
     initEventHandler();
 
@@ -239,8 +242,6 @@ void ControlPanel::setAutomata(int id) {
     textNeighborhoodName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getNeighborhoodStrategy()->getName()));
     textTransitionName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getTransitionStrategy()->getName()));
 
-    btnBrowseNeighborhoods->setDisabled(false);
-    btnBrowseTransitions->setDisabled(false);
 
     statesListWidget->clear();
     for (int i = 0; i < AutomataManager::getAutomataManager()->getAutomata(id)->getNbStates(); i ++) {

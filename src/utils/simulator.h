@@ -5,10 +5,20 @@
 #include "grid.h"
 #include "grid_factory.h"
 
+/**
+ * @brief The BufferException class gestionnaire d'erreurs lié au buffer
+ */
 class BufferException{
+    /**
+     * @brief info  chaine de caractères contenant des informations sur l'erreur
+     */
     std::string info;
 public:
-    BufferException(std::string);
+    /**
+     * @brief BufferException   constructeur de la classe BufferException
+     * @param s message d'erreur
+     */
+    BufferException(std::string s):info(s){};
     std::string getInfo() const{return info;}
 };
 
@@ -21,7 +31,7 @@ class Simulator {
   private:
     Automata* automata;
     int bufferSize;
-    Grid* startGrid = nullptr; // il faut ajouter un pointeur dans l'UML
+    Grid* startGrid = nullptr;
     Grid** grids = nullptr;
     // Gridfactory gridFactory
     int currentGridID = 0; // il s'agit du rang
@@ -52,10 +62,7 @@ class Simulator {
     void build(int id);
     unsigned int frequency; // vitesse de passage d'une génération à une autre
 
-    // Important A voir s'il faudra l'implémenter
 
-    //const Etat& dernier() const;
-    //int getRangDernier() const;
 
     void setAutomata(Automata* automata);
     void setBufferSize(int);

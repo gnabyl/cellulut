@@ -13,13 +13,14 @@ NeighborsBrowser::NeighborsBrowser(QWidget* parent) : QDialog(parent) {
     connect(neighborhoodCbb, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NeighborsBrowser::neighborCbbChanged);
 
     mainLayout->addLayout(neighborhoodLayout);
+
     mainLayout->addWidget(btnConfirm);
 
     adjustSize();
 }
 
 NeighborsBrowser::~NeighborsBrowser() {
-
+    delete spbRadius;
 }
 
 void NeighborsBrowser::setNeighborhoods(int nbNeighbors, NeighborhoodStrategy **neighbors) {
@@ -37,6 +38,19 @@ void NeighborsBrowser::updateCombobox() {
 
 void NeighborsBrowser::neighborCbbChanged(int id) {
     selectedNeighbor = neighbors[id];
+    if (instanceof<VonNeumannNeighborhoodGeneralized>(selectedNeighbor) || instanceof<MooreNeighborhoodGeneralized>(selectedNeighbor)) {
+        spbRadius = new QSpinBox();
+        if (instanceof<VonNeumannNeighborhoodGeneralized>(selectedNeighbor)) {
+            spbRadius->setValue(static_cast<const VonNeumannNeighborhoodGeneralized*>(selectedNeighbor)->getRadius());
+        } else if (instanceof<MooreNeighborhoodGeneralized>(selectedNeighbor)) {
+            spbRadius->setValue(static_cast<const MooreNeighborhoodGeneralized*>(selectedNeighbor)->getRadius());
+        }
+        if (neighborhoodLayout->rowCount() < 2) {
+            neighborhoodLayout->addRow("Radius", spbRadius);
+        }
+    } else if (neighborhoodLayout->rowCount() >= 2) {
+        neighborhoodLayout->removeRow(1);
+    }
 }
 
 void NeighborsBrowser::chooseNeighbor() {

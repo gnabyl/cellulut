@@ -1,6 +1,5 @@
 #include "simulator.h"
 
-BufferException::BufferException(std::string s) : info(s){}
 
 void Simulator::allocateBuffer() {
     if (grids != nullptr) {

@@ -428,7 +428,7 @@ bool OuterTotalisticTransition::isUnder(Cell* a, Cell* b) const {
     }
 }
 
-// Verifier si a est a gauche de b
+// Verifier si a est à gauche de b
 bool OuterTotalisticTransition::isLeft(Cell* a, Cell* b) const {
     if (a->getX() != b->getX()) {
         return false;
