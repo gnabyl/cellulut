@@ -39,7 +39,7 @@ public:
     std::pair<int, NeighborhoodStrategy**> loadNeighborhoodFromDB() const;
     void loadStatesFromDB() const;
     void loadTransitionsFromDB();
-
+    std::pair<int,CellState**> loadStatefromDB() const;
 };
 
 

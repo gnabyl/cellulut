@@ -19,7 +19,22 @@ void ControlPanel::openTransitionsBrowser() {
 void ControlPanel::stateSettings() {
 
 }
+void ControlPanel::loadStates(){
+    try{
+        DBManager dbMan = DBManager::getDB();
+        std::pair<int,CellState**> statetab=dbMan.loadStatefromDB();
 
+        statebrowser = new StateBrowser(this,statetab);
+    }
+
+
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.exec();
+    }
+
+}
 void ControlPanel::loadAutomatas() {
     //Init data
     try{
@@ -72,6 +87,7 @@ void ControlPanel::initEventHandler() {
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
     connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
     connect(btnBrowseAutomatas, &QPushButton::clicked, this, &ControlPanel::openAutomatasBrowser);
+    connect(btnEditState, &QPushButton::clicked, this, &ControlPanel::openStateBrowser);
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -98,6 +114,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     loadAutomatas(); /*To replace by automata loading from database*/
     loadNeighborhoods();
     loadTransitions();
+    loadStates();
 
     setLayout(mainLayout);
 
@@ -105,7 +122,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     // Make all button disabled
     btnBrowseNeighborhoods->setDisabled(true);
     btnBrowseTransitions->setDisabled(true);
-    btnEditState->setDisabled(true);
+    //btnEditState->setDisabled(true);
 
     initEventHandler();
 
@@ -214,6 +231,7 @@ ControlPanel::~ControlPanel() {
     delete gridSettingsLayout;
     delete automatasBrowser;
     delete neighborsBrowser;
+    delete statebrowser;
 }
 
 void ControlPanel::setAutomata(int id) {
@@ -248,4 +266,8 @@ void FrequencyDisplayBox::setFrequency(int f) {
 
 void ControlPanel::openAutomatasBrowser() {
     automatasBrowser->exec();
+}
+
+void ControlPanel::openStateBrowser(){
+    statebrowser->exec();
 }

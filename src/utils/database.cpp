@@ -23,6 +23,33 @@ DBManager::DBManager(const QString& path) {
     }
 }
 
+std::pair<int , CellState**> DBManager::loadStatefromDB() const{
+
+
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("SELECT COUNT(*) FROM State");
+    query.exec();
+    query.next();
+    int nb=query.value(0).toInt();
+    CellState** Statetab= new CellState*[nb];
+    query.prepare("SELECT * FROM State");
+    query.exec();
+    int i =0;
+    while(query.next()) {
+        QString label,direction;
+        QString col;
+        QColor color;
+        int id;
+        label = query.value("label").toString();
+        color = query.value("color").toString();
+        direction = query.value("direction").toString();
+        id=query.value("id").toInt();
+        color= toColor(col);
+        Statetab[i]=new CellState(id, label.toStdString(), color);
+        i++;}
+    return {nb,Statetab};
+}
+
 DBManager& DBManager::getDB() {
     if(DBManInstance == nullptr)
         DBManInstance = new DBManager(DB_PATH);
@@ -85,6 +112,18 @@ void DBManager::loadAutomatasFromDB() const {
 }
 
 QColor DBManager::toColor(const QString& col) const {
+    if(col == "black") return Qt::black;
+    if(col == "white") return Qt::white;
+    if(col == "yellow") return Qt::yellow;
+    if(col == "blue") return Qt::blue;
+    if(col == "cyan") return Qt::cyan;
+    if(col == "darkcyan") return Qt::darkCyan;
+    if(col == "red") return Qt::red;
+    if(col == "green") return Qt::green;
+    if(col == "magenta") return Qt::magenta;
+    return Qt::white;
+}
+QColor DBManager::toName(const QString& col) const {
     if(col == "black") return Qt::black;
     if(col == "white") return Qt::white;
     if(col == "yellow") return Qt::yellow;
