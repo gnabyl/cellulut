@@ -22,6 +22,7 @@
 #include "subwindows/transitions_browser.h"
 #include "utils/database.h"
 #include "subwindows/State_browser.h"
+
 class FrequencyDisplayBox : public QLineEdit{
     Q_OBJECT
 
@@ -121,6 +122,7 @@ class ControlPanel : public QWidget {
 
     void openAutomatasBrowser();
     void openStateBrowser();
+    void updateStates();
 };
 
 #endif // CONTROL_PANEL_H

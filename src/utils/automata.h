@@ -123,7 +123,6 @@ class Automata {
      * @param nbStates le nombre d'états dans la liste
      */
     void setAvailableStates(CellState** availableStates, int nbStates);
-
     /**
      * @brief Renvoyer la liste des états possibles
      * 

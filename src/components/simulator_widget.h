@@ -59,6 +59,7 @@ class SimulatorWidget : public QWidget {
     void setFrequency(int f);
 
   signals:
+    void stateHasChanged();
 
   public slots:
     void setNbRows(int nbRows);
@@ -67,6 +68,7 @@ class SimulatorWidget : public QWidget {
     void setAutomata(int index);
     void setNeighbor(NeighborhoodStrategy* neighbor);
     void setTransition(TransitionStrategy* transition);
+    void setState(int nb, CellState* c);
 
     void changeCellState(int x, int y);
     void changeAnt(int x, int y);

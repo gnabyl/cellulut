@@ -24,8 +24,6 @@ DBManager::DBManager(const QString& path) {
 }
 
 std::pair<int , CellState**> DBManager::loadStatefromDB() const{
-
-
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT COUNT(*) FROM State");
     query.exec();
@@ -41,7 +39,7 @@ std::pair<int , CellState**> DBManager::loadStatefromDB() const{
         QColor color;
         int id;
         label = query.value("label").toString();
-        color = query.value("color").toString();
+        col = query.value("color").toString();
         direction = query.value("direction").toString();
         id=query.value("id").toInt();
         color= toColor(col);
@@ -132,18 +130,6 @@ QColor DBManager::toColor(const QString& col) const {
     if(col == "magenta") return Qt::magenta;
     return Qt::white;
 }
-QColor DBManager::toName(const QString& col) const {
-    if(col == "black") return Qt::black;
-    if(col == "white") return Qt::white;
-    if(col == "yellow") return Qt::yellow;
-    if(col == "blue") return Qt::blue;
-    if(col == "cyan") return Qt::cyan;
-    if(col == "darkcyan") return Qt::darkCyan;
-    if(col == "red") return Qt::red;
-    if(col == "green") return Qt::green;
-    if(col == "magenta") return Qt::magenta;
-    return Qt::white;
-}
 
 DBManager::~DBManager() {
     db.close();
@@ -159,9 +145,8 @@ void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
         qDebug() << "addNeighborhood error:"
                  << query.lastError().text();
     }
-
-
 }
+
 void DBManager::DBaddNeighborhood(const QString name, const int* dx, const int* dy) const {
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("INSERT INTO Neighborhood (:name)");

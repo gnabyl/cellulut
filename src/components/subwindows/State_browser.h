@@ -11,12 +11,15 @@
 class StateBrowser : public QDialog {
     Q_OBJECT
 
+    CellState** statesTable;
+
     QVBoxLayout* mainLayout;
     QHBoxLayout* buttonsLayout;
 
     QTableWidget* stateTable;
     QTableWidgetItem*** stateItems;
     int size;
+    int stateID; //The number of the ID that has to be changed in the current automaton.
 
     QPushButton *btnChoose, *btnCreate, *btnDelete, *btnSave;
 
@@ -30,7 +33,10 @@ class StateBrowser : public QDialog {
     ~StateBrowser();
 
   signals:
-    void stateChanged(int id);
+    void stateChanged(int,CellState*);
+
+  public slots:
+    void receiveStateID(int id);
 
   private slots:
     void chooseState();

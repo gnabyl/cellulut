@@ -3,6 +3,8 @@
 StateBrowser::StateBrowser(QWidget* parent,std::pair<int,CellState**> statetab) : QDialog(parent),size(statetab.first) {
     mainLayout = new QVBoxLayout(this);
 
+    this->statesTable = statetab.second;
+
     initStateTable(statetab);
     initButtons();
 
@@ -16,7 +18,6 @@ StateBrowser::StateBrowser(QWidget* parent,std::pair<int,CellState**> statetab) 
 }
 
 void StateBrowser::initStateTable(std::pair<int,CellState**> statetab) {
-
     int nb = statetab.first;
     stateTable = new QTableWidget(nb, 3, this);
     stateItems = new QTableWidgetItem** [nb];
@@ -30,7 +31,6 @@ void StateBrowser::initStateTable(std::pair<int,CellState**> statetab) {
         stateItems[i][0] = new QTableWidgetItem(statetab.second[i]->getId());
         stateItems[i][1] = new QTableWidgetItem(statetab.second[i]->getLabel().c_str());
         stateItems[i][2] =  new QTableWidgetItem(statetab.second[i]->getColor().name());
-
 
         for (int j = 0; j < 3; j ++) {
             stateTable->setItem(i, j, stateItems[i][j]);
@@ -71,10 +71,13 @@ void StateBrowser::initButtons() {
  *          SLOTS
  */
 void StateBrowser::chooseState() {
-    if (stateTable->selectionModel()->selectedIndexes().size() > 0) {
-        emit stateChanged(stateTable->selectionModel()->selectedIndexes().at(0).row());
+    if (stateTable->selectionModel()->selectedIndexes().size() > 0)
+        emit stateChanged(this->stateID,statesTable[stateTable->selectionModel()->selectedIndexes().at(0).row()]);
         close();
-    }
+}
+
+void StateBrowser::receiveStateID(int id){
+    stateID = id;
 }
 
 

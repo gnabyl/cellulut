@@ -1,12 +1,19 @@
 #include "control_panel.h"
 #include <iostream>
 #include <string>
-/*
- * Pseudo function for loading automatas
- * It should load automatas from database
- */
 
-
+void ControlPanel::updateStates(){
+    while(statesListWidget->count()>0){
+      statesListWidget->takeItem(0);
+    }
+    for (int i = 0; i < simulatorWidget->getSimulator()->getAutomata()->getNbStates(); i ++) {
+        CellState* s = simulatorWidget->getSimulator()->getAutomata()->getAvailableState(i);
+        std::string item = std::to_string(s->getId());
+        item += ". " + s->getLabel();
+        statesListWidget->addItem(item.c_str());
+    }
+    statesListWidget->adjustSize();
+}
 
 void ControlPanel::openNeighborsBrowser() {
     neighborsBrowser->exec();
@@ -23,7 +30,6 @@ void ControlPanel::loadStates(){
     try{
         DBManager dbMan = DBManager::getDB();
         std::pair<int,CellState**> statetab=dbMan.loadStatefromDB();
-
         statebrowser = new StateBrowser(this,statetab);
     }
 
@@ -34,6 +40,7 @@ void ControlPanel::loadStates(){
         window.exec();
     }
 
+    connect(statebrowser,SIGNAL(stateChanged(int,CellState*)),simulatorWidget,SLOT(setState(int,CellState*)));
 }
 void ControlPanel::loadAutomatas() {
     //Init data
@@ -88,7 +95,9 @@ void ControlPanel::initEventHandler() {
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
     connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
     connect(btnBrowseAutomatas, &QPushButton::clicked, this, &ControlPanel::openAutomatasBrowser);
+    connect(statesListWidget,SIGNAL(currentRowChanged(int)),statebrowser,SLOT(receiveStateID(int)));
     connect(btnEditState, &QPushButton::clicked, this, &ControlPanel::openStateBrowser);
+    connect(simulatorWidget,SIGNAL(stateHasChanged()),this,SLOT(updateStates()));
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -123,7 +132,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     // Make all button disabled
     btnBrowseNeighborhoods->setDisabled(true);
     btnBrowseTransitions->setDisabled(true);
-    btnEditState->setDisabled(true);
+    //btnEditState->setDisabled(true);
 
 
 
