@@ -111,12 +111,6 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
     setLayout(mainLayout);
 
-
-    // Make all button disabled
-    btnBrowseNeighborhoods->setDisabled(true);
-    btnBrowseTransitions->setDisabled(true);
-    btnEditState->setDisabled(true);
-
     initEventHandler();
 
     setMaximumWidth(500);
@@ -231,8 +225,6 @@ void ControlPanel::setAutomata(int id) {
     textNeighborhoodName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getNeighborhoodStrategy()->getName()));
     textTransitionName->setText(QString::fromStdString(AutomataManager::getAutomataManager()->getAutomata(id)->getTransitionStrategy()->getName()));
 
-    btnBrowseNeighborhoods->setDisabled(false);
-    btnBrowseTransitions->setDisabled(false);
 
     statesListWidget->clear();
     for (int i = 0; i < AutomataManager::getAutomataManager()->getAutomata(id)->getNbStates(); i ++) {

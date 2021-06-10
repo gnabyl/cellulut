@@ -3,6 +3,7 @@
 
 #include "grid.h"
 #include "automata.h"
+#include "helpers.h"
 
 enum GridType {
     EMPTY,

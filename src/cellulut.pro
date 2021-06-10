@@ -15,6 +15,7 @@ HEADERS += \
     constants.h \
     utils/database.h \
     utils/grid_factory.h \
+    utils/helpers.h \
     utils/simulator.h \
     utils/automata.h \
     utils/automata_manager.h \
@@ -40,6 +41,7 @@ SOURCES += \
     main.cpp \
     utils/database.cpp \
     utils/grid_factory.cpp \
+    utils/helpers.cpp \
     utils/neighborhood_factory.cpp \
     utils/simulator.cpp \
     utils/automata.cpp \

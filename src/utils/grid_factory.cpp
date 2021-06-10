@@ -1,10 +1,5 @@
 #include "grid_factory.h"
 
-template<typename Base, typename T>
-inline bool instanceof(const T* ptr) {
-    return dynamic_cast<const Base*>(ptr) != nullptr;
-}
-
 GridFactory::GridFactory() {}
 
 Grid* GridFactory::generateGrid(GridType type, int width, int height, Automata* automata) {
