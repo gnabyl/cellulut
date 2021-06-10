@@ -33,11 +33,10 @@ public:
 
     void loadAutomatasFromDB() const;
     QColor toColor(const QString& col) const;
-    NeighborhoodStrategy* toNeighborhood(const QString& neighborhood) const;
 
     void DBaddNeighborhood(const QString name, const int radius) const;
     void DBaddNeighborhood(const QString name, const int* dx,const int *dy)const;
-    NeighborhoodStrategy** loadNeighborhood() const;
+    std::pair<int, NeighborhoodStrategy**> loadNeighborhoodFromDB() const;
     void loadStatesFromDB() const;
     void loadTransitionsFromDB();
 
