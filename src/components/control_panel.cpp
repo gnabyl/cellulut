@@ -39,28 +39,19 @@ void ControlPanel::loadAutomatas() {
 }
 
 void ControlPanel::loadNeighborhoods() {
-//    int nbNeighbors = 4;
-//    NeighborhoodStrategy** neighbors = new NeighborhoodStrategy* [nbNeighbors];
-//    neighbors[0] = new VonNeumannNeighborhood();
-//    neighbors[1] = new VonNeumannNeighborhoodGeneralized();
-//    neighbors[2] = new MooreNeighborhood();
-//    neighbors[3] = new MooreNeighborhoodGeneralized();
     std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
     try{
-        DBManager dbMan = DBManager::getDB();
-        dbMan.loadNeighborhoodFromDB();
+        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
+        neighborsBrowser = new NeighborsBrowser(this);
+        neighborsBrowser->setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
+        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
+        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
     }
     catch(DBException e){
         QMessageBox window;
         window.setText(QString::fromStdString(e.getInfo()));
         window.show();
     }
-
-    //loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
-    neighborsBrowser = new NeighborsBrowser(this);
-    neighborsBrowser->setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
-    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
-    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
 }
 
 void ControlPanel::loadTransitions() {
