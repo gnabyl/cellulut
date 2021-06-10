@@ -224,3 +224,32 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const
     query.finish();
     return {n, res};
 }
+
+std::pair<int, TransitionStrategy**> DBManager::loadTransitionsFromDB() const {
+    TransitionFactory* e = new TransitionFactory;
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("SELECT COUNT(*) FROM Transition");
+    query.exec();
+    query.next();
+    int n = query.value(0).toInt();
+    TransitionStrategy** res = new TransitionStrategy*[n];
+    TransitionStrategy* transition;
+    query.finish();
+    QSqlQuery queryAux(QSqlDatabase::database());
+    queryAux.prepare("SELECT name FROM Transition");
+    queryAux.exec();
+
+
+    int i = 0;
+    while(queryAux.next()) {
+        QString name=queryAux.value(0).toString();
+        std::string nameString=name.toStdString();
+        transition = e->production(nameString);
+        res[i] = transition;
+        i++;
+    }
+    delete e;
+    queryAux.finish();
+    return {n, res};
+}
+

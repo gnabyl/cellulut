@@ -38,8 +38,8 @@ public:
     void DBaddNeighborhood(const QString name, const int* dx,const int *dy)const;
     std::pair<int, NeighborhoodStrategy**> loadNeighborhoodFromDB() const;
     void loadStatesFromDB() const;
-    void loadTransitionsFromDB();
     std::pair<int,CellState**> loadStatefromDB() const;
+    std::pair<int, TransitionStrategy**>loadTransitionsFromDB() const;
 };
 
 

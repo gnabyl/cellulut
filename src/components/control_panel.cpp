@@ -75,7 +75,22 @@ void ControlPanel::loadNeighborhoods() {
         window.show();
     }
 }
-
+void ControlPanel::loadTransitions() {
+    std::pair<int, TransitionStrategy**> loadedTransitionInfos;
+    try{
+        loadedTransitionInfos = DBManager::getDB().loadTransitionsFromDB();
+        transitionsBrowser = new TransitionsBrowser(this);
+        transitionsBrowser->setTransitions(loadedTransitionInfos.first, loadedTransitionInfos.second);
+        connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
+        connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.show();
+    }
+}
+/*
 void ControlPanel::loadTransitions() {
     int nbTransitions = AutomataManager::getAutomataManager()->getNbAutomatas();
     TransitionStrategy** transitions = new TransitionStrategy* [nbTransitions];
@@ -87,7 +102,7 @@ void ControlPanel::loadTransitions() {
     connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
     connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
 }
-
+*/
 void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
