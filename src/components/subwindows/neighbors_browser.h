@@ -10,13 +10,14 @@
 #include <QLabel>
 #include <QLineEdit>
 #include "utils/neighborhood_strategy.h"
+#include "utils/helpers.h"
 
 class NeighborsBrowser : public QDialog{
     Q_OBJECT
     QVBoxLayout* mainLayout;
     QFormLayout* neighborhoodLayout;
     QComboBox* neighborhoodCbb;
-    QSpinBox* radius;
+    QSpinBox* spbRadius;
     QPushButton* btnConfirm;
 
     int nbNeighbors = 0;
