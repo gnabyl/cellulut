@@ -150,7 +150,9 @@ NeighborhoodStrategy** DBManager::loadNeighborhood() const{
         QString name=query.value(0).toString();
         int radius=query.value(1).toInt();
         QSqlQuery query1;
-        query1.exec("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name) GROUP BY dx;");
+        query1.prepare("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name) GROUP BY dx;");
+        query1.bindValue(":name", name);
+        query1.exec();
         int nbNeighbors=query1.value(0).toInt();
         query1.prepare("SELECT dx,dy FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name);");
         query1.bindValue(":name", name);
