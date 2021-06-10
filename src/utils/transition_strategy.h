@@ -196,6 +196,8 @@ class BBTransition : public OuterTotalisticTransition {
 
 class DGTransition : public OuterTotalisticTransition {
     public:
+    DGTransition(std::string name = "David Griffeath Transition") : OuterTotalisticTransition(name) {}
+
     /**
      * @brief calcNextCell  méthode concrète qui définit la fonction virtuelle pure de la classe mère pour la DGTransition
      * @param c cellule étudiée que l'on modifiera ou non
@@ -210,6 +212,8 @@ class DGTransition : public OuterTotalisticTransition {
 
 class LLTransition : public OuterTotalisticTransition {
     public:
+    LLTransition(std::string name = "Langton Loop Transition") : OuterTotalisticTransition(name) {}
+
     /**
      * @brief calcNextCell  méthode concrète qui définit la fonction virtuelle pure de la classe mère pour la LLTransition
      * @param c cellule étudiée que l'on modifiera ou non
@@ -225,6 +229,8 @@ class LLTransition : public OuterTotalisticTransition {
 
 class LATransition : public OuterTotalisticTransition {
   public:
+    LATransition(std::string name = "Langton Ant Transition") : OuterTotalisticTransition(name) {}
+
     /**
      * @brief calcNextCell  méthode concrète qui définit la fonction virtuelle pure de la classe mère pour la LATransition
      * @param c cellule étudiée que l'on modifiera ou non

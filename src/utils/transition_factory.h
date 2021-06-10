@@ -8,7 +8,7 @@ using namespace std;
 class TransitionFactory {
 
 public:
-    TransitionStrategy* production(const string &name) const;
+    TransitionStrategy* production(const string name) const;
 
 };
 #endif // TRANSITION_FACTORY_H

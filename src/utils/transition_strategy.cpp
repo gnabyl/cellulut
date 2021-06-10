@@ -398,18 +398,7 @@ Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
 
 /*
 FONCTION DE TRANSITION DE LANGTON ANT
-- Depart : il faut pouvoir définir l'orientation de départ de la fourmi (de la 1ere celulle)
- 1) rajouter un attribut orientation à la classe cellule
- 2) modifier l'orientation de la cellule sur l'interface graphique
- http://www.langtonant.com/
- https://fr.wikipedia.org/wiki/Fourmi_de_Langton
- http://www.dim.uchile.cl/~anmoreir/oficial/langton_dam.pdf
- https://www.researchgate.net/profile/Majid-Vafaei-Jahan/publication/268289802_From_Complexity_to_Random_Behaviors_Generate_Random_Numbers_by_Confusion_in_Cellular_Automata_State%27s/links/551396f60cf283ee08348aed/From-Complexity-to-Random-Behaviors-Generate-Random-Numbers-by-Confusion-in-Cellular-Automata-States.pdf
-
- Il est également possible de définir la fourmi de Langton comme un automate cellulaire où la plUPart des cases de la grille sont blanches ou noires et
- où la case de la fourmi peut prendre huit états différents, codant à la fois sa couleur et la direction de la fourmi.
--> en effet on a pour chacune des 2 couleurs 4 directions possibles suivant la direction / orientation de base de la cellule étudiée
- - Règle totalistique
+- Règle totalistique
 - Taille du voisinage : 8 (von neumann)
 - Nombre d'états possibles : 2 (noir ou blanc)
 */
@@ -459,22 +448,7 @@ bool OuterTotalisticTransition::isDestination(Cell* c, Cell* neighbor) const {
 }
 
 
-// je ne me sers pas actuellement du voisinage
 Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
-
-    // si on suit l'héritage il faut faire un truc de ce style mais ça ne fonctionne pas
-    //CellStateDirection ** availableStatesDirection = dynamic_cast<CellStateDirection**>(availableStates);
-
-
-    // ============================== VERSION SANS HERITAGE (AJOUT D'UN ATTRIBUT DIRECTION) ========================================
-
-    /* si (direction)
-        calculer nouvel etat de la cell actuelle;
-        enlever direction;
-        inverser;
-          retourne;
-     */
-
 
     if (c->getDirection() != NONE) {
         // Cette cellule possede une fourmi

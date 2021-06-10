@@ -2,7 +2,7 @@
 
 using namespace std;
 
-TransitionStrategy* TransitionFactory::production(const string& ruleName) const {
+TransitionStrategy* TransitionFactory::production(const string ruleName) const {
     if(ruleName == "Game of Life's Transition Rule") return new GOLTransition;
     if(ruleName == "Brian's Brain Transition") return new BBTransition;
     if(ruleName == "David Grieffath Transition") return new DGTransition;
