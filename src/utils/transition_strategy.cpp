@@ -21,9 +21,9 @@ SUPpositions :
 */
 Cell* GOLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
     if(neighborSize != 8)
-        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : Game of Life exige un voisinage de 8 cellules.\n");
+        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : La transition Game of Life exige un voisinage de 8 cellules.\n");
     if(nbStates != 2)
-        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : Game of Life ne fonctionne qu'avec 2 états possibles.\n");
+        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : La transition Game of Life ne fonctionne qu'avec 2 états possibles.\n");
     int sum = 0;
     for(int i = 0; i < neighborSize; i++) {
         if(availableStates[1]->getId() == neighbors[i]->getState()->getId()) sum += 1;
@@ -48,9 +48,9 @@ SUPpositions :
 */
 Cell* BBTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
     if(neighborSize != 8)
-        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : Brian's Brain exige un voisinage de 8 cellules.\n");
+        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : La transition Brian's Brain exige un voisinage de 8 cellules.\n");
     if(nbStates != 3)
-        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : Brian's Brain ne fonctionne qu'avec 3 états possibles.\n");
+        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : La transition Brian's Brain ne fonctionne qu'avec 3 états possibles.\n");
     //Toute cellule excitée devient réfractaire.
     if(c->getState()->getId() == availableStates[2]->getId()) {
         return new Cell(availableStates[1], c->getX(), c->getY());
@@ -85,9 +85,9 @@ SUPpositions :
 
 Cell* DGTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
     if(neighborSize != 8)
-        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : L'automate circulaire de David Griffeath exige un voisinage de 8 cellules.\n");
+        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : La transition de l'automate circulaire de David Griffeath exige un voisinage de 8 cellules.\n");
     if(nbStates != 4)
-        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : L'automate circulaire de David Griffeath ne fonctionne qu'avec 4 états possibles.\n");
+        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : La transition l'automate circulaire de David Griffeath ne fonctionne qu'avec 4 états possibles.\n");
 
 
     int j; // indice de la couleur de la cellule courante
@@ -117,6 +117,11 @@ FONCTION DE TRANSITION DE LANGTON'S LOOP
 */
 
 Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
+
+    if(neighborSize != 4)
+        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : La transition de Langton Loop exige un voisinage de 4 cellules.\n");
+    if(nbStates != 8)
+        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : La transition de Langton Loop ne fonctionne qu'avec 8 états possibles.\n");
 
     // dictionnaire de l'ensemble des règles
     std::map <std::string, int> langtonRules = {
@@ -399,7 +404,7 @@ Cell* LLTransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
 /*
 FONCTION DE TRANSITION DE LANGTON ANT
 - Règle totalistique
-- Taille du voisinage : 8 (von neumann)
+- Taille du voisinage : 4 (von neumann)
 - Nombre d'états possibles : 2 (noir ou blanc)
 */
 
@@ -449,6 +454,11 @@ bool OuterTotalisticTransition::isDestination(Cell* c, Cell* neighbor) const {
 
 
 Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, CellState** availableStates, int nbStates) const {
+
+    if(neighborSize != 4)
+        throw TransitionException("La taille du voisinage choisi est incohérente avec la fonction de transition utilisée : La transition de Langton Ant exige un voisinage de 4 cellules.\n");
+    if(nbStates != 2)
+        throw TransitionException("Le nombre d'états de l'automate est incohérent avec la règle de transition choisie : La transition de Langton Ant ne fonctionne qu'avec 2 états possibles.\n");
 
     if (c->getDirection() != NONE) {
         // Cette cellule possede une fourmi
