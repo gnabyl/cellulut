@@ -131,6 +131,20 @@ QColor DBManager::toColor(const QString& col) const {
     return Qt::white;
 }
 
+/*QColor DBManager::toName(const QString& col) const {
+    if(col == "black") return Qt::black;
+    if(col == "white") return Qt::white;
+    if(col == "yellow") return Qt::yellow;
+    if(col == "blue") return Qt::blue;
+    if(col == "cyan") return Qt::cyan;
+    if(col == "darkcyan") return Qt::darkCyan;
+    if(col == "red") return Qt::red;
+    if(col == "green") return Qt::green;
+    if(col == "magenta") return Qt::magenta;
+    return Qt::white;
+}
+*/
+
 DBManager::~DBManager() {
     db.close();
 }

@@ -90,19 +90,6 @@ void ControlPanel::loadTransitions() {
         window.show();
     }
 }
-/*
-void ControlPanel::loadTransitions() {
-    int nbTransitions = AutomataManager::getAutomataManager()->getNbAutomatas();
-    TransitionStrategy** transitions = new TransitionStrategy* [nbTransitions];
-    for (int i = 0; i < nbTransitions; i ++) {
-        transitions[i] = AutomataManager::getAutomataManager()->getAutomata(i)->getTransitionStrategy();
-    }
-    transitionsBrowser = new TransitionsBrowser(this);
-    transitionsBrowser->setTransitions(nbTransitions, transitions);
-    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
-    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
-}
-*/
 void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
@@ -144,10 +131,12 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     setLayout(mainLayout);
 
 
+
     // Make all button disabled
-    btnBrowseNeighborhoods->setDisabled(true);
-    btnBrowseTransitions->setDisabled(true);
+    //btnBrowseNeighborhoods->setDisabled(true);
+    //btnBrowseTransitions->setDisabled(true);
     //btnEditState->setDisabled(true);
+
 
 
 
