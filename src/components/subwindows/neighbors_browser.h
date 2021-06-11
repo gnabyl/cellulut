@@ -9,8 +9,10 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include "utils/neighborhood_strategy.h"
 #include "utils/helpers.h"
+#include "utils/database.h"
 
 class NeighborsBrowser : public QDialog{
     Q_OBJECT
@@ -38,6 +40,7 @@ signals:
 public slots:
     void chooseNeighbor();
     void neighborCbbChanged(int id);
+    void openNeighborsBrowser();
 
 };
 

@@ -60,36 +60,6 @@ void ControlPanel::loadAutomatas() {
     connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
 }
 
-void ControlPanel::loadNeighborhoods() {
-    std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
-    try{
-        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
-        neighborsBrowser = new NeighborsBrowser(this);
-        neighborsBrowser->setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
-        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
-        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
-    }
-    catch(DBException e){
-        QMessageBox window;
-        window.setText(QString::fromStdString(e.getInfo()));
-        window.show();
-    }
-}
-void ControlPanel::loadTransitions() {
-    std::pair<int, TransitionStrategy**> loadedTransitionInfos;
-    try{
-        loadedTransitionInfos = DBManager::getDB().loadTransitionsFromDB();
-        transitionsBrowser = new TransitionsBrowser(this);
-        transitionsBrowser->setTransitions(loadedTransitionInfos.first, loadedTransitionInfos.second);
-        connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
-        connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
-    }
-    catch(DBException e){
-        QMessageBox window;
-        window.setText(QString::fromStdString(e.getInfo()));
-        window.show();
-    }
-}
 /*
 void ControlPanel::loadTransitions() {
     int nbTransitions = AutomataManager::getAutomataManager()->getNbAutomatas();
@@ -113,6 +83,8 @@ void ControlPanel::initEventHandler() {
     connect(statesListWidget,SIGNAL(currentRowChanged(int)),statebrowser,SLOT(receiveStateID(int)));
     connect(btnEditState, &QPushButton::clicked, this, &ControlPanel::openStateBrowser);
     connect(simulatorWidget,SIGNAL(stateHasChanged()),this,SLOT(updateStates()));
+    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
+    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -127,6 +99,8 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     automataSettingsBox = new QGroupBox(tr("Automata settings"));
     initAutomataSettings();
     mainLayout->addWidget(automataSettingsBox);
+    transitionsBrowser = new TransitionsBrowser(this);
+    neighborsBrowser = new NeighborsBrowser(this);
 
     //3 : run settings
     runSettingsBox = new QGroupBox(tr("Run settings"));
@@ -137,16 +111,14 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
 
     loadAutomatas();
-    loadNeighborhoods();
-    loadTransitions();
     loadStates();
 
     setLayout(mainLayout);
 
 
     // Make all button disabled
-    btnBrowseNeighborhoods->setDisabled(true);
-    btnBrowseTransitions->setDisabled(true);
+    //btnBrowseNeighborhoods->setDisabled(true);
+    //btnBrowseTransitions->setDisabled(true);
     //btnEditState->setDisabled(true);
 
 

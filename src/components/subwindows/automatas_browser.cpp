@@ -1,7 +1,44 @@
 #include "automatas_browser.h"
 
+AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent){
+    transitionsBrowser = new TransitionsBrowser(this);
+    neighborsBrowser = new NeighborsBrowser(this);
+
+    mainLayout = new QVBoxLayout(this);
+    fieldsLayout = new QFormLayout(this);
+
+    nameField = new QLineEdit(this);
+    nbStatesSpb = new QSpinBox(this);
+    neighborhoodChooseButton = new QPushButton(this);
+    transitionChooseButton = new QPushButton(this);
+
+    neighborhoodChooseButton->setText("Browse");
+    transitionChooseButton->setText("Browse");
+
+    fieldsLayout->addRow("Automaton name : ",nameField);
+    fieldsLayout->addRow("Number of states : ",nbStatesSpb);
+    fieldsLayout->addRow("Neighborhood : ",neighborhoodChooseButton);
+    fieldsLayout->addRow("Transition rule : ",transitionChooseButton);
+
+    mainLayout->addLayout(fieldsLayout);
+
+    validateButton = new QPushButton(this);
+    validateButton->setText("Validate");
+    validateButton->setDisabled(true);
+
+    mainLayout->addWidget(validateButton);
+
+    initButtons();
+}
+
+void AutomatasCreator::initButtons(){
+    connect(transitionChooseButton,&QPushButton::clicked,transitionsBrowser,&TransitionsBrowser::openTransitionBrowser);
+    connect(neighborhoodChooseButton,&QPushButton::clicked,neighborsBrowser,&NeighborsBrowser::openNeighborsBrowser);
+}
+
 AutomatasBrowser::AutomatasBrowser(QWidget* parent) : QDialog(parent) {
     mainLayout = new QVBoxLayout(this);
+    automataCreator = new AutomatasCreator(this);
 
     initAutomatasTable();
     initButtons();
@@ -64,6 +101,7 @@ void AutomatasBrowser::initButtons() {
 
 
     connect(btnChoose, &QPushButton::clicked, this, &AutomatasBrowser::chooseAutomata);
+    connect(btnCreate,&QPushButton::clicked,this,&AutomatasBrowser::openAutomataCreator);
 }
 
 /*
@@ -76,6 +114,9 @@ void AutomatasBrowser::chooseAutomata() {
     }
 }
 
+void AutomatasBrowser::openAutomataCreator(){
+    automataCreator->exec();
+}
 
 AutomatasBrowser::~AutomatasBrowser() {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();

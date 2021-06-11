@@ -9,7 +9,9 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include "utils/transition_strategy.h"
+#include "utils/database.h"
 
 class TransitionsBrowser : public QDialog{
     Q_OBJECT
@@ -29,6 +31,7 @@ public:
     ~TransitionsBrowser();
 
     void setTransitions(int nbTransitions, TransitionStrategy** transitions);
+    void openTransitionBrowser();
 
 signals:
     void transitionChanged(TransitionStrategy* transition);

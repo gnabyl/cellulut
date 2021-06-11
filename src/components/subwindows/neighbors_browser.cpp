@@ -29,6 +29,23 @@ void NeighborsBrowser::setNeighborhoods(int nbNeighbors, NeighborhoodStrategy **
     updateCombobox();
 }
 
+void NeighborsBrowser::openNeighborsBrowser(){
+    std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
+    try{
+        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
+        setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
+//        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
+//        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.show();
+    }
+
+    this->exec();
+}
+
 void NeighborsBrowser::updateCombobox() {
     neighborhoodCbb->clear();
     for (int i = 0; i < nbNeighbors; i ++) {
