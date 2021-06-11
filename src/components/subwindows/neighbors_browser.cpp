@@ -42,8 +42,6 @@ void NeighborsBrowser::openNeighborsBrowser(){
     try{
         loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
         setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
-//        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
-//        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
     }
     catch(DBException e){
         QMessageBox window;
@@ -63,6 +61,9 @@ void NeighborsBrowser::updateCombobox() {
 
 void NeighborsBrowser::neighborCbbChanged(int id) {
     selectedNeighbor = neighbors[id];
+    if (selectedNeighbor == nullptr) {
+        return;
+    }
     if (instanceof<VonNeumannNeighborhoodGeneralized>(selectedNeighbor) || instanceof<MooreNeighborhoodGeneralized>(selectedNeighbor)) {
         spbRadius = new QSpinBox();
         if (instanceof<VonNeumannNeighborhoodGeneralized>(selectedNeighbor)) {
