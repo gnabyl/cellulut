@@ -10,12 +10,9 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
-<<<<<<< HEAD
 #include <QMessageBox>
-=======
 #include <QCheckBox>
 #include "utils/database.h"
->>>>>>> 0cda0b4c74954d71f15197fd77856745e1bd51a9
 #include "utils/neighborhood_strategy.h"
 #include "utils/helpers.h"
 #include "utils/database.h"
