@@ -5,13 +5,33 @@
 
 using namespace std;
 
-//Cette classe est une fabrique de voisinage utilisée pour renvoyer le bon type de voisinage suite à une requête à la base de donnée
+/**
+ * @brief Fabrique de voisinnage
+ */
 class NeighborhoodFactory {
 
 public:
-    // Permet de créer le type de voisinage correspondant au nom passé en paramètre
+    /**
+     * @brief production Méthode de fabrication d'un voisinage
+     * @param name nom du voisinage à fabriquer
+     * @return NeighborhoodStrategy* un pointeur sur une classe de voisinage
+     */
     NeighborhoodStrategy* production(const string name) const;
+    /**
+     * @brief production Méthode de fabrication d'un voisinage
+     * @param name nom du voisinage à fabriquer
+     * @param radius rayon du voisinage
+     * @return NeighborhoodStrategy* un pointeur sur une classe de voisinage
+     */
     NeighborhoodStrategy* production(const string name, const int radius) const;
+    /**
+     * @brief production Méthode de fabrication d'un voisinage
+     * @param name nom du voisinage à fabriquer
+     * @param nbVoisins nombre de voisins
+     * @param dx tableau des coordonnées relatives (x) des voisins à partir de la cellule
+     * @param dy tableau des coordonnées relatives (y) des voisins à partir de la cellule
+     * @return NeighborhoodStrategy* un pointeur sur une classe de voisinage
+     */
     NeighborhoodStrategy* production(const string name, const int nbVoisins, int* dx, int* dy) const;
 
 };
