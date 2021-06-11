@@ -132,6 +132,14 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
 
 
+    // Make all button disabled
+    //btnBrowseNeighborhoods->setDisabled(true);
+    //btnBrowseTransitions->setDisabled(true);
+    //btnEditState->setDisabled(true);
+
+
+
+
     initEventHandler();
 
     setMaximumWidth(500);
