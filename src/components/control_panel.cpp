@@ -145,8 +145,8 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
 
     // Make all button disabled
-    //btnBrowseNeighborhoods->setDisabled(true);
-    //btnBrowseTransitions->setDisabled(true);
+    btnBrowseNeighborhoods->setDisabled(true);
+    btnBrowseTransitions->setDisabled(true);
     //btnEditState->setDisabled(true);
 
 
