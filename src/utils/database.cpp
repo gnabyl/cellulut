@@ -161,18 +161,18 @@ void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
     }
 }
 
-void DBManager::DBaddNeighborhood(const QString name, const int* dx, const int* dy) const {
+void DBManager::DBaddNeighborhood(const QString name, int nbNeighbors, const int* dx, const int* dy) const {
     QSqlQuery query(QSqlDatabase::database());
-    query.prepare("INSERT INTO Neighborhood (:name)");
+    query.prepare("INSERT INTO Neighborhood(name) VALUES (:name)");
     query.bindValue(":name", name);
     if(!query.exec()) {
         qDebug() << "addNeighborhood error:"
                  << query.lastError().text();
     }
     int n = 0;
-    while(dx[n]) {
+    while(n < nbNeighbors) {
         QSqlQuery query(QSqlDatabase::database());
-        query.prepare("INSERT INTO Neighbor (:name, :dx,:dy)");
+        query.prepare("INSERT INTO Neighbor VALUES(:dx,:dy, :name)");
         query.bindValue(":name", name);
         query.bindValue(":dx", dx[n]);
         query.bindValue(":dy", dy[n]);
@@ -206,16 +206,18 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const
         QString name = queryAux.value(0).toString();
         int radius = queryAux.value(1).toInt();
         QSqlQuery query1(QSqlDatabase::database());
-        query1.prepare("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name) GROUP BY dx;");
+        query1.prepare("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.neighborhood WHERE Neighborhood.name=:name GROUP BY dx");
         query1.bindValue(":name", name);
         query1.exec();
+        query1.next();
         int nbNeighbors=query1.value(0).toInt();
         query1.prepare("SELECT dx,dy FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name);");
         query1.bindValue(":name", name);
         query1.exec();
+        query1.next();
         std::string stringName = name.toStdString();
-        if(query1.value(0).toInt() == 0) {
-            if(query1.value(1).toInt() == 0) {
+        if(nbNeighbors == 0) {
+            if(radius == 0) {
                 neighborhood = e->production(name.toStdString());
             } else {
                 neighborhood = e->production(name.toStdString(), radius);

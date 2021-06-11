@@ -35,7 +35,7 @@ public:
     QColor toColor(const QString& col) const;
 
     void DBaddNeighborhood(const QString name, const int radius) const;
-    void DBaddNeighborhood(const QString name, const int* dx,const int *dy)const;
+    void DBaddNeighborhood(const QString name, int nbNeighbors, const int* dx,const int *dy)const;
     std::pair<int, NeighborhoodStrategy**> loadNeighborhoodFromDB() const;
     void loadStatesFromDB() const;
     std::pair<int,CellState**> loadStatefromDB() const;

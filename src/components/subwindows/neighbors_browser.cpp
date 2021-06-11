@@ -6,11 +6,14 @@ NeighborsBrowser::NeighborsBrowser(QWidget* parent) : QDialog(parent) {
     buttonsLayout = new QHBoxLayout(this);
     neighborhoodCbb = new QComboBox(this);
 
+    neighborCreator = new NeighborCreator(this, 11, 11);
+
     btnConfirm = new QPushButton("Confirm", this);
     btnCreate = new QPushButton("Create", this);
 
     neighborhoodLayout->addRow("Neighborhood", neighborhoodCbb);
 
+    connect(btnCreate, &QPushButton::clicked, this, &NeighborsBrowser::openNeighborCreator);
     connect(btnConfirm, &QPushButton::clicked, this, &NeighborsBrowser::chooseNeighbor);
     connect(neighborhoodCbb, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NeighborsBrowser::neighborCbbChanged);
 
@@ -61,4 +64,90 @@ void NeighborsBrowser::neighborCbbChanged(int id) {
 void NeighborsBrowser::chooseNeighbor() {
     emit neighborChanged(selectedNeighbor);
     close();
+}
+
+void NeighborsBrowser::openNeighborCreator() {
+    this->neighborCreator->exec();
+}
+
+
+// ================================== Creation ===================================
+NeighborCreator::NeighborCreator(QWidget* parent, int width, int height) : QDialog(parent) {
+    this->width = width;
+    this->height = height;
+    if (this->width % 2 == 0) {
+        this->width ++;
+    }
+    if (this->height % 2 == 0) {
+        this->height ++;
+    }
+    this->centerR = this->height / 2;
+    this->centerC = this->width / 2;
+    mainLayout = new QVBoxLayout(this);
+    infoLayout = new QFormLayout(this);
+    gridLayout = new QGridLayout(this);
+    buttonsLayout = new QHBoxLayout(this);
+
+    txtName = new QLineEdit();
+    cellsCheckbox = new QCheckBox**[height];
+    for (int r = 0; r < height; r ++) {
+        cellsCheckbox[r] = new QCheckBox*[width];
+        for (int c = 0; c < width; c ++) {
+            if (r == centerR && c == centerC) {
+                gridLayout->addWidget(new QLabel("|X|"), r, c);
+            } else {
+                cellsCheckbox[r][c] = new QCheckBox();
+                gridLayout->addWidget(cellsCheckbox[r][c], r, c);
+            }
+        }
+    }
+
+    btnCreate = new QPushButton("Create");
+    connect(btnCreate, &QPushButton::clicked, this, &NeighborCreator::createNeighbor);
+
+    buttonsLayout->addWidget(btnCreate);
+
+    infoLayout->addRow("Name", txtName);
+
+    mainLayout->addLayout(infoLayout);
+    mainLayout->addWidget(new QLabel("Choose neighbors"));
+    mainLayout->addLayout(gridLayout);
+    mainLayout->addLayout(buttonsLayout);
+
+    setLayout(mainLayout);
+}
+
+void NeighborCreator::createNeighbor() {
+    DBManager db = DBManager::getDB();
+    int nbNeighbors = 0;
+    int *dx, *dy;
+    for (int r = 0; r < height; r ++) {
+        for (int c = 0; c < width; c ++) {
+            if (r != centerR || c != centerC) {
+                if (cellsCheckbox[r][c]->isChecked())
+                    nbNeighbors ++;
+            }
+        }
+    }
+    dx = new int[nbNeighbors];
+    dy = new int[nbNeighbors];
+    nbNeighbors = 0;
+    for (int r = 0; r < height; r ++) {
+        for (int c = 0; c < width; c ++) {
+            if (r != centerR || c != centerC) {
+                if (cellsCheckbox[r][c] && cellsCheckbox[r][c]->isChecked()) {
+                    dx[nbNeighbors] = r - centerR;
+                    dy[nbNeighbors] = c - centerC;
+                    nbNeighbors ++;
+                }
+            }
+        }
+    }
+    db.DBaddNeighborhood(txtName->text(), nbNeighbors, dx, dy);
+    delete[] dx;
+    delete[] dy;
+}
+
+NeighborCreator::~NeighborCreator() {
+
 }
