@@ -15,10 +15,12 @@
 class NeighborsBrowser : public QDialog{
     Q_OBJECT
     QVBoxLayout* mainLayout;
+    QHBoxLayout* buttonsLayout;
     QFormLayout* neighborhoodLayout;
     QComboBox* neighborhoodCbb;
     QSpinBox* spbRadius;
     QPushButton* btnConfirm;
+    QPushButton* btnCreate;
 
     int nbNeighbors = 0;
     NeighborhoodStrategy** neighbors = nullptr;

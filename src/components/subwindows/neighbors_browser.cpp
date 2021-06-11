@@ -3,9 +3,11 @@
 NeighborsBrowser::NeighborsBrowser(QWidget* parent) : QDialog(parent) {
     mainLayout = new QVBoxLayout(this);
     neighborhoodLayout = new QFormLayout(this);
+    buttonsLayout = new QHBoxLayout(this);
     neighborhoodCbb = new QComboBox(this);
 
     btnConfirm = new QPushButton("Confirm", this);
+    btnCreate = new QPushButton("Create", this);
 
     neighborhoodLayout->addRow("Neighborhood", neighborhoodCbb);
 
@@ -14,7 +16,10 @@ NeighborsBrowser::NeighborsBrowser(QWidget* parent) : QDialog(parent) {
 
     mainLayout->addLayout(neighborhoodLayout);
 
-    mainLayout->addWidget(btnConfirm);
+    buttonsLayout->addWidget(btnConfirm);
+    buttonsLayout->addWidget(btnCreate);
+
+    mainLayout->addLayout(buttonsLayout);
 
     adjustSize();
 }
