@@ -29,7 +29,7 @@ void ControlPanel::stateSettings() {
 void ControlPanel::loadStates(){
     try{
         DBManager dbMan = DBManager::getDB();
-        std::pair<int,CellState**> statetab=dbMan.loadStatefromDB();
+        std::pair<int,CellState**> statetab=dbMan.loadStatesfromDB();
         statebrowser = new StatesBrowser(this,statetab);
     }
 

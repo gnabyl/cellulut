@@ -23,7 +23,7 @@ DBManager::DBManager(const QString& path) {
     }
 }
 
-std::pair<int , CellState**> DBManager::loadStatefromDB() const{
+std::pair<int , CellState**> DBManager::loadStatesfromDB() const{
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT COUNT(*) FROM State");
     query.exec();
@@ -160,7 +160,7 @@ DBManager::~DBManager() {
 }
 
 
-void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
+void DBManager::insertNeighborhoodIntoDB(const QString name, const int radius) const {
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("INSERT INTO Neighborhood(name, radius) VALUES (:name,:radius)");
     query.bindValue(":name", name);
@@ -171,7 +171,7 @@ void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
     }
 }
 
-void DBManager::DBaddNeighborhood(const QString name, int nbNeighbors, const int* dx, const int* dy) const {
+void DBManager::insertNeighborhoodIntoDB(const QString name, int nbNeighbors, const int* dx, const int* dy) const {
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("INSERT INTO Neighborhood(name) VALUES (:name)");
     query.bindValue(":name", name);
@@ -198,7 +198,7 @@ void DBManager::DBaddNeighborhood(const QString name, int nbNeighbors, const int
 }
 
 
-std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const {
+std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodsFromDB() const {
     NeighborhoodFactory* e = new NeighborhoodFactory;
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT COUNT(*) FROM Neighborhood");

@@ -35,11 +35,11 @@ public:
     void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates);
     QColor toColor(const QString& col) const;
 
-    void DBaddNeighborhood(const QString name, const int radius) const;
-    void DBaddNeighborhood(const QString name, int nbNeighbors, const int* dx,const int *dy)const;
-    std::pair<int, NeighborhoodStrategy**> loadNeighborhoodFromDB() const;
+    void insertNeighborhoodIntoDB(const QString name, const int radius) const;
+    void insertNeighborhoodIntoDB(const QString name, int nbNeighbors, const int* dx,const int *dy)const;
+    std::pair<int, NeighborhoodStrategy**> loadNeighborhoodsFromDB() const;
     void loadStatesFromDB() const;
-    std::pair<int,CellState**> loadStatefromDB() const;
+    std::pair<int,CellState**> loadStatesfromDB() const;
     std::pair<int, TransitionStrategy**>loadTransitionsFromDB() const;
 };
 

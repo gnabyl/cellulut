@@ -42,7 +42,7 @@ AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(
 void AutomatasCreator::initStatesBrowser(){
     try{
         DBManager dbMan = DBManager::getDB();
-        std::pair<int,CellState**> statetab=dbMan.loadStatefromDB();
+        std::pair<int,CellState**> statetab=dbMan.loadStatesfromDB();
         statesBrowser = new StatesBrowser(this,statetab);
     }
 

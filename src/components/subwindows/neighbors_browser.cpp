@@ -43,7 +43,7 @@ void NeighborsBrowser::setNeighborhoods(int nbNeighbors, NeighborhoodStrategy** 
 void NeighborsBrowser::openNeighborsBrowser() {
     std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
     try {
-        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
+        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodsFromDB();
         setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
     } catch(DBException e) {
         QMessageBox window;
@@ -219,12 +219,12 @@ void NeighborCreator::createNeighbor() {
                 }
             }
         }
-        db.DBaddNeighborhood(txtName->text(), nbNeighbors, dx, dy);
+        db.insertNeighborhoodIntoDB(txtName->text(), nbNeighbors, dx, dy);
         delete[] dx;
         delete[] dy;
     } else {
         DBManager db = DBManager::getDB();
-        db.DBaddNeighborhood(txtName->text(), spbRadius->value());
+        db.insertNeighborhoodIntoDB(txtName->text(), spbRadius->value());
     }
     close();
 }
