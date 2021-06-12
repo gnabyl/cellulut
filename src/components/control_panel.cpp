@@ -42,21 +42,6 @@ void ControlPanel::loadStates(){
 
     connect(statebrowser,SIGNAL(stateChanged(int,CellState*)),simulatorWidget,SLOT(setState(int,CellState*)));
 }
-void ControlPanel::loadAutomatas() {
-    //Init data
-    try{
-        DBManager dbMan = DBManager::getDB();
-        dbMan.loadAutomatasFromDB();
-        setAutomata(0);
-        simulatorWidget->setAutomata(0);
-    }
-    catch(DBException e){
-        QMessageBox window;
-        window.setText(QString::fromStdString(e.getInfo()));
-        window.open();
-    }
-}
-
 
 void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
@@ -100,8 +85,6 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
     mainLayout->addStretch();
 
-
-    loadAutomatas();
     loadStates();
 
     setLayout(mainLayout);
@@ -247,7 +230,7 @@ void FrequencyDisplayBox::setFrequency(int f) {
 }
 
 void ControlPanel::openAutomatasBrowser() {
-    automatasBrowser->open();
+    automatasBrowser->openAutomatasBrowser();
 }
 
 void ControlPanel::openStateBrowser(){

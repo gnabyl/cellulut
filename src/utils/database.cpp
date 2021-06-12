@@ -56,10 +56,10 @@ DBManager& DBManager::getDB() {
 
 void DBManager::loadAutomatasFromDB() const {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
-    QSqlQuery query(this->db);
+    QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT * FROM Automata");
     query.exec();
-    QSqlQuery queryAux(this->db);
+    QSqlQuery queryAux(QSqlDatabase::database());
     while(query.next()) {
         // Infos that are easy to take from DB :
         QString name, description, author;
@@ -80,7 +80,7 @@ void DBManager::loadAutomatasFromDB() const {
 
         int i = 0;
 
-        QSqlQuery queryAuxState(this->db);
+        QSqlQuery queryAuxState(QSqlDatabase::database());
         while(queryAux.next()) { //Take infos about the concerned states to dynamically create those objects
             int stateID = queryAux.value("stateID").toInt();
             queryAuxState.prepare(QString("SELECT * FROM State WHERE id = :stateID"));

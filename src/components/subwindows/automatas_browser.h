@@ -91,6 +91,7 @@ class AutomatasBrowser : public QDialog {
   public:
     AutomatasBrowser(QWidget* parent);
     ~AutomatasBrowser();
+    void openAutomatasBrowser();
 
   signals:
     void automataChanged(int id);

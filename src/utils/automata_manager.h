@@ -105,6 +105,10 @@ class AutomataManager {
     int getNbAutomatas() const {
         return nbAutomatas;
     }
+    /**
+     * @brief Supprimer toutes les automates dans memoires
+     */
+    void clear();
 };
 
 #endif //LO21_AUTOMATAMANAGER_H
