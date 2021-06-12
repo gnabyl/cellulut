@@ -32,6 +32,7 @@ public:
     static void closeDB();
 
     void loadAutomatasFromDB() const;
+    void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates);
     QColor toColor(const QString& col) const;
 
     void DBaddNeighborhood(const QString name, const int radius) const;

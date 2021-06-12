@@ -111,6 +111,23 @@ void DBManager::loadAutomatasFromDB() const {
     }
 }
 
+void DBManager::insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates){
+    QSqlQuery query(this->db);
+    bool test = query.prepare("INSERT INTO Automata(name,description,author,creationYear,nbStates,transition,neighborhood) VALUES(:name,'','',0,:nbStates,:transition,:neighborhood)");
+    query.bindValue(":name",name);
+    query.bindValue(":nbStates",nbStates);
+    query.bindValue(":transition",transitionName);
+    query.bindValue(":neighborhood",neighborhoodName);
+    query.exec();
+
+    for(size_t i=0; i<nbStates; i++){
+        query.prepare("INSERT INTO AutomataState VALUES(:stateID,:name");
+        query.bindValue(":stateID",chosenStates[i]->getId());
+        query.bindValue(":name",name);
+        query.exec();
+    }
+}
+
 QColor DBManager::toColor(const QString& col) const {
     if(col == "black") return Qt::black;
     if(col == "white") return Qt::white;

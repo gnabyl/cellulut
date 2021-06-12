@@ -181,7 +181,7 @@ class GOLTransition : public OuterTotalisticTransition {
 class BBTransition : public OuterTotalisticTransition {
   public:
 
-    BBTransition(std::string name = "Brian's Brain Transition") : OuterTotalisticTransition(name) {}
+    BBTransition(std::string name = "Brian Brain Transition") : OuterTotalisticTransition(name) {}
     /**
      * @brief calcNextCell  méthode concrète qui définit la fonction virtuelle pure de la classe mère pour la BBTransition
      * @param c cellule étudiée que l'on modifiera ou non

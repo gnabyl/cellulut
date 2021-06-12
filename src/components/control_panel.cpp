@@ -106,8 +106,6 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
     setLayout(mainLayout);
 
-
-
     setMaximumWidth(500);
 
     automatasBrowser = new AutomatasBrowser(this);
