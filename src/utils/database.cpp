@@ -275,5 +275,29 @@ std::pair<int, TransitionStrategy**> DBManager::loadTransitionsFromDB() const {
 }
 
 void DBManager::insertConfigIntoDB(const QString &name, Grid *config) const {
-
+    if (config == nullptr) {
+        throw DBException("No grid to save");
+    }
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("INSERT INTO Grid VALUES (:name)");
+    query.bindValue(":name", name);
+    if (!query.exec()) {
+        throw DBException("Duplicate config name!!!");
+    }
+    QString insertQuery = "INSERT INTO Cell VALUES (:x0, :y0, :state0, :grid)";
+    for (int i = 1; i < config->getHeight() * config->getWidth(); i ++) {
+        insertQuery += QString((",(:x" + std::to_string(i) + ", :y" + std::to_string(i) + ", :state" + std::to_string(i) + ", :grid)").c_str());
+    }
+    query.prepare(insertQuery);
+    for (int r = 0; r < config->getHeight(); r ++) {
+        for (int c = 0; c < config->getWidth(); c ++) {
+            query.bindValue((":x" + std::to_string(r * config->getWidth() + c)).c_str(), r);
+            query.bindValue((":y" + std::to_string(r * config->getWidth() + c)).c_str(), c);
+            query.bindValue((":state" + std::to_string(r * config->getWidth() + c)).c_str(), config->getCell(r, c)->getState()->getId());
+            query.bindValue(":grid", name);
+        }
+    }
+    if (!query.exec()) {
+        throw DBException("Error saving cells");
+    }
 }
