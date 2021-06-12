@@ -16,6 +16,7 @@ NeighborsBrowser::NeighborsBrowser(QWidget* parent, int width, int height) : QDi
     connect(btnCreate, &QPushButton::clicked, this, &NeighborsBrowser::openNeighborCreator);
     connect(btnConfirm, &QPushButton::clicked, this, &NeighborsBrowser::chooseNeighbor);
     connect(neighborhoodCbb, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NeighborsBrowser::neighborCbbChanged);
+    connect(neighborCreator, &QDialog::finished, this, &NeighborsBrowser::openNeighborsBrowser);
 
     mainLayout->addLayout(neighborhoodLayout);
 
@@ -101,7 +102,7 @@ void NeighborsBrowser::chooseNeighbor() {
 
 void NeighborsBrowser::openNeighborCreator() {
     this->neighborCreator->open();
-    hide();
+    close();
 }
 
 
