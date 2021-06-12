@@ -21,7 +21,7 @@
 #include "subwindows/neighbors_browser.h"
 #include "subwindows/transitions_browser.h"
 #include "utils/database.h"
-#include "subwindows/State_browser.h"
+#include "subwindows/states_browser.h"
 
 class FrequencyDisplayBox : public QLineEdit{
     Q_OBJECT
@@ -87,7 +87,7 @@ class ControlPanel : public QWidget {
     AutomatasBrowser* automatasBrowser;
     NeighborsBrowser* neighborsBrowser;
     TransitionsBrowser* transitionsBrowser;
-    StateBrowser* statebrowser;
+    StatesBrowser* statebrowser;
 
     void loadAutomatas();
     void loadNeighborhoods();

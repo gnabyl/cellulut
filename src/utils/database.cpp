@@ -59,7 +59,6 @@ void DBManager::loadAutomatasFromDB() const {
     QSqlQuery query(this->db);
     query.prepare("SELECT * FROM Automata");
     query.exec();
-    bool test3 = query.isActive();
     QSqlQuery queryAux(this->db);
     while(query.next()) {
         // Infos that are easy to take from DB :
@@ -100,9 +99,6 @@ void DBManager::loadAutomatasFromDB() const {
         queryAux.finish();
         queryAuxState.finish();
 
-        bool test = queryAux.isActive();
-        bool test2 = queryAuxState.isActive();
-
         QString rule = query.value("transition").toString();
         QString neighborhood = query.value("neighborhood").toString();
 
@@ -113,9 +109,6 @@ void DBManager::loadAutomatasFromDB() const {
                                      author.toStdString(), creationYear);
 
     }
-
-    query.finish();
-    test3 = query.isActive();
 }
 
 QColor DBManager::toColor(const QString& col) const {
@@ -152,8 +145,8 @@ DBManager::~DBManager() {
 
 void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
     QSqlQuery query(QSqlDatabase::database());
-    query.prepare("INSERT INTO Neighborhood (:name,:radius)");
-    query.bindValue(":name", name + QString::number(radius));
+    query.prepare("INSERT INTO Neighborhood(name, radius) VALUES (:name,:radius)");
+    query.bindValue(":name", name);
     query.bindValue(":radius", radius);
     if(!query.exec()) {
         qDebug() << "addNeighborhood error:"
@@ -206,15 +199,14 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const
         QString name = queryAux.value(0).toString();
         int radius = queryAux.value(1).toInt();
         QSqlQuery query1(QSqlDatabase::database());
-        query1.prepare("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.neighborhood WHERE Neighborhood.name=:name GROUP BY dx");
+        query1.prepare("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.neighborhood WHERE Neighborhood.name=:name");
         query1.bindValue(":name", name);
         query1.exec();
         query1.next();
         int nbNeighbors=query1.value(0).toInt();
-        query1.prepare("SELECT dx,dy FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name);");
+        query1.prepare("SELECT dx,dy FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.neighborhood WHERE Neighborhood.name=:name");
         query1.bindValue(":name", name);
         query1.exec();
-        query1.next();
         std::string stringName = name.toStdString();
         if(nbNeighbors == 0) {
             if(radius == 0) {

@@ -23,6 +23,8 @@ class NeighborCreator : public QDialog {
     int width, height, centerR, centerC;
 
     QLineEdit* txtName;
+    QSpinBox* spbRadius;
+    QComboBox* neighborsTypeCbb;
     QGridLayout* gridLayout;
     QVBoxLayout* mainLayout;
     QHBoxLayout* buttonsLayout;
@@ -36,19 +38,21 @@ public:
     ~NeighborCreator();
 private slots:
     void createNeighbor();
+    void changeNeighborType(int id);
+    void changeRadius(int val);
 };
 
 class NeighborsBrowser : public QDialog{
     Q_OBJECT
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* buttonsLayout;
-    QFormLayout* neighborhoodLayout;
-    QComboBox* neighborhoodCbb;
-    QSpinBox* spbRadius;
-    QPushButton* btnConfirm;
-    QPushButton* btnCreate;
+    QVBoxLayout* mainLayout = nullptr;
+    QHBoxLayout* buttonsLayout = nullptr;
+    QFormLayout* neighborhoodLayout = nullptr;
+    QComboBox* neighborhoodCbb = nullptr;
+    QSpinBox* spbRadius = nullptr;
+    QPushButton* btnConfirm = nullptr;
+    QPushButton* btnCreate = nullptr;
 
-    NeighborCreator* neighborCreator;
+    NeighborCreator* neighborCreator = nullptr;
 
     int nbNeighbors = 0;
     NeighborhoodStrategy** neighbors = nullptr;
@@ -57,7 +61,7 @@ class NeighborsBrowser : public QDialog{
     void updateCombobox();
 
 public:
-    NeighborsBrowser(QWidget* parent);
+    NeighborsBrowser(QWidget* parent, int width = 31, int height = 31);
     ~NeighborsBrowser();
 
     void setNeighborhoods(int nbNeighbors, NeighborhoodStrategy** neighbors);

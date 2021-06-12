@@ -16,11 +16,11 @@ void ControlPanel::updateStates(){
 }
 
 void ControlPanel::openNeighborsBrowser() {
-    neighborsBrowser->exec();
+    neighborsBrowser->openNeighborsBrowser();
 }
 
 void ControlPanel::openTransitionsBrowser() {
-    transitionsBrowser->exec();
+    transitionsBrowser->openTransitionBrowser();
 }
 
 void ControlPanel::stateSettings() {
@@ -30,14 +30,14 @@ void ControlPanel::loadStates(){
     try{
         DBManager dbMan = DBManager::getDB();
         std::pair<int,CellState**> statetab=dbMan.loadStatefromDB();
-        statebrowser = new StateBrowser(this,statetab);
+        statebrowser = new StatesBrowser(this,statetab);
     }
 
 
     catch(DBException e){
         QMessageBox window;
         window.setText(QString::fromStdString(e.getInfo()));
-        window.exec();
+        window.open();
     }
 
     connect(statebrowser,SIGNAL(stateChanged(int,CellState*)),simulatorWidget,SLOT(setState(int,CellState*)));
@@ -53,43 +53,10 @@ void ControlPanel::loadAutomatas() {
     catch(DBException e){
         QMessageBox window;
         window.setText(QString::fromStdString(e.getInfo()));
-        window.exec();
+        window.open();
     }
-    automatasBrowser = new AutomatasBrowser(this);
-    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
-    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
 }
 
-void ControlPanel::loadNeighborhoods() {
-    std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
-    try{
-        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
-        neighborsBrowser = new NeighborsBrowser(this);
-        neighborsBrowser->setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
-        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
-        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
-    }
-    catch(DBException e){
-        QMessageBox window;
-        window.setText(QString::fromStdString(e.getInfo()));
-        window.show();
-    }
-}
-void ControlPanel::loadTransitions() {
-    std::pair<int, TransitionStrategy**> loadedTransitionInfos;
-    try{
-        loadedTransitionInfos = DBManager::getDB().loadTransitionsFromDB();
-        transitionsBrowser = new TransitionsBrowser(this);
-        transitionsBrowser->setTransitions(loadedTransitionInfos.first, loadedTransitionInfos.second);
-        connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
-        connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
-    }
-    catch(DBException e){
-        QMessageBox window;
-        window.setText(QString::fromStdString(e.getInfo()));
-        window.show();
-    }
-}
 
 void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
@@ -97,12 +64,19 @@ void ControlPanel::initEventHandler() {
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
     connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
-    connect(btnBrowseAutomatas, &QPushButton::clicked, this, &ControlPanel::openAutomatasBrowser);
     connect(statesListWidget,SIGNAL(currentRowChanged(int)),statebrowser,SLOT(receiveStateID(int)));
     connect(btnEditState, &QPushButton::clicked, this, &ControlPanel::openStateBrowser);
     connect(simulatorWidget,SIGNAL(stateHasChanged()),this,SLOT(updateStates()));
+    connect(btnBrowseAutomatas, &QPushButton::clicked, this, &ControlPanel::openAutomatasBrowser);
+    connect(btnBrowseNeighborhoods, &QPushButton::clicked, this, &ControlPanel::openNeighborsBrowser);
+    connect(btnBrowseTransitions, &QPushButton::clicked, this, &ControlPanel::openTransitionsBrowser);
+
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
     connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
     connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
+    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
+    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -117,8 +91,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     automataSettingsBox = new QGroupBox(tr("Automata settings"));
     initAutomataSettings();
     mainLayout->addWidget(automataSettingsBox);
-    transitionsBrowser = new TransitionsBrowser(this);
-    neighborsBrowser = new NeighborsBrowser(this);
+
 
     //3 : run settings
     runSettingsBox = new QGroupBox(tr("Run settings"));
@@ -135,17 +108,12 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
 
 
-    // Make all button disabled
-    //btnBrowseNeighborhoods->setDisabled(true);
-    //btnBrowseTransitions->setDisabled(true);
-    //btnEditState->setDisabled(true);
-
-
-
-
-    initEventHandler();
-
     setMaximumWidth(500);
+
+    automatasBrowser = new AutomatasBrowser(this);
+    transitionsBrowser = new TransitionsBrowser(this);
+    neighborsBrowser = new NeighborsBrowser(this);
+    initEventHandler();
 }
 
 void ControlPanel::initGridSettings() {
@@ -208,7 +176,7 @@ void ControlPanel::initAutomataSettings() {
     textNeighborhoodName = new QLineEdit(automataSettingsBox);
     btnBrowseNeighborhoods = new QPushButton("Browse", automataSettingsBox);
     neighborhoodFieldLayout = new QHBoxLayout(automataSettingsBox);
-    connect(btnBrowseNeighborhoods, SIGNAL(clicked()), this, SLOT(openNeighborsBrowser()));
+
 
     neighborhoodFieldLayout->addWidget(neighborhoodLabel);
     neighborhoodFieldLayout->addWidget(textNeighborhoodName);
@@ -220,7 +188,6 @@ void ControlPanel::initAutomataSettings() {
     textTransitionName = new QLineEdit(automataSettingsBox);
     btnBrowseTransitions = new QPushButton("Browse", automataSettingsBox);
     transitionsFieldLayout = new QHBoxLayout(automataSettingsBox);
-    connect(btnBrowseTransitions, SIGNAL(clicked()), this, SLOT(openTransitionsBrowser()));
 
     transitionsFieldLayout->addWidget(transitionsLabel);
     transitionsFieldLayout->addWidget(textTransitionName);
@@ -237,7 +204,7 @@ void ControlPanel::initRunSettings() {
     sliderSpeed->setValue(simulatorWidget->getFrequency());
     sliderSpeed->setMinimum(simulatorWidget->getFrequency());
     sliderSpeed->setMaximum(50);
-    runSettingsLayout->addRow("Execution speed", sliderSpeed);
+    runSettingsLayout->addRow("openution speed", sliderSpeed);
     bufferSizeSpb = new QSpinBox(runSettingsBox);
     bufferSizeSpb->setKeyboardTracking(false);
     bufferSizeSpb->setValue(simulatorWidget->getSimulator()->getBufferSize());
@@ -282,9 +249,9 @@ void FrequencyDisplayBox::setFrequency(int f) {
 }
 
 void ControlPanel::openAutomatasBrowser() {
-    automatasBrowser->exec();
+    automatasBrowser->open();
 }
 
 void ControlPanel::openStateBrowser(){
-    statebrowser->exec();
+    statebrowser->open();
 }

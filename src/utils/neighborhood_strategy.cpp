@@ -26,7 +26,7 @@ Cell** VonNeumannNeighborhood::getNeighbors(Cell* c, Grid* g) {
     return neighbors;
 }
 
-VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(int radius): NeighborhoodStrategy("Von Neumann Neighborhood Generalized") {
+VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized(std::string name, int radius): NeighborhoodStrategy(name) {
     this->radius = radius;
     this->nbNeighbors = this->radius * this->radius + (this->radius + 1) * ((this->radius + 1)) - 1 ;
     neighbors = new Cell* [nbNeighbors];
@@ -69,7 +69,7 @@ Cell** MooreNeighborhood::getNeighbors(Cell* c, Grid* g) {
     return neighbors;
 }
 
-MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(int radius): NeighborhoodStrategy("Moore Neighborhood Generalized") {
+MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized(std::string name, int radius): NeighborhoodStrategy(name) {
     this->radius = radius;
     this->nbNeighbors = (2 * this->radius + 1) * (2 * this->radius + 1) - 1;
     neighbors = new Cell* [nbNeighbors];

@@ -238,7 +238,7 @@ void SimulatorWidget::setTransition(TransitionStrategy* transition) {
 void SimulatorWidget::setState(int nb, CellState* c){
     if(nb>simulator->getAutomata()->getNbStates()){
         CellState** newTab = new CellState*[simulator->getAutomata()->getNbStates()+1];
-        for(size_t i=0; i<simulator->getAutomata()->getNbStates();i++){
+        for(int i=0; i<simulator->getAutomata()->getNbStates();i++){
             newTab[i] = simulator->getAutomata()->getAvailableState(i);
         }
         simulator->getAutomata()->setAvailableStates(newTab,simulator->getAutomata()->getNbStates()+1);
