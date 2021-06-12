@@ -40,15 +40,15 @@ private slots:
 
 class NeighborsBrowser : public QDialog{
     Q_OBJECT
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* buttonsLayout;
-    QFormLayout* neighborhoodLayout;
-    QComboBox* neighborhoodCbb;
-    QSpinBox* spbRadius;
-    QPushButton* btnConfirm;
-    QPushButton* btnCreate;
+    QVBoxLayout* mainLayout = nullptr;
+    QHBoxLayout* buttonsLayout = nullptr;
+    QFormLayout* neighborhoodLayout = nullptr;
+    QComboBox* neighborhoodCbb = nullptr;
+    QSpinBox* spbRadius = nullptr;
+    QPushButton* btnConfirm = nullptr;
+    QPushButton* btnCreate = nullptr;
 
-    NeighborCreator* neighborCreator;
+    NeighborCreator* neighborCreator = nullptr;
 
     int nbNeighbors = 0;
     NeighborhoodStrategy** neighbors = nullptr;

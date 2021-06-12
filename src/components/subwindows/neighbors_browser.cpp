@@ -32,6 +32,9 @@ NeighborsBrowser::~NeighborsBrowser() {
 }
 
 void NeighborsBrowser::setNeighborhoods(int nbNeighbors, NeighborhoodStrategy **neighbors) {
+    if (this->neighbors) {
+        delete[] this->neighbors;
+    }
     this->nbNeighbors = nbNeighbors;
     this->neighbors = neighbors;
     updateCombobox();
@@ -49,21 +52,26 @@ void NeighborsBrowser::openNeighborsBrowser(){
         window.show();
     }
 
-    this->exec();
+    this->open();
 }
 
 void NeighborsBrowser::updateCombobox() {
+    if (neighborhoodCbb == nullptr || neighbors == nullptr) {
+        return;
+    }
     neighborhoodCbb->clear();
     for (int i = 0; i < nbNeighbors; i ++) {
-        neighborhoodCbb->addItem(neighbors[i]->getName().c_str());
+        if (neighbors[i]) {
+            neighborhoodCbb->addItem(neighbors[i]->getName().c_str());
+        }
     }
 }
 
 void NeighborsBrowser::neighborCbbChanged(int id) {
-    selectedNeighbor = neighbors[id];
-    if (selectedNeighbor == nullptr) {
+    if (id < 0) {
         return;
     }
+    selectedNeighbor = neighbors[id];
     if (instanceof<VonNeumannNeighborhoodGeneralized>(selectedNeighbor) || instanceof<MooreNeighborhoodGeneralized>(selectedNeighbor)) {
         spbRadius = new QSpinBox();
         if (instanceof<VonNeumannNeighborhoodGeneralized>(selectedNeighbor)) {
@@ -80,12 +88,15 @@ void NeighborsBrowser::neighborCbbChanged(int id) {
 }
 
 void NeighborsBrowser::chooseNeighbor() {
-    emit neighborChanged(selectedNeighbor);
+    if (selectedNeighbor != nullptr) {
+        emit neighborChanged(selectedNeighbor);
+    }
+    selectedNeighbor = nullptr;
     close();
 }
 
 void NeighborsBrowser::openNeighborCreator() {
-    this->neighborCreator->exec();
+    this->neighborCreator->open();
 }
 
 
