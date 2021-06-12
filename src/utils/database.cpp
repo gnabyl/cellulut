@@ -199,7 +199,6 @@ void DBManager::insertNeighborhoodIntoDB(const QString name, int nbNeighbors, co
 
 
 std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodsFromDB() const {
-    NeighborhoodFactory* e = new NeighborhoodFactory;
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT COUNT(*) FROM Neighborhood");
     query.exec();
@@ -227,9 +226,9 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodsFromDB() cons
         std::string stringName = name.toStdString();
         if(nbNeighbors == 0) {
             if(radius == 0) {
-                neighborhood = e->production(name.toStdString());
+                neighborhood = neighborFac.production(name.toStdString());
             } else {
-                neighborhood = e->production(name.toStdString(), radius);
+                neighborhood = neighborFac.production(name.toStdString(), radius);
             }
         } else {
             int* dx = new int[nbNeighbors];
@@ -240,18 +239,16 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodsFromDB() cons
                 dy[j] = query1.value(1).toInt();
                 j++;
             }
-            neighborhood = e->production(name.toStdString(), nbNeighbors, dx, dy);
+            neighborhood = neighborFac.production(name.toStdString(), nbNeighbors, dx, dy);
         }
         res[i] = neighborhood;
         i++;
     }
-    delete e;
     query.finish();
     return {n, res};
 }
 
 std::pair<int, TransitionStrategy**> DBManager::loadTransitionsFromDB() const {
-    TransitionFactory* e = new TransitionFactory;
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT COUNT(*) FROM Transition");
     query.exec();
@@ -269,12 +266,14 @@ std::pair<int, TransitionStrategy**> DBManager::loadTransitionsFromDB() const {
     while(queryAux.next()) {
         QString name=queryAux.value(0).toString();
         std::string nameString=name.toStdString();
-        transition = e->production(nameString);
+        transition = transitionFac.production(nameString);
         res[i] = transition;
         i++;
     }
-    delete e;
     queryAux.finish();
     return {n, res};
 }
 
+void DBManager::insertConfigIntoDB(const QString &name, Grid *config) const {
+
+}
