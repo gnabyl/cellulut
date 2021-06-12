@@ -1,6 +1,6 @@
-#include "State_browser.h"
+#include "states_browser.h"
 
-StateBrowser::StateBrowser(QWidget* parent,std::pair<int,CellState**> statetab) : QDialog(parent),size(statetab.first) {
+StatesBrowser::StatesBrowser(QWidget* parent,std::pair<int,CellState**> statetab) : QDialog(parent),size(statetab.first) {
     mainLayout = new QVBoxLayout(this);
 
     this->statesTable = statetab.second;
@@ -17,7 +17,7 @@ StateBrowser::StateBrowser(QWidget* parent,std::pair<int,CellState**> statetab) 
     adjustSize();
 }
 
-void StateBrowser::initStateTable(std::pair<int,CellState**> statetab) {
+void StatesBrowser::initStateTable(std::pair<int,CellState**> statetab) {
     int nb = statetab.first;
     stateTable = new QTableWidget(nb, 3, this);
     stateItems = new QTableWidgetItem** [nb];
@@ -51,7 +51,7 @@ void StateBrowser::initStateTable(std::pair<int,CellState**> statetab) {
     stateTable->selectRow(0);
 }
 
-void StateBrowser::initButtons() {
+void StatesBrowser::initButtons() {
     buttonsLayout = new QHBoxLayout(this);
     btnChoose = new QPushButton("Choose", this);
     btnCreate = new QPushButton("Create", this);
@@ -64,24 +64,24 @@ void StateBrowser::initButtons() {
     buttonsLayout->addWidget(btnSave);
 
 
-    connect(btnChoose, &QPushButton::clicked, this, &StateBrowser::chooseState);
+    connect(btnChoose, &QPushButton::clicked, this, &StatesBrowser::chooseState);
 }
 
 /*
  *          SLOTS
  */
-void StateBrowser::chooseState() {
+void StatesBrowser::chooseState() {
     if (stateTable->selectionModel()->selectedIndexes().size() > 0)
         emit stateChanged(this->stateID,statesTable[stateTable->selectionModel()->selectedIndexes().at(0).row()]);
         close();
 }
 
-void StateBrowser::receiveStateID(int id){
+void StatesBrowser::receiveStateID(int id){
     stateID = id;
 }
 
 
-StateBrowser::~StateBrowser() {
+StatesBrowser::~StatesBrowser() {
     for (int i = 0; i < size; i ++) {
         for (int j = 0; j < 3; j ++) {
             delete stateItems[i][j];
