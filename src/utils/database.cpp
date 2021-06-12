@@ -145,8 +145,8 @@ DBManager::~DBManager() {
 
 void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
     QSqlQuery query(QSqlDatabase::database());
-    query.prepare("INSERT INTO Neighborhood (:name,:radius)");
-    query.bindValue(":name", name + QString::number(radius));
+    query.prepare("INSERT INTO Neighborhood(name, radius) VALUES (:name,:radius)");
+    query.bindValue(":name", name);
     query.bindValue(":radius", radius);
     if(!query.exec()) {
         qDebug() << "addNeighborhood error:"

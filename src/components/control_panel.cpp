@@ -113,7 +113,6 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     automatasBrowser = new AutomatasBrowser(this);
     transitionsBrowser = new TransitionsBrowser(this);
     neighborsBrowser = new NeighborsBrowser(this);
-
     initEventHandler();
 }
 

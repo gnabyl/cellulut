@@ -23,6 +23,8 @@ class NeighborCreator : public QDialog {
     int width, height, centerR, centerC;
 
     QLineEdit* txtName;
+    QSpinBox* spbRadius;
+    QComboBox* neighborsTypeCbb;
     QGridLayout* gridLayout;
     QVBoxLayout* mainLayout;
     QHBoxLayout* buttonsLayout;
@@ -36,6 +38,8 @@ public:
     ~NeighborCreator();
 private slots:
     void createNeighbor();
+    void changeNeighborType(int id);
+    void changeRadius(int val);
 };
 
 class NeighborsBrowser : public QDialog{
@@ -57,7 +61,7 @@ class NeighborsBrowser : public QDialog{
     void updateCombobox();
 
 public:
-    NeighborsBrowser(QWidget* parent);
+    NeighborsBrowser(QWidget* parent, int width = 31, int height = 31);
     ~NeighborsBrowser();
 
     void setNeighborhoods(int nbNeighbors, NeighborhoodStrategy** neighbors);

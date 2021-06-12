@@ -1,12 +1,12 @@
 #include "neighbors_browser.h"
 
-NeighborsBrowser::NeighborsBrowser(QWidget* parent) : QDialog(parent) {
+NeighborsBrowser::NeighborsBrowser(QWidget* parent, int width, int height) : QDialog(parent) {
     mainLayout = new QVBoxLayout(this);
     neighborhoodLayout = new QFormLayout(this);
     buttonsLayout = new QHBoxLayout(this);
     neighborhoodCbb = new QComboBox(this);
 
-    neighborCreator = new NeighborCreator(this, 11, 11);
+    neighborCreator = new NeighborCreator(this, width, height);
 
     btnConfirm = new QPushButton("Confirm", this);
     btnCreate = new QPushButton("Create", this);
@@ -31,7 +31,7 @@ NeighborsBrowser::~NeighborsBrowser() {
     delete spbRadius;
 }
 
-void NeighborsBrowser::setNeighborhoods(int nbNeighbors, NeighborhoodStrategy **neighbors) {
+void NeighborsBrowser::setNeighborhoods(int nbNeighbors, NeighborhoodStrategy** neighbors) {
     if (this->neighbors) {
         delete[] this->neighbors;
     }
@@ -40,13 +40,12 @@ void NeighborsBrowser::setNeighborhoods(int nbNeighbors, NeighborhoodStrategy **
     updateCombobox();
 }
 
-void NeighborsBrowser::openNeighborsBrowser(){
+void NeighborsBrowser::openNeighborsBrowser() {
     std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
-    try{
+    try {
         loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
         setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
-    }
-    catch(DBException e){
+    } catch(DBException e) {
         QMessageBox window;
         window.setText(QString::fromStdString(e.getInfo()));
         window.show();
@@ -97,6 +96,7 @@ void NeighborsBrowser::chooseNeighbor() {
 
 void NeighborsBrowser::openNeighborCreator() {
     this->neighborCreator->open();
+    hide();
 }
 
 
@@ -110,6 +110,7 @@ NeighborCreator::NeighborCreator(QWidget* parent, int width, int height) : QDial
     if (this->height % 2 == 0) {
         this->height ++;
     }
+
     this->centerR = this->height / 2;
     this->centerC = this->width / 2;
     mainLayout = new QVBoxLayout(this);
@@ -117,15 +118,18 @@ NeighborCreator::NeighborCreator(QWidget* parent, int width, int height) : QDial
     gridLayout = new QGridLayout(this);
     buttonsLayout = new QHBoxLayout(this);
 
-    txtName = new QLineEdit();
-    cellsCheckbox = new QCheckBox**[height];
+    txtName = new QLineEdit(this);
+    neighborsTypeCbb = new QComboBox(this);
+    spbRadius = new QSpinBox(this);
+
+    cellsCheckbox = new QCheckBox** [height];
     for (int r = 0; r < height; r ++) {
         cellsCheckbox[r] = new QCheckBox*[width];
         for (int c = 0; c < width; c ++) {
+            cellsCheckbox[r][c] = new QCheckBox();
             if (r == centerR && c == centerC) {
-                gridLayout->addWidget(new QLabel("|X|"), r, c);
+                gridLayout->addWidget(new QLabel("X"), r, c);
             } else {
-                cellsCheckbox[r][c] = new QCheckBox();
                 gridLayout->addWidget(cellsCheckbox[r][c], r, c);
             }
         }
@@ -136,8 +140,16 @@ NeighborCreator::NeighborCreator(QWidget* parent, int width, int height) : QDial
 
     buttonsLayout->addWidget(btnCreate);
 
-    infoLayout->addRow("Name", txtName);
+    connect(neighborsTypeCbb, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NeighborCreator::changeNeighborType);
+    neighborsTypeCbb->addItems({"Von Neumann Neighborhood Generalized", "Moore Neighborhood Generalized", "Arbitrary Neighborhood"});
 
+    connect(spbRadius, QOverload<int>::of(&QSpinBox::valueChanged), this, &NeighborCreator::changeRadius);
+    spbRadius->setValue(1);
+
+    infoLayout->addRow("Name", txtName);
+    infoLayout->addRow("Radius", spbRadius);
+
+    mainLayout->addWidget(neighborsTypeCbb);
     mainLayout->addLayout(infoLayout);
     mainLayout->addWidget(new QLabel("Choose neighbors"));
     mainLayout->addLayout(gridLayout);
@@ -146,35 +158,70 @@ NeighborCreator::NeighborCreator(QWidget* parent, int width, int height) : QDial
     setLayout(mainLayout);
 }
 
-void NeighborCreator::createNeighbor() {
-    DBManager db = DBManager::getDB();
-    int nbNeighbors = 0;
-    int *dx, *dy;
-    for (int r = 0; r < height; r ++) {
-        for (int c = 0; c < width; c ++) {
-            if (r != centerR || c != centerC) {
-                if (cellsCheckbox[r][c]->isChecked())
-                    nbNeighbors ++;
+void NeighborCreator::changeNeighborType(int id) {
+    if (id < 0) {
+        return;
+    }
+    if (neighborsTypeCbb->currentText() == "Arbitrary Neighborhood") {
+        for (int r = 0; r < height; r ++) {
+            for (int c = 0; c < width; c ++) {
+                cellsCheckbox[r][c]->setDisabled(false);
             }
         }
+        txtName->clear();
+        txtName->setDisabled(false);
+        spbRadius->setDisabled(true);
+    } else {
+        for (int r = 0; r < height; r ++) {
+            for (int c = 0; c < width; c ++) {
+                cellsCheckbox[r][c]->setDisabled(true);
+            }
+        }
+        txtName->setDisabled(true);
+        spbRadius->setDisabled(false);
+        txtName->setText(neighborsTypeCbb->currentText() + ", radius = " + std::to_string(spbRadius->value()).c_str());
     }
-    dx = new int[nbNeighbors];
-    dy = new int[nbNeighbors];
-    nbNeighbors = 0;
-    for (int r = 0; r < height; r ++) {
-        for (int c = 0; c < width; c ++) {
-            if (r != centerR || c != centerC) {
-                if (cellsCheckbox[r][c] && cellsCheckbox[r][c]->isChecked()) {
-                    dx[nbNeighbors] = r - centerR;
-                    dy[nbNeighbors] = c - centerC;
-                    nbNeighbors ++;
+}
+
+void NeighborCreator::changeRadius(int val) {
+    txtName->setText(neighborsTypeCbb->currentText() + ", radius = " + std::to_string(val).c_str());
+}
+
+void NeighborCreator::createNeighbor() {
+    if (neighborsTypeCbb->currentText() == "Arbitrary Neighborhood") {
+        DBManager db = DBManager::getDB();
+        int nbNeighbors = 0;
+        int* dx, *dy;
+        for (int r = 0; r < height; r ++) {
+            for (int c = 0; c < width; c ++) {
+                if (r != centerR || c != centerC) {
+                    if (cellsCheckbox[r][c]->isChecked())
+                        nbNeighbors ++;
                 }
             }
         }
+        dx = new int[nbNeighbors];
+        dy = new int[nbNeighbors];
+        int i = 0;
+        for (int r = 0; r < height; r ++) {
+            for (int c = 0; c < width; c ++) {
+                if (r != centerR || c != centerC) {
+                    if (cellsCheckbox[r][c] && cellsCheckbox[r][c]->isChecked()) {
+                        dx[i] = r - centerR;
+                        dy[i] = c - centerC;
+                        i ++;
+                    }
+                }
+            }
+        }
+        db.DBaddNeighborhood(txtName->text(), nbNeighbors, dx, dy);
+        delete[] dx;
+        delete[] dy;
+    } else {
+        DBManager db = DBManager::getDB();
+        db.DBaddNeighborhood(txtName->text(), spbRadius->value());
     }
-    db.DBaddNeighborhood(txtName->text(), nbNeighbors, dx, dy);
-    delete[] dx;
-    delete[] dy;
+    close();
 }
 
 NeighborCreator::~NeighborCreator() {
