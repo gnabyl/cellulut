@@ -87,9 +87,14 @@ void NeighborsBrowser::neighborCbbChanged(int id) {
 }
 
 void NeighborsBrowser::chooseNeighbor() {
-    if (selectedNeighbor != nullptr) {
-        emit neighborChanged(selectedNeighbor);
+    if (instanceof<VonNeumannNeighborhoodGeneralized>(selectedNeighbor) || instanceof<MooreNeighborhoodGeneralized>(selectedNeighbor)) {
+        if (instanceof<VonNeumannNeighborhoodGeneralized>(selectedNeighbor)) {
+            selectedNeighbor = new VonNeumannNeighborhoodGeneralized("Von Neumann Neighborhood Generalized, radius = " + std::to_string(spbRadius->value()), spbRadius->value());
+        } else if (instanceof<MooreNeighborhoodGeneralized>(selectedNeighbor)) {
+            selectedNeighbor = new MooreNeighborhoodGeneralized("Moore Neighborhood Generalized, radius = " + std::to_string(spbRadius->value()), spbRadius->value());
+        }
     }
+    emit neighborChanged(selectedNeighbor);
     selectedNeighbor = nullptr;
     close();
 }
