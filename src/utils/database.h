@@ -101,7 +101,7 @@ public:
      * @param col couleur récupérée dans la BDD
      * @return une couleur de type QColor
      */
->>>>>>> 5f1a1d269c5f7840e88d58f873b6ed2966812fbe
+
     QColor toColor(const QString& col) const;
     /**
      * @brief insertNeighborhoodIntoDB permet d'insérer un voisinage généralisé
