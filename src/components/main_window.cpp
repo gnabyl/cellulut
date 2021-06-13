@@ -8,8 +8,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     mainLayout = new QHBoxLayout(this);
     centralWidget = new QWidget(this);
 
-    mainMenuBar = new MenuBar(this);
-    simulatorWidget = new SimulatorWidget(this, 5, 5, 50);
+    simulatorWidget = new SimulatorWidget(this, 20, 20, 15);
     controlPanel = new ControlPanel(this, simulatorWidget);
 
     // Add components
@@ -17,7 +16,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     mainLayout->addWidget(controlPanel);
     centralWidget->setLayout(mainLayout);
 
-    setMenuBar(mainMenuBar);
+
     setCentralWidget(centralWidget);
 
     adjustSize();
