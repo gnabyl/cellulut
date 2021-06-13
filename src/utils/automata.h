@@ -9,17 +9,40 @@ using namespace std;
 
 /**
  * @brief La classe qui représente une automate
- * 
  */
 class Automata {
   private:
+    /**
+     * @brief name nom de l'automate
+     */
     string name;
+    /**
+     * @brief description description de l'automate
+     */
     string description;
+    /**
+     * @brief author créateur de l'automate
+     */
     string author;
+    /**
+     * @brief creationYear année de création de l'automate
+     */
     int creationYear;
+    /**
+     * @brief availableStates tableau des états utilisés par l'automate
+     */
     CellState** availableStates = nullptr; //Différents états que les cellules peuvent prendre pour cet automate
+    /**
+     * @brief nbStates nombre d'états utilisés par l'automate
+     */
     int nbStates;
+    /**
+     * @brief transitionStrategy fonction de transition utilisée par l'automate
+     */
     TransitionStrategy* transitionStrategy; //Interface fonction de transition de l'automate
+    /**
+     * @brief neighborStrategy description du voisinage utilisé par l'automate
+     */
     NeighborhoodStrategy* neighborStrategy; //Interface voisinage de l'automate
 
     // Methodes privées car gérées par AutomataManager

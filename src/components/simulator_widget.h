@@ -73,21 +73,78 @@ class SimulatorWidget : public QWidget {
 
 
   public:
+    /**
+     * @brief SimulatorWidget constructeur qui permet de définir les caractéristiques du simulateur
+     * @param parent
+     * @param width largeur de la grille (nb de cellules en colonne)
+     * @param height longeur de la grille
+     * @param cellSize dimension des cellules
+     */
     SimulatorWidget(QWidget* parent, int width, int height, int cellSize);
     ~SimulatorWidget();
+    /**
+     * @brief initLayout s'occupe de la création des layout simulateur, grille, controlleur
+     */
     void initLayout();
+    /**
+     * @brief cleanGrid supprime les cellulewidgets
+     */
     void cleanGrid();
+    /**
+     * @brief resetGridDisplay reset la grille qui s'affiche
+     */
     void resetGridDisplay();
+    /**
+     * @brief updateGridDisplay remet la grille à jour pour mémoriser les changements
+     */
     void updateGridDisplay();
+    /**
+     * @brief regenerateRandomGrid genere une grille de départ de façon aléatoire en utilisant la factory de grille
+     */
     void regenerateRandomGrid();
+    /**
+     * @brief regenerateEmptyGrid genere une grille de départ vide en utilisant grille factory
+     */
     void regenerateEmptyGrid();
+    /**
+     * @brief initButtons permet de créer l'ensemble des boutons du simulateur avec l'ensemble des connections
+     */
     void initButtons();
+    /**
+     * @brief setButtonIcon
+     * @param btn
+     * @param path
+     */
     void setButtonIcon(QPushButton* btn, const QString& path);
+    /**
+     * @brief getNbCols récupère le nombre de colonnes
+     * @return
+     */
     int getNbCols() const;
+    /**
+     * @brief getNbRows récupère le nombre de lignes
+     * @return
+     */
     int getNbRows() const;
+    /**
+     * @brief getCellSize retourne la taille de la cellule
+     * @return
+     */
     int getCellSize() const;
+    /**
+     * @brief getFrequency recupère la frequence
+     * @return
+     */
     int getFrequency() const;
+    /**
+     * @brief getSimulator récupère le simulateur
+     * @return
+     */
     Simulator* getSimulator() const;
+    /**
+     * @brief setFrequency associe la frequence à l'attribut frequence du simulateur
+     * @param f
+     */
     void setFrequency(int f);
 
   signals:
@@ -103,17 +160,17 @@ class SimulatorWidget : public QWidget {
      */
     void setNbRows(int nbRows);
     /**
-     * @brief setNbCols change le nombre de colonnes
+     * @brief setNbCols change le nombre de colonnes (appel également à regenerateEmptyGrid et resetGridDisplay)
      * @param nbCols nouveau nombre de colonnes
      */
     void setNbCols(int nbCols);
     /**
-     * @brief setCellSize change la taille des cellule
+     * @brief setCellSize change la taille des cellule (appel également à regenerateEmptyGrid et resetGridDisplay)
      * @param size nouvelle taille des cellules
      */
     void setCellSize(int size);
     /**
-     * @brief setAutomata fait apparaître l'automate dans la grille
+     * @brief setAutomata fait apparaître l'automate dans la grille (appel également à updateGridDisplay)
      * @param index numéro de l'automate
      */
     void setAutomata(int index);

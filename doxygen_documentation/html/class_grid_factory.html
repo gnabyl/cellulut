@@ -69,16 +69,22 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>The <a class="el" href="class_grid_factory.html" title="The GridFactory class implémentation du design pattern fabrique pour générer des pavages.">GridFactory</a> class implémentation du design pattern fabrique pour générer des pavages.  
+ <a href="class_grid_factory.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="grid__factory_8h_source.html">grid_factory.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a45a92ce05da9222c92de9c66bd8631a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_factory.html#a45a92ce05da9222c92de9c66bd8631a9">GridFactory</a> ()</td></tr>
 <tr class="separator:a45a92ce05da9222c92de9c66bd8631a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3216de54f4d2d7fdb666b3f5c1ac2ecb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_grid.html">Grid</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_factory.html#a3216de54f4d2d7fdb666b3f5c1ac2ecb">generateGrid</a> (<a class="el" href="grid__factory_8h.html#a2323f67766c1d3ce0bbfafaa00c21a78">GridType</a> type, int width, int height, <a class="el" href="class_automata.html">Automata</a> *automata)</td></tr>
-<tr class="separator:a3216de54f4d2d7fdb666b3f5c1ac2ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a344cf3bf3235de94443f38f56977d703"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_grid.html">Grid</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_factory.html#a344cf3bf3235de94443f38f56977d703">generateGrid</a> (<a class="el" href="grid__factory_8h.html#a2323f67766c1d3ce0bbfafaa00c21a78">GridType</a> type, int width, int height, <a class="el" href="class_automata.html">Automata</a> *automata) const</td></tr>
+<tr class="memdesc:a344cf3bf3235de94443f38f56977d703"><td class="mdescLeft">&#160;</td><td class="mdescRight">generateGrid génère un pavage à utiliser par un simulateur  <a href="class_grid_factory.html#a344cf3bf3235de94443f38f56977d703">More...</a><br /></td></tr>
+<tr class="separator:a344cf3bf3235de94443f38f56977d703"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="class_grid_factory.html" title="The GridFactory class implémentation du design pattern fabrique pour générer des pavages.">GridFactory</a> class implémentation du design pattern fabrique pour générer des pavages. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a45a92ce05da9222c92de9c66bd8631a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a45a92ce05da9222c92de9c66bd8631a9">&#9670;&nbsp;</a></span>GridFactory()</h2>
 
@@ -97,8 +103,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3216de54f4d2d7fdb666b3f5c1ac2ecb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3216de54f4d2d7fdb666b3f5c1ac2ecb">&#9670;&nbsp;</a></span>generateGrid()</h2>
+<a id="a344cf3bf3235de94443f38f56977d703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a344cf3bf3235de94443f38f56977d703">&#9670;&nbsp;</a></span>generateGrid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -130,16 +136,28 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>generateGrid génère un pavage à utiliser par un simulateur </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>discrimine les grilles vides et les grilles déterminées aléatoirement </td></tr>
+    <tr><td class="paramname">width</td><td>largeur de la grille </td></tr>
+    <tr><td class="paramname">height</td><td>hauteur de la grille </td></tr>
+    <tr><td class="paramname">automata</td><td>automate utilisant la grille générée </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>retourne un pavage </dd></dl>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>utils/<a class="el" href="grid__factory_8h_source.html">grid_factory.h</a></li>
-<li>utils/<a class="el" href="grid__factory_8cpp.html">grid_factory.cpp</a></li>
+<li>src/utils/<a class="el" href="grid__factory_8h_source.html">grid_factory.h</a></li>
+<li>src/utils/<a class="el" href="grid__factory_8cpp.html">grid_factory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,7 +1,8 @@
-\hypertarget{constants_8h}{}\doxysection{constants.\+h File Reference}
-\label{constants_8h}\index{constants.h@{constants.h}}
+\hypertarget{constants_8h}{}\doxysection{src/constants.h File Reference}
+\label{constants_8h}\index{src/constants.h@{src/constants.h}}
 {\ttfamily \#include $<$QString$>$}\newline
 {\ttfamily \#include $<$QDir$>$}\newline
+{\ttfamily \#include $<$QCore\+Application$>$}\newline
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,10 +17,18 @@ const QString \mbox{\hyperlink{constants_8h_ad75e3d23121f402a046e122e458b1518}{R
 const QString \mbox{\hyperlink{constants_8h_affa9e75df17442ffac01884cae7382c8}{RANDOM\+\_\+\+BTN\+\_\+\+ICON\+\_\+\+PATH}} = QString(\char`\"{}\+:/assets/random-\/button.\+png\char`\"{})
 \item 
 const QString \mbox{\hyperlink{constants_8h_ac78eb0121df11a2ce5a8f9bdc6964524}{NEXT\+\_\+\+BTN\+\_\+\+ICON\+\_\+\+PATH}} = QString(\char`\"{}\+:/assets/next-\/button.\+png\char`\"{})
+\item 
+const QString \mbox{\hyperlink{constants_8h_a0258eebbbd603353e39261325f32af96}{DB\+\_\+\+PATH}} = QDir(\char`\"{}../DBB.\+db\char`\"{}).absolute\+Path()
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{constants_8h_a0258eebbbd603353e39261325f32af96}\label{constants_8h_a0258eebbbd603353e39261325f32af96}} 
+\index{constants.h@{constants.h}!DB\_PATH@{DB\_PATH}}
+\index{DB\_PATH@{DB\_PATH}!constants.h@{constants.h}}
+\doxysubsubsection{\texorpdfstring{DB\_PATH}{DB\_PATH}}
+{\footnotesize\ttfamily const QString DB\+\_\+\+PATH = QDir(\char`\"{}../DBB.\+db\char`\"{}).absolute\+Path()}
+
 \mbox{\Hypertarget{constants_8h_ac78eb0121df11a2ce5a8f9bdc6964524}\label{constants_8h_ac78eb0121df11a2ce5a8f9bdc6964524}} 
 \index{constants.h@{constants.h}!NEXT\_BTN\_ICON\_PATH@{NEXT\_BTN\_ICON\_PATH}}
 \index{NEXT\_BTN\_ICON\_PATH@{NEXT\_BTN\_ICON\_PATH}!constants.h@{constants.h}}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Cellulut: utils/grid.h Source File</title>
+<title>Cellulut: src/utils/grid.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_313caf1132e152dd9b58bea13a4052ca.html">utils</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -77,38 +77,42 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;ctime&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_grid.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_grid.html">Grid</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordtype">int</span> width;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordtype">int</span> height;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="class_cell.html">Cell</a>*** cells = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid</a>(<a class="code" href="class_cell_state.html">CellState</a>* s, <span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid</a>(<span class="keywordtype">int</span> nbStates, <a class="code" href="class_cell_state.html">CellState</a>** availableStates, <span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid</a>(<span class="keyword">const</span> <a class="code" href="class_grid.html">Grid</a>&amp; g);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="class_grid.html#a3661d0a7f998caaaf8627d7a67072116">~Grid</a>();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="class_grid.html">Grid</a>&amp; <a class="code" href="class_grid.html#a7e86df562719e3d6c527f977a01f5fbd">operator= </a>(<span class="keyword">const</span> <a class="code" href="class_grid.html">Grid</a>&amp; g);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_grid.html#a43376443265b3e59522979c0bd251359">setCell</a>(<a class="code" href="class_cell.html">Cell</a>* c, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_cell.html">Cell</a>* <a class="code" href="class_grid.html#af48b427e4e6df249968cc9506d862c79">getCell</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_grid.html#a1e87189ca4bcb28b72b5e1bb78a532b5">getWidth</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_grid.html#aca5987c146fcd4226cc5dfdf927f17b1">getHeight</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//LO21_GRID_H</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_grid.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_grid.html">Grid</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">int</span> width;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">int</span> height;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="class_cell.html">Cell</a>*** cells = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::string name = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid</a>(<a class="code" href="class_cell_state.html">CellState</a>* s, <span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid</a>(<span class="keywordtype">int</span> nbStates, <a class="code" href="class_cell_state.html">CellState</a>** availableStates, <span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid</a>(<span class="keyword">const</span> <a class="code" href="class_grid.html">Grid</a>&amp; g);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="class_grid.html#a3661d0a7f998caaaf8627d7a67072116">~Grid</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="class_grid.html">Grid</a>&amp; <a class="code" href="class_grid.html#a7e86df562719e3d6c527f977a01f5fbd">operator= </a>(<span class="keyword">const</span> <a class="code" href="class_grid.html">Grid</a>&amp; g);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_grid.html#a43376443265b3e59522979c0bd251359">setCell</a>(<a class="code" href="class_cell.html">Cell</a>* c, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="class_cell.html">Cell</a>* <a class="code" href="class_grid.html#af48b427e4e6df249968cc9506d862c79">getCell</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_grid.html#a1e87189ca4bcb28b72b5e1bb78a532b5">getWidth</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_grid.html#aca5987c146fcd4226cc5dfdf927f17b1">getHeight</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::string <a class="code" href="class_grid.html#a1c8a1dd060c1d519b2a145f434c99934">getName</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_grid.html#a7e22488538f101d5370f0532dd0356d1">setName</a>(std::string name);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//LO21_GRID_H</span></div>
 <div class="ttc" id="acell_8h_html"><div class="ttname"><a href="cell_8h.html">cell.h</a></div></div>
 <div class="ttc" id="acell__state_8h_html"><div class="ttname"><a href="cell__state_8h.html">cell_state.h</a></div></div>
-<div class="ttc" id="aclass_cell_html"><div class="ttname"><a href="class_cell.html">Cell</a></div><div class="ttdef"><b>Definition:</b> cell.h:7</div></div>
-<div class="ttc" id="aclass_cell_state_html"><div class="ttname"><a href="class_cell_state.html">CellState</a></div><div class="ttdef"><b>Definition:</b> cell_state.h:7</div></div>
-<div class="ttc" id="aclass_grid_html"><div class="ttname"><a href="class_grid.html">Grid</a></div><div class="ttdef"><b>Definition:</b> grid.h:9</div></div>
-<div class="ttc" id="aclass_grid_html_a1e87189ca4bcb28b72b5e1bb78a532b5"><div class="ttname"><a href="class_grid.html#a1e87189ca4bcb28b72b5e1bb78a532b5">Grid::getWidth</a></div><div class="ttdeci">int getWidth() const</div><div class="ttdef"><b>Definition:</b> grid.cpp:81</div></div>
-<div class="ttc" id="aclass_grid_html_a3661d0a7f998caaaf8627d7a67072116"><div class="ttname"><a href="class_grid.html#a3661d0a7f998caaaf8627d7a67072116">Grid::~Grid</a></div><div class="ttdeci">~Grid()</div><div class="ttdef"><b>Definition:</b> grid.cpp:3</div></div>
-<div class="ttc" id="aclass_grid_html_a43376443265b3e59522979c0bd251359"><div class="ttname"><a href="class_grid.html#a43376443265b3e59522979c0bd251359">Grid::setCell</a></div><div class="ttdeci">void setCell(Cell *c, int x, int y)</div><div class="ttdef"><b>Definition:</b> grid.cpp:88</div></div>
-<div class="ttc" id="aclass_grid_html_a7e86df562719e3d6c527f977a01f5fbd"><div class="ttname"><a href="class_grid.html#a7e86df562719e3d6c527f977a01f5fbd">Grid::operator=</a></div><div class="ttdeci">Grid &amp; operator=(const Grid &amp;g)</div><div class="ttdef"><b>Definition:</b> grid.cpp:57</div></div>
-<div class="ttc" id="aclass_grid_html_aca5987c146fcd4226cc5dfdf927f17b1"><div class="ttname"><a href="class_grid.html#aca5987c146fcd4226cc5dfdf927f17b1">Grid::getHeight</a></div><div class="ttdeci">int getHeight() const</div><div class="ttdef"><b>Definition:</b> grid.cpp:84</div></div>
-<div class="ttc" id="aclass_grid_html_ad850d5b940adb4bdc3adf07dc871c47a"><div class="ttname"><a href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid::Grid</a></div><div class="ttdeci">Grid(CellState *s, int w, int h)</div><div class="ttdef"><b>Definition:</b> grid.cpp:21</div></div>
-<div class="ttc" id="aclass_grid_html_af48b427e4e6df249968cc9506d862c79"><div class="ttname"><a href="class_grid.html#af48b427e4e6df249968cc9506d862c79">Grid::getCell</a></div><div class="ttdeci">Cell * getCell(int x, int y) const</div><div class="ttdef"><b>Definition:</b> grid.cpp:95</div></div>
+<div class="ttc" id="aclass_cell_html"><div class="ttname"><a href="class_cell.html">Cell</a></div><div class="ttdoc">Classe représentant une cellule identifiée par son état, ses coordonnées et éventuellement sa directi...</div><div class="ttdef"><b>Definition:</b> cell.h:12</div></div>
+<div class="ttc" id="aclass_cell_state_html"><div class="ttname"><a href="class_cell_state.html">CellState</a></div><div class="ttdoc">Classe représentant un état de cellule.</div><div class="ttdef"><b>Definition:</b> cell_state.h:9</div></div>
+<div class="ttc" id="aclass_grid_html"><div class="ttname"><a href="class_grid.html">Grid</a></div><div class="ttdoc">Classe représentant une grille de cellule, une configuration à un instant T.</div><div class="ttdef"><b>Definition:</b> grid.h:12</div></div>
+<div class="ttc" id="aclass_grid_html_a1c8a1dd060c1d519b2a145f434c99934"><div class="ttname"><a href="class_grid.html#a1c8a1dd060c1d519b2a145f434c99934">Grid::getName</a></div><div class="ttdeci">std::string getName() const</div><div class="ttdoc">getName accesseur en lecture du nom de la grille</div><div class="ttdef"><b>Definition:</b> grid.cpp:103</div></div>
+<div class="ttc" id="aclass_grid_html_a1e87189ca4bcb28b72b5e1bb78a532b5"><div class="ttname"><a href="class_grid.html#a1e87189ca4bcb28b72b5e1bb78a532b5">Grid::getWidth</a></div><div class="ttdeci">int getWidth() const</div><div class="ttdoc">getWidth accesseur en lecture de la largeur de la grille</div><div class="ttdef"><b>Definition:</b> grid.cpp:81</div></div>
+<div class="ttc" id="aclass_grid_html_a3661d0a7f998caaaf8627d7a67072116"><div class="ttname"><a href="class_grid.html#a3661d0a7f998caaaf8627d7a67072116">Grid::~Grid</a></div><div class="ttdeci">~Grid()</div><div class="ttdoc">Destructeur d'une grille.</div><div class="ttdef"><b>Definition:</b> grid.cpp:3</div></div>
+<div class="ttc" id="aclass_grid_html_a43376443265b3e59522979c0bd251359"><div class="ttname"><a href="class_grid.html#a43376443265b3e59522979c0bd251359">Grid::setCell</a></div><div class="ttdeci">void setCell(Cell *c, int x, int y)</div><div class="ttdoc">setCell accesseur en écriture d'une cellule de la grille</div><div class="ttdef"><b>Definition:</b> grid.cpp:88</div></div>
+<div class="ttc" id="aclass_grid_html_a7e22488538f101d5370f0532dd0356d1"><div class="ttname"><a href="class_grid.html#a7e22488538f101d5370f0532dd0356d1">Grid::setName</a></div><div class="ttdeci">void setName(std::string name)</div><div class="ttdoc">setName accesseur en écriture du nom de la grille</div><div class="ttdef"><b>Definition:</b> grid.cpp:99</div></div>
+<div class="ttc" id="aclass_grid_html_a7e86df562719e3d6c527f977a01f5fbd"><div class="ttname"><a href="class_grid.html#a7e86df562719e3d6c527f977a01f5fbd">Grid::operator=</a></div><div class="ttdeci">Grid &amp; operator=(const Grid &amp;g)</div><div class="ttdoc">operator = redéfinition de l'opérateur d'affectation d'une grille</div><div class="ttdef"><b>Definition:</b> grid.cpp:57</div></div>
+<div class="ttc" id="aclass_grid_html_aca5987c146fcd4226cc5dfdf927f17b1"><div class="ttname"><a href="class_grid.html#aca5987c146fcd4226cc5dfdf927f17b1">Grid::getHeight</a></div><div class="ttdeci">int getHeight() const</div><div class="ttdoc">getHeight accesseur en lecture de la hauteur de la grille</div><div class="ttdef"><b>Definition:</b> grid.cpp:84</div></div>
+<div class="ttc" id="aclass_grid_html_ad850d5b940adb4bdc3adf07dc871c47a"><div class="ttname"><a href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid::Grid</a></div><div class="ttdeci">Grid(CellState *s, int w, int h)</div><div class="ttdoc">Grid Constructeur d'une grille.</div><div class="ttdef"><b>Definition:</b> grid.cpp:21</div></div>
+<div class="ttc" id="aclass_grid_html_af48b427e4e6df249968cc9506d862c79"><div class="ttname"><a href="class_grid.html#af48b427e4e6df249968cc9506d862c79">Grid::getCell</a></div><div class="ttdeci">Cell * getCell(int x, int y) const</div><div class="ttdoc">getCell accesseur en lecture d'une cellule de la grille</div><div class="ttdef"><b>Definition:</b> grid.cpp:95</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

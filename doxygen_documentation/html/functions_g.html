@@ -65,7 +65,7 @@ $(function() {
 
 <h3><a id="index_g"></a>- g -</h3><ul>
 <li>generateGrid()
-: <a class="el" href="class_grid_factory.html#a3216de54f4d2d7fdb666b3f5c1ac2ecb">GridFactory</a>
+: <a class="el" href="class_grid_factory.html#a344cf3bf3235de94443f38f56977d703">GridFactory</a>
 </li>
 <li>getAuthor()
 : <a class="el" href="class_automata.html#ae6e69c0ea6c30308f40c4c928e70011c">Automata</a>
@@ -102,11 +102,20 @@ $(function() {
 <li>getCurrentGridID()
 : <a class="el" href="class_simulator.html#aa59ca1fc231db99ad04ab9cc1da48c49">Simulator</a>
 </li>
+<li>getDB()
+: <a class="el" href="class_d_b_manager.html#ab7f81df2be15616a5a7f3837681b0cb8">DBManager</a>
+</li>
 <li>getDescription()
 : <a class="el" href="class_automata.html#aeb0c6e95e77b2df0c76d57f62db68105">Automata</a>
 </li>
 <li>getDirection()
 : <a class="el" href="class_cell.html#a0d9dd3315cc9b2d616b0b4d1face33ff">Cell</a>
+</li>
+<li>getDx()
+: <a class="el" href="class_arbitrary_neighborhood.html#a68fa4bed0d9238c5f8876a17898b479e">ArbitraryNeighborhood</a>
+</li>
+<li>getDy()
+: <a class="el" href="class_arbitrary_neighborhood.html#a7be883e90bfc7ababa82a913c8ee38e5">ArbitraryNeighborhood</a>
 </li>
 <li>getFrequency()
 : <a class="el" href="class_simulator_widget.html#a9d2eb10a830d83645ee375f485b62951">SimulatorWidget</a>
@@ -121,7 +130,9 @@ $(function() {
 : <a class="el" href="class_cell_state.html#a3fd5b8355f3275765f2f146a701a7b61">CellState</a>
 </li>
 <li>getInfo()
-: <a class="el" href="class_d_b_exception.html#a8df0b5158d1f09a0b69709eca3570b7e">DBException</a>
+: <a class="el" href="class_automaton_creation_exception.html#a566d89b7200004480c7000c82893d038">AutomatonCreationException</a>
+, <a class="el" href="class_buffer_exception.html#aec0083c008fe8103ce25e3403172b777">BufferException</a>
+, <a class="el" href="class_d_b_exception.html#a8df0b5158d1f09a0b69709eca3570b7e">DBException</a>
 , <a class="el" href="class_transition_exception.html#ac9134e9059711dfb1fd972f30246950d">TransitionException</a>
 </li>
 <li>getIterator()
@@ -132,7 +143,8 @@ $(function() {
 </li>
 <li>getName()
 : <a class="el" href="class_automata.html#af55806ae83210034e0511291feb60237">Automata</a>
-, <a class="el" href="class_neighborhood_strategy.html#a2cdcae6f0b2a3b6af289068a685db7dd">NeighborhoodStrategy</a>
+, <a class="el" href="class_grid.html#a1c8a1dd060c1d519b2a145f434c99934">Grid</a>
+, <a class="el" href="class_neighborhood_strategy.html#adaacdb3d3e108e66961e60776a7e0508">NeighborhoodStrategy</a>
 , <a class="el" href="class_transition_strategy.html#a2325d07d304cbea8667f3c130fa5925d">TransitionStrategy</a>
 </li>
 <li>getNbAutomatas()
@@ -155,11 +167,6 @@ $(function() {
 <li>getNbStates()
 : <a class="el" href="class_automata.html#a8b5839f0e706c6d62fb9aeb06b2b3594">Automata</a>
 </li>
-<li>getNeighborhood()
-: <a class="el" href="class_arbitrary_neighborhood.html#a31e08923829228371d6407256b31a4e8">ArbitraryNeighborhood</a>
-, <a class="el" href="class_von_neumann_neighborhood.html#a292b7178c7e661ae778276dd185f0dbf">VonNeumannNeighborhood</a>
-, <a class="el" href="class_von_neumann_neighborhood_generalized.html#ac8be056677b244c33de42f5d52795987">VonNeumannNeighborhoodGeneralized</a>
-</li>
 <li>getNeighborhoodStrategy()
 : <a class="el" href="class_automata.html#a0edfd8ec347f3f620e9ee6c13c5e1624">Automata</a>
 </li>
@@ -171,11 +178,18 @@ $(function() {
 , <a class="el" href="class_von_neumann_neighborhood.html#a410df20fd9a4fa7e040d29f093b67185">VonNeumannNeighborhood</a>
 , <a class="el" href="class_von_neumann_neighborhood_generalized.html#afb435d4271b5d6a522edbca31448f38c">VonNeumannNeighborhoodGeneralized</a>
 </li>
+<li>getRadius()
+: <a class="el" href="class_moore_neighborhood_generalized.html#a0b3a19ddcb34152e01d84101da2734db">MooreNeighborhoodGeneralized</a>
+, <a class="el" href="class_von_neumann_neighborhood_generalized.html#a221c6d9bc4e94cff8bc184bc5a847aad">VonNeumannNeighborhoodGeneralized</a>
+</li>
 <li>getSimulator()
 : <a class="el" href="class_simulator_widget.html#aeba07b84c9987eb75b350d71c5699cba">SimulatorWidget</a>
 </li>
 <li>getState()
 : <a class="el" href="class_cell.html#adbd74311eeaae1b637afcdd21730b168">Cell</a>
+</li>
+<li>getStatePosFromId()
+: <a class="el" href="class_transition_strategy.html#a99e55204944012a16cb6082357f1980a">TransitionStrategy</a>
 </li>
 <li>getTransitionStrategy()
 : <a class="el" href="class_automata.html#ab23848c14c6611534f2e7ec6e077f6ce">Automata</a>
@@ -190,7 +204,7 @@ $(function() {
 : <a class="el" href="class_cell.html#a0dc1e0edf77cb2c49840928025ef7360">Cell</a>
 </li>
 <li>GOLTransition()
-: <a class="el" href="class_g_o_l_transition.html#a6a68075a2a700432571d528418ef5213">GOLTransition</a>
+: <a class="el" href="class_g_o_l_transition.html#ae36c13c1fe906db438f462720ca80e2b">GOLTransition</a>
 </li>
 <li>Grid()
 : <a class="el" href="class_grid.html#ad850d5b940adb4bdc3adf07dc871c47a">Grid</a>

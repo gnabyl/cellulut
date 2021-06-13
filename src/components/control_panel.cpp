@@ -23,9 +23,6 @@ void ControlPanel::openTransitionsBrowser() {
     transitionsBrowser->openTransitionBrowser();
 }
 
-void ControlPanel::stateSettings() {
-
-}
 void ControlPanel::loadStates(){
     try{
         DBManager dbMan = DBManager::getDB();
@@ -223,7 +220,7 @@ void ControlPanel::initRunSettings() {
     sliderSpeed->setValue(simulatorWidget->getFrequency());
     sliderSpeed->setMinimum(simulatorWidget->getFrequency());
     sliderSpeed->setMaximum(50);
-    runSettingsLayout->addRow("openution speed", sliderSpeed);
+    runSettingsLayout->addRow("execution speed", sliderSpeed);
     bufferSizeSpb = new QSpinBox(runSettingsBox);
     bufferSizeSpb->setKeyboardTracking(false);
     bufferSizeSpb->setValue(simulatorWidget->getSimulator()->getBufferSize());
@@ -267,10 +264,6 @@ void ControlPanel::setConfig(Grid* config) {
     nbColsSpb->setValue(config->getWidth());
     nbRowsSpb->setValue(config->getHeight());
     txtConfigName->setText(config->getName().c_str());
-}
-
-void FrequencyDisplayBox::setFrequency(int f) {
-    setText(QString::number(f));
 }
 
 void ControlPanel::openAutomatasBrowser() {

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['next_5fbtn_5ficon_5fpath_485',['NEXT_BTN_ICON_PATH',['../constants_8h.html#ac78eb0121df11a2ce5a8f9bdc6964524',1,'constants.h']]]
+  ['frequency_621',['frequency',['../class_simulator.html#a804c3429a021e452e80a126248353123',1,'Simulator']]]
 ];

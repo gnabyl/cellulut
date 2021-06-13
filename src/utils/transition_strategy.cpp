@@ -501,6 +501,8 @@ Cell* LATransition::calcNextCell(Cell* c, Cell** neighbors, int neighborSize, Ce
             }
         }
     }
+
+    return new Cell(*c);
 }
 
 

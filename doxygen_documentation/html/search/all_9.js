@@ -1,16 +1,13 @@
 var searchData=
 [
-  ['main_118',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['main_2ecpp_119',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['main_5fwindow_2ecpp_120',['main_window.cpp',['../main__window_8cpp.html',1,'']]],
-  ['main_5fwindow_2eh_121',['main_window.h',['../main__window_8h.html',1,'']]],
-  ['mainwindow_122',['MainWindow',['../class_main_window.html',1,'MainWindow'],['../class_main_window.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow::MainWindow()']]],
-  ['max_5fautomata_123',['MAX_AUTOMATA',['../automata__manager_8h.html#a9bc53bcb0c11facd9ebd8df685ff8f83',1,'automata_manager.h']]],
-  ['menubar_124',['MenuBar',['../class_menu_bar.html#a5e2cfb5b3cc226a89d182ae68d02bf2b',1,'MenuBar::MenuBar()'],['../class_menu_bar.html',1,'MenuBar']]],
-  ['menubar_2ecpp_125',['menubar.cpp',['../menubar_8cpp.html',1,'']]],
-  ['menubar_2eh_126',['menubar.h',['../menubar_8h.html',1,'']]],
-  ['mooreneighborhood_127',['MooreNeighborhood',['../class_moore_neighborhood.html#aad18bdd038cea57c08997b24b7be9cc6',1,'MooreNeighborhood::MooreNeighborhood()'],['../class_moore_neighborhood.html',1,'MooreNeighborhood']]],
-  ['mooreneighborhoodgeneralized_128',['MooreNeighborhoodGeneralized',['../class_moore_neighborhood_generalized.html',1,'MooreNeighborhoodGeneralized'],['../class_moore_neighborhood_generalized.html#a56f4c5a345014624e6c3e9a88de4ed25',1,'MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized()']]],
-  ['mousepressevent_129',['mousePressEvent',['../class_cell_widget.html#a61e89dd5db3cdbe231d2567e06023070',1,'CellWidget']]],
-  ['mousereleaseevent_130',['mouseReleaseEvent',['../class_cell_widget.html#a5a54ca6bd09f3aa0cc594db949b77ec7',1,'CellWidget']]]
+  ['latransition_138',['LATransition',['../class_l_a_transition.html',1,'LATransition'],['../class_l_a_transition.html#ad6d82fe85ee463e4f19687055a163410',1,'LATransition::LATransition()']]],
+  ['left_139',['LEFT',['../cell_8h.html#a224b9163917ac32fc95a60d8c1eec3aaadb45120aafd37a973140edee24708065',1,'cell.h']]],
+  ['leftclicked_140',['leftClicked',['../class_cell_widget.html#ae6faf963dfb87011930812ced4584d7d',1,'CellWidget']]],
+  ['lltransition_141',['LLTransition',['../class_l_l_transition.html',1,'LLTransition'],['../class_l_l_transition.html#ab34d701e5543e69bfc451457ca86e315',1,'LLTransition::LLTransition()']]],
+  ['loadautomatasfromdb_142',['loadAutomatasFromDB',['../class_d_b_manager.html#af7c9d1d715f2da3448c65824e8097c50',1,'DBManager']]],
+  ['loadconfigsfromdb_143',['loadConfigsFromDB',['../class_d_b_manager.html#a53b49bd63b9f14014079753263c02663',1,'DBManager']]],
+  ['loadneighborhoodsfromdb_144',['loadNeighborhoodsFromDB',['../class_d_b_manager.html#a66f50c422bb32502ebef406152d86ac4',1,'DBManager']]],
+  ['loadstates_145',['loadStates',['../class_states_browser.html#a05f5934ed1d051b9cc1ef3ef88c2e4ac',1,'StatesBrowser']]],
+  ['loadstatesfromdb_146',['loadStatesfromDB',['../class_d_b_manager.html#a688aa13ab6472760e816b6fe0bc5dbad',1,'DBManager']]],
+  ['loadtransitionsfromdb_147',['loadTransitionsFromDB',['../class_d_b_manager.html#a834d7a9acb487ec16168826124b887bb',1,'DBManager']]]
 ];

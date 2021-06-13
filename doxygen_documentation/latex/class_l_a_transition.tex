@@ -13,48 +13,55 @@ Inheritance diagram for LATransition\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{class_l_a_transition_acb9f8cef8af032b6dc88dc478d236bef}{is\+Destination}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$, \mbox{\hyperlink{class_cell}{Cell}} $\ast$) const
+\mbox{\hyperlink{class_l_a_transition_ad6d82fe85ee463e4f19687055a163410}{LATransition}} (std\+::string name=\char`\"{}Langton Ant Transition\char`\"{})
 \item 
-bool \mbox{\hyperlink{class_l_a_transition_a3787a4e0353125acd80643d6d0fdc143}{is\+Under}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$, \mbox{\hyperlink{class_cell}{Cell}} $\ast$) const
-\item 
-bool \mbox{\hyperlink{class_l_a_transition_acb3d1c7843a784de30d88ee253ebddb3}{is\+Left}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$, \mbox{\hyperlink{class_cell}{Cell}} $\ast$) const
-\item 
-\mbox{\hyperlink{class_cell}{Cell}} $\ast$ \mbox{\hyperlink{class_l_a_transition_a97187840033bc43c904d0c20568e8fa1}{calc\+Next\+Cell}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$c, \mbox{\hyperlink{class_cell}{Cell}} $\ast$$\ast$neighbors, int neighbor\+Size, \mbox{\hyperlink{class_cell_state}{Cell\+State}} $\ast$$\ast$available\+States, int nb\+States) const
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{class_cell}{Cell}} $\ast$ \mbox{\hyperlink{class_l_a_transition_ab264a9fef2fe79f88ba5cfc4b19d1031}{calc\+Next\+Cell}} (\mbox{\hyperlink{class_cell}{Cell}} $\ast$c, \mbox{\hyperlink{class_cell}{Cell}} $\ast$$\ast$neighbors, int neighbor\+Size, \mbox{\hyperlink{class_cell_state}{Cell\+State}} $\ast$$\ast$available\+States, int nb\+States) const override
+\begin{DoxyCompactList}\small\item\em calc\+Next\+Cell méthode concrète qui définit la fonction virtuelle pure de la classe mère pour la \mbox{\hyperlink{class_l_a_transition}{LATransition}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_l_a_transition_ad6d82fe85ee463e4f19687055a163410}\label{class_l_a_transition_ad6d82fe85ee463e4f19687055a163410}} 
+\index{LATransition@{LATransition}!LATransition@{LATransition}}
+\index{LATransition@{LATransition}!LATransition@{LATransition}}
+\doxysubsubsection{\texorpdfstring{LATransition()}{LATransition()}}
+{\footnotesize\ttfamily LATransition\+::\+LATransition (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}Langton~Ant~Transition\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_l_a_transition_a97187840033bc43c904d0c20568e8fa1}\label{class_l_a_transition_a97187840033bc43c904d0c20568e8fa1}} 
+\mbox{\Hypertarget{class_l_a_transition_ab264a9fef2fe79f88ba5cfc4b19d1031}\label{class_l_a_transition_ab264a9fef2fe79f88ba5cfc4b19d1031}} 
 \index{LATransition@{LATransition}!calcNextCell@{calcNextCell}}
 \index{calcNextCell@{calcNextCell}!LATransition@{LATransition}}
 \doxysubsubsection{\texorpdfstring{calcNextCell()}{calcNextCell()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_cell}{Cell}} $\ast$ LATransition\+::calc\+Next\+Cell (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{c,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$$\ast$}]{neighbors,  }\item[{int}]{neighbor\+Size,  }\item[{\mbox{\hyperlink{class_cell_state}{Cell\+State}} $\ast$$\ast$}]{available\+States,  }\item[{int}]{nb\+States }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_cell}{Cell}} $\ast$ LATransition\+::calc\+Next\+Cell (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{c,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$$\ast$}]{neighbors,  }\item[{int}]{neighbor\+Size,  }\item[{\mbox{\hyperlink{class_cell_state}{Cell\+State}} $\ast$$\ast$}]{available\+States,  }\item[{int}]{nb\+States }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Implements \mbox{\hyperlink{class_outer_totalistic_transition_a1df5fdcef6a37ad0e23049d1a0c87246}{Outer\+Totalistic\+Transition}}.
+calc\+Next\+Cell méthode concrète qui définit la fonction virtuelle pure de la classe mère pour la \mbox{\hyperlink{class_l_a_transition}{LATransition}} 
 
-\mbox{\Hypertarget{class_l_a_transition_acb9f8cef8af032b6dc88dc478d236bef}\label{class_l_a_transition_acb9f8cef8af032b6dc88dc478d236bef}} 
-\index{LATransition@{LATransition}!isDestination@{isDestination}}
-\index{isDestination@{isDestination}!LATransition@{LATransition}}
-\doxysubsubsection{\texorpdfstring{isDestination()}{isDestination()}}
-{\footnotesize\ttfamily bool LATransition\+::is\+Destination (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{c,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{neighbor }\end{DoxyParamCaption}) const}
 
-\mbox{\Hypertarget{class_l_a_transition_acb3d1c7843a784de30d88ee253ebddb3}\label{class_l_a_transition_acb3d1c7843a784de30d88ee253ebddb3}} 
-\index{LATransition@{LATransition}!isLeft@{isLeft}}
-\index{isLeft@{isLeft}!LATransition@{LATransition}}
-\doxysubsubsection{\texorpdfstring{isLeft()}{isLeft()}}
-{\footnotesize\ttfamily bool LATransition\+::is\+Left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{b }\end{DoxyParamCaption}) const}
+\begin{DoxyParams}{Parameters}
+{\em c} & cellule étudiée que l\textquotesingle{}on modifiera ou non \\
+\hline
+{\em neighbors} & tableau de voisin de la cellule \\
+\hline
+{\em neighbor\+Size} & nombre de voisins de la cellule \\
+\hline
+{\em available\+States} & tableau d\textquotesingle{}états disponibles \\
+\hline
+{\em nb\+States} & nombre d\textquotesingle{}états possibles \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+une nouvelle cellule (identique à c ou différente) suivant les règles de transition 
+\end{DoxyReturn}
 
-\mbox{\Hypertarget{class_l_a_transition_a3787a4e0353125acd80643d6d0fdc143}\label{class_l_a_transition_a3787a4e0353125acd80643d6d0fdc143}} 
-\index{LATransition@{LATransition}!isUnder@{isUnder}}
-\index{isUnder@{isUnder}!LATransition@{LATransition}}
-\doxysubsubsection{\texorpdfstring{isUnder()}{isUnder()}}
-{\footnotesize\ttfamily bool LATransition\+::is\+Under (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{class_cell}{Cell}} $\ast$}]{b }\end{DoxyParamCaption}) const}
+
+Implements \mbox{\hyperlink{class_outer_totalistic_transition_a0d6132f55d5ecd1a57509fcc2cd998ce}{Outer\+Totalistic\+Transition}}.
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-utils/\mbox{\hyperlink{transition__strategy_8h}{transition\+\_\+strategy.\+h}}\item 
-utils/\mbox{\hyperlink{transition__strategy_8cpp}{transition\+\_\+strategy.\+cpp}}\end{DoxyCompactItemize}
+src/utils/\mbox{\hyperlink{transition__strategy_8h}{transition\+\_\+strategy.\+h}}\item 
+src/utils/\mbox{\hyperlink{transition__strategy_8cpp}{transition\+\_\+strategy.\+cpp}}\end{DoxyCompactItemize}

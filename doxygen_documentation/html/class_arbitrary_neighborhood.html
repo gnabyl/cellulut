@@ -76,27 +76,37 @@ Inheritance diagram for ArbitraryNeighborhood:</div>
  <div class="center">
   <img src="class_arbitrary_neighborhood.png" usemap="#ArbitraryNeighborhood_map" alt=""/>
   <map id="ArbitraryNeighborhood_map" name="ArbitraryNeighborhood_map">
-<area href="class_neighborhood_strategy.html" alt="NeighborhoodStrategy" shape="rect" coords="0,0,143,24"/>
+<area href="class_neighborhood_strategy.html" title="NeighborhoodStrategy classe abstraite permettant de déléguer les différents types de voisinages." alt="NeighborhoodStrategy" shape="rect" coords="0,0,143,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae5920bde9fe037132c5478a2163be0a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbitrary_neighborhood.html#ae5920bde9fe037132c5478a2163be0a6">ArbitraryNeighborhood</a> (int nbNeighbors, int *dx, int *dy, std::string na)</td></tr>
+<tr class="memdesc:ae5920bde9fe037132c5478a2163be0a6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_arbitrary_neighborhood.html">ArbitraryNeighborhood</a> Constructeur du voisinage arbitraire.  <a href="class_arbitrary_neighborhood.html#ae5920bde9fe037132c5478a2163be0a6">More...</a><br /></td></tr>
 <tr class="separator:ae5920bde9fe037132c5478a2163be0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3f24f98656c797f3bd2c870f9658389"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbitrary_neighborhood.html#ae3f24f98656c797f3bd2c870f9658389">~ArbitraryNeighborhood</a> ()</td></tr>
+<tr class="memdesc:ae3f24f98656c797f3bd2c870f9658389"><td class="mdescLeft">&#160;</td><td class="mdescRight">~Arbitraryneighborhood Destructeur de voisinage arbitraire  <a href="class_arbitrary_neighborhood.html#ae3f24f98656c797f3bd2c870f9658389">More...</a><br /></td></tr>
 <tr class="separator:ae3f24f98656c797f3bd2c870f9658389"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae45def3308dff3148be1d44562fd7d8d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbitrary_neighborhood.html#ae45def3308dff3148be1d44562fd7d8d">getNbNeighbors</a> () const</td></tr>
+<tr class="memdesc:ae45def3308dff3148be1d44562fd7d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNbNeighbors Méthode renvoyant le nombre de voisins  <a href="class_arbitrary_neighborhood.html#ae45def3308dff3148be1d44562fd7d8d">More...</a><br /></td></tr>
 <tr class="separator:ae45def3308dff3148be1d44562fd7d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31e08923829228371d6407256b31a4e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cell.html">Cell</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbitrary_neighborhood.html#a31e08923829228371d6407256b31a4e8">getNeighborhood</a> () const</td></tr>
-<tr class="separator:a31e08923829228371d6407256b31a4e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68fa4bed0d9238c5f8876a17898b479e"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbitrary_neighborhood.html#a68fa4bed0d9238c5f8876a17898b479e">getDx</a> () const</td></tr>
+<tr class="memdesc:a68fa4bed0d9238c5f8876a17898b479e"><td class="mdescLeft">&#160;</td><td class="mdescRight">getDx Accesseur en lecture du tableau des coordonnées relative x  <a href="class_arbitrary_neighborhood.html#a68fa4bed0d9238c5f8876a17898b479e">More...</a><br /></td></tr>
+<tr class="separator:a68fa4bed0d9238c5f8876a17898b479e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7be883e90bfc7ababa82a913c8ee38e5"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbitrary_neighborhood.html#a7be883e90bfc7ababa82a913c8ee38e5">getDy</a> () const</td></tr>
+<tr class="memdesc:a7be883e90bfc7ababa82a913c8ee38e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">getDx Accesseur en lecture du tableau des coordonnées relative y  <a href="class_arbitrary_neighborhood.html#a7be883e90bfc7ababa82a913c8ee38e5">More...</a><br /></td></tr>
+<tr class="separator:a7be883e90bfc7ababa82a913c8ee38e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ccfc2b412ae669893acf82e31472dc5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_cell.html">Cell</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbitrary_neighborhood.html#a2ccfc2b412ae669893acf82e31472dc5">getNeighbors</a> (<a class="el" href="class_cell.html">Cell</a> *c, <a class="el" href="class_grid.html">Grid</a> *g)</td></tr>
+<tr class="memdesc:a2ccfc2b412ae669893acf82e31472dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNeighbors Méthode renvoyant les voisins d'une cellule  <a href="class_arbitrary_neighborhood.html#a2ccfc2b412ae669893acf82e31472dc5">More...</a><br /></td></tr>
 <tr class="separator:a2ccfc2b412ae669893acf82e31472dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_neighborhood_strategy"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_neighborhood_strategy')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_neighborhood_strategy.html">NeighborhoodStrategy</a></td></tr>
 <tr class="memitem:a1c692fd3ff3850ab3be01c494c84ce29 inherit pub_methods_class_neighborhood_strategy"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neighborhood_strategy.html#a1c692fd3ff3850ab3be01c494c84ce29">NeighborhoodStrategy</a> (std::string na)</td></tr>
+<tr class="memdesc:a1c692fd3ff3850ab3be01c494c84ce29 inherit pub_methods_class_neighborhood_strategy"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_neighborhood_strategy.html" title="NeighborhoodStrategy classe abstraite permettant de déléguer les différents types de voisinages.">NeighborhoodStrategy</a> Constructeur de la classe <a class="el" href="class_neighborhood_strategy.html" title="NeighborhoodStrategy classe abstraite permettant de déléguer les différents types de voisinages.">NeighborhoodStrategy</a>.  <a href="class_neighborhood_strategy.html#a1c692fd3ff3850ab3be01c494c84ce29">More...</a><br /></td></tr>
 <tr class="separator:a1c692fd3ff3850ab3be01c494c84ce29 inherit pub_methods_class_neighborhood_strategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cdcae6f0b2a3b6af289068a685db7dd inherit pub_methods_class_neighborhood_strategy"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neighborhood_strategy.html#a2cdcae6f0b2a3b6af289068a685db7dd">getName</a> ()</td></tr>
-<tr class="separator:a2cdcae6f0b2a3b6af289068a685db7dd inherit pub_methods_class_neighborhood_strategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaacdb3d3e108e66961e60776a7e0508 inherit pub_methods_class_neighborhood_strategy"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neighborhood_strategy.html#adaacdb3d3e108e66961e60776a7e0508">getName</a> () const</td></tr>
+<tr class="memdesc:adaacdb3d3e108e66961e60776a7e0508 inherit pub_methods_class_neighborhood_strategy"><td class="mdescLeft">&#160;</td><td class="mdescRight">getName méthode renvoyant le nom du voisinage  <a href="class_neighborhood_strategy.html#adaacdb3d3e108e66961e60776a7e0508">More...</a><br /></td></tr>
+<tr class="separator:adaacdb3d3e108e66961e60776a7e0508 inherit pub_methods_class_neighborhood_strategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae5920bde9fe037132c5478a2163be0a6"></a>
@@ -137,6 +147,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><a class="el" href="class_arbitrary_neighborhood.html">ArbitraryNeighborhood</a> Constructeur du voisinage arbitraire. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbNeighbors</td><td>Nombre de voisins </td></tr>
+    <tr><td class="paramname">dx</td><td>Tableau des coordonnées relatives (x) des voisins à partir de la cellule </td></tr>
+    <tr><td class="paramname">dy</td><td>Tableau des coordonnées relatives (y) des voisins à partir de la cellule </td></tr>
+    <tr><td class="paramname">na</td><td>Nom du voisinage arbitraire </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ae3f24f98656c797f3bd2c870f9658389"></a>
@@ -162,9 +183,67 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>~Arbitraryneighborhood Destructeur de voisinage arbitraire </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a68fa4bed0d9238c5f8876a17898b479e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68fa4bed0d9238c5f8876a17898b479e">&#9670;&nbsp;</a></span>getDx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int* ArbitraryNeighborhood::getDx </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>getDx Accesseur en lecture du tableau des coordonnées relative x </p>
+<dl class="section return"><dt>Returns</dt><dd>int* Tableau des coordonnées relatives (x) des voisins à partir de la cellule </dd></dl>
+
+</div>
+</div>
+<a id="a7be883e90bfc7ababa82a913c8ee38e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7be883e90bfc7ababa82a913c8ee38e5">&#9670;&nbsp;</a></span>getDy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int* ArbitraryNeighborhood::getDy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>getDx Accesseur en lecture du tableau des coordonnées relative y </p>
+<dl class="section return"><dt>Returns</dt><dd>int* Tableau des coordonnées relatives (y) des voisins à partir de la cellule </dd></dl>
+
+</div>
+</div>
 <a id="ae45def3308dff3148be1d44562fd7d8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae45def3308dff3148be1d44562fd7d8d">&#9670;&nbsp;</a></span>getNbNeighbors()</h2>
 
@@ -188,32 +267,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>getNbNeighbors Méthode renvoyant le nombre de voisins </p>
+<dl class="section return"><dt>Returns</dt><dd>int Nombre de voisins </dd></dl>
+
 <p>Implements <a class="el" href="class_neighborhood_strategy.html#ad000dc797f880edbc1082ebace8e0220">NeighborhoodStrategy</a>.</p>
-
-</div>
-</div>
-<a id="a31e08923829228371d6407256b31a4e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31e08923829228371d6407256b31a4e8">&#9670;&nbsp;</a></span>getNeighborhood()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_cell.html">Cell</a>** ArbitraryNeighborhood::getNeighborhood </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -251,13 +308,23 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>getNeighbors Méthode renvoyant les voisins d'une cellule </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Cellule dont on souhaite connaître ses voisins </td></tr>
+    <tr><td class="paramname">g</td><td>Grille sur laquelle étudier le voisinage </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Cell** Tableau de pointeur sur les cellules voisines </dd></dl>
+
 <p>Implements <a class="el" href="class_neighborhood_strategy.html#ae3464824c3fba8d21fbfa99121217067">NeighborhoodStrategy</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>utils/<a class="el" href="neighborhood__strategy_8h_source.html">neighborhood_strategy.h</a></li>
-<li>utils/<a class="el" href="neighborhood__strategy_8cpp.html">neighborhood_strategy.cpp</a></li>
+<li>src/utils/<a class="el" href="neighborhood__strategy_8h_source.html">neighborhood_strategy.h</a></li>
+<li>src/utils/<a class="el" href="neighborhood__strategy_8cpp.html">neighborhood_strategy.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -107,6 +107,7 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
   public:
     /**
      * @brief VonNeumannNeighborhoodGeneralized Constructeur de voisinage de VonNeumann généralisé
+     * @param name nom du voisinage
      * @param radius raton du voisinage (1 par défaut)
      */
     VonNeumannNeighborhoodGeneralized(std::string name = "Von Neumann Neighborhood Generalized", int radius = 1);
@@ -194,6 +195,7 @@ class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
   public:
     /**
      * @brief MooreNeighborhoodGeneralized Constructeur du voisinage de Moore généralisé
+     * @param name Nom du voisinage
      * @param radius Rayon (par défaut 1)
      */
     MooreNeighborhoodGeneralized(std::string name="Moore Neighborhood Generalized", int radius = 1);

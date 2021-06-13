@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Cellulut: utils/automata_manager.h Source File</title>
+<title>Cellulut: src/utils/automata_manager.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_cbdb8362360e11eafe2fa3bc74cf0ffd.html">utils</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_313caf1132e152dd9b58bea13a4052ca.html">utils</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -81,42 +81,42 @@ $(function() {
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_automata_manager.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_automata_manager.html">AutomataManager</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_automata_manager.html">AutomataManager</a>* instance; <span class="comment">//Instance unique (singleton)</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">int</span> nbAutomatas;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> nbMaxAutomatas = <a class="code" href="automata__manager_8h.html#a9bc53bcb0c11facd9ebd8df685ff8f83">MAX_AUTOMATA</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="class_automata.html">Automata</a>** automatas;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="class_automata_manager.html">AutomataManager</a>(<span class="keyword">const</span> <a class="code" href="class_automata_manager.html">AutomataManager</a>&amp; a) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="class_automata_manager.html">AutomataManager</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    ~<a class="code" href="class_automata_manager.html">AutomataManager</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> <a class="code" href="class_automata_manager.html">AutomataManager</a>&amp; a) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_automata_manager.html">AutomataManager</a>* getAutomataManager();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> destroyAutomataManager();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="class_automata.html">Automata</a>* getAutomata(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> changeAutomata(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="class_cell_state.html">CellState</a>** c, <a class="code" href="class_transition_strategy.html">TransitionStrategy</a>* t, <a class="code" href="class_neighborhood_strategy.html">NeighborhoodStrategy</a>* n, <span class="keywordtype">int</span> nb = 0, <span class="keywordtype">string</span> na = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">string</span> d = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">string</span> a = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">int</span> y = 2021);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> addAutomata(<a class="code" href="class_cell_state.html">CellState</a>** c, <a class="code" href="class_transition_strategy.html">TransitionStrategy</a>* t, <a class="code" href="class_neighborhood_strategy.html">NeighborhoodStrategy</a>* n, <span class="keywordtype">int</span> nb = 0, <span class="keywordtype">string</span> na = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">string</span> d = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">string</span> a = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">int</span> y = 2021);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> removeAutomata(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_automata_manager.html#a851a7818e7b191bb9539f537aa390c02">   34</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_automata_manager.html#a851a7818e7b191bb9539f537aa390c02">getNbAutomatas</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> nbAutomatas;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//LO21_AUTOMATAMANAGER_H</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_automata_manager.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_automata_manager.html">AutomataManager</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_automata_manager.html">AutomataManager</a>* instance; <span class="comment">//Instance unique (singleton)</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"></span>    <span class="keywordtype">int</span> nbAutomatas;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> nbMaxAutomatas = <a class="code" href="automata__manager_8h.html#a9bc53bcb0c11facd9ebd8df685ff8f83">MAX_AUTOMATA</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_automata.html">Automata</a>** automatas;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="class_automata_manager.html">AutomataManager</a>(<span class="keyword">const</span> <a class="code" href="class_automata_manager.html">AutomataManager</a>&amp; automateManager) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="class_automata_manager.html">AutomataManager</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    ~<a class="code" href="class_automata_manager.html">AutomataManager</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> <a class="code" href="class_automata_manager.html">AutomataManager</a>&amp; automateManager) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_automata_manager.html">AutomataManager</a>* getAutomataManager();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> destroyAutomataManager();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="class_automata.html">Automata</a>* getAutomata(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> changeAutomata(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="class_cell_state.html">CellState</a>** availableStates, <a class="code" href="class_transition_strategy.html">TransitionStrategy</a>* transition, <a class="code" href="class_neighborhood_strategy.html">NeighborhoodStrategy</a>* neighborhood, <span class="keywordtype">int</span> nbStates = 0, <span class="keywordtype">string</span> name = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">string</span> desc = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">string</span> author = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">int</span> year = 2021);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> addAutomata(<a class="code" href="class_cell_state.html">CellState</a>** availableStates, <a class="code" href="class_transition_strategy.html">TransitionStrategy</a>* transition, <a class="code" href="class_neighborhood_strategy.html">NeighborhoodStrategy</a>* neighborhood, <span class="keywordtype">int</span> nbStates = 0, <span class="keywordtype">string</span> name = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">string</span> desc = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">string</span> author = <span class="stringliteral">&quot;&quot;</span>, <span class="keywordtype">int</span> year = 2021);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> removeAutomata(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="class_automata_manager.html#a851a7818e7b191bb9539f537aa390c02">  105</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_automata_manager.html#a851a7818e7b191bb9539f537aa390c02">getNbAutomatas</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> nbAutomatas;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> clear();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;};</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//LO21_AUTOMATAMANAGER_H</span></div>
 <div class="ttc" id="aautomata_8h_html"><div class="ttname"><a href="automata_8h.html">automata.h</a></div></div>
 <div class="ttc" id="aautomata__manager_8h_html_a9bc53bcb0c11facd9ebd8df685ff8f83"><div class="ttname"><a href="automata__manager_8h.html#a9bc53bcb0c11facd9ebd8df685ff8f83">MAX_AUTOMATA</a></div><div class="ttdeci">#define MAX_AUTOMATA</div><div class="ttdef"><b>Definition:</b> automata_manager.h:9</div></div>
 <div class="ttc" id="acell__state_8h_html"><div class="ttname"><a href="cell__state_8h.html">cell_state.h</a></div></div>
-<div class="ttc" id="aclass_automata_html"><div class="ttname"><a href="class_automata.html">Automata</a></div><div class="ttdoc">La classe qui représente une automate.</div><div class="ttdef"><b>Definition:</b> automata.h:14</div></div>
-<div class="ttc" id="aclass_automata_manager_html"><div class="ttname"><a href="class_automata_manager.html">AutomataManager</a></div><div class="ttdef"><b>Definition:</b> automata_manager.h:13</div></div>
-<div class="ttc" id="aclass_automata_manager_html_a851a7818e7b191bb9539f537aa390c02"><div class="ttname"><a href="class_automata_manager.html#a851a7818e7b191bb9539f537aa390c02">AutomataManager::getNbAutomatas</a></div><div class="ttdeci">int getNbAutomatas() const</div><div class="ttdef"><b>Definition:</b> automata_manager.h:34</div></div>
-<div class="ttc" id="aclass_cell_state_html"><div class="ttname"><a href="class_cell_state.html">CellState</a></div><div class="ttdef"><b>Definition:</b> cell_state.h:7</div></div>
-<div class="ttc" id="aclass_neighborhood_strategy_html"><div class="ttname"><a href="class_neighborhood_strategy.html">NeighborhoodStrategy</a></div><div class="ttdef"><b>Definition:</b> neighborhood_strategy.h:14</div></div>
-<div class="ttc" id="aclass_transition_strategy_html"><div class="ttname"><a href="class_transition_strategy.html">TransitionStrategy</a></div><div class="ttdoc">Basic interface///.</div><div class="ttdef"><b>Definition:</b> transition_strategy.h:22</div></div>
+<div class="ttc" id="aclass_automata_html"><div class="ttname"><a href="class_automata.html">Automata</a></div><div class="ttdoc">La classe qui représente une automate.</div><div class="ttdef"><b>Definition:</b> automata.h:13</div></div>
+<div class="ttc" id="aclass_automata_manager_html"><div class="ttname"><a href="class_automata_manager.html">AutomataManager</a></div><div class="ttdoc">Singleton AutomateManager gérant les automates.</div><div class="ttdef"><b>Definition:</b> automata_manager.h:16</div></div>
+<div class="ttc" id="aclass_automata_manager_html_a851a7818e7b191bb9539f537aa390c02"><div class="ttname"><a href="class_automata_manager.html#a851a7818e7b191bb9539f537aa390c02">AutomataManager::getNbAutomatas</a></div><div class="ttdeci">int getNbAutomatas() const</div><div class="ttdoc">getNbAutomatas accesseur en lecture du nombre courant d'automates</div><div class="ttdef"><b>Definition:</b> automata_manager.h:105</div></div>
+<div class="ttc" id="aclass_cell_state_html"><div class="ttname"><a href="class_cell_state.html">CellState</a></div><div class="ttdoc">Classe représentant un état de cellule.</div><div class="ttdef"><b>Definition:</b> cell_state.h:9</div></div>
+<div class="ttc" id="aclass_neighborhood_strategy_html"><div class="ttname"><a href="class_neighborhood_strategy.html">NeighborhoodStrategy</a></div><div class="ttdoc">NeighborhoodStrategy classe abstraite permettant de déléguer les différents types de voisinages.</div><div class="ttdef"><b>Definition:</b> neighborhood_strategy.h:16</div></div>
+<div class="ttc" id="aclass_transition_strategy_html"><div class="ttname"><a href="class_transition_strategy.html">TransitionStrategy</a></div><div class="ttdoc">Basic interface///.</div><div class="ttdef"><b>Definition:</b> transition_strategy.h:39</div></div>
 <div class="ttc" id="agrid_8h_html"><div class="ttname"><a href="grid_8h.html">grid.h</a></div></div>
 <div class="ttc" id="aneighborhood__strategy_8h_html"><div class="ttname"><a href="neighborhood__strategy_8h.html">neighborhood_strategy.h</a></div></div>
 <div class="ttc" id="atransition__strategy_8h_html"><div class="ttname"><a href="transition__strategy_8h.html">transition_strategy.h</a></div></div>
