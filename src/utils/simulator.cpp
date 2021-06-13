@@ -25,14 +25,10 @@ Automata* Simulator::getAutomata() const {
 }
 
 Simulator::Simulator(Automata* a, int buf): automata(a), bufferSize(buf), maxID(0) {
-    /*grids = new Grid*[bufferSize];
-    for(int i=0; i<bufferSize; i++) grids[i]=nullptr;*/
     allocateBuffer();
 }
 
 Simulator::Simulator(Automata* a, Grid& startG, int buf): automata(a),  bufferSize(buf), startGrid(&startG), maxID(0){
-    /*grids = new Grid*[bufferSize];
-    for(int i=0; i<bufferSize; i++) grids[i]=nullptr;*/
     allocateBuffer();
     grids[0] = new Grid(startG);
 }
@@ -44,11 +40,8 @@ void Simulator::setStartGrid(Grid *g) {
     }
 
     startGrid = g;
-
-    // reset(); // Important à revoir
-    reset(); // build(0) va dans ce cas créer une nouvel état
+    reset();
 }
-// important j'ai laissé comme cela (séparation run et next) à voir si c'est bien ou pas
 void Simulator::run(int nbSteps) {
     for(int i = 0; i < nbSteps; i++) next();
 }
@@ -57,7 +50,7 @@ void Simulator::next() {
     if(startGrid == nullptr)
         return;
     try {
-        currentGridID++; //important à regarder
+        currentGridID++;
         if(currentGridID > maxID) maxID = currentGridID;
 
         if (grids[currentGridID % bufferSize]) {
@@ -70,19 +63,8 @@ void Simulator::next() {
         throw;
     }
 }
-/*
-const Etat& Simulateur::dernier() const
-{
-    return *etats[rang%nbMaxEtats];
-}
 
-int Simulateur::getRangDernier() const
-{
-    return rang;
-}
-
-*/
-void Simulator::reset() { // important je ne l'ai pas mis const car pour moi cette fonction correspond à la fonction reset du TD
+void Simulator::reset() {
     if (startGrid == nullptr) throw "start grid is not defined";
     currentGridID = 0;
     maxID = 0;
@@ -92,12 +74,7 @@ void Simulator::reset() { // important je ne l'ai pas mis const car pour moi cet
     }
     grids[0] = new Grid(*startGrid);
 }
-/*
-void Simulator::build(int ID)
-{
-    if (ID>=bufferSize) throw AutomateException("issue buffer size outrange");
-    if(grids[ID] == nullptr) grids[ID] = new Grid;
-}*/
+
 
 Simulator::~Simulator() {
     for(int i = 0; i < bufferSize; i++) {
@@ -124,18 +101,7 @@ void Simulator::setBufferSize(int size){
 int Simulator::getCurrentGridID() const {
     return this->currentGridID;
 }
-/*
-Simulateur::ConstIterator Simulateur::getIterator() const
-{
-    return ConstIterator(this);
-}
 
-Simulateur::ConstIterator Simulateur::getConstIterator() const
-{
-    return ConstIterator(this);
-}
-
-*/
 
 ///-------------------------------------------------------------------
 /// Classe Simulator::Iterator
@@ -145,13 +111,12 @@ Simulator::Iterator::Iterator() {
 
 }
 
-Simulator::Iterator::Iterator(Simulator* s): sim(s), gridID(s->currentGridID % s->getBufferSize()) { // important regarder l'histoire de rang
+Simulator::Iterator::Iterator(Simulator* s): sim(s), gridID(s->currentGridID % s->getBufferSize()) {
 
 }
 
 bool Simulator::Iterator::isDone() const {
     return sim == nullptr || gridID == -1 || (sim->currentGridID <= sim->maxID-sim->bufferSize);
-    //return sim == nullptr || gridID == -1 || sim->currentGridID % (sim->getBufferSize()) != gridID ; // important
 }
 
 void Simulator::Iterator::nextGrid() {
