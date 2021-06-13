@@ -310,7 +310,9 @@ void DBManager::insertConfigIntoDB(const QString &name, Grid *config, Automata* 
 
 std::pair<int, Grid**> DBManager::loadConfigsFromDB(Automata* automata) const {
     QSqlQuery queryAll(QSqlDatabase::database());
-    if (!queryAll.exec("SELECT COUNT(*) FROM Grid")) {
+    queryAll.prepare("SELECT COUNT(*) FROM Grid WHERE automata=:automata");
+    queryAll.bindValue(":automata", automata->getName().c_str());
+    if (!queryAll.exec()) {
         throw DBException("Error counting configs");
     }
     queryAll.next();
