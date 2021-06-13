@@ -113,18 +113,21 @@ void DBManager::loadAutomatasFromDB() const {
 
 void DBManager::insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates){
     QSqlQuery query(this->db);
-    bool test = query.prepare("INSERT INTO Automata(name,description,author,creationYear,nbStates,transition,neighborhood) VALUES(:name,'','',0,:nbStates,:transition,:neighborhood)");
+    query.prepare("INSERT INTO Automata(name,description,author,creationYear,nbStates,transition,neighborhood) VALUES(:name,'','',0,:nbStates,:transition,:neighborhood)");
     query.bindValue(":name",name);
     query.bindValue(":nbStates",nbStates);
     query.bindValue(":transition",transitionName);
     query.bindValue(":neighborhood",neighborhoodName);
     query.exec();
+    query.finish();
 
     for(size_t i=0; i<nbStates; i++){
-        query.prepare("INSERT INTO AutomataState VALUES(:stateID,:name");
-        query.bindValue(":stateID",chosenStates[i]->getId());
-        query.bindValue(":name",name);
-        query.exec();
+        QSqlQuery queryBis(this->db);
+        bool test = queryBis.prepare("INSERT INTO AutomataState(stateID, automataName) VALUES(:stateID,:name)");
+        queryBis.bindValue(":stateID",chosenStates[i]->getId());
+        queryBis.bindValue(":name",name);
+        queryBis.exec();
+        queryBis.finish();
     }
 }
 
