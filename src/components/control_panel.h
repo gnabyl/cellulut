@@ -114,6 +114,7 @@ class ControlPanel : public QWidget {
 
   signals:
     void automataChanged(int id);
+    void stateadded();
   private slots:
     void stateSettings();
     void openNeighborsBrowser();
