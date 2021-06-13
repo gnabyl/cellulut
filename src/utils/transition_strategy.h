@@ -165,7 +165,7 @@ class GOLTransition : public OuterTotalisticTransition {
     * @brief GOLTransition constructeur de GOF
     * @param name nom de la transition, si non spécifié égale à "Game Of Life Transition"
     */
-    GOLTransition(std::string name = "Game Of Life Transition") : OuterTotalisticTransition(name) {}
+    GOLTransition(std::string name = "Game of Life Transition Rule") : OuterTotalisticTransition(name) {}
     /**
      * @brief calcNextCell  méthode concrète qui définit la fonction virtuelle pure de la classe mère pour la GOLTransition
      * @param c cellule étudiée que l'on modifiera ou non
