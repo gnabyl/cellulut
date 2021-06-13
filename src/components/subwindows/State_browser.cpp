@@ -12,6 +12,7 @@ StateBrowser::StateBrowser(QWidget* parent,std::pair<int,CellState**> statetab) 
     mainLayout->addLayout(buttonsLayout);
 
     setLayout(mainLayout);
+    Createstate = new Create_State(this);
 
 
     adjustSize();
@@ -65,11 +66,17 @@ void StateBrowser::initButtons() {
 
 
     connect(btnChoose, &QPushButton::clicked, this, &StateBrowser::chooseState);
+    connect(btnCreate, &QPushButton::clicked, this, &StateBrowser::openCreateState);
 }
 
 /*
  *          SLOTS
  */
+
+void StateBrowser::openCreateState(){
+
+  Createstate->exec();
+}
 void StateBrowser::chooseState() {
     if (stateTable->selectionModel()->selectedIndexes().size() > 0)
         emit stateChanged(this->stateID,statesTable[stateTable->selectionModel()->selectedIndexes().at(0).row()]);

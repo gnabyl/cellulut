@@ -41,7 +41,11 @@ void ControlPanel::loadStates(){
     }
 
     connect(statebrowser,SIGNAL(stateChanged(int,CellState*)),simulatorWidget,SLOT(setState(int,CellState*)));
+
 }
+
+
+
 void ControlPanel::loadAutomatas() {
     //Init data
     try{
@@ -295,4 +299,5 @@ void ControlPanel::openAutomatasBrowser() {
 
 void ControlPanel::openStateBrowser(){
     statebrowser->exec();
+
 }

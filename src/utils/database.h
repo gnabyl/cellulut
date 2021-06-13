@@ -36,6 +36,7 @@ public:
 
     void DBaddNeighborhood(const QString name, const int radius) const;
     void DBaddNeighborhood(const QString name, const int* dx,const int *dy)const;
+    void DbaddState(const QString label, const int id , const QString color) const;
     std::pair<int, NeighborhoodStrategy**> loadNeighborhoodFromDB() const;
     void loadStatesFromDB() const;
     std::pair<int,CellState**> loadStatefromDB() const;
