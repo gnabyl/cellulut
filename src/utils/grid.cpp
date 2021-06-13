@@ -95,3 +95,11 @@ void Grid::setCell(Cell* c, int x, int y) {
 Cell* Grid::getCell(int x, int y) const {
     return this->cells[x][y];
 }
+
+void Grid::setName(std::string name) {
+    this->name = name;
+}
+
+std::string Grid::getName() const{
+    return this->name;
+}

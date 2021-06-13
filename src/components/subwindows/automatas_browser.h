@@ -1,6 +1,7 @@
 #ifndef AUTOMATASBROWSER_H
 #define AUTOMATASBROWSER_H
 
+#include <QString>
 #include <QDialog>
 #include <QTableWidget>
 #include <QVBoxLayout>
@@ -10,10 +11,21 @@
 #include <QComboBox>
 #include <QFormLayout>
 #include <QSpinBox>
+#include <QListWidget>
+#include <QMessageBox>
 #include "../../utils/automata_manager.h"
 #include "../../utils/database.h"
 #include "transitions_browser.h"
 #include "neighbors_browser.h"
+#include "states_browser.h"
+
+class AutomatonCreationException{
+    std::string info;
+
+public:
+    AutomatonCreationException(std::string s) : info(s){}
+        std::string getInfo() const{return info;}
+};
 
 /**
  * @brief Classe AutomatasCreator permet de créer une pop-up pour configurer un automate
@@ -22,11 +34,38 @@ class AutomatasCreator : public QDialog{
     /**
      * @brief transitionsBrowser pointeur contenant l'ensemble des transitions
      */
+
+    Q_OBJECT
+
     TransitionsBrowser* transitionsBrowser;
     /**
      * @brief neighborsBrowser pointeur contenant l'ensemble des voisinages
      */
     NeighborsBrowser* neighborsBrowser;
+    /**
+     * @brief statesBrowser pointeur contenant l'ensemble des états
+     */
+    StatesBrowser* statesBrowser;
+    /**
+     * @brief chosenName nom de l'automate
+     */
+    QString chosenName;
+    /**
+     * @brief nbStates nombre d'états
+     */
+    int nbStates;
+    /**
+     * @brief chosenStates états choisis pour l'automate
+     */
+    CellState** chosenStates;
+    /**
+     * @brief chosenTransition  transition choisis pour l'automate
+     */
+    TransitionStrategy* chosenTransition;
+    /**
+     * @brief chosenNeighborhood voisinage choisis pour l'automate
+     */
+    NeighborhoodStrategy* chosenNeighborhood;
     /**
      * @brief mainLayout disposition principale
      */
@@ -44,6 +83,19 @@ class AutomatasCreator : public QDialog{
      */
     QSpinBox* nbStatesSpb;
     /**
+     * @brief statesList tables des états
+     */
+    QListWidget* statesList;
+    /**
+     * @brief statesItems ligne de la table des états
+     */
+    QListWidgetItem** statesItems;
+    /**
+     * @brief editStateButton bouton pour modifier un état
+     */
+    QPushButton* editStateButton;
+
+    /**
      * @brief neighborhoodChooseButton boutton afin de choisir le voisinage
      */
     QPushButton* neighborhoodChooseButton;
@@ -55,16 +107,58 @@ class AutomatasCreator : public QDialog{
      * @brief validateButton boutton afin de valider nos choix
      */
     QPushButton* validateButton;
+
     /**
      * @brief initButtons fonction qui permet de connecter les boutons
      */
     void initButtons();
+    /**
+     * @brief initEvents permet de connecter les boutons
+     */
+    void initEvents();
+    /**
+     * @brief createAutomaton permet d'appeler la méthode d'insertion d'automate
+     */
+    void createAutomaton();
+    /**
+     * @brief initStatesBrowser permet d'appeler la méthode de chargement d'automate
+     */
+    void initStatesBrowser();
+    /**
+     * @brief updateStatesList permet de mettre à jour la liste des états d'un automate
+     */
+    void updateStatesList();
+
 public:
     /**
      * @brief AutomatasCreator constructeur de la pop-up de création d'automates
      * @param parent widget à part duquel est crée AutomatasCreator
      */
     AutomatasCreator(QWidget* parent);
+
+public slots:
+    /**
+     * @brief receiveTransition permet de modifier la valeur des paramètre de la transition
+     * @param t pointeur vers la transition
+     */
+    void receiveTransition(TransitionStrategy* t);
+    /**
+     * @brief receiveNeighborhood permet de modifier la valeur des paramètre du voisinage
+     * @param n pointeur vers la voisinage
+     */
+    void receiveNeighborhood(NeighborhoodStrategy* n);
+    /**
+     * @brief startCreation permet de lancer la méthode createAutomaton
+     */
+    void startCreation();
+    /**
+     * @brief setChosenName permet de définir le nom de l'automate
+     * @param s nom de l'automate
+     */
+    void setChosenName(const QString& s);
+    void setChosenState(int id,CellState* c);
+    void changeNbStates(int nb);
+    void allowEditing(int id);
 };
 /**
  * @brief Classe AutomatasBrowser permet de créer une pop-up pour charger les automates
@@ -113,6 +207,7 @@ class AutomatasBrowser : public QDialog {
      */
     AutomatasBrowser(QWidget* parent);
     ~AutomatasBrowser();
+    void openAutomatasBrowser();
 
   signals:
     /**

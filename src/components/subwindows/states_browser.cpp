@@ -28,7 +28,7 @@ void StatesBrowser::initStateTable(std::pair<int,CellState**> statetab) {
 
     for (int i = 0; i<nb; i ++) {
         stateItems[i] = new QTableWidgetItem*[3];
-        stateItems[i][0] = new QTableWidgetItem(statetab.second[i]->getId());
+        stateItems[i][0] = new QTableWidgetItem(std::to_string(statetab.second[i]->getId()).c_str());
         stateItems[i][1] = new QTableWidgetItem(statetab.second[i]->getLabel().c_str());
         stateItems[i][2] =  new QTableWidgetItem(statetab.second[i]->getColor().name());
 
@@ -71,9 +71,10 @@ void StatesBrowser::initButtons() {
  *          SLOTS
  */
 void StatesBrowser::chooseState() {
-    if (stateTable->selectionModel()->selectedIndexes().size() > 0)
+    if (stateTable->selectionModel()->selectedIndexes().size() > 0) {
         emit stateChanged(this->stateID,statesTable[stateTable->selectionModel()->selectedIndexes().at(0).row()]);
         close();
+    }
 }
 
 void StatesBrowser::receiveStateID(int id){
