@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     mainLayout->addWidget(controlPanel);
     centralWidget->setLayout(mainLayout);
 
+
     setCentralWidget(centralWidget);
 
     adjustSize();
