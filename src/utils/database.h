@@ -42,7 +42,8 @@ public:
     std::pair<int,CellState**> loadStatesfromDB() const;
     std::pair<int, TransitionStrategy**>loadTransitionsFromDB() const;
 
-    void insertConfigIntoDB(const QString& name, Grid* config) const;
+    void insertConfigIntoDB(const QString& name, Grid* config, Automata* automata) const;
+    std::pair<int, Grid**> loadConfigsFromDB() const;
 };
 
 

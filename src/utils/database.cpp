@@ -274,17 +274,23 @@ std::pair<int, TransitionStrategy**> DBManager::loadTransitionsFromDB() const {
     return {n, res};
 }
 
-void DBManager::insertConfigIntoDB(const QString &name, Grid *config) const {
+void DBManager::insertConfigIntoDB(const QString &name, Grid *config, Automata* automata) const {
     if (config == nullptr) {
         throw DBException("No grid to save");
     }
+    if (automata == nullptr) {
+        throw DBException("No automata selected");
+    }
     QSqlQuery query(QSqlDatabase::database());
-    query.prepare("INSERT INTO Grid VALUES (:name)");
+    query.prepare("INSERT INTO Grid VALUES (:name, :width, :height, :automata)");
     query.bindValue(":name", name);
+    query.bindValue(":width", config->getWidth());
+    query.bindValue(":height", config->getHeight());
+    query.bindValue(":automata", automata->getName().c_str());
     if (!query.exec()) {
         throw DBException("Duplicate config name!!!");
     }
-    QString insertQuery = "INSERT INTO Cell VALUES (:x0, :y0, :state0, :grid)";
+    QString insertQuery = "INSERT INTO Cell(x, y, state, grid) VALUES (:x0, :y0, :state0, :grid)";
     for (int i = 1; i < config->getHeight() * config->getWidth(); i ++) {
         insertQuery += QString((",(:x" + std::to_string(i) + ", :y" + std::to_string(i) + ", :state" + std::to_string(i) + ", :grid)").c_str());
     }
@@ -300,4 +306,8 @@ void DBManager::insertConfigIntoDB(const QString &name, Grid *config) const {
     if (!query.exec()) {
         throw DBException("Error saving cells");
     }
+}
+
+std::pair<int, Grid**> DBManager::loadConfigsFromDB() const {
+
 }
