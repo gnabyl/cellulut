@@ -8,7 +8,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     mainLayout = new QHBoxLayout(this);
     centralWidget = new QWidget(this);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 71b7d0c37c55bdfbac72ac3105c5100b9e03be73
     simulatorWidget = new SimulatorWidget(this, 20, 20, 20);
     controlPanel = new ControlPanel(this, simulatorWidget);
 
@@ -17,7 +20,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     mainLayout->addWidget(controlPanel);
     centralWidget->setLayout(mainLayout);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 71b7d0c37c55bdfbac72ac3105c5100b9e03be73
     setCentralWidget(centralWidget);
 
     adjustSize();

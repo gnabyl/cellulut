@@ -6,7 +6,6 @@ HEADERS += \
     components/cell_widget.h \
     components/control_panel.h \
     components/main_window.h \
-    components/menubar.h \
     components/simulator_widget.h \
     components/subwindows/Create_State.h \
     components/subwindows/automatas_browser.h \
@@ -34,7 +33,6 @@ SOURCES += \
     components/cell_widget.cpp \
     components/control_panel.cpp \
     components/main_window.cpp \
-    components/menubar.cpp \
     components/simulator_widget.cpp \
     components/subwindows/Create_State.cpp \
     components/subwindows/automatas_browser.cpp \
