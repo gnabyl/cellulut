@@ -1,5 +1,8 @@
 #include "configs_browser.h"
-
+/**
+ * @brief ConfigsBrowser
+ * @param parent
+ */
 ConfigsBrowser::ConfigsBrowser(QWidget* parent) : QDialog(parent) {
     loadedConfigsInfos = {0, nullptr};
 

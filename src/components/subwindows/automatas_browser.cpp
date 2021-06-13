@@ -1,6 +1,6 @@
 #include "automatas_browser.h"
 
-AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(0),chosenNeighborhood(nullptr), chosenTransition(nullptr), chosenStates(nullptr), chosenName(QString("")){
+AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(0), chosenStates(nullptr), chosenNeighborhood(nullptr), chosenTransition(nullptr), chosenName(QString("")){
     transitionsBrowser = new TransitionsBrowser(this);
     neighborsBrowser = new NeighborsBrowser(this);
 
@@ -58,7 +58,6 @@ void AutomatasCreator::initStatesBrowser(){
         window.setText(QString::fromStdString(e.getInfo()));
         window.open();
     }
-
     connect(statesBrowser,SIGNAL(stateChanged(int,CellState*)),this,SLOT(setChosenState(int,CellState*)));
 }
 
@@ -95,13 +94,19 @@ void AutomatasCreator::updateStatesList(){
     while(statesList->count()>0){
       statesList->takeItem(0);
     }
-    for (int i = 0; i < nbStates; i ++) {
-        CellState* s = chosenStates[i];
-        std::string item = std::to_string(s->getId());
-        item += ". " + s->getLabel();
-        statesList->addItem(item.c_str());
+    if(nbStates > 0){
+        for (int i = 0; i < nbStates; i ++) {
+                statesList->addItem(statesItems[i]);
+
+//            CellState* s = chosenStates[i];
+//            if(s != nullptr){
+//                std::string item = std::to_string(s->getId());
+//                item += ". " + s->getLabel();
+//                statesList->addItem(item.c_str());
+//            }
+        }
+        statesList->adjustSize();
     }
-    statesList->adjustSize();
 }
 
 void AutomatasCreator::setChosenName(const QString& s){
@@ -110,9 +115,10 @@ void AutomatasCreator::setChosenName(const QString& s){
 
 void AutomatasCreator::setChosenState(int id, CellState *c){
     chosenStates[id] = c;
+    if(statesItems[id] != nullptr) delete statesItems[id];
+    statesItems[id] = new QListWidgetItem(c->getLabel().c_str());
     updateStatesList();
 }
-
 
 void AutomatasCreator::setChosenAuthor(const QString & s){
     this->chosenAuthor = s;
@@ -145,7 +151,8 @@ void AutomatasCreator::createAutomaton(){
     else{
         try{
             DBManager dbMan = DBManager::getDB();
-            dbMan.insertAutomataIntoDB(chosenName,nbStates,chosenTransition->getName().c_str(),chosenNeighborhood->getName().c_str(),chosenStates);
+            dbMan.insertAutomataIntoDB(chosenName,nbStates,chosenTransition->getName().c_str(),chosenNeighborhood->getName().c_str(),chosenStates,chosenDescription,chosenAuthor,chosenYear);
+            this->close();
         }
 
         catch(DBException e){
@@ -167,24 +174,22 @@ void AutomatasCreator::changeNbStates(int nb){
     else{
         //Change states table in the back
         CellState** newTab = new CellState*[nb];
-        if(nbStates != 0){
-            for(size_t i=0; i<this->nbStates;i++)
-                newTab[i] = chosenStates[i];
-            delete[] chosenStates;
+        QListWidgetItem** newTabItems = new QListWidgetItem*[nb];
+        for(size_t i=0; i<this->nbStates;i++){
+            newTab[i] = chosenStates[i];
+            newTabItems[i] = statesItems[i];
         }
+        delete[] chosenStates;
+        delete[] statesItems;
         this->chosenStates = newTab;
+        this->statesItems = newTabItems;
 
-        //Refresh states list
-        QListWidgetItem** newTabBis = new QListWidgetItem*[nb];
-        if(nbStates != 0){
-            for(size_t i=0;i<this->nbStates;i++)
-                newTabBis[i] = statesItems[i];
-        }
-        statesItems = newTabBis;
-        statesItems[nb] = new QListWidgetItem(this->statesList);
-        statesItems[nb]->setText("Void state");
+        statesItems[nb-1] = new QListWidgetItem("Void state");
+        chosenStates[nb-1] = nullptr;
 
         this->nbStates = nb;
+
+        updateStatesList();
     }
 }
 

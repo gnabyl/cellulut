@@ -17,26 +17,58 @@
 
 class SimulatorWidget : public QWidget {
     Q_OBJECT
+    /**
+     * @brief cellSize taille de chacune des cellules
+     */
     int cellSize;
+    /**
+     * @brief nbCols nombre de colonnes
+     */
     int nbCols;
+    /**
+     * @brief nbRows nombre de lignes
+     */
     int nbRows;
-
+    /**
+     * @brief simulatorLayout layout vertical de type box qui regroupera les layout grid et controller
+     */
     QVBoxLayout* simulatorLayout;
+    /**
+     * @brief gridLayout layout qui contiendra la grille avec les cellules
+     */
     QGridLayout* gridLayout;
+    /**
+     * @brief controllerLayout layout qui contiendra les boutons pour lancer, mettre sur pause, passer à la génération suivante, précédente
+     */
     QHBoxLayout* controllerLayout;
+    /**
+     * @brief configBtnLayout layout qui contiendra le bouton de la configuration
+     */
     QHBoxLayout* configBtnLayout;
 
+    /**
+     * @brief cellWidgets tableau de cellwidget qui permetttra de pouvoir changer les caractéristiques de chaque cellule
+     */
     CellWidget** cellWidgets = nullptr;
 
+    /**
+     * @brief lblCurrentGeneration information sur le numéro de la génération actuelle
+     */
     QLabel* lblCurrentGeneration;
-
+    /**
+     * @brief btnPlay, tnPrev, btnNext, btnReset, btnRandom
+     */
     QPushButton* btnPlay, *btnPrev, *btnNext, *btnReset, *btnRandom;
-
+    /**
+     * @brief timer permettra d'augemnter la fréquence des générations
+     */
     QTimer* timer;
     int frequency;
 
     Simulator* simulator;
-
+    /**
+     * @brief playing pour vérifier si on a mis la génération sur pause ou pas
+     */
     bool playing = false;
 
 

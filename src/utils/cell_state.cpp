@@ -13,6 +13,7 @@ void CellState::setColor(QColor c) {
 int CellState::getId() const {
     return this->id;
 }
+
 QColor CellState::getColor() const {
     return this->col;
 }

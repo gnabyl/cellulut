@@ -92,7 +92,6 @@ void StatesBrowser::initButtons() {
 
 
     connect(btnCreate, &QPushButton::clicked, this, &StatesBrowser::openCreateState);
-
     connect(btnChoose, &QPushButton::clicked, this, &StatesBrowser::chooseState);
 
 
@@ -133,14 +132,12 @@ void StatesBrowser::loadStates(){
 
 
 void StatesBrowser::openCreateState(){
-
   Createstate->exec();
 }
 
 
 void StatesBrowser::chooseState() {
     if (stateTable->selectionModel()->selectedIndexes().size() > 0) {
-
         emit stateChanged(this->stateID,statesTable[stateTable->selectionModel()->selectedIndexes().at(0).row()]);
         close();
     }
@@ -149,7 +146,6 @@ void StatesBrowser::chooseState() {
 void StatesBrowser::receiveStateID(int id){
     stateID = id;
 }
-
 
 StatesBrowser::~StatesBrowser() {
     for (int i = 0; i < size; i ++) {

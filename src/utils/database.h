@@ -111,12 +111,6 @@ public:
      * @param chosenStates types d'états sélectionnés
      */
     void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates,QString description = "",QString author = "",int year = 0);
-    /**
-     * @brief toColor transforme un Qstring en Qcolor pour l'appliquer à l'interface graphique
-     * @param col couleur récupérée dans la BDD
-     * @return une couleur de type QColor
-     */
-
 
 
     /**
