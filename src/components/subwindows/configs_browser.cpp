@@ -37,6 +37,7 @@ void ConfigsBrowser::initButtons() {
 
 
     connect(btnLoad, &QPushButton::clicked, this, &ConfigsBrowser::chooseConfig);
+    connect(btnDelete,&QPushButton::clicked,this,&ConfigsBrowser::deleteConfig);
 }
 
 void ConfigsBrowser::openConfigsBrowser(Automata* automata) {
@@ -94,6 +95,12 @@ void ConfigsBrowser::openConfigsBrowser(Automata* automata) {
     adjustSize();
 
     open();
+}
+
+void ConfigsBrowser::deleteConfig(){
+    QMessageBox window;
+    window.setText("Réponse à la boutade : c'est l'exponentielle, parce que le logarithme népérien (ne paie rien) !");
+    window.exec();
 }
 
 /*

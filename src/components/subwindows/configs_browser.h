@@ -79,6 +79,7 @@ class ConfigsBrowser : public QDialog
      * @brief chooseConfig permet de choisir et d'appliquer la configuration sélectionnée
      */
     void chooseConfig();
+    void deleteConfig();
 };
 
 #endif // CONFIGSBROWSER_H
