@@ -59,15 +59,24 @@ class AutomatasCreator : public QDialog{
      * @brief chosenStates états choisis pour l'automate
      */
     CellState** chosenStates;
-<<<<<<< HEAD
     /**
      * @brief chosenTransition  transition choisis pour l'automate
      */
-=======
+    /**
+     * @brief chosenAuthor nom de l'auteur de l'automate
+     */
     QString chosenAuthor;
+    /**
+     * @brief chosenYear année de création de l'automate
+     */
     int chosenYear;
+    /**
+     * @brief chosenDescription description de l'automate
+     */
     QString chosenDescription;
->>>>>>> f32ac9e2cc701cc75aac11df2baf1997473fae35
+    /**
+     * @brief chosenTransition transition choisie
+     */
     TransitionStrategy* chosenTransition;
     /**
      * @brief chosenNeighborhood voisinage choisis pour l'automate
@@ -101,16 +110,24 @@ class AutomatasCreator : public QDialog{
      * @brief editStateButton bouton pour modifier un état
      */
     QPushButton* editStateButton;
-<<<<<<< HEAD
 
+
+
+    /**
+     * @brief authorField champ de l'auteur
+     */
+    QLineEdit* authorField;
+    /**
+     * @brief yearSpb champ pour renseigner une année
+     */
+    QSpinBox* yearSpb;
+    /**
+     * @brief descriptionTextBox champ pour une description
+     */
+    QLineEdit* descriptionTextBox;
     /**
      * @brief neighborhoodChooseButton boutton afin de choisir le voisinage
      */
-=======
-    QLineEdit* authorField;
-    QSpinBox* yearSpb;
-    QLineEdit* descriptionTextBox;
->>>>>>> f32ac9e2cc701cc75aac11df2baf1997473fae35
     QPushButton* neighborhoodChooseButton;
     /**
      * @brief transitionChooseButton boutton afin de choisir les transitions
@@ -169,11 +186,36 @@ public slots:
      * @param s nom de l'automate
      */
     void setChosenName(const QString& s);
+    /**
+     * @brief setChosenState permet de choisir l'état
+     * @param id numéro de l'état
+     * @param c état de cellule
+     */
     void setChosenState(int id,CellState* c);
+    /**
+     * @brief setChosenAuthor permet de choisir un auteur
+     * @param s nom de l'auteur
+     */
     void setChosenAuthor(const QString& s);
+    /**
+     * @brief setChosenYear permet de choisir une année
+     * @param y année
+     */
     void setChosenYear(int y);
+    /**
+     * @brief setChosenDescription permet de choisir une description
+     * @param d
+     */
     void setChosenDescription(const QString& d);
+    /**
+     * @brief changeNbStates permet de changer le nombre d'état
+     * @param nb nombre d'état
+     */
     void changeNbStates(int nb);
+    /**
+     * @brief allowEditing permet l'édition d'un champ
+     * @param id
+     */
     void allowEditing(int id);
 };
 /**
