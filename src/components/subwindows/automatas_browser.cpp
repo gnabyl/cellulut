@@ -200,7 +200,7 @@ void AutomatasBrowser::initButtons() {
 void AutomatasBrowser::openAutomatasBrowser() {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
     // Clean current table
-    if (automatasItems) {
+    if (automataManager->getNbAutomatas()) {
         for (int r = 0; r < automataManager->getNbAutomatas(); r ++) {
             for (int c = 0; c < TBL_NB_COLS; c ++) {
                 delete automatasItems[r][c];
