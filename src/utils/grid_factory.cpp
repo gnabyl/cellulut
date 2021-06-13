@@ -2,7 +2,7 @@
 
 GridFactory::GridFactory() {}
 
-Grid* GridFactory::generateGrid(GridType type, int width, int height, Automata* automata) {
+Grid* GridFactory::generateGrid(GridType type, int width, int height, Automata* automata) const {
     Grid* grid;
     switch (type) {
         case RANDOM:

@@ -308,6 +308,53 @@ void DBManager::insertConfigIntoDB(const QString &name, Grid *config, Automata* 
     }
 }
 
-std::pair<int, Grid**> DBManager::loadConfigsFromDB() const {
+std::pair<int, Grid**> DBManager::loadConfigsFromDB(Automata* automata) const {
+    QSqlQuery queryAll(QSqlDatabase::database());
+    if (!queryAll.exec("SELECT COUNT(*) FROM Grid")) {
+        throw DBException("Error counting configs");
+    }
+    queryAll.next();
+    int n = queryAll.value(0).toInt();
+    Grid** res = new Grid*[n];
 
+    queryAll.prepare("SELECT * FROM Grid WHERE automata = :automata");
+    queryAll.bindValue(":automata", automata->getName().c_str());
+    if (!queryAll.exec()) {
+        throw DBException("Error loading config");
+    }
+
+    int i = 0;
+
+    while (queryAll.next()) {
+        QString gridName = queryAll.value("name").toString();
+        int width = queryAll.value("width").toInt();
+        int height = queryAll.value("height").toInt();
+
+        res[i] = gridFac.generateGrid(EMPTY, width, height, automata);
+
+        QSqlQuery queryCell(QSqlDatabase::database());
+
+        for (int r = 0; r < res[i]->getHeight(); r ++) {
+            for (int c = 0; c < res[i]->getWidth(); c ++) {
+                queryCell.prepare("SELECT * FROM Cell WHERE grid = :grid AND x = :x AND y = :y");
+                queryCell.bindValue(":grid", gridName);
+                queryCell.bindValue(":x", r);
+                queryCell.bindValue(":y", c);
+                queryCell.exec();
+                queryCell.next();
+                int cellStateID = queryCell.value("state").toInt();
+                int cellStatePos = 0;
+                for (cellStatePos = 0; cellStatePos < automata->getNbStates(); cellStatePos ++) {
+                    if (automata->getAvailableState(cellStatePos)->getId() == cellStateID) {
+                        break;
+                    }
+                }
+                res[i]->setCell(new Cell(automata->getAvailableState(cellStatePos), r, c), r, c);
+            }
+        }
+
+        i ++;
+    }
+
+    return {n, res};
 }

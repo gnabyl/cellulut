@@ -9,6 +9,7 @@
 #include "automata_manager.h"
 #include "neighborhood_factory.h"
 #include "transition_factory.h"
+#include "grid_factory.h"
 
 class DBException{
     std::string info;
@@ -25,6 +26,7 @@ class DBManager{
     static DBManager* DBManInstance;
     TransitionFactory transitionFac;
     NeighborhoodFactory neighborFac;
+    GridFactory gridFac;
 
 public:
     ~DBManager();
@@ -43,7 +45,7 @@ public:
     std::pair<int, TransitionStrategy**>loadTransitionsFromDB() const;
 
     void insertConfigIntoDB(const QString& name, Grid* config, Automata* automata) const;
-    std::pair<int, Grid**> loadConfigsFromDB() const;
+    std::pair<int, Grid**> loadConfigsFromDB(Automata* automata) const;
 };
 
 
