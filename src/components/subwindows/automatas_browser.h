@@ -261,7 +261,7 @@ class AutomatasBrowser : public QDialog {
   public:
     /**
      * @brief AutomatasBrowser constructeur de la pop-up de chargement d'automates
-     * @param parent widget à part duquel est crée AutomatasBrowser
+     * @param parent widget à partir duquel est crée AutomatasBrowser
      */
     AutomatasBrowser(QWidget* parent);
     ~AutomatasBrowser();
