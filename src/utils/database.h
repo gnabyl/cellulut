@@ -87,6 +87,21 @@ public:
      */
     void loadAutomatasFromDB() const;
 
+
+    /**
+     * @brief toColor transforme un Qstring en Qcolor pour l'appliquer à l'interface graphique
+     * @param col couleur récupérée dans la BDD
+     * @return une couleur de type QColor
+     */
+    QColor toColor(const QString& col) const;
+
+
+
+    void DbaddState(const QString label, const int id , const QString color) const;
+
+
+
+
     /**
      * @brief insertAutomataIntoDB permet d'ajouter des automates dans la BDD
      * @param name nom de l'automate
@@ -96,13 +111,8 @@ public:
      * @param chosenStates types d'états sélectionnés
      */
     void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates,QString description = "",QString author = "",int year = 0);
-    /**
-     * @brief toColor transforme un Qstring en Qcolor pour l'appliquer à l'interface graphique
-     * @param col couleur récupérée dans la BDD
-     * @return une couleur de type QColor
-     */
 
-    QColor toColor(const QString& col) const;
+
     /**
      * @brief insertNeighborhoodIntoDB permet d'insérer un voisinage généralisé
      * @param name nom du voisinage
@@ -131,6 +141,7 @@ public:
      * @brief loadTransitionsFromDB charge les transitions depuis la base de données
      * @return un couple avec la dimension du tableau  et le tableau
      */
+
     std::pair<int, TransitionStrategy**>loadTransitionsFromDB() const;
     /**
      * @brief insertConfigIntoDB permet d'ajouter des configurations dans la BDD

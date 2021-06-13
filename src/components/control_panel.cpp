@@ -41,6 +41,27 @@ void ControlPanel::loadStates(){
     }
 
     connect(statebrowser,SIGNAL(stateChanged(int,CellState*)),simulatorWidget,SLOT(setState(int,CellState*)));
+
+}
+
+
+
+void ControlPanel::loadAutomatas() {
+    //Init data
+    try{
+        DBManager dbMan = DBManager::getDB();
+        dbMan.loadAutomatasFromDB();
+        setAutomata(0);
+        simulatorWidget->setAutomata(0);
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.exec();
+    }
+    automatasBrowser = new AutomatasBrowser(this);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
 }
 
 void ControlPanel::initEventHandler() {
@@ -257,6 +278,8 @@ void ControlPanel::openAutomatasBrowser() {
 }
 
 void ControlPanel::openStateBrowser(){
+
+
     statebrowser->open();
 }
 
@@ -276,4 +299,5 @@ void ControlPanel::btnSaveConfigClicked() {
 
 void ControlPanel::openConfigsBrowser() {
     configsBrowser->openConfigsBrowser(simulatorWidget->getSimulator()->getAutomata());
+
 }

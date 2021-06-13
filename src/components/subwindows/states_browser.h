@@ -7,6 +7,7 @@
 #include <QHeaderView>
 #include <QPushButton>
 #include "../../utils/automata_manager.h"
+#include "Create_State.h"
 
 class StatesBrowser : public QDialog {
     Q_OBJECT
@@ -15,7 +16,7 @@ class StatesBrowser : public QDialog {
 
     QVBoxLayout* mainLayout;
     QHBoxLayout* buttonsLayout;
-
+    Create_State*  Createstate;
     QTableWidget* stateTable;
     QTableWidgetItem*** stateItems;
     int size;
@@ -40,6 +41,7 @@ class StatesBrowser : public QDialog {
 
   private slots:
     void chooseState();
+    void openCreateState();
 };
 
 

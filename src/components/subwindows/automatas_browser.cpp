@@ -58,7 +58,6 @@ void AutomatasCreator::initStatesBrowser(){
         window.setText(QString::fromStdString(e.getInfo()));
         window.open();
     }
-
     connect(statesBrowser,SIGNAL(stateChanged(int,CellState*)),this,SLOT(setChosenState(int,CellState*)));
 }
 
@@ -125,6 +124,7 @@ void AutomatasCreator::setChosenDescription(const QString& d){
     this->chosenDescription = d;
 }
 
+
 void AutomatasCreator::startCreation(){
     try{
         createAutomaton();
@@ -150,6 +150,7 @@ void AutomatasCreator::createAutomaton(){
             QMessageBox window;
             window.setText(e.getInfo().c_str());
             window.exec();
+
         }
     }
 }
