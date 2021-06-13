@@ -160,17 +160,17 @@ class SimulatorWidget : public QWidget {
      */
     void setNbRows(int nbRows);
     /**
-     * @brief setNbCols change le nombre de colonnes
+     * @brief setNbCols change le nombre de colonnes (appel également à regenerateEmptyGrid et resetGridDisplay)
      * @param nbCols nouveau nombre de colonnes
      */
     void setNbCols(int nbCols);
     /**
-     * @brief setCellSize change la taille des cellule
+     * @brief setCellSize change la taille des cellule (appel également à regenerateEmptyGrid et resetGridDisplay)
      * @param size nouvelle taille des cellules
      */
     void setCellSize(int size);
     /**
-     * @brief setAutomata fait apparaître l'automate dans la grille
+     * @brief setAutomata fait apparaître l'automate dans la grille (appel également à updateGridDisplay)
      * @param index numéro de l'automate
      */
     void setAutomata(int index);
