@@ -8,6 +8,7 @@
 #include <QHeaderView>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QTextEdit>
 #include <QComboBox>
 #include <QFormLayout>
 #include <QSpinBox>
@@ -58,9 +59,15 @@ class AutomatasCreator : public QDialog{
      * @brief chosenStates états choisis pour l'automate
      */
     CellState** chosenStates;
+<<<<<<< HEAD
     /**
      * @brief chosenTransition  transition choisis pour l'automate
      */
+=======
+    QString chosenAuthor;
+    int chosenYear;
+    QString chosenDescription;
+>>>>>>> f32ac9e2cc701cc75aac11df2baf1997473fae35
     TransitionStrategy* chosenTransition;
     /**
      * @brief chosenNeighborhood voisinage choisis pour l'automate
@@ -94,10 +101,16 @@ class AutomatasCreator : public QDialog{
      * @brief editStateButton bouton pour modifier un état
      */
     QPushButton* editStateButton;
+<<<<<<< HEAD
 
     /**
      * @brief neighborhoodChooseButton boutton afin de choisir le voisinage
      */
+=======
+    QLineEdit* authorField;
+    QSpinBox* yearSpb;
+    QLineEdit* descriptionTextBox;
+>>>>>>> f32ac9e2cc701cc75aac11df2baf1997473fae35
     QPushButton* neighborhoodChooseButton;
     /**
      * @brief transitionChooseButton boutton afin de choisir les transitions
@@ -157,6 +170,9 @@ public slots:
      */
     void setChosenName(const QString& s);
     void setChosenState(int id,CellState* c);
+    void setChosenAuthor(const QString& s);
+    void setChosenYear(int y);
+    void setChosenDescription(const QString& d);
     void changeNbStates(int nb);
     void allowEditing(int id);
 };
