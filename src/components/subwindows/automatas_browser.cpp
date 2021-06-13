@@ -195,6 +195,12 @@ void AutomatasCreator::changeNbStates(int nb){
     }
 }
 
+void AutomatasBrowser::deleteAutomata(){
+    QMessageBox window;
+    window.setText("Nous n'avons pas eu le temps d'implémenter cette fonctionnalité. Afin de pallier ce vice caché, nous vous proposons cependant une petite boutade, dont il vous faudra trouver la réponse dans une autre pop-up cachée dans l'application. La voici : exponentielle et logarithme se rendent au restaurant. Qui donc paie l'addition ?");
+    window.exec();
+}
+
 AutomatasBrowser::AutomatasBrowser(QWidget* parent) : QDialog(parent) {
     mainLayout = new QVBoxLayout(this);
     automataCreator = new AutomatasCreator(this);
@@ -237,6 +243,7 @@ void AutomatasBrowser::initButtons() {
 
     connect(btnChoose, &QPushButton::clicked, this, &AutomatasBrowser::chooseAutomata);
     connect(btnCreate,&QPushButton::clicked,this,&AutomatasBrowser::openAutomataCreator);
+    connect(btnDelete,&QPushButton::clicked,this,&AutomatasBrowser::deleteAutomata);
 }
 
 void AutomatasBrowser::openAutomatasBrowser() {

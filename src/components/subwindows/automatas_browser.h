@@ -287,6 +287,8 @@ class AutomatasBrowser : public QDialog {
      * @brief openAutomataCreator permet d'ouvrir la pop-up de cxréation d'automate
      */
     void openAutomataCreator();
+
+    void deleteAutomata();
 };
 
 #endif // AUTOMATASBROWSER_H
