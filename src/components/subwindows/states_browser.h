@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include "../../utils/automata_manager.h"
 #include "Create_State.h"
+#include "utils/database.h"
 
 class StatesBrowser : public QDialog {
     Q_OBJECT
@@ -28,6 +29,7 @@ class StatesBrowser : public QDialog {
 
     void initStateTable(std::pair<int,CellState**>);
     void initButtons();
+    void completeTable(std::pair<int,CellState**> statetab);
 
   public:
     StatesBrowser(QWidget* parent,std::pair<int,CellState**>);
@@ -37,8 +39,8 @@ class StatesBrowser : public QDialog {
     void stateChanged(int,CellState*);
 
   public slots:
+    void loadStates();
     void receiveStateID(int id);
-
   private slots:
     void chooseState();
     void openCreateState();
