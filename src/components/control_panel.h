@@ -121,6 +121,7 @@ class ControlPanel : public QWidget {
     void setAutomata(int id);
     void setNeighbor(NeighborhoodStrategy* neighbor);
     void setTransition(TransitionStrategy* transition);
+    void setConfig(Grid* config);
 
     void openTransitionsBrowser();
 

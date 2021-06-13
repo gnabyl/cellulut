@@ -55,6 +55,8 @@ void ControlPanel::initEventHandler() {
     connect(btnBrowseAutomatas, &QPushButton::clicked, this, &ControlPanel::openAutomatasBrowser);
     connect(btnBrowseNeighborhoods, &QPushButton::clicked, this, &ControlPanel::openNeighborsBrowser);
     connect(btnBrowseTransitions, &QPushButton::clicked, this, &ControlPanel::openTransitionsBrowser);
+    connect(btnSaveConfig, &QPushButton::clicked, this, &ControlPanel::btnSaveConfigClicked);
+    connect(btnLoadConfig, &QPushButton::clicked, this, &ControlPanel::openConfigsBrowser);
 
     connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
     connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
@@ -62,9 +64,8 @@ void ControlPanel::initEventHandler() {
     connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
     connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
     connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
-
-    connect(btnSaveConfig, &QPushButton::clicked, this, &ControlPanel::btnSaveConfigClicked);
-    connect(btnLoadConfig, &QPushButton::clicked, this, &ControlPanel::openConfigsBrowser);
+    connect(configsBrowser, &ConfigsBrowser::configChanged, this, &ControlPanel::setConfig);
+    connect(configsBrowser, &ConfigsBrowser::configChanged, simulatorWidget, &SimulatorWidget::setConfig);
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -239,6 +240,12 @@ void ControlPanel::setNeighbor(NeighborhoodStrategy* neighbor) {
 
 void ControlPanel::setTransition(TransitionStrategy* transition) {
     textTransitionName->setText(QString::fromStdString(transition->getName()));
+}
+
+void ControlPanel::setConfig(Grid* config) {
+    nbColsSpb->setValue(config->getWidth());
+    nbRowsSpb->setValue(config->getHeight());
+    txtConfigName->setText(config->getName().c_str());
 }
 
 void FrequencyDisplayBox::setFrequency(int f) {

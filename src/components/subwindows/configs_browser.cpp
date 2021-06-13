@@ -98,7 +98,7 @@ void ConfigsBrowser::openConfigsBrowser(Automata* automata) {
  */
 void ConfigsBrowser::chooseConfig() {
     if (configsTable->selectionModel()->selectedIndexes().size() > 0) {
-        emit configChanged(configsTable->selectionModel()->selectedIndexes().at(0).row());
+        emit configChanged(loadedConfigsInfos.second[configsTable->selectionModel()->selectedIndexes().at(0).row()]);
         close();
     }
 }

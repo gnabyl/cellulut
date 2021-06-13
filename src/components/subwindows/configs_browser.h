@@ -38,7 +38,7 @@ class ConfigsBrowser : public QDialog
     void openConfigsBrowser(Automata* automata);
 
   signals:
-    void configChanged(int id);
+    void configChanged(Grid* config);
 
   private slots:
     void chooseConfig();
