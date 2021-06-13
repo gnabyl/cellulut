@@ -12,6 +12,7 @@
 #include <QFormLayout>
 #include <QSpinBox>
 #include <QListWidget>
+#include <QMessageBox>
 #include "../../utils/automata_manager.h"
 #include "../../utils/database.h"
 #include "transitions_browser.h"

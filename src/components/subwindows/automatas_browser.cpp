@@ -119,8 +119,16 @@ void AutomatasCreator::createAutomaton(){
     if(chosenNeighborhood == nullptr || chosenTransition == nullptr || nbStates == 0)
         throw AutomatonCreationException("Not enough information was given to create a new automaton !");
     else{
-        DBManager dbMan = DBManager::getDB();
-        dbMan.insertAutomataIntoDB(chosenName,nbStates,chosenTransition->getName().c_str(),chosenNeighborhood->getName().c_str(),chosenStates);
+        try{
+            DBManager dbMan = DBManager::getDB();
+            dbMan.insertAutomataIntoDB(chosenName,nbStates,chosenTransition->getName().c_str(),chosenNeighborhood->getName().c_str(),chosenStates);
+        }
+
+        catch(DBException e){
+            QMessageBox window;
+            window.setText(e.getInfo().c_str());
+            window.show();
+        }
     }
 }
 
