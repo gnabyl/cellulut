@@ -14,7 +14,6 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include "simulator_widget.h"
-//#include "automata_settings_windows.h"
 #include "bslider.h"
 #include "utils/automata_manager.h"
 #include "subwindows/automatas_browser.h"
