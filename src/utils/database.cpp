@@ -111,10 +111,13 @@ void DBManager::loadAutomatasFromDB() const {
     }
 }
 
-void DBManager::insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates){
+void DBManager::insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName, CellState** chosenStates, QString description, QString author, int year){
     QSqlQuery query(QSqlDatabase::database());
-    query.prepare("INSERT INTO Automata(name,description,author,creationYear,nbStates,transition,neighborhood) VALUES(:name,'','',0,:nbStates,:transition,:neighborhood)");
+    query.prepare("INSERT INTO Automata(name,description,author,creationYear,nbStates,transition,neighborhood) VALUES(:name,:description,:author,:creationYear,:nbStates,:transition,:neighborhood)");
     query.bindValue(":name",name);
+    query.bindValue(":description",description);
+    query.bindValue(":author",author);
+    query.bindValue(":creationYear",year);
     query.bindValue(":nbStates",nbStates);
     query.bindValue(":transition",transitionName);
     query.bindValue(":neighborhood",neighborhoodName);
@@ -176,6 +179,7 @@ void DBManager::DbaddState(const QString label, const int id , const QString col
         qDebug() << "addState error:"
                  << query.lastError().text();
     }
+
 
 
 

@@ -279,6 +279,7 @@ void ControlPanel::openAutomatasBrowser() {
 
 void ControlPanel::openStateBrowser(){
 
+
     statebrowser->open();
 }
 

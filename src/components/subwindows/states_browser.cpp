@@ -66,6 +66,7 @@ void StatesBrowser::initButtons() {
 
 
 
+
     connect(btnCreate, &QPushButton::clicked, this, &StatesBrowser::openCreateState);
 
     connect(btnChoose, &QPushButton::clicked, this, &StatesBrowser::chooseState);
@@ -81,6 +82,7 @@ void StatesBrowser::openCreateState(){
 
   Createstate->exec();
 }
+
 
 void StatesBrowser::chooseState() {
     if (stateTable->selectionModel()->selectedIndexes().size() > 0) {

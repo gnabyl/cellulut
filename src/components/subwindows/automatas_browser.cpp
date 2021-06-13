@@ -15,6 +15,10 @@ AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(
     editStateButton = new QPushButton(this);
     editStateButton->setText("Edit selected state");
     editStateButton->setDisabled(true);
+    authorField = new QLineEdit(this);
+    yearSpb = new QSpinBox(this);
+    yearSpb->setMaximum(2021);
+    descriptionTextBox = new QLineEdit(this);
     neighborhoodChooseButton = new QPushButton(this);
     transitionChooseButton = new QPushButton(this);
 
@@ -25,6 +29,9 @@ AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(
     fieldsLayout->addRow("Number of states : ",nbStatesSpb);
     fieldsLayout->addRow("States : ",statesList);
     fieldsLayout->addRow(editStateButton);
+    fieldsLayout->addRow("Author : ",authorField);
+    fieldsLayout->addRow("Creation Year : ",yearSpb);
+    fieldsLayout->addRow("Description : ",descriptionTextBox);
     fieldsLayout->addRow("Neighborhood : ",neighborhoodChooseButton);
     fieldsLayout->addRow("Transition rule : ",transitionChooseButton);
 
@@ -65,6 +72,9 @@ void AutomatasCreator::initEvents(){
     connect(nbStatesSpb,SIGNAL(valueChanged(int)),this,SLOT(changeNbStates(int)));
     connect(statesList,SIGNAL(currentRowChanged(int)),this,SLOT(allowEditing(int)));
     connect(statesList,SIGNAL(currentRowChanged(int)),statesBrowser,SLOT(receiveStateID(int)));
+    connect(authorField,SIGNAL(textChanged(QString)),this,SLOT(setChosenAuthor(QString)));
+    connect(yearSpb,SIGNAL(valueChanged(int)),this,SLOT(setChosenYear(int)));
+    connect(descriptionTextBox,SIGNAL(textChanged(QString)),this,SLOT(setChosenDescription(QString)));
     connect(editStateButton,&QPushButton::clicked,statesBrowser,&StatesBrowser::exec);
 }
 
@@ -103,6 +113,20 @@ void AutomatasCreator::setChosenState(int id, CellState *c){
     updateStatesList();
 }
 
+
+void AutomatasCreator::setChosenAuthor(const QString & s){
+    this->chosenAuthor = s;
+}
+
+void AutomatasCreator::setChosenYear(int y){
+    this->chosenYear = y;
+}
+
+void AutomatasCreator::setChosenDescription(const QString& d){
+    this->chosenDescription = d;
+}
+
+
 void AutomatasCreator::startCreation(){
     try{
         createAutomaton();
@@ -127,7 +151,8 @@ void AutomatasCreator::createAutomaton(){
         catch(DBException e){
             QMessageBox window;
             window.setText(e.getInfo().c_str());
-            window.show();
+            window.exec();
+
         }
     }
 }
