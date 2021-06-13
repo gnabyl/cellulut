@@ -175,6 +175,8 @@ AutomatasBrowser::AutomatasBrowser(QWidget* parent) : QDialog(parent) {
 
     setLayout(mainLayout);
 
+    connect(automataCreator, &QDialog::finished, this, &AutomatasBrowser::openAutomatasBrowser);
+
     adjustSize();
 }
 
@@ -257,8 +259,6 @@ void AutomatasBrowser::openAutomatasBrowser() {
 
     automatasTable->setFixedWidth(totalWidth);
     automatasTable->selectRow(0);
-
-    connect(automataCreator, &QDialog::finished, this, &AutomatasBrowser::openAutomatasBrowser);
 
     open();
 }
