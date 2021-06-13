@@ -67,7 +67,7 @@ public slots:
     void setChosenName(const QString& s);
     void setChosenState(int id,CellState* c);
     void changeNbStates(int nb);
-     void allowEditing(int id);
+    void allowEditing(int id);
 };
 
 class AutomatasBrowser : public QDialog {
