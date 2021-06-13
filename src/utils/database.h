@@ -86,6 +86,7 @@ public:
      * @brief loadAutomatasFromDB permet de charger des automates à partir de la BDD
      */
     void loadAutomatasFromDB() const;
+
     /**
      * @brief insertAutomataIntoDB permet d'ajouter des automates dans la BDD
      * @param name nom de l'automate
@@ -94,12 +95,13 @@ public:
      * @param neighborhoodName nom du voisinage souhaitée
      * @param chosenStates types d'états sélectionnés
      */
-    void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates);
+    void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates,QString description = "",QString author = "",int year = 0);
     /**
      * @brief toColor transforme un Qstring en Qcolor pour l'appliquer à l'interface graphique
      * @param col couleur récupérée dans la BDD
      * @return une couleur de type QColor
      */
+>>>>>>> 5f1a1d269c5f7840e88d58f873b6ed2966812fbe
     QColor toColor(const QString& col) const;
     /**
      * @brief insertNeighborhoodIntoDB permet d'insérer un voisinage généralisé
