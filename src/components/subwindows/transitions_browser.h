@@ -15,6 +15,7 @@
 
 class TransitionsBrowser : public QDialog{
 
+    Q_OBJECT
     /**
      * @brief mainLayout layout vertical qui contient l'ensemble des layout
      */
