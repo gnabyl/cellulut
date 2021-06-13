@@ -12,6 +12,7 @@
 #include <QFormLayout>
 #include <QSpinBox>
 #include <QListWidget>
+#include <QMessageBox>
 #include "../../utils/automata_manager.h"
 #include "../../utils/database.h"
 #include "transitions_browser.h"
@@ -67,7 +68,7 @@ public slots:
     void setChosenName(const QString& s);
     void setChosenState(int id,CellState* c);
     void changeNbStates(int nb);
-     void allowEditing(int id);
+    void allowEditing(int id);
 };
 
 class AutomatasBrowser : public QDialog {

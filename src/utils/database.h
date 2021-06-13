@@ -11,14 +11,34 @@
 #include "transition_factory.h"
 #include "grid_factory.h"
 
+/**
+ * @brief The DBException class gestionnaire d'erreurs
+ */
+
 class DBException{
+    /**
+     * @brief info message d'erreur
+     */
     std::string info;
 public:
+    /**
+     * @brief DBException constructeur de la classe DBException
+     * @param s chaine de caractères concernant le message d'erreur
+     */
     DBException(const std::string& s) : info(s){}
+    /**
+     * @brief getInfo récupère l'information (message d'erreur)
+     * @return le message d'erreur
+     */
     const std::string& getInfo() const{return info;}
 };
-
+/**
+ * @brief The DBManager class gestionnaire de la BDD
+ */
 class DBManager{
+    /**
+     * @brief DBManager  Constructeur
+     */
     DBManager(const QString&);
     QSqlDatabase db;
     DBManager(const DBManager*) = delete;
