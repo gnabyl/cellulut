@@ -107,6 +107,7 @@ class VonNeumannNeighborhoodGeneralized: public NeighborhoodStrategy {
   public:
     /**
      * @brief VonNeumannNeighborhoodGeneralized Constructeur de voisinage de VonNeumann généralisé
+     * @param name nom du voisinage
      * @param radius raton du voisinage (1 par défaut)
      */
     VonNeumannNeighborhoodGeneralized(std::string name = "Von Neumann Neighborhood Generalized", int radius = 1);
