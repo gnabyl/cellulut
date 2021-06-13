@@ -93,7 +93,6 @@ void StatesBrowser::receiveStateID(int id){
     stateID = id;
 }
 
-
 StatesBrowser::~StatesBrowser() {
     for (int i = 0; i < size; i ++) {
         for (int j = 0; j < 3; j ++) {

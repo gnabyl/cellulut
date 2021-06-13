@@ -1,8 +1,11 @@
 #include "automatas_browser.h"
 
-AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(0),chosenNeighborhood(nullptr), chosenTransition(nullptr), chosenStates(nullptr), chosenName(QString("")){
+AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(0),chosenNeighborhood(nullptr), chosenTransition(nullptr), chosenName(QString("")){
     transitionsBrowser = new TransitionsBrowser(this);
     neighborsBrowser = new NeighborsBrowser(this);
+
+    chosenStates = new CellState*[8];
+    for(size_t i=0; i<8; i++) chosenStates[i] = nullptr;
 
     mainLayout = new QVBoxLayout(this);
     fieldsLayout = new QFormLayout(this);
@@ -96,9 +99,12 @@ void AutomatasCreator::updateStatesList(){
     }
     for (int i = 0; i < nbStates; i ++) {
         CellState* s = chosenStates[i];
-        std::string item = std::to_string(s->getId());
-        item += ". " + s->getLabel();
-        statesList->addItem(item.c_str());
+        if(s != nullptr){
+            std::string item = std::to_string(s->getId());
+            item += ". " + s->getLabel();
+            statesList->addItem(item.c_str());
+        }
+        else statesList->addItem("Void state");
     }
     statesList->adjustSize();
 }
