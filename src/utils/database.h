@@ -54,7 +54,7 @@ public:
     static void closeDB();
 
     void loadAutomatasFromDB() const;
-    void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates);
+    void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates,QString description = "",QString author = "",int year = 0);
     QColor toColor(const QString& col) const;
 
     void insertNeighborhoodIntoDB(const QString name, const int radius) const;
