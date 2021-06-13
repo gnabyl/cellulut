@@ -334,6 +334,7 @@ class ControlPanel : public QWidget {
      * @param id identifiant du nouvel automate à utiliser
      */
     void automataChanged(int id);
+    void stateadded();
   private slots:
     /**
      * @brief openNeighborsBrowser slot engrangeant l'ouverture de l'explorateur des voisinages

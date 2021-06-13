@@ -45,12 +45,14 @@ void Create_State::newState() {
         QString color=this->colorCbb->currentText();
         dbMan.DbaddState(label, id , color);
 
+
     }
     catch(DBException e){
         QMessageBox window;
         window.setText(QString::fromStdString(e.getInfo()));
         window.exec();
     }
-emit stateadded();
+
+        emit stateadded();
         close();
 }

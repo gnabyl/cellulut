@@ -220,7 +220,7 @@ void ControlPanel::initRunSettings() {
     sliderSpeed->setValue(simulatorWidget->getFrequency());
     sliderSpeed->setMinimum(simulatorWidget->getFrequency());
     sliderSpeed->setMaximum(50);
-    runSettingsLayout->addRow("openution speed", sliderSpeed);
+    runSettingsLayout->addRow("execution speed", sliderSpeed);
     bufferSizeSpb = new QSpinBox(runSettingsBox);
     bufferSizeSpb->setKeyboardTracking(false);
     bufferSizeSpb->setValue(simulatorWidget->getSimulator()->getBufferSize());

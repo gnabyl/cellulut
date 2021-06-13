@@ -8,16 +8,42 @@ StatesBrowser::StatesBrowser(QWidget* parent,std::pair<int,CellState**> statetab
     initStateTable(statetab);
     initButtons();
 
+
+
+
+
     mainLayout->addWidget(stateTable);
     mainLayout->addLayout(buttonsLayout);
 
     setLayout(mainLayout);
     Createstate = new Create_State(this);
 
-
+    connect(Createstate, SIGNAL(stateadded()), this, SLOT(loadStates()));
     adjustSize();
 }
+void StatesBrowser::completeTable(std::pair<int,CellState**> statetab){
+    int nb = statetab.first;
+    for (int i = 0; i<nb-1; i ++) {
+        stateItems[i] = new QTableWidgetItem*[3];
+        stateItems[i][0] = new QTableWidgetItem(std::to_string(statetab.second[i]->getId()).c_str());
+        stateItems[i][1] = new QTableWidgetItem(statetab.second[i]->getLabel().c_str());
+        stateItems[i][2] =  new QTableWidgetItem(statetab.second[i]->getColor().name());
 
+        for (int j = 0; j < 3; j ++) {
+            stateTable->setItem(i, j, stateItems[i][j]);
+        }
+    }
+
+    stateItems[nb-1] = new QTableWidgetItem*[3];
+    stateItems[nb-1][0] = new QTableWidgetItem(std::to_string(statetab.second[nb-1]->getId()).c_str());
+    stateItems[nb-1][1] = new QTableWidgetItem(statetab.second[nb-1]->getLabel().c_str());
+    stateItems[nb-1][2] =  new QTableWidgetItem(statetab.second[nb-1]->getColor().name());
+    stateTable->insertRow( stateTable->rowCount() );
+
+    for (int j = 0; j < 3; j ++) {
+        stateTable->setItem(nb-1, j, stateItems[nb-1][j]);
+    }
+}
 void StatesBrowser::initStateTable(std::pair<int,CellState**> statetab) {
     int nb = statetab.first;
     stateTable = new QTableWidget(nb, 3, this);
@@ -56,13 +82,11 @@ void StatesBrowser::initButtons() {
     buttonsLayout = new QHBoxLayout(this);
     btnChoose = new QPushButton("Choose", this);
     btnCreate = new QPushButton("Create", this);
-    btnDelete = new QPushButton("Delete", this);
-    btnSave = new QPushButton("Save", this);
+
 
     buttonsLayout->addWidget(btnChoose);
     buttonsLayout->addWidget(btnCreate);
-    buttonsLayout->addWidget(btnDelete);
-    buttonsLayout->addWidget(btnSave);
+
 
 
 
@@ -70,11 +94,41 @@ void StatesBrowser::initButtons() {
     connect(btnCreate, &QPushButton::clicked, this, &StatesBrowser::openCreateState);
     connect(btnChoose, &QPushButton::clicked, this, &StatesBrowser::chooseState);
 
+
+
 }
 
 /*
- *          SLOTS
+// *          SLOTS
  */
+
+
+void StatesBrowser::loadStates(){
+
+    for (int i = 0; i < size; i ++) {
+        for (int j = 0; j < 3; j ++) {
+            delete this->stateItems[i][j];
+        }
+        delete[] stateItems[i];
+    }
+
+
+
+    try{
+        DBManager dbMan = DBManager::getDB();
+        std::pair<int,CellState**> statetab=dbMan.loadStatesfromDB();
+        completeTable(statetab);
+
+
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.open();
+    }
+
+}
+
 
 
 void StatesBrowser::openCreateState(){

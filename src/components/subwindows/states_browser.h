@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include "../../utils/automata_manager.h"
 #include "Create_State.h"
+#include "utils/database.h"
 
 class StatesBrowser : public QDialog {
     Q_OBJECT
@@ -55,6 +56,7 @@ class StatesBrowser : public QDialog {
      * @brief initButtons permet d'initialiser les boutons
      */
     void initButtons();
+    void completeTable(std::pair<int,CellState**> statetab);
 
   public:
     /**
@@ -71,12 +73,14 @@ class StatesBrowser : public QDialog {
     void stateChanged(int,CellState*);
 
   public slots:
+    void loadStates();
+
     /**
      * @brief receiveStateID affecte l'id en paramètre à l'attribut stateID
      * @param id numéro que l'on affecte à stateID
      */
-    void receiveStateID(int id);
 
+    void receiveStateID(int id);
   private slots:
     /**
      * @brief chooseState appelle stateChanged afin d'appliquer le changement d'état

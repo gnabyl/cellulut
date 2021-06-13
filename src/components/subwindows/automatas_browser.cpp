@@ -1,6 +1,6 @@
 #include "automatas_browser.h"
 
-AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(0), chosenStates(nullptr), chosenNeighborhood(nullptr), chosenTransition(nullptr), chosenName(QString("")){
+AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), chosenName(QString("")), nbStates(0), chosenStates(nullptr), chosenTransition(nullptr), chosenNeighborhood(nullptr) {
     transitionsBrowser = new TransitionsBrowser(this);
     neighborsBrowser = new NeighborsBrowser(this);
 
@@ -86,8 +86,10 @@ void AutomatasCreator::receiveNeighborhood(NeighborhoodStrategy* n){
     this->chosenNeighborhood = n;
 }
 
-void AutomatasCreator::allowEditing(int nb){
-    this->editStateButton->setDisabled(false);
+void AutomatasCreator::allowEditing(int nb) {
+    if (nb >= 0) {
+        this->editStateButton->setDisabled(false);
+    }
 }
 
 void AutomatasCreator::updateStatesList(){
@@ -175,7 +177,7 @@ void AutomatasCreator::changeNbStates(int nb){
         //Change states table in the back
         CellState** newTab = new CellState*[nb];
         QListWidgetItem** newTabItems = new QListWidgetItem*[nb];
-        for(size_t i=0; i<this->nbStates;i++){
+        for(int i=0; i < this->nbStates;i++){
             newTab[i] = chosenStates[i];
             newTabItems[i] = statesItems[i];
         }

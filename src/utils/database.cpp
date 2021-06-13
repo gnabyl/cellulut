@@ -128,9 +128,9 @@ void DBManager::insertAutomataIntoDB(QString name,int nbStates, QString transiti
         throw DBException("Error while trying to create a new automaton. This may be due to an already used name.");
     }
 
-    for(size_t i=0; i<nbStates; i++){
+    for(int i = 0; i < nbStates; i++){
         QSqlQuery queryBis(QSqlDatabase::database());
-        bool test = queryBis.prepare("INSERT INTO AutomataState(stateID, automataName) VALUES(:stateID,:name)");
+        queryBis.prepare("INSERT INTO AutomataState(stateID, automataName) VALUES(:stateID,:name)");
         queryBis.bindValue(":stateID",chosenStates[i]->getId());
         queryBis.bindValue(":name",name);
         queryBis.exec();
