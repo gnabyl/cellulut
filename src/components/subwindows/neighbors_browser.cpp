@@ -16,6 +16,7 @@ NeighborsBrowser::NeighborsBrowser(QWidget* parent, int width, int height) : QDi
     connect(btnCreate, &QPushButton::clicked, this, &NeighborsBrowser::openNeighborCreator);
     connect(btnConfirm, &QPushButton::clicked, this, &NeighborsBrowser::chooseNeighbor);
     connect(neighborhoodCbb, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NeighborsBrowser::neighborCbbChanged);
+    connect(neighborCreator, &QDialog::finished, this, &NeighborsBrowser::openNeighborsBrowser);
 
     mainLayout->addLayout(neighborhoodLayout);
 
@@ -43,7 +44,7 @@ void NeighborsBrowser::setNeighborhoods(int nbNeighbors, NeighborhoodStrategy** 
 void NeighborsBrowser::openNeighborsBrowser() {
     std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
     try {
-        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
+        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodsFromDB();
         setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
     } catch(DBException e) {
         QMessageBox window;
@@ -101,7 +102,7 @@ void NeighborsBrowser::chooseNeighbor() {
 
 void NeighborsBrowser::openNeighborCreator() {
     this->neighborCreator->open();
-    hide();
+    close();
 }
 
 
@@ -219,12 +220,12 @@ void NeighborCreator::createNeighbor() {
                 }
             }
         }
-        db.DBaddNeighborhood(txtName->text(), nbNeighbors, dx, dy);
+        db.insertNeighborhoodIntoDB(txtName->text(), nbNeighbors, dx, dy);
         delete[] dx;
         delete[] dy;
     } else {
         DBManager db = DBManager::getDB();
-        db.DBaddNeighborhood(txtName->text(), spbRadius->value());
+        db.insertNeighborhoodIntoDB(txtName->text(), spbRadius->value());
     }
     close();
 }

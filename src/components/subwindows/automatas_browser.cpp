@@ -42,7 +42,7 @@ AutomatasCreator::AutomatasCreator(QWidget* parent) : QDialog(parent), nbStates(
 void AutomatasCreator::initStatesBrowser(){
     try{
         DBManager dbMan = DBManager::getDB();
-        std::pair<int,CellState**> statetab=dbMan.loadStatefromDB();
+        std::pair<int,CellState**> statetab=dbMan.loadStatesfromDB();
         statesBrowser = new StatesBrowser(this,statetab);
     }
 
@@ -174,12 +174,57 @@ void AutomatasBrowser::initAutomatasTable() {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
 
     automatasTable = new QTableWidget(automataManager->getNbAutomatas(), TBL_NB_COLS, this);
-    automatasItems = new QTableWidgetItem** [automataManager->getNbAutomatas()];
 
     automatasTable->setHorizontalHeaderLabels(QStringList({"Name", "Author", "Description", "Number of states"}));
     automatasTable->setSelectionMode(QAbstractItemView::SingleSelection);
     automatasTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
 
+void AutomatasBrowser::initButtons() {
+    buttonsLayout = new QHBoxLayout(this);
+    btnChoose = new QPushButton("Choose", this);
+    btnCreate = new QPushButton("Create", this);
+    btnDelete = new QPushButton("Delete", this);
+    btnSave = new QPushButton("Save", this);
+
+    buttonsLayout->addWidget(btnChoose);
+    buttonsLayout->addWidget(btnCreate);
+    buttonsLayout->addWidget(btnDelete);
+    buttonsLayout->addWidget(btnSave);
+
+
+    connect(btnChoose, &QPushButton::clicked, this, &AutomatasBrowser::chooseAutomata);
+    connect(btnCreate,&QPushButton::clicked,this,&AutomatasBrowser::openAutomataCreator);
+}
+
+void AutomatasBrowser::openAutomatasBrowser() {
+    AutomataManager* automataManager = AutomataManager::getAutomataManager();
+    // Clean current table
+    if (automataManager->getNbAutomatas()) {
+        for (int r = 0; r < automataManager->getNbAutomatas(); r ++) {
+            for (int c = 0; c < TBL_NB_COLS; c ++) {
+                delete automatasItems[r][c];
+            }
+            delete[] automatasItems[r];
+            automatasItems[r] = nullptr;
+        }
+        delete[] automatasItems;
+        automatasItems = nullptr;
+    }
+
+    try{
+        DBManager dbMan = DBManager::getDB();
+        AutomataManager::getAutomataManager()->clear();
+        dbMan.loadAutomatasFromDB();
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.open();
+    }
+    automatasTable->setRowCount(automataManager->getNbAutomatas());
+
+    automatasItems = new QTableWidgetItem** [automataManager->getNbAutomatas()];
     for (int i = 0; i < automataManager->getNbAutomatas(); i ++) {
         automatasItems[i] = new QTableWidgetItem*[TBL_NB_COLS];
         automatasItems[i][0] = new QTableWidgetItem(automataManager->getAutomata(i)->getName().c_str());
@@ -204,23 +249,10 @@ void AutomatasBrowser::initAutomatasTable() {
 
     automatasTable->setFixedWidth(totalWidth);
     automatasTable->selectRow(0);
-}
 
-void AutomatasBrowser::initButtons() {
-    buttonsLayout = new QHBoxLayout(this);
-    btnChoose = new QPushButton("Choose", this);
-    btnCreate = new QPushButton("Create", this);
-    btnDelete = new QPushButton("Delete", this);
-    btnSave = new QPushButton("Save", this);
+    connect(automataCreator, &QDialog::finished, this, &AutomatasBrowser::openAutomatasBrowser);
 
-    buttonsLayout->addWidget(btnChoose);
-    buttonsLayout->addWidget(btnCreate);
-    buttonsLayout->addWidget(btnDelete);
-    buttonsLayout->addWidget(btnSave);
-
-
-    connect(btnChoose, &QPushButton::clicked, this, &AutomatasBrowser::chooseAutomata);
-    connect(btnCreate,&QPushButton::clicked,this,&AutomatasBrowser::openAutomataCreator);
+    open();
 }
 
 /*

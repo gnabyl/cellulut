@@ -69,6 +69,7 @@ class SimulatorWidget : public QWidget {
     void setNeighbor(NeighborhoodStrategy* neighbor);
     void setTransition(TransitionStrategy* transition);
     void setState(int nb, CellState* c);
+    void setConfig(Grid* config);
 
     void changeCellState(int x, int y);
     void changeAnt(int x, int y);

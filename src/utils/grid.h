@@ -23,6 +23,10 @@ class Grid {
      * @brief cells tableau à deux dimensions de pointeur de cellule (initialement null)
      */
     Cell*** cells = nullptr;
+    /**
+     * @brief name nom de la grille, pour stocker dans la base de donnees
+     */
+    std::string name = "";
 
   public:
     /**
@@ -79,6 +83,16 @@ class Grid {
      * @return int la hauteur de la grille
      */
     int getHeight() const;
+    /**
+     * @brief getName accesseur en lecture du nom de la grille
+     * @return std::string le nom de la grille
+     */
+    std::string getName() const;
+    /**
+     * @brief setName accesseur en écriture du nom de la grille
+     * @param name
+     */
+    void setName(std::string name);
 };
 
 #endif //LO21_GRID_H

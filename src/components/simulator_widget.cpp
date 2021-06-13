@@ -247,6 +247,12 @@ void SimulatorWidget::setState(int nb, CellState* c){
     emit stateHasChanged();
 }
 
+void SimulatorWidget::setConfig(Grid* config) {
+    simulator->reset();
+    simulator->setStartGrid(config);
+    updateGridDisplay();
+}
+
 void SimulatorWidget::setBufferSize(int size) {
     this->simulator->setBufferSize(size);
 }
