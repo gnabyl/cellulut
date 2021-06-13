@@ -24,22 +24,6 @@
 #include "subwindows/states_browser.h"
 
 /**
- * @brief The FrequencyDisplayBox class : implémentation d'un héritage de QLineEdit qui permet d'afficher la fréquence d'exécution courante.
- */
-class FrequencyDisplayBox : public QLineEdit{
-    Q_OBJECT
-
-    using QLineEdit::QLineEdit;
-
-public slots:
-    /**
-     * @brief setFrequency slot qui reçoit la fréquence paramétrée par l'utilisateur dans l'interface
-     * @param f fréquence reçue depuis le curseur de l'interface
-     */
-    void setFrequency(int f);
-};
-
-/**
  * @brief The ControlPanel class classe centrale qui réunit tous les objets permettant de paramétrer la simulation et de gérer toutes les données persistantes (automates, voisinages, transitions, configurations)
  */
 class ControlPanel : public QWidget {

@@ -266,10 +266,6 @@ void ControlPanel::setConfig(Grid* config) {
     txtConfigName->setText(config->getName().c_str());
 }
 
-void FrequencyDisplayBox::setFrequency(int f) {
-    setText(QString::number(f));
-}
-
 void ControlPanel::openAutomatasBrowser() {
     automatasBrowser->openAutomatasBrowser();
 }
