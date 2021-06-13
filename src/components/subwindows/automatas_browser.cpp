@@ -113,6 +113,7 @@ void AutomatasCreator::setChosenState(int id, CellState *c){
     updateStatesList();
 }
 
+
 void AutomatasCreator::setChosenAuthor(const QString & s){
     this->chosenAuthor = s;
 }
@@ -124,6 +125,7 @@ void AutomatasCreator::setChosenYear(int y){
 void AutomatasCreator::setChosenDescription(const QString& d){
     this->chosenDescription = d;
 }
+
 
 void AutomatasCreator::startCreation(){
     try{
@@ -150,6 +152,7 @@ void AutomatasCreator::createAutomaton(){
             QMessageBox window;
             window.setText(e.getInfo().c_str());
             window.exec();
+
         }
     }
 }

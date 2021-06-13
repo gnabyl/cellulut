@@ -169,6 +169,21 @@ DBManager::~DBManager() {
     db.close();
 }
 
+void DBManager::DbaddState(const QString label, const int id , const QString color) const {
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("INSERT INTO State(id,label,color) VALUES(:id,:label,:color)");
+    query.bindValue(":id",id);
+    query.bindValue(":label",label);
+    query.bindValue(":color", color);
+    if(!query.exec()) {
+        qDebug() << "addState error:"
+                 << query.lastError().text();
+    }
+
+
+
+
+}
 
 void DBManager::insertNeighborhoodIntoDB(const QString name, const int radius) const {
     QSqlQuery query(QSqlDatabase::database());
