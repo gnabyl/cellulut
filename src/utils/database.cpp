@@ -350,6 +350,7 @@ std::pair<int, Grid**> DBManager::loadConfigsFromDB(Automata* automata) const {
                     }
                 }
                 res[i]->setCell(new Cell(automata->getAvailableState(cellStatePos), r, c), r, c);
+                res[i]->setName(gridName.toStdString());
             }
         }
 

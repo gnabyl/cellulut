@@ -9,6 +9,7 @@ HEADERS += \
     components/menubar.h \
     components/simulator_widget.h \
     components/subwindows/automatas_browser.h \
+    components/subwindows/configs_browser.h \
     components/subwindows/neighbors_browser.h \
     components/subwindows/states_browser.h \
     components/subwindows/transitions_browser.h \
@@ -35,6 +36,7 @@ SOURCES += \
     components/menubar.cpp \
     components/simulator_widget.cpp \
     components/subwindows/automatas_browser.cpp \
+    components/subwindows/configs_browser.cpp \
     components/subwindows/neighbors_browser.cpp \
     components/subwindows/states_browser.cpp \
     components/subwindows/transitions_browser.cpp \

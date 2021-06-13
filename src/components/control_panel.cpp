@@ -62,6 +62,9 @@ void ControlPanel::initEventHandler() {
     connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
     connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
     connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
+
+    connect(btnSaveConfig, &QPushButton::clicked, this, &ControlPanel::btnSaveConfigClicked);
+    connect(btnLoadConfig, &QPushButton::clicked, this, &ControlPanel::openConfigsBrowser);
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -72,13 +75,13 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     initGridSettings();
     mainLayout->addWidget(gridSettingsBox);
 
-    //2 : automata settings
+    // 2 : automata settings
     automataSettingsBox = new QGroupBox(tr("Automata settings"));
     initAutomataSettings();
     mainLayout->addWidget(automataSettingsBox);
 
 
-    //3 : run settings
+    // 3 : run settings
     runSettingsBox = new QGroupBox(tr("Run settings"));
     initRunSettings();
     mainLayout->addWidget(runSettingsBox);
@@ -91,6 +94,7 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
 
     setMaximumWidth(500);
 
+    configsBrowser = new ConfigsBrowser(this);
     automatasBrowser = new AutomatasBrowser(this);
     transitionsBrowser = new TransitionsBrowser(this);
     neighborsBrowser = new NeighborsBrowser(this);
@@ -102,6 +106,9 @@ void ControlPanel::initGridSettings() {
     nbRowsSpb = new QSpinBox(gridSettingsBox);
     nbColsSpb = new QSpinBox(gridSettingsBox);
     cellSizeSpb = new QSpinBox(gridSettingsBox);
+    txtConfigName = new QLineEdit(gridSettingsBox);
+    btnLoadConfig = new QPushButton("Load", gridSettingsBox);
+    btnSaveConfig = new QPushButton("Save", gridSettingsBox);
 
     nbRowsSpb->setKeyboardTracking(false);
     nbRowsSpb->setValue(simulatorWidget->getNbRows());
@@ -118,11 +125,20 @@ void ControlPanel::initGridSettings() {
     cellSizeSpb->setMaximum(50);
     cellSizeSpb->setMinimum(5);
 
+
+
     //Creation of the boxes layout
     gridSettingsLayout = new QFormLayout(gridSettingsBox);
+    configButtonsLayout = new QHBoxLayout(gridSettingsBox);
+
+    configButtonsLayout->addWidget(btnLoadConfig);
+    configButtonsLayout->addWidget(btnSaveConfig);
+
+    gridSettingsLayout->addRow("Config name", txtConfigName);
     gridSettingsLayout->addRow("Rows number", nbRowsSpb);
     gridSettingsLayout->addRow("Cols number", nbColsSpb);
     gridSettingsLayout->addRow("Cell size", cellSizeSpb);
+    gridSettingsLayout->addRow("", configButtonsLayout);
 }
 
 void ControlPanel::initAutomataSettings() {
@@ -235,4 +251,22 @@ void ControlPanel::openAutomatasBrowser() {
 
 void ControlPanel::openStateBrowser(){
     statebrowser->open();
+}
+
+void ControlPanel::btnSaveConfigClicked() {
+    try {
+        DBManager dbMan = DBManager::getDB();
+        dbMan.insertConfigIntoDB(txtConfigName->text(), simulatorWidget->getSimulator()->getIterator().current(), simulatorWidget->getSimulator()->getAutomata());
+        QMessageBox window;
+        window.setText("Configuration saved successfully");
+        window.exec();
+    } catch (DBException e) {
+        QMessageBox window;
+        window.setText(e.getInfo().c_str());
+        window.exec();
+    }
+}
+
+void ControlPanel::openConfigsBrowser() {
+    configsBrowser->openConfigsBrowser(simulatorWidget->getSimulator()->getAutomata());
 }
