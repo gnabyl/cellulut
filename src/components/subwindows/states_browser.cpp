@@ -71,9 +71,10 @@ void StatesBrowser::initButtons() {
  *          SLOTS
  */
 void StatesBrowser::chooseState() {
-    if (stateTable->selectionModel()->selectedIndexes().size() > 0)
+    if (stateTable->selectionModel()->selectedIndexes().size() > 0) {
         emit stateChanged(this->stateID,statesTable[stateTable->selectionModel()->selectedIndexes().at(0).row()]);
         close();
+    }
 }
 
 void StatesBrowser::receiveStateID(int id){
