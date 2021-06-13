@@ -23,9 +23,6 @@ void ControlPanel::openTransitionsBrowser() {
     transitionsBrowser->openTransitionBrowser();
 }
 
-void ControlPanel::stateSettings() {
-
-}
 void ControlPanel::loadStates(){
     try{
         DBManager dbMan = DBManager::getDB();
