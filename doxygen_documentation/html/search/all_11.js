@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['vonneumannneighborhood_215',['VonNeumannNeighborhood',['../class_von_neumann_neighborhood.html',1,'VonNeumannNeighborhood'],['../class_von_neumann_neighborhood.html#a038f23cab8ae79819c5e22a27db2c3dd',1,'VonNeumannNeighborhood::VonNeumannNeighborhood()']]],
-  ['vonneumannneighborhoodgeneralized_216',['VonNeumannNeighborhoodGeneralized',['../class_von_neumann_neighborhood_generalized.html',1,'VonNeumannNeighborhoodGeneralized'],['../class_von_neumann_neighborhood_generalized.html#a3161c024220c1dd8eee0b2433911c045',1,'VonNeumannNeighborhoodGeneralized::VonNeumannNeighborhoodGeneralized()']]]
+  ['up_273',['UP',['../cell_8h.html#a224b9163917ac32fc95a60d8c1eec3aaaba595d8bca8bc5e67c37c0a9d89becfa',1,'cell.h']]],
+  ['updatedisplay_274',['updateDisplay',['../class_cell_widget.html#ac782d4e86acd3a16678ea80fbf5ec9a4',1,'CellWidget']]],
+  ['updategriddisplay_275',['updateGridDisplay',['../class_simulator_widget.html#a396a65cf0912e0ef2bbe9b5340fc7046',1,'SimulatorWidget']]]
 ];

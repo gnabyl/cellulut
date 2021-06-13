@@ -62,8 +62,9 @@ class StatesBrowser : public QDialog {
     /**
      * @brief StatesBrowser constructeur qui prend en argument le tableau d'état avec sa dimension
      * @param parent
+     * @param statetab
      */
-    StatesBrowser(QWidget* parent,std::pair<int,CellState**>);
+    StatesBrowser(QWidget* parent,std::pair<int,CellState**> statetab);
     ~StatesBrowser();
 
   signals:

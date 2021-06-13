@@ -109,6 +109,9 @@ public:
      * @param transitionName nom de la transition souhaitée
      * @param neighborhoodName nom du voisinage souhaitée
      * @param chosenStates types d'états sélectionnés
+     * @param description description de l'automate
+     * @param author l'auteur de l'automate
+     * @param year l'année de création
      */
     void insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates,QString description = "",QString author = "",int year = 0);
 

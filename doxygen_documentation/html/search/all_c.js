@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['paintevent_146',['paintEvent',['../class_cell_widget.html#a68a566c1f7c441ca83b576751ba84211',1,'CellWidget']]],
-  ['pause_5fbtn_5ficon_5fpath_147',['PAUSE_BTN_ICON_PATH',['../constants_8h.html#ae3ee9ec55961cdee0762d0a74f70100f',1,'constants.h']]],
-  ['play_5fbtn_5ficon_5fpath_148',['PLAY_BTN_ICON_PATH',['../constants_8h.html#aba0d041c0ff8e455fbedf0b6a2847442',1,'constants.h']]],
-  ['prev_5fbtn_5ficon_5fpath_149',['PREV_BTN_ICON_PATH',['../constants_8h.html#a518f0edd605f1c7e1eb7fefa037af38c',1,'constants.h']]],
-  ['previousgrid_150',['previousGrid',['../class_simulator_1_1_iterator.html#af86ee75c7545271bb4702b1617ec1b6a',1,'Simulator::Iterator']]]
+  ['openautomatasbrowser_180',['openAutomatasBrowser',['../class_automatas_browser.html#a18864096ec9bc06248913b11e58978dd',1,'AutomatasBrowser']]],
+  ['openconfigsbrowser_181',['openConfigsBrowser',['../class_configs_browser.html#ae6c436f650b3d7afd741228f13790ebf',1,'ConfigsBrowser']]],
+  ['openneighborsbrowser_182',['openNeighborsBrowser',['../class_neighbors_browser.html#aa90658923cb0d6eb0d6656f2d42fae41',1,'NeighborsBrowser']]],
+  ['opentransitionbrowser_183',['openTransitionBrowser',['../class_transitions_browser.html#abe4677d74e11332367c4566c1243eec2',1,'TransitionsBrowser']]],
+  ['operator_3d_184',['operator=',['../class_grid.html#a7e86df562719e3d6c527f977a01f5fbd',1,'Grid']]],
+  ['outertotalistictransition_185',['OuterTotalisticTransition',['../class_outer_totalistic_transition.html',1,'OuterTotalisticTransition'],['../class_outer_totalistic_transition.html#a4ad3526899f75091d7619ca0ac4db55f',1,'OuterTotalisticTransition::OuterTotalisticTransition()']]]
 ];

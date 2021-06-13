@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['simulator_2ecpp_307',['simulator.cpp',['../simulator_8cpp.html',1,'']]],
-  ['simulator_2eh_308',['simulator.h',['../simulator_8h.html',1,'']]],
-  ['simulator_5fwidget_2ecpp_309',['simulator_widget.cpp',['../simulator__widget_8cpp.html',1,'']]],
-  ['simulator_5fwidget_2eh_310',['simulator_widget.h',['../simulator__widget_8h.html',1,'']]]
+  ['neighborhood_5ffactory_2ecpp_382',['neighborhood_factory.cpp',['../neighborhood__factory_8cpp.html',1,'']]],
+  ['neighborhood_5ffactory_2eh_383',['neighborhood_factory.h',['../neighborhood__factory_8h.html',1,'']]],
+  ['neighborhood_5fstrategy_2ecpp_384',['neighborhood_strategy.cpp',['../neighborhood__strategy_8cpp.html',1,'']]],
+  ['neighborhood_5fstrategy_2eh_385',['neighborhood_strategy.h',['../neighborhood__strategy_8h.html',1,'']]],
+  ['neighbors_5fbrowser_2ecpp_386',['neighbors_browser.cpp',['../neighbors__browser_8cpp.html',1,'']]],
+  ['neighbors_5fbrowser_2eh_387',['neighbors_browser.h',['../neighbors__browser_8h.html',1,'']]]
 ];

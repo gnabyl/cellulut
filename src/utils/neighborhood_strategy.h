@@ -195,6 +195,7 @@ class MooreNeighborhoodGeneralized: public NeighborhoodStrategy {
   public:
     /**
      * @brief MooreNeighborhoodGeneralized Constructeur du voisinage de Moore généralisé
+     * @param name Nom du voisinage
      * @param radius Rayon (par défaut 1)
      */
     MooreNeighborhoodGeneralized(std::string name="Moore Neighborhood Generalized", int radius = 1);

@@ -2,16 +2,24 @@
 \label{class_d_b_exception}\index{DBException@{DBException}}
 
 
+The \mbox{\hyperlink{class_d_b_exception}{DBException}} class gestionnaire d\textquotesingle{}erreurs.  
+
+
+
+
 {\ttfamily \#include $<$database.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_d_b_exception_a3952cfb9555b12f80dc30dbf5b2c3cc4}{DBException}} (const std\+::string \&s)
-\item 
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_d_b_exception}{DBException}} constructeur de la classe \mbox{\hyperlink{class_d_b_exception}{DBException}}. \end{DoxyCompactList}\item 
 const std\+::string \& \mbox{\hyperlink{class_d_b_exception_a8df0b5158d1f09a0b69709eca3570b7e}{get\+Info}} () const
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em get\+Info récupère l\textquotesingle{}information (message d\textquotesingle{}erreur) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_d_b_exception}{DBException}} class gestionnaire d\textquotesingle{}erreurs. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_d_b_exception_a3952cfb9555b12f80dc30dbf5b2c3cc4}\label{class_d_b_exception_a3952cfb9555b12f80dc30dbf5b2c3cc4}} 
@@ -20,6 +28,15 @@ const std\+::string \& \mbox{\hyperlink{class_d_b_exception_a8df0b5158d1f09a0b69
 \doxysubsubsection{\texorpdfstring{DBException()}{DBException()}}
 {\footnotesize\ttfamily DBException\+::\+DBException (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+\mbox{\hyperlink{class_d_b_exception}{DBException}} constructeur de la classe \mbox{\hyperlink{class_d_b_exception}{DBException}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & chaine de caractères concernant le message d\textquotesingle{}erreur \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
@@ -31,6 +48,13 @@ const std\+::string \& \mbox{\hyperlink{class_d_b_exception_a8df0b5158d1f09a0b69
 
 
 
+get\+Info récupère l\textquotesingle{}information (message d\textquotesingle{}erreur) 
+
+\begin{DoxyReturn}{Returns}
+le message d\textquotesingle{}erreur 
+\end{DoxyReturn}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-utils/\mbox{\hyperlink{database_8h}{database.\+h}}\end{DoxyCompactItemize}
+src/utils/\mbox{\hyperlink{database_8h}{database.\+h}}\end{DoxyCompactItemize}

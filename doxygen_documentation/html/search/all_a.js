@@ -1,16 +1,16 @@
 var searchData=
 [
-  ['neighborcbbchanged_131',['neighborCbbChanged',['../class_neighbors_browser.html#af0f20abd183017d92437b7e41a56cbdc',1,'NeighborsBrowser']]],
-  ['neighborchanged_132',['neighborChanged',['../class_neighbors_browser.html#ada8d41166619e4c12446b55c51734406',1,'NeighborsBrowser']]],
-  ['neighborhood_5fstrategy_2ecpp_133',['neighborhood_strategy.cpp',['../neighborhood__strategy_8cpp.html',1,'']]],
-  ['neighborhood_5fstrategy_2eh_134',['neighborhood_strategy.h',['../neighborhood__strategy_8h.html',1,'']]],
-  ['neighborhoodstrategy_135',['NeighborhoodStrategy',['../class_neighborhood_strategy.html',1,'NeighborhoodStrategy'],['../class_neighborhood_strategy.html#a1c692fd3ff3850ab3be01c494c84ce29',1,'NeighborhoodStrategy::NeighborhoodStrategy()']]],
-  ['neighbors_5fbrowser_2ecpp_136',['neighbors_browser.cpp',['../neighbors__browser_8cpp.html',1,'']]],
-  ['neighbors_5fbrowser_2eh_137',['neighbors_browser.h',['../neighbors__browser_8h.html',1,'']]],
-  ['neighborsbrowser_138',['NeighborsBrowser',['../class_neighbors_browser.html',1,'NeighborsBrowser'],['../class_neighbors_browser.html#ae95c77b1acf2034d4ea6b8af5aed42c9',1,'NeighborsBrowser::NeighborsBrowser()']]],
-  ['neighborsbrowsewindow_139',['NeighborsBrowseWindow',['../class_neighbors_browse_window.html',1,'NeighborsBrowseWindow'],['../class_neighbors_browse_window.html#ae00e44bf427e98a17cb585113500f382',1,'NeighborsBrowseWindow::NeighborsBrowseWindow()']]],
-  ['next_140',['next',['../class_simulator.html#aa0ff160b09006e947f112d6c505f2530',1,'Simulator']]],
-  ['next_5fbtn_5ficon_5fpath_141',['NEXT_BTN_ICON_PATH',['../constants_8h.html#ac78eb0121df11a2ce5a8f9bdc6964524',1,'constants.h']]],
-  ['nextgrid_142',['nextGrid',['../class_simulator_1_1_iterator.html#a346ad9accb65bca42881ad482d518247',1,'Simulator::Iterator']]],
-  ['none_143',['NONE',['../cell_8h.html#a224b9163917ac32fc95a60d8c1eec3aaac157bdf0b85a40d2619cbc8bc1ae5fe2',1,'cell.h']]]
+  ['main_149',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['main_2ecpp_150',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['main_5fwindow_2ecpp_151',['main_window.cpp',['../main__window_8cpp.html',1,'']]],
+  ['main_5fwindow_2eh_152',['main_window.h',['../main__window_8h.html',1,'']]],
+  ['mainwindow_153',['MainWindow',['../class_main_window.html',1,'MainWindow'],['../class_main_window.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow::MainWindow()']]],
+  ['max_5fautomata_154',['MAX_AUTOMATA',['../automata__manager_8h.html#a9bc53bcb0c11facd9ebd8df685ff8f83',1,'automata_manager.h']]],
+  ['menubar_155',['MenuBar',['../class_menu_bar.html#a5e2cfb5b3cc226a89d182ae68d02bf2b',1,'MenuBar::MenuBar()'],['../class_menu_bar.html',1,'MenuBar']]],
+  ['menubar_2ecpp_156',['menubar.cpp',['../menubar_8cpp.html',1,'']]],
+  ['menubar_2eh_157',['menubar.h',['../menubar_8h.html',1,'']]],
+  ['mooreneighborhood_158',['MooreNeighborhood',['../class_moore_neighborhood.html#aad18bdd038cea57c08997b24b7be9cc6',1,'MooreNeighborhood::MooreNeighborhood()'],['../class_moore_neighborhood.html',1,'MooreNeighborhood']]],
+  ['mooreneighborhoodgeneralized_159',['MooreNeighborhoodGeneralized',['../class_moore_neighborhood_generalized.html',1,'MooreNeighborhoodGeneralized'],['../class_moore_neighborhood_generalized.html#a7deb61693a49e24ea77d9e931bd99e0f',1,'MooreNeighborhoodGeneralized::MooreNeighborhoodGeneralized()']]],
+  ['mousepressevent_160',['mousePressEvent',['../class_cell_widget.html#a61e89dd5db3cdbe231d2567e06023070',1,'CellWidget']]],
+  ['mousereleaseevent_161',['mouseReleaseEvent',['../class_cell_widget.html#a5a54ca6bd09f3aa0cc594db949b77ec7',1,'CellWidget']]]
 ];
