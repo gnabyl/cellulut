@@ -58,17 +58,25 @@ void AutomataManager::addAutomata(CellState** availableStates, TransitionStrateg
 //Supression d'un automate à un indice donné, réajustement tableau pour éviter les trous
 void AutomataManager::removeAutomata(int id) {
     if(id >= nbAutomatas) throw "Error: Automaton incorrect index";
-    delete automatas[id];
+    if (automatas[id]) {
+        delete automatas[id];
+        automatas[id] = nullptr;
+    }
     //On décale les automates pour combler la supression
     while(id < nbAutomatas - 1) {
         automatas[id] = automatas[id + 1];
         id++;
     }
-    delete automatas[id];
-    automatas[id] = nullptr;
+    if (automatas[id]) {
+        delete automatas[id];
+        automatas[id] = nullptr;
+    }
     nbAutomatas--;
 }
 
-
-
-
+void AutomataManager::clear() {
+    for (int i = nbAutomatas - 1; i >= 0; i --) {
+        removeAutomata(i);
+    }
+    nbAutomatas = 0;
+}

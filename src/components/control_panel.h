@@ -14,14 +14,14 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include "simulator_widget.h"
-//#include "automata_settings_windows.h"
 #include "bslider.h"
 #include "utils/automata_manager.h"
 #include "subwindows/automatas_browser.h"
 #include "subwindows/neighbors_browser.h"
 #include "subwindows/transitions_browser.h"
+#include "subwindows/configs_browser.h"
 #include "utils/database.h"
-#include "subwindows/State_browser.h"
+#include "subwindows/states_browser.h"
 
 class FrequencyDisplayBox : public QLineEdit{
     Q_OBJECT
@@ -41,6 +41,9 @@ class ControlPanel : public QWidget {
     QGroupBox* gridSettingsBox;
     QFormLayout* gridSettingsLayout;
     QSpinBox* nbRowsSpb, *nbColsSpb, *cellSizeSpb;
+    QHBoxLayout* configButtonsLayout;
+    QLineEdit* txtConfigName;
+    QPushButton *btnLoadConfig, *btnSaveConfig;
 
     //Automata settings box
     QGroupBox* automataSettingsBox;
@@ -87,7 +90,8 @@ class ControlPanel : public QWidget {
     AutomatasBrowser* automatasBrowser;
     NeighborsBrowser* neighborsBrowser;
     TransitionsBrowser* transitionsBrowser;
-    StateBrowser* statebrowser;
+    StatesBrowser* statebrowser;
+    ConfigsBrowser* configsBrowser;
 
     void loadAutomatas();
     void loadNeighborhoods();
@@ -117,12 +121,17 @@ class ControlPanel : public QWidget {
     void setAutomata(int id);
     void setNeighbor(NeighborhoodStrategy* neighbor);
     void setTransition(TransitionStrategy* transition);
+    void setConfig(Grid* config);
 
     void openTransitionsBrowser();
 
     void openAutomatasBrowser();
     void openStateBrowser();
+    void openConfigsBrowser();
+
     void updateStates();
+
+    void btnSaveConfigClicked();
 };
 
 #endif // CONTROL_PANEL_H

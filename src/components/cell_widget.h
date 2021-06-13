@@ -11,6 +11,9 @@
 #include <QBrush>
 #include "utils/cell.h"
 
+/**
+ * @brief The CellWidget class hérite de QWidget
+ */
 class CellWidget : public QWidget {
     Q_OBJECT
   public:

@@ -16,11 +16,11 @@ void ControlPanel::updateStates(){
 }
 
 void ControlPanel::openNeighborsBrowser() {
-    neighborsBrowser->exec();
+    neighborsBrowser->openNeighborsBrowser();
 }
 
 void ControlPanel::openTransitionsBrowser() {
-    transitionsBrowser->exec();
+    transitionsBrowser->openTransitionBrowser();
 }
 
 void ControlPanel::stateSettings() {
@@ -29,15 +29,15 @@ void ControlPanel::stateSettings() {
 void ControlPanel::loadStates(){
     try{
         DBManager dbMan = DBManager::getDB();
-        std::pair<int,CellState**> statetab=dbMan.loadStatefromDB();
-        statebrowser = new StateBrowser(this,statetab);
+        std::pair<int,CellState**> statetab=dbMan.loadStatesfromDB();
+        statebrowser = new StatesBrowser(this,statetab);
     }
 
 
     catch(DBException e){
         QMessageBox window;
         window.setText(QString::fromStdString(e.getInfo()));
-        window.exec();
+        window.open();
     }
 
     connect(statebrowser,SIGNAL(stateChanged(int,CellState*)),simulatorWidget,SLOT(setState(int,CellState*)));
@@ -64,59 +64,29 @@ void ControlPanel::loadAutomatas() {
     connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
 }
 
-void ControlPanel::loadNeighborhoods() {
-    std::pair<int, NeighborhoodStrategy**> loadedNeighborsInfos;
-    try{
-        loadedNeighborsInfos = DBManager::getDB().loadNeighborhoodFromDB();
-        neighborsBrowser = new NeighborsBrowser(this);
-        neighborsBrowser->setNeighborhoods(loadedNeighborsInfos.first, loadedNeighborsInfos.second);
-        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
-        connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
-    }
-    catch(DBException e){
-        QMessageBox window;
-        window.setText(QString::fromStdString(e.getInfo()));
-        window.show();
-    }
-}
-void ControlPanel::loadTransitions() {
-    std::pair<int, TransitionStrategy**> loadedTransitionInfos;
-    try{
-        loadedTransitionInfos = DBManager::getDB().loadTransitionsFromDB();
-        transitionsBrowser = new TransitionsBrowser(this);
-        transitionsBrowser->setTransitions(loadedTransitionInfos.first, loadedTransitionInfos.second);
-        connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
-        connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
-    }
-    catch(DBException e){
-        QMessageBox window;
-        window.setText(QString::fromStdString(e.getInfo()));
-        window.show();
-    }
-}
-/*
-void ControlPanel::loadTransitions() {
-    int nbTransitions = AutomataManager::getAutomataManager()->getNbAutomatas();
-    TransitionStrategy** transitions = new TransitionStrategy* [nbTransitions];
-    for (int i = 0; i < nbTransitions; i ++) {
-        transitions[i] = AutomataManager::getAutomataManager()->getAutomata(i)->getTransitionStrategy();
-    }
-    transitionsBrowser = new TransitionsBrowser(this);
-    transitionsBrowser->setTransitions(nbTransitions, transitions);
-    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
-    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
-}
-*/
 void ControlPanel::initEventHandler() {
     connect(nbRowsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbRows(int)));
     connect(nbColsSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setNbCols(int)));
     connect(cellSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setCellSize(int)));
     connect(bufferSizeSpb, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(setBufferSize(int)));
     connect(sliderSpeed, SIGNAL(valueChanged(int)), simulatorWidget, SLOT(changeFrequency(int)));
-    connect(btnBrowseAutomatas, &QPushButton::clicked, this, &ControlPanel::openAutomatasBrowser);
     connect(statesListWidget,SIGNAL(currentRowChanged(int)),statebrowser,SLOT(receiveStateID(int)));
     connect(btnEditState, &QPushButton::clicked, this, &ControlPanel::openStateBrowser);
     connect(simulatorWidget,SIGNAL(stateHasChanged()),this,SLOT(updateStates()));
+    connect(btnBrowseAutomatas, &QPushButton::clicked, this, &ControlPanel::openAutomatasBrowser);
+    connect(btnBrowseNeighborhoods, &QPushButton::clicked, this, &ControlPanel::openNeighborsBrowser);
+    connect(btnBrowseTransitions, &QPushButton::clicked, this, &ControlPanel::openTransitionsBrowser);
+    connect(btnSaveConfig, &QPushButton::clicked, this, &ControlPanel::btnSaveConfigClicked);
+    connect(btnLoadConfig, &QPushButton::clicked, this, &ControlPanel::openConfigsBrowser);
+
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, this, &ControlPanel::setAutomata);
+    connect(automatasBrowser, &AutomatasBrowser::automataChanged, simulatorWidget, &SimulatorWidget::setAutomata);
+    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, this, &ControlPanel::setTransition);
+    connect(transitionsBrowser, &TransitionsBrowser::transitionChanged, simulatorWidget, &SimulatorWidget::setTransition);
+    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, this, &ControlPanel::setNeighbor);
+    connect(neighborsBrowser, &NeighborsBrowser::neighborChanged, simulatorWidget, &SimulatorWidget::setNeighbor);
+    connect(configsBrowser, &ConfigsBrowser::configChanged, this, &ControlPanel::setConfig);
+    connect(configsBrowser, &ConfigsBrowser::configChanged, simulatorWidget, &SimulatorWidget::setConfig);
 }
 
 ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : QWidget(parent), simulatorWidget(simulatorWidget) {
@@ -127,37 +97,30 @@ ControlPanel::ControlPanel(QWidget* parent, SimulatorWidget* simulatorWidget) : 
     initGridSettings();
     mainLayout->addWidget(gridSettingsBox);
 
-    //2 : automata settings
+    // 2 : automata settings
     automataSettingsBox = new QGroupBox(tr("Automata settings"));
     initAutomataSettings();
     mainLayout->addWidget(automataSettingsBox);
 
-    //3 : run settings
+
+    // 3 : run settings
     runSettingsBox = new QGroupBox(tr("Run settings"));
     initRunSettings();
     mainLayout->addWidget(runSettingsBox);
 
     mainLayout->addStretch();
 
-
-    loadAutomatas();
-    loadNeighborhoods();
-    loadTransitions();
     loadStates();
 
     setLayout(mainLayout);
 
-
-    // Make all button disabled
-    btnBrowseNeighborhoods->setDisabled(true);
-    btnBrowseTransitions->setDisabled(true);
-    //btnEditState->setDisabled(true);
-
-
-
-    initEventHandler();
-
     setMaximumWidth(500);
+
+    configsBrowser = new ConfigsBrowser(this);
+    automatasBrowser = new AutomatasBrowser(this);
+    transitionsBrowser = new TransitionsBrowser(this);
+    neighborsBrowser = new NeighborsBrowser(this);
+    initEventHandler();
 }
 
 void ControlPanel::initGridSettings() {
@@ -165,6 +128,9 @@ void ControlPanel::initGridSettings() {
     nbRowsSpb = new QSpinBox(gridSettingsBox);
     nbColsSpb = new QSpinBox(gridSettingsBox);
     cellSizeSpb = new QSpinBox(gridSettingsBox);
+    txtConfigName = new QLineEdit(gridSettingsBox);
+    btnLoadConfig = new QPushButton("Load", gridSettingsBox);
+    btnSaveConfig = new QPushButton("Save", gridSettingsBox);
 
     nbRowsSpb->setKeyboardTracking(false);
     nbRowsSpb->setValue(simulatorWidget->getNbRows());
@@ -181,11 +147,20 @@ void ControlPanel::initGridSettings() {
     cellSizeSpb->setMaximum(50);
     cellSizeSpb->setMinimum(5);
 
+
+
     //Creation of the boxes layout
     gridSettingsLayout = new QFormLayout(gridSettingsBox);
+    configButtonsLayout = new QHBoxLayout(gridSettingsBox);
+
+    configButtonsLayout->addWidget(btnLoadConfig);
+    configButtonsLayout->addWidget(btnSaveConfig);
+
+    gridSettingsLayout->addRow("Config name", txtConfigName);
     gridSettingsLayout->addRow("Rows number", nbRowsSpb);
     gridSettingsLayout->addRow("Cols number", nbColsSpb);
     gridSettingsLayout->addRow("Cell size", cellSizeSpb);
+    gridSettingsLayout->addRow("", configButtonsLayout);
 }
 
 void ControlPanel::initAutomataSettings() {
@@ -220,7 +195,7 @@ void ControlPanel::initAutomataSettings() {
     textNeighborhoodName = new QLineEdit(automataSettingsBox);
     btnBrowseNeighborhoods = new QPushButton("Browse", automataSettingsBox);
     neighborhoodFieldLayout = new QHBoxLayout(automataSettingsBox);
-    connect(btnBrowseNeighborhoods, SIGNAL(clicked()), this, SLOT(openNeighborsBrowser()));
+
 
     neighborhoodFieldLayout->addWidget(neighborhoodLabel);
     neighborhoodFieldLayout->addWidget(textNeighborhoodName);
@@ -232,7 +207,6 @@ void ControlPanel::initAutomataSettings() {
     textTransitionName = new QLineEdit(automataSettingsBox);
     btnBrowseTransitions = new QPushButton("Browse", automataSettingsBox);
     transitionsFieldLayout = new QHBoxLayout(automataSettingsBox);
-    connect(btnBrowseTransitions, SIGNAL(clicked()), this, SLOT(openTransitionsBrowser()));
 
     transitionsFieldLayout->addWidget(transitionsLabel);
     transitionsFieldLayout->addWidget(textTransitionName);
@@ -249,7 +223,7 @@ void ControlPanel::initRunSettings() {
     sliderSpeed->setValue(simulatorWidget->getFrequency());
     sliderSpeed->setMinimum(simulatorWidget->getFrequency());
     sliderSpeed->setMaximum(50);
-    runSettingsLayout->addRow("Execution speed", sliderSpeed);
+    runSettingsLayout->addRow("openution speed", sliderSpeed);
     bufferSizeSpb = new QSpinBox(runSettingsBox);
     bufferSizeSpb->setKeyboardTracking(false);
     bufferSizeSpb->setValue(simulatorWidget->getSimulator()->getBufferSize());
@@ -289,15 +263,40 @@ void ControlPanel::setTransition(TransitionStrategy* transition) {
     textTransitionName->setText(QString::fromStdString(transition->getName()));
 }
 
+void ControlPanel::setConfig(Grid* config) {
+    nbColsSpb->setValue(config->getWidth());
+    nbRowsSpb->setValue(config->getHeight());
+    txtConfigName->setText(config->getName().c_str());
+}
+
 void FrequencyDisplayBox::setFrequency(int f) {
     setText(QString::number(f));
 }
 
 void ControlPanel::openAutomatasBrowser() {
-    automatasBrowser->exec();
+    automatasBrowser->openAutomatasBrowser();
 }
 
 void ControlPanel::openStateBrowser(){
-    statebrowser->exec();
+
+    statebrowser->open();
+}
+
+void ControlPanel::btnSaveConfigClicked() {
+    try {
+        DBManager dbMan = DBManager::getDB();
+        dbMan.insertConfigIntoDB(txtConfigName->text(), simulatorWidget->getSimulator()->getIterator().current(), simulatorWidget->getSimulator()->getAutomata());
+        QMessageBox window;
+        window.setText("Configuration saved successfully");
+        window.exec();
+    } catch (DBException e) {
+        QMessageBox window;
+        window.setText(e.getInfo().c_str());
+        window.exec();
+    }
+}
+
+void ControlPanel::openConfigsBrowser() {
+    configsBrowser->openConfigsBrowser(simulatorWidget->getSimulator()->getAutomata());
 
 }

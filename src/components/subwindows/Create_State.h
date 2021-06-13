@@ -33,6 +33,8 @@ class Create_State: public QDialog{
 public:
      Create_State(QWidget* parent);
 
+signals:
+     void stateadded();
 
 public slots:
    void newState();

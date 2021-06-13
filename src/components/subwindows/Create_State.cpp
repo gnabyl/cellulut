@@ -51,6 +51,6 @@ void Create_State::newState() {
         window.setText(QString::fromStdString(e.getInfo()));
         window.exec();
     }
-
+emit stateadded();
         close();
 }

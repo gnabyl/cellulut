@@ -4,10 +4,17 @@
 #include <string>
 
 using namespace std;
-
+/**
+ * @brief Classe de fabrication de fonction de transition
+ */
 class TransitionFactory {
 
 public:
+    /**
+     * @brief production méthode production d'une classe héritant de TransitionStrategy à partir du nom de cette classe
+     * @param  nom de la classe a créer
+     * @return TransitionStrategy* un pointeur sur une classe de transition
+     */
     TransitionStrategy* production(const string name) const;
 
 };

@@ -2,7 +2,6 @@ QT += widgets \
     sql \
 
 HEADERS += \
-    components/automata_settings_windows.h \
     components/bslider.h \
     components/cell_widget.h \
     components/control_panel.h \
@@ -10,9 +9,10 @@ HEADERS += \
     components/menubar.h \
     components/simulator_widget.h \
     components/subwindows/Create_State.h \
-    components/subwindows/State_browser.h \
     components/subwindows/automatas_browser.h \
+    components/subwindows/configs_browser.h \
     components/subwindows/neighbors_browser.h \
+    components/subwindows/states_browser.h \
     components/subwindows/transitions_browser.h \
     constants.h \
     utils/database.h \
@@ -30,7 +30,6 @@ HEADERS += \
     utils/transition_strategy.h \
 
 SOURCES += \
-    components/automata_settings_windows.cpp \
     components/bslider.cpp \
     components/cell_widget.cpp \
     components/control_panel.cpp \
@@ -38,9 +37,10 @@ SOURCES += \
     components/menubar.cpp \
     components/simulator_widget.cpp \
     components/subwindows/Create_State.cpp \
-    components/subwindows/State_browser.cpp \
     components/subwindows/automatas_browser.cpp \
+    components/subwindows/configs_browser.cpp \
     components/subwindows/neighbors_browser.cpp \
+    components/subwindows/states_browser.cpp \
     components/subwindows/transitions_browser.cpp \
     main.cpp \
     utils/database.cpp \

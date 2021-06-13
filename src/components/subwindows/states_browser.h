@@ -1,5 +1,5 @@
-#ifndef STATE_BROWSER_H
-#define STATE_BROWSER_H
+#ifndef STATES_BROWSER_H
+#define STATES_BROWSER_H
 
 #include <QDialog>
 #include <QTableWidget>
@@ -9,7 +9,7 @@
 #include "../../utils/automata_manager.h"
 #include "Create_State.h"
 
-class StateBrowser : public QDialog {
+class StatesBrowser : public QDialog {
     Q_OBJECT
 
     CellState** statesTable;
@@ -30,8 +30,8 @@ class StateBrowser : public QDialog {
     void initButtons();
 
   public:
-    StateBrowser(QWidget* parent,std::pair<int,CellState**>);
-    ~StateBrowser();
+    StatesBrowser(QWidget* parent,std::pair<int,CellState**>);
+    ~StatesBrowser();
 
   signals:
     void stateChanged(int,CellState*);
@@ -46,4 +46,4 @@ class StateBrowser : public QDialog {
 
 
 
-#endif // STATE_BROWSER_H
+#endif // STATES_BROWSER_H

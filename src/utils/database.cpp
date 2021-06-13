@@ -23,7 +23,7 @@ DBManager::DBManager(const QString& path) {
     }
 }
 
-std::pair<int , CellState**> DBManager::loadStatefromDB() const{
+std::pair<int , CellState**> DBManager::loadStatesfromDB() const{
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT COUNT(*) FROM State");
     query.exec();
@@ -56,11 +56,10 @@ DBManager& DBManager::getDB() {
 
 void DBManager::loadAutomatasFromDB() const {
     AutomataManager* automataManager = AutomataManager::getAutomataManager();
-    QSqlQuery query(this->db);
+    QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT * FROM Automata");
     query.exec();
-    bool test3 = query.isActive();
-    QSqlQuery queryAux(this->db);
+    QSqlQuery queryAux(QSqlDatabase::database());
     while(query.next()) {
         // Infos that are easy to take from DB :
         QString name, description, author;
@@ -81,7 +80,7 @@ void DBManager::loadAutomatasFromDB() const {
 
         int i = 0;
 
-        QSqlQuery queryAuxState(this->db);
+        QSqlQuery queryAuxState(QSqlDatabase::database());
         while(queryAux.next()) { //Take infos about the concerned states to dynamically create those objects
             int stateID = queryAux.value("stateID").toInt();
             queryAuxState.prepare(QString("SELECT * FROM State WHERE id = :stateID"));
@@ -100,9 +99,6 @@ void DBManager::loadAutomatasFromDB() const {
         queryAux.finish();
         queryAuxState.finish();
 
-        bool test = queryAux.isActive();
-        bool test2 = queryAuxState.isActive();
-
         QString rule = query.value("transition").toString();
         QString neighborhood = query.value("neighborhood").toString();
 
@@ -113,9 +109,30 @@ void DBManager::loadAutomatasFromDB() const {
                                      author.toStdString(), creationYear);
 
     }
+}
 
+void DBManager::insertAutomataIntoDB(QString name,int nbStates, QString transitionName, QString neighborhoodName,CellState** chosenStates){
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("INSERT INTO Automata(name,description,author,creationYear,nbStates,transition,neighborhood) VALUES(:name,'','',0,:nbStates,:transition,:neighborhood)");
+    query.bindValue(":name",name);
+    query.bindValue(":nbStates",nbStates);
+    query.bindValue(":transition",transitionName);
+    query.bindValue(":neighborhood",neighborhoodName);
+    bool test = query.exec();
     query.finish();
-    test3 = query.isActive();
+
+    if(!test){
+        throw DBException("Error while trying to create a new automaton. This may be due to an already used name.");
+    }
+
+    for(size_t i=0; i<nbStates; i++){
+        QSqlQuery queryBis(QSqlDatabase::database());
+        bool test = queryBis.prepare("INSERT INTO AutomataState(stateID, automataName) VALUES(:stateID,:name)");
+        queryBis.bindValue(":stateID",chosenStates[i]->getId());
+        queryBis.bindValue(":name",name);
+        queryBis.exec();
+        queryBis.finish();
+    }
 }
 
 QColor DBManager::toColor(const QString& col) const {
@@ -130,6 +147,20 @@ QColor DBManager::toColor(const QString& col) const {
     if(col == "magenta") return Qt::magenta;
     return Qt::white;
 }
+
+/*QColor DBManager::toName(const QString& col) const {
+    if(col == "black") return Qt::black;
+    if(col == "white") return Qt::white;
+    if(col == "yellow") return Qt::yellow;
+    if(col == "blue") return Qt::blue;
+    if(col == "cyan") return Qt::cyan;
+    if(col == "darkcyan") return Qt::darkCyan;
+    if(col == "red") return Qt::red;
+    if(col == "green") return Qt::green;
+    if(col == "magenta") return Qt::magenta;
+    return Qt::white;
+}
+*/
 
 DBManager::~DBManager() {
     db.close();
@@ -150,10 +181,10 @@ void DBManager::DbaddState(const QString label, const int id , const QString col
 
 }
 
-void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
+void DBManager::insertNeighborhoodIntoDB(const QString name, const int radius) const {
     QSqlQuery query(QSqlDatabase::database());
-    query.prepare("INSERT INTO Neighborhood (:name,:radius)");
-    query.bindValue(":name", name + QString::number(radius));
+    query.prepare("INSERT INTO Neighborhood(name, radius) VALUES (:name,:radius)");
+    query.bindValue(":name", name);
     query.bindValue(":radius", radius);
     if(!query.exec()) {
         qDebug() << "addNeighborhood error:"
@@ -161,18 +192,18 @@ void DBManager::DBaddNeighborhood(const QString name, const int radius) const {
     }
 }
 
-void DBManager::DBaddNeighborhood(const QString name, const int* dx, const int* dy) const {
+void DBManager::insertNeighborhoodIntoDB(const QString name, int nbNeighbors, const int* dx, const int* dy) const {
     QSqlQuery query(QSqlDatabase::database());
-    query.prepare("INSERT INTO Neighborhood (:name)");
+    query.prepare("INSERT INTO Neighborhood(name) VALUES (:name)");
     query.bindValue(":name", name);
     if(!query.exec()) {
         qDebug() << "addNeighborhood error:"
                  << query.lastError().text();
     }
     int n = 0;
-    while(dx[n]) {
+    while(n < nbNeighbors) {
         QSqlQuery query(QSqlDatabase::database());
-        query.prepare("INSERT INTO Neighbor (:name, :dx,:dy)");
+        query.prepare("INSERT INTO Neighbor VALUES(:dx,:dy, :name)");
         query.bindValue(":name", name);
         query.bindValue(":dx", dx[n]);
         query.bindValue(":dy", dy[n]);
@@ -188,8 +219,7 @@ void DBManager::DBaddNeighborhood(const QString name, const int* dx, const int* 
 }
 
 
-std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const {
-    NeighborhoodFactory* e = new NeighborhoodFactory;
+std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodsFromDB() const {
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT COUNT(*) FROM Neighborhood");
     query.exec();
@@ -206,19 +236,20 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const
         QString name = queryAux.value(0).toString();
         int radius = queryAux.value(1).toInt();
         QSqlQuery query1(QSqlDatabase::database());
-        query1.prepare("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name) GROUP BY dx;");
+        query1.prepare("SELECT COUNT(dx) FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.neighborhood WHERE Neighborhood.name=:name");
         query1.bindValue(":name", name);
         query1.exec();
+        query1.next();
         int nbNeighbors=query1.value(0).toInt();
-        query1.prepare("SELECT dx,dy FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.name WHERE Neighborhood.name=(:name);");
+        query1.prepare("SELECT dx,dy FROM Neighborhood JOIN Neighbor ON Neighborhood.name=Neighbor.neighborhood WHERE Neighborhood.name=:name");
         query1.bindValue(":name", name);
         query1.exec();
         std::string stringName = name.toStdString();
-        if(query1.value(0).toInt() == 0) {
-            if(query1.value(1).toInt() == 0) {
-                neighborhood = e->production(name.toStdString());
+        if(nbNeighbors == 0) {
+            if(radius == 0) {
+                neighborhood = neighborFac.production(name.toStdString());
             } else {
-                neighborhood = e->production(name.toStdString(), radius);
+                neighborhood = neighborFac.production(name.toStdString(), radius);
             }
         } else {
             int* dx = new int[nbNeighbors];
@@ -229,18 +260,16 @@ std::pair<int, NeighborhoodStrategy**> DBManager::loadNeighborhoodFromDB() const
                 dy[j] = query1.value(1).toInt();
                 j++;
             }
-            neighborhood = e->production(name.toStdString(), nbNeighbors, dx, dy);
+            neighborhood = neighborFac.production(name.toStdString(), nbNeighbors, dx, dy);
         }
         res[i] = neighborhood;
         i++;
     }
-    delete e;
     query.finish();
     return {n, res};
 }
 
 std::pair<int, TransitionStrategy**> DBManager::loadTransitionsFromDB() const {
-    TransitionFactory* e = new TransitionFactory;
     QSqlQuery query(QSqlDatabase::database());
     query.prepare("SELECT COUNT(*) FROM Transition");
     query.exec();
@@ -258,12 +287,98 @@ std::pair<int, TransitionStrategy**> DBManager::loadTransitionsFromDB() const {
     while(queryAux.next()) {
         QString name=queryAux.value(0).toString();
         std::string nameString=name.toStdString();
-        transition = e->production(nameString);
+        transition = transitionFac.production(nameString);
         res[i] = transition;
         i++;
     }
-    delete e;
     queryAux.finish();
     return {n, res};
 }
 
+void DBManager::insertConfigIntoDB(const QString &name, Grid *config, Automata* automata) const {
+    if (config == nullptr) {
+        throw DBException("No grid to save");
+    }
+    if (automata == nullptr) {
+        throw DBException("No automata selected");
+    }
+    QSqlQuery query(QSqlDatabase::database());
+    query.prepare("INSERT INTO Grid VALUES (:name, :width, :height, :automata)");
+    query.bindValue(":name", name);
+    query.bindValue(":width", config->getWidth());
+    query.bindValue(":height", config->getHeight());
+    query.bindValue(":automata", automata->getName().c_str());
+    if (!query.exec()) {
+        throw DBException("Duplicate config name!!!");
+    }
+    QString insertQuery = "INSERT INTO Cell(x, y, state, grid) VALUES (:x0, :y0, :state0, :grid)";
+    for (int i = 1; i < config->getHeight() * config->getWidth(); i ++) {
+        insertQuery += QString((",(:x" + std::to_string(i) + ", :y" + std::to_string(i) + ", :state" + std::to_string(i) + ", :grid)").c_str());
+    }
+    query.prepare(insertQuery);
+    for (int r = 0; r < config->getHeight(); r ++) {
+        for (int c = 0; c < config->getWidth(); c ++) {
+            query.bindValue((":x" + std::to_string(r * config->getWidth() + c)).c_str(), r);
+            query.bindValue((":y" + std::to_string(r * config->getWidth() + c)).c_str(), c);
+            query.bindValue((":state" + std::to_string(r * config->getWidth() + c)).c_str(), config->getCell(r, c)->getState()->getId());
+            query.bindValue(":grid", name);
+        }
+    }
+    if (!query.exec()) {
+        throw DBException("Error saving cells");
+    }
+}
+
+std::pair<int, Grid**> DBManager::loadConfigsFromDB(Automata* automata) const {
+    QSqlQuery queryAll(QSqlDatabase::database());
+    queryAll.prepare("SELECT COUNT(*) FROM Grid WHERE automata=:automata");
+    queryAll.bindValue(":automata", automata->getName().c_str());
+    if (!queryAll.exec()) {
+        throw DBException("Error counting configs");
+    }
+    queryAll.next();
+    int n = queryAll.value(0).toInt();
+    Grid** res = new Grid*[n];
+
+    queryAll.prepare("SELECT * FROM Grid WHERE automata = :automata");
+    queryAll.bindValue(":automata", automata->getName().c_str());
+    if (!queryAll.exec()) {
+        throw DBException("Error loading config");
+    }
+
+    int i = 0;
+
+    while (queryAll.next()) {
+        QString gridName = queryAll.value("name").toString();
+        int width = queryAll.value("width").toInt();
+        int height = queryAll.value("height").toInt();
+
+        res[i] = gridFac.generateGrid(EMPTY, width, height, automata);
+
+        QSqlQuery queryCell(QSqlDatabase::database());
+
+        for (int r = 0; r < res[i]->getHeight(); r ++) {
+            for (int c = 0; c < res[i]->getWidth(); c ++) {
+                queryCell.prepare("SELECT * FROM Cell WHERE grid = :grid AND x = :x AND y = :y");
+                queryCell.bindValue(":grid", gridName);
+                queryCell.bindValue(":x", r);
+                queryCell.bindValue(":y", c);
+                queryCell.exec();
+                queryCell.next();
+                int cellStateID = queryCell.value("state").toInt();
+                int cellStatePos = 0;
+                for (cellStatePos = 0; cellStatePos < automata->getNbStates(); cellStatePos ++) {
+                    if (automata->getAvailableState(cellStatePos)->getId() == cellStateID) {
+                        break;
+                    }
+                }
+                res[i]->setCell(new Cell(automata->getAvailableState(cellStatePos), r, c), r, c);
+                res[i]->setName(gridName.toStdString());
+            }
+        }
+
+        i ++;
+    }
+
+    return {n, res};
+}

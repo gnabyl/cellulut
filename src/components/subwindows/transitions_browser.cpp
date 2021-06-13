@@ -22,6 +22,22 @@ TransitionsBrowser::~TransitionsBrowser() {
 
 }
 
+void TransitionsBrowser::openTransitionBrowser(){
+    std::pair<int, TransitionStrategy**> loadedTransitionInfos;
+    try{
+        loadedTransitionInfos = DBManager::getDB().loadTransitionsFromDB();
+        setTransitions(loadedTransitionInfos.first, loadedTransitionInfos.second);
+    }
+    catch(DBException e){
+        QMessageBox window;
+        window.setText(QString::fromStdString(e.getInfo()));
+        window.show();
+    }
+
+    this->exec();
+}
+
+
 void TransitionsBrowser::setTransitions(int nbTransitions, TransitionStrategy** transitions) {
     this->nbTransitions = nbTransitions;
     this->transitions = transitions;

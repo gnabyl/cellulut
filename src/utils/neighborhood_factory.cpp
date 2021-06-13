@@ -2,16 +2,16 @@
 
 using namespace std;
 NeighborhoodStrategy* NeighborhoodFactory::production(const string neighborhoodName) const {
-    if(neighborhoodName == "Moore Neighborhood") return new MooreNeighborhood;
-    if(neighborhoodName == "Von Neumann Neighborhood") return new VonNeumannNeighborhood;
-    if(neighborhoodName == "Moore Neighborhood Generalized") return new MooreNeighborhoodGeneralized(1);
-    if(neighborhoodName == "Von Neumann Neighborhood Generalized") return new MooreNeighborhoodGeneralized(1);
+    if(neighborhoodName.rfind("Moore Neighborhood Generalized", 0) == 0) return new MooreNeighborhoodGeneralized(neighborhoodName, 1);
+    if(neighborhoodName.rfind("Von Neumann Neighborhood Generalized", 0) == 0) return new VonNeumannNeighborhoodGeneralized(neighborhoodName, 1);
+    if(neighborhoodName.rfind("Moore Neighborhood", 0) == 0) return new MooreNeighborhood;
+    if(neighborhoodName.rfind("Von Neumann Neighborhood", 0) == 0) return new VonNeumannNeighborhood;
     throw "Unknown Neighborhood";
 }
 
-NeighborhoodStrategy* NeighborhoodFactory::production(const string name, const int radius) const {
-    if (name.compare("Von Neumann Neighborhood Generalized")) return new VonNeumannNeighborhoodGeneralized(radius);
-    if (name.compare("Moore Neighborhood Generalized")) return new MooreNeighborhoodGeneralized(radius);
+NeighborhoodStrategy* NeighborhoodFactory::production(const string neighborhoodName, const int radius) const {
+    if(neighborhoodName.rfind("Moore Neighborhood Generalized", 0) == 0) return new MooreNeighborhoodGeneralized(neighborhoodName, radius);
+    if(neighborhoodName.rfind("Von Neumann Neighborhood Generalized", 0) == 0) return new VonNeumannNeighborhoodGeneralized(neighborhoodName, radius);
 
     throw "Unknown Neighborhood";
 }
